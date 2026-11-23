@@ -1,0 +1,9 @@
+{"updated":"seed","items":[
+{"name":"Spider TV","category":"Godly","value":9000,"demand":9,"stability":"Stable","seed":true},
+{"name":"Engineer Cameraman","category":"Godly","value":7000,"demand":8,"stability":"Stable","seed":true},
+{"name":"Chaos Cameraman","category":"Mythic","value":5500,"demand":8,"stability":"Dropping","seed":true},
+{"name":"Upgraded Titan Cameraman","category":"Mythic","value":2150,"demand":10,"stability":"Stable","seed":true},
+{"name":"TV Woman","category":"Exclusive","value":400,"demand":5,"stability":"Stable","seed":true},
+{"name":"CinemaMan Titan","category":"Exclusive","value":400,"demand":4,"stability":"Stable","seed":true},
+{"name":"Camera Repair Drone","category":"Exclusive","value":55,"demand":2,"stability":"Stable","seed":true}],
+"changelog":[]}
