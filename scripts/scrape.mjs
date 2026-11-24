@@ -1,4 +1,5 @@
-// scripts/scrape.mjs — CTD Trader v12
+// scripts/scrape.mjs — CTD Trader v13
+// ВАЖНО: этот скрипт НИКОГДА не читает и не пишет data/game-icons.json (родные игровые эталоны из скринов Index).
 // Источник 1: vaultedvaluesx.com (официальные Value, demand, stability)
 // Источник 2: game.guide (/units + /cameraman-tower-defense-value-list: юниты, статы, рынок, 30д график, доп. юниты и иконки)
 // + data/history.json — собственная ежедневная история Value
@@ -692,7 +693,7 @@ async function buildIcons(b, items, wikiImgByName) {
     const fetchOnce = async (url) => {
       const toDataUrl = (buf, hdr) => `data:${sniffMime(buf, hdr)};base64,${buf.toString('base64')}`;
       try {
-        const r = await fetch(url, { headers: { 'User-Agent': UA } });
+        const r = await fetch(url, { headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(20000) });
         if (r.ok) {
           const buf = Buffer.from(await r.arrayBuffer());
           if (buf.length > 64) return toDataUrl(buf, r.headers.get('content-type'));
@@ -711,9 +712,13 @@ async function buildIcons(b, items, wikiImgByName) {
     const fetchDataUrl = async (url) => {
       if (!url) return '';
       if (urlCache.has(url)) return urlCache.get(url);
-      let res = await fetchOnce(url);
-      if (!res) { await sleep(600); res = await fetchOnce(url); }
+      let res = '';
+      for (let attempt = 1; attempt <= 4 && !res; attempt++) {
+        if (attempt > 1) await sleep(600 * attempt);
+        res = await fetchOnce(url);
+      }
       if (res) urlCache.set(url, res);
+      else console.warn('icon download failed:', url);
       return res;
     };
 
@@ -818,6 +823,7 @@ const findOld = (name) => oldExact.get(name.toLowerCase()) || (() => { for (cons
 const findBy = (map, name) => { for (const k of keys(name)) { const v = map.get(k); if (v) return v; } return null; };
 
 const b = await chromium.launch();
+try {
 let live = [], total = 0, wiki = new Map();
 try { ({ items: live, total } = await scrapeValues(b)); } catch (e) { console.error('values failed:', e.message); }
 try { wiki = await scrapeWiki(b); } catch (e) { console.error('wiki failed:', e.message); }
@@ -825,8 +831,8 @@ try { wiki = await scrapeWiki(b); } catch (e) { console.error('wiki failed:', e.
 const uniqueWiki = [...new Set([...wiki.values()])];
 const wikiUnits = uniqueWiki.length;
 console.log(`values: ${live.length}${total ? ' / ' + total : ''}, wiki items: ${wikiUnits}`);
-if (live.length < 5) { await b.close(); console.error('Источник цен не отдал данные — prices.json не тронут'); process.exit(1); }
-if (old.items.length > 20 && live.length < old.items.length * 0.7) { await b.close(); console.error(`Слишком мало юнитов: ${live.length} из ${old.items.length} — prices.json не тронут`); process.exit(1); }
+if (live.length < 5) { await b.close().catch(() => {}); console.error('Источник цен не отдал данные — prices.json не тронут'); process.exit(1); }
+if (old.items.length > 20 && live.length < old.items.length * 0.7) { await b.close().catch(() => {}); console.error(`Слишком мало юнитов: ${live.length} из ${old.items.length} — prices.json не тронут`); process.exit(1); }
 
 const STAT_KEYS = ['tier', 'maxDps', 'dpsPer1k', 'cashToMax', 'maxOnMap', 'maxRange', 'exist', 'howToGet', 'description', 'about', 'added', 'update',
   'rarityRank', 'dropChance', 'levels', 'levelsType', 'levelsPct', 'role', 'market', 'priceHistory'];
@@ -901,7 +907,7 @@ if (extraWikiCount) console.log(`Добавлено с game.guide (нет на v
 if (unmatched.length) console.warn('Без статистики (имя не совпало с game.guide):', unmatched.join(', '));
 
 try { await buildIcons(b, items, wikiImgByName); } catch (e) { console.error('icons failed:', e.message); }
-await b.close();
+await b.close().catch(() => {});
 
 const byExist = items.filter((i) => i.kind === 'unit' && i.exist > 0).sort((a, c) => a.exist - c.exist);
 byExist.forEach((i, n) => { if (!i.rarityRank) i.rarityRank = n + 1; });
@@ -918,14 +924,25 @@ for (const i of items) {
 }
 hist.updated = new Date().toISOString();
 
-const todayChanges = items
-  .filter((i) => { const p = findOld(i.name); return p && p.value !== i.value; })
-  .map((i) => ({ name: i.name, old: findOld(i.name).value, new: i.value, date: d }));
-const seenChg = new Set(todayChanges.map((c) => `${norm(c.name)}|${c.date}`));
-const changelog = [
-  ...todayChanges,
-  ...(old.changelog || []).filter((c) => !seenChg.has(`${norm(c.name)}|${c.date}`)),
-].slice(0, 200);
+// Changelog: одна запись на (юнит, день). Старое значение — самое раннее за день, новое — актуальное.
+const chgKey = (c) => `${norm(c.name)}|${c.date}`;
+const chgMap = new Map();
+for (const c of (old.changelog || [])) {
+  if (c.date !== d) { chgMap.set(chgKey(c), c); continue; }
+  const prevC = chgMap.get(chgKey(c));
+  chgMap.set(chgKey(c), prevC ? { ...c, old: prevC.old } : c);
+}
+for (const i of items) {
+  const p = findOld(i.name);
+  if (!p || p.value === i.value) continue;
+  const k = chgKey({ name: i.name, date: d });
+  const ex = chgMap.get(k);
+  chgMap.set(k, { name: i.name, old: ex ? ex.old : p.value, new: i.value, date: d });
+}
+const changelog = [...chgMap.values()]
+  .filter((c) => c.old !== c.new)
+  .sort((a, c) => (a.date < c.date ? 1 : a.date > c.date ? -1 : 0))
+  .slice(0, 200);
 
 fs.mkdirSync('data', { recursive: true });
 fs.writeFileSync(F, JSON.stringify({
@@ -941,3 +958,6 @@ console.log(`levels ${has('levels')} | market ${has('market')} | priceHistory ${
 const types = {};
 items.forEach((i) => { if (i.levelsType) types[i.levelsType] = (types[i.levelsType] || 0) + 1; });
 console.log('levelsType', JSON.stringify(types));
+} finally {
+  await b.close().catch(() => {});
+}
