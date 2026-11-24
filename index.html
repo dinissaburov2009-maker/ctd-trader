@@ -130,9 +130,11 @@ dialog.full[open]{display:flex;flex-direction:column;animation:tin .25s both}
 .pk-inv{font-size:9.5px;padding:1px 5px;border-radius:3px;background:rgba(var(--gr),.14);border:1px solid rgba(var(--gr),.45);color:var(--g)}
 
 .sc-drop{display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px;border:1px dashed rgba(var(--gr),.45);border-radius:4px;background:rgba(var(--gr),.04);text-align:center;margin-bottom:8px}
-.sc-drop img{max-width:100%;max-height:240px;border-radius:4px;border:1px solid rgba(var(--gr),.35);object-fit:contain}
+.sc-drop img{max-width:100%;max-height:260px;border-radius:4px;border:1px solid rgba(var(--gr),.35);object-fit:contain}
 .sc-box{padding:8px;border:1px solid rgba(var(--gr),.25);border-radius:4px;background:rgba(var(--gr),.03);margin-top:8px}
 .sc-slot{padding:6px 0;border-bottom:1px solid rgba(var(--gr),.12)}.sc-slot:last-child{border-bottom:0}.sc-slot.low{background:rgba(255,208,0,.06);border-radius:3px;padding:6px 4px}
+.sc-num{font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(var(--gr),.15);color:var(--g);border:1px solid rgba(var(--gr),.4);flex:none}
+.sc-num.b{background:rgba(0,229,255,.15);color:var(--b);border-color:rgba(0,229,255,.45)}
 .sc-crop{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid #fff8;flex:none;background:#000}
 .sc-alts{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px;padding-left:44px}
 .sc-alt{display:inline-flex;align-items:center;gap:4px;padding:2px 6px;font-size:10px;text-transform:none;letter-spacing:0;border-radius:3px}
@@ -292,7 +294,7 @@ nav button.on{color:var(--g);text-shadow:var(--glow)}nav .ic{width:20px;height:2
     <div class="bar"><button data-a="gsave">Сохранить в Gist</button><button data-a="gload">Загрузить из Gist</button></div><div class="m" id="gm"></div></div>
   <div class="card m"><b>Статусы:</b> Rising — растёт; Stable — стабилен; Dropping — падает; Unwanted — никому не нужен; Underpaid — за него недоплачивают; Overpaid — за него переплачивают; Unstable — скачет. Пометка <b>(gg)</b> — цена подтянута с game.guide; <b>N/A</b> — цены нет ни на одном сайте.<br><br>
   <b>Lite-режим (⚡ в шапке):</b> отключает матричный дождь и тяжёлый blur, чтобы не грузить телефон/планшет при открытом Roblox.<br><br>
-  <b>Скан скриншотов:</b> работает локально в браузере (без VPN) по эталонам <code>data/icons.json</code>.</div>
+  <b>Скан скриншотов v6:</b> работает локально в браузере (без VPN) по геометрии белых кружков и эталонам портретов <code>data/icons.json</code>.</div>
 </div>
 </main>
 
@@ -314,7 +316,7 @@ const nrm=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const jp=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
 
 let S=Object.assign({},S0,jp(K,{}));
-let D={items:[],changelog:[],updated:''},HI={items:{}},IC={size:24,items:{}},FB_IC=jp(KFB,{}),REFS=[],IDEAS=[],CNTS=[];
+let D={items:[],changelog:[],updated:''},HI={items:{}},IC={size:32,items:{}},FB_IC=jp(KFB,{}),REFS=[],IDEAS=[],CNTS=[];
 let ALL=[],IDX=new Map(),NK=new Map(),AN=new Map(),RN=0;
 let mode='give',CU='',OPT=[],lv0='',TGL='',tabNow=0,FN=null,CHD=null,SC=null,SC_SLOT=null,RET=null;
 let PKF='all',PKC='',PKS='v',PKQ='',CMP_MODE=0,CMP_LIST=[],fbLoading=0,AC,fxP=[],fxRun=0;
@@ -403,7 +405,7 @@ function rebuild(){
   RN=Math.max(0,...ALL.map(i=>i.rarityRank||0));AN=new Map(ALL.map(i=>[i.name,analyzeItem(i)]));
 }
 
-/* ================= ЭТАЛОНЫ ПОРТРЕТОВ ================= */
+/* ================= ЭТАЛОНЫ ПОРТРЕТОВ И СКАНЕР v6 ================= */
 function sobel(lum,sz){
   const e=new Float32Array(sz*sz);
   for(let y=1;y<sz-1;y++)for(let x=1;x<sz-1;x++){
@@ -414,23 +416,49 @@ function sobel(lum,sz){
   }
   return e;
 }
+function grid8(r,g,b,mask,ed,sz){
+  const r8=new Float32Array(64),g8=new Float32Array(64),b8=new Float32Array(64),c8=new Float32Array(64),e8=new Float32Array(64);
+  for(let by=0;by<8;by++){
+    const y0=Math.floor(by*sz/8),y1=Math.floor((by+1)*sz/8);
+    for(let bx=0;bx<8;bx++){
+      const x0=Math.floor(bx*sz/8),x1=Math.floor((bx+1)*sz/8),k=by*8+bx;
+      let sr=0,sg=0,sb=0,se=0,mc=0,tot=0;
+      for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++){
+        const i=y*sz+x;tot++;se+=ed[i];
+        if(mask[i]){sr+=r[i];sg+=g[i];sb+=b[i];mc++}
+      }
+      if(mc){r8[k]=sr/mc;g8[k]=sg/mc;b8[k]=sb/mc}
+      c8[k]=tot?mc/tot:0;e8[k]=tot?se/tot:0;
+    }
+  }
+  return{r8,g8,b8,c8,e8};
+}
+
 function buildRefs(){
-  REFS=[];const sz=IC.size||24,n=sz*sz,seenNrm=new Set(),merged={...FB_IC,...(IC.items||{})};
+  REFS=[];const sz=IC.size||32,n=sz*sz,seenNrm=new Set(),merged={...FB_IC,...(IC.items||{})};
   for(const u of ALL.filter(x=>!isSigned(x)&&merged[x.name]).sort((a,b)=>(b.value||0)-(a.value||0))){
     const nk=nrm(u.name);if(seenNrm.has(nk))continue;
     let bin;try{bin=atob(merged[u.name])}catch{continue}
     if(bin.length!==n*4)continue;
-    const r=new Uint8Array(n),g=new Uint8Array(n),b=new Uint8Array(n),a=new Uint8Array(n),lum=new Float32Array(n);
-    let opq=0,mr=0,mg=0,mb=0;
-    for(let i=0;i<n;i++){const k=i*4;r[i]=bin.charCodeAt(k);g[i]=bin.charCodeAt(k+1);b[i]=bin.charCodeAt(k+2);a[i]=bin.charCodeAt(k+3);lum[i]=r[i]*.299+g[i]*.587+b[i]*.114;if(a[i]>45){opq++;mr+=r[i];mg+=g[i];mb+=b[i]}}
+    const r=new Uint8Array(n),g=new Uint8Array(n),b=new Uint8Array(n),a=new Uint8Array(n),lum=new Float32Array(n),mask=new Uint8Array(n);
+    let opq=0;
+    for(let i=0;i<n;i++){
+      const k=i*4;r[i]=bin.charCodeAt(k);g[i]=bin.charCodeAt(k+1);b[i]=bin.charCodeAt(k+2);a[i]=bin.charCodeAt(k+3);
+      lum[i]=r[i]*.299+g[i]*.587+b[i]*.114;if(a[i]>=48){mask[i]=1;opq++}
+    }
     if(opq<20)continue;
-    seenNrm.add(nk);const ed=sobel(lum,sz);for(let i=0;i<n;i++)if(a[i]<45)ed[i]=0;
-    REFS.push({name:u.name,kind:u.kind,r,g,b,a,ed,opq,mr:mr/opq,mg:mg/opq,mb:mb/opq,sz});
+    seenNrm.add(nk);
+    const ed=sobel(lum,sz);for(let i=0;i<n;i++)if(a[i]<48)ed[i]=0;
+    const g8=grid8(r,g,b,mask,ed,sz);
+    REFS.push({name:u.name,kind:u.kind,r,g,b,a,lum,ed,opq,fill:opq/n,sz,...g8});
   }
 }
+
 async function hydrateMissingIcons(){
   if(fbLoading)return;
-  const sz=IC.size||24,merged={...FB_IC,...(IC.items||{})},missing=ALL.filter(u=>!isSigned(u)&&u.img&&!merged[u.name]);
+  const sz=IC.size||32,needLen=sz*sz*4,icItems=IC.items||{};
+  const validB64=b=>{if(!b)return 0;try{return atob(b).length===needLen}catch{return 0}};
+  const missing=ALL.filter(u=>!isSigned(u)&&u.img&&!validB64(icItems[u.name])&&!validB64(FB_IC[u.name]));
   if(!missing.length)return;
   fbLoading=1;let added=0;
   const bake=url=>new Promise(res=>{
@@ -475,7 +503,7 @@ const burst=(x,y,n=60)=>{if(S.lite)return;const c=window.RC||'#00ff9c';for(let i
 const toast=m=>{const e=document.createElement('div');e.className='ts';e.textContent='> '+m;$('ts').append(e);setTimeout(()=>e.remove(),2600)};
 (()=>{const cv=$('rain'),x=cv.getContext('2d'),ch='01アイウエオカキクケコ$#<>/{}';let W,H,dr;const rs=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight;dr=Array.from({length:Math.ceil(W/16)},()=>Math.random()*H/16)};rs();addEventListener('resize',rs);
   setInterval(()=>{if(document.hidden||S.lite)return;x.fillStyle='rgba(4,7,11,.12)';x.fillRect(0,0,W,H);x.fillStyle=window.RC||'#00ff9c';x.font='14px monospace';dr.forEach((y,i)=>{x.fillText(ch[Math.random()*ch.length|0],i*16,y*16);dr[i]=y*16>H&&Math.random()>.975?0:y+1})},55)})();
-(()=>{const b=$('boot'),L=['> CTD//TRADER v5.3','> establishing secure link ...... OK','> pulling prices & portraits .... OK','> scanner & advisor ............. READY','> ACCESS GRANTED'];let k=0;b.onclick=()=>b.classList.add('x');(function tp(){if(k<L.length){b.textContent+=L[k++]+'\n';setTimeout(tp,180)}else setTimeout(()=>b.classList.add('x'),300)})()})();
+(()=>{const b=$('boot'),L=['> CTD//TRADER v6.0','> establishing secure link ...... OK','> pulling prices & portraits .... OK','> ring scanner v6 & advisor ..... READY','> ACCESS GRANTED'];let k=0;b.onclick=()=>b.classList.add('x');(function tp(){if(k<L.length){b.textContent+=L[k++]+'\n';setTimeout(tp,180)}else setTimeout(()=>b.classList.add('x'),300)})()})();
 const scr=e=>{if(S.lite)return;const t=e.dataset.o||(e.dataset.o=e.textContent);let i=0;clearInterval(e._t);e._t=setInterval(()=>{e.textContent=[...t].map((c,j)=>j<i||c==' '?c:'#$%&*@01'[Math.random()*8|0]).join('');if((i+=.6)>=t.length){clearInterval(e._t);e.textContent=t}},30)};
 const cup=e=>{if(S.lite)return;const n=+e.textContent.replace(/\D/g,''),t0=performance.now();(function f(t){const p=Math.max(0,Math.min(1,(t-t0)/500));e.textContent=fmt(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)};
 
@@ -643,7 +671,13 @@ function done(){
   if(r>g*1.05||(!g&&r)){burst(b.left+b.width/2,b.top+40,90);sfx('win')}else sfx('add');
 }
 
-/* ================= ЛОКАЛЬНЫЙ СКАНЕР СКРИНШОТОВ v5.3 ================= */
+/* ================= ЛОКАЛЬНЫЙ СКАНЕР СКРИНШОТОВ v6 ================= */
+const ANG36=Array.from({length:36},(_,k)=>{const a=k*Math.PI/18;return[Math.cos(a),Math.sin(a),Math.sin(a)<=0.35]});
+const OFF13=[[0,0],[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1],[-2,0],[2,0],[0,-2],[0,2]];
+const isSkyPx=(r,g,b)=>b>128&&r<142&&(b-r)>46&&(b-g)>8&&g>62;
+const isIceBgPx=(r,g,b)=>b>175&&g>145&&r>105&&(b-r)>=7&&(b-r)<98&&Math.abs(b-g)<70;
+let _scPcv,_scPcx,_scTcv,_scTcx;
+
 function loadCv(file){
   return new Promise((res,rej)=>{
     const fr=new FileReader();fr.onerror=()=>rej('Не удалось прочитать файл');
@@ -659,218 +693,451 @@ function loadCv(file){
   });
 }
 
+function findLeftInvPanel(d,W,H){
+  const col=new Int32Array(W),y0=Math.floor(H*.08),y1=Math.floor(H*.92);
+  for(let x=0;x<Math.floor(W*.55);x+=2){
+    let c=0;for(let y=y0;y<y1;y+=2){const i=(y*W+x)*4;if(isIceBgPx(d[i],d[i+1],d[i+2]))c+=2}
+    col[x]=c;if(x+1<W)col[x+1]=c;
+  }
+  const minH=H*.14;let best=null,x0=-1;
+  for(let x=0;x<Math.floor(W*.55);x++){
+    if(col[x]>=minH){if(x0<0)x0=x}else if(x0>=0){if(x-x0>=W*.13&&(!best||x-x0>best[1]-best[0]))best=[x0,x-1];x0=-1}
+  }
+  if(x0>=0&&Math.floor(W*.55)-x0>=W*.13&&(!best||Math.floor(W*.55)-x0>best[1]-best[0]))best=[x0,Math.floor(W*.55)-1];
+  if(!best||best[0]>W*.30||best[1]>W*.52)return null;
+  let ry0=y1,ry1=y0;
+  for(let y=y0;y<y1;y+=2){let hits=0;for(let x=best[0];x<=best[1];x+=4){const i=(y*W+x)*4;if(isIceBgPx(d[i],d[i+1],d[i+2]))hits++}if(hits>((best[1]-best[0])/4)*.15){if(y<ry0)ry0=y;if(y>ry1)ry1=y}}
+  if(ry1-ry0<H*.26)return null;
+  return{x0:best[0],y0:ry0,x1:best[1],y1:ry1,type:'ice'};
+}
+
 function findTradeBoxes(d,W,H){
-  const isSky=(i)=>{const r=d[i],g=d[i+1],b=d[i+2];return b>158&&g>88&&g<208&&r<118&&(b-r)>68&&(b-g)>12};
-  const col=new Int32Array(W),yMin=Math.floor(H*.10),yMax=Math.floor(H*.92);
-  for(let x=0;x<W;x+=2){let c=0;for(let y=yMin;y<yMax;y+=2)if(isSky((y*W+x)*4))c+=2;col[x]=c;if(x+1<W)col[x+1]=c}
-  const minH=H*.045,spans=[];let x0=-1;
-  for(let x=0;x<W;x++){if(col[x]>=minH){if(x0<0)x0=x}else if(x0>=0){if(x-x0>=W*.12)spans.push([x0,x-1]);x0=-1}}
-  if(x0>=0&&W-x0>=W*.12)spans.push([x0,W-1]);
+  const invP=findLeftInvPanel(d,W,H);
+  const startX=invP&&(W-invP.x1>=W*.36)?invP.x1+2:0;
+  const col=new Int32Array(W),yMin=Math.floor(H*.14),yMax=Math.floor(H*.86);
+  let peak=0;
+  for(let x=startX;x<W;x+=2){
+    let c=0;for(let y=yMin;y<yMax;y+=2){const i=(y*W+x)*4;if(isSkyPx(d[i],d[i+1],d[i+2]))c+=2}
+    col[x]=c;if(x+1<W)col[x+1]=c;if(c>peak)peak=c;
+  }
+  if(peak<H*.14)return{boxes:null,invP};
+  const thr=Math.max(H*.08,peak*.25),spans=[];let x0=-1;
+  for(let x=startX;x<W;x++){if(col[x]>=thr){if(x0<0)x0=x}else if(x0>=0){if(x-x0>=W*.11)spans.push([x0,x-1]);x0=-1}}
+  if(x0>=0&&W-x0>=W*.11)spans.push([x0,W-1]);
+
+  if(spans.length===1&&spans[0][1]-spans[0][0]>=(W-startX)*.55){
+    const[sx0,sx1]=spans[0],m0=Math.round(sx0+(sx1-sx0)*.28),m1=Math.round(sx0+(sx1-sx0)*.72);
+    let minV=1e9,spX=-1;
+    for(let x=m0;x<=m1;x++){const s=(col[x-2]+col[x-1]+col[x]+col[x+1]+col[x+2])/5;if(s<minV){minV=s;spX=x}}
+    if(spX>0&&(minV<peak*.65||(sx1-sx0)>W*.58)){spans.splice(0,1,[sx0,spX-2],[spX+2,sx1])}
+  }
+
   const boxes=[];
   for(const[sx0,sx1]of spans){
     let ry0=yMax,ry1=yMin;
-    for(let y=yMin;y<yMax;y+=2){let hits=0;for(let x=sx0;x<=sx1;x+=4)if(isSky((y*W+x)*4))hits++;if(hits>((sx1-sx0)/4)*.08){if(y<ry0)ry0=y;if(y>ry1)ry1=y}}
-    if(ry1-ry0>=H*.18)boxes.push({x0:sx0+3,y0:Math.max(0,ry0+2),x1:sx1-3,y1:Math.min(H-1,ry1-2),type:'sky',area:(sx1-sx0)*(ry1-ry0)});
+    for(let y=Math.floor(H*.08);y<Math.floor(H*.92);y+=2){
+      let hits=0;for(let x=sx0;x<=sx1;x+=4){const i=(y*W+x)*4;if(isSkyPx(d[i],d[i+1],d[i+2]))hits++}
+      if(hits>((sx1-sx0)/4)*.18){if(y<ry0)ry0=y;if(y>ry1)ry1=y}
+    }
+    if(ry1-ry0>=H*.18)boxes.push({x0:sx0+2,y0:Math.max(0,ry0),x1:sx1-2,y1:Math.min(H-1,ry1),type:'sky',area:(sx1-sx0)*(ry1-ry0)});
   }
-  if(boxes.length<2)return null;
-  let cand=boxes.sort((a,b)=>b.area-a.area).slice(0,3).sort((a,b)=>a.x0-b.x0);
-  if(cand.length===3&&cand[0].x1<W*.42)cand=cand.slice(1);
-  return cand.sort((a,b)=>b.area-a.area).slice(0,2).sort((a,b)=>a.x0-b.x0);
+  if(boxes.length<2)return{boxes:null,invP};
+  let pair=boxes.sort((a,b)=>b.area-a.area).slice(0,3).sort((a,b)=>a.x0-b.x0);
+  if(pair.length===3&&!invP&&pair[0].x1<W*.42)pair=pair.slice(1);
+  pair=pair.sort((a,b)=>b.area-a.area).slice(0,2).sort((a,b)=>a.x0-b.x0);
+  return{boxes:pair,invP};
 }
 
 function findInvBox(d,W,H){
-  const isIce=(i)=>{const r=d[i],g=d[i+1],b=d[i+2];return b>185&&g>155&&r>115&&(b-r)>=-5&&(b-r)<95&&Math.abs(b-g)<65};
-  const col=new Int32Array(W),yMin=Math.floor(H*.08),yMax=Math.floor(H*.94);
-  for(let x=0;x<W;x+=2){let c=0;for(let y=yMin;y<yMax;y+=2)if(isIce((y*W+x)*4))c+=2;col[x]=c;if(x+1<W)col[x+1]=c}
-  const minH=H*.05,spans=[];let x0=-1;
-  for(let x=0;x<W;x++){if(col[x]>=minH){if(x0<0)x0=x}else if(x0>=0){if(x-x0>=W*.15)spans.push([x0,x-1]);x0=-1}}
+  const col=new Int32Array(W),yMin=Math.floor(H*.07),yMax=Math.floor(H*.94);
+  let peak=0;
+  for(let x=0;x<W;x+=2){
+    let c=0;for(let y=yMin;y<yMax;y+=2){const i=(y*W+x)*4;if(isIceBgPx(d[i],d[i+1],d[i+2]))c+=2}
+    col[x]=c;if(x+1<W)col[x+1]=c;if(c>peak)peak=c;
+  }
+  if(peak<H*.12)return{x0:0,y0:0,x1:W-1,y1:H-1,type:'auto'};
+  const thr=Math.max(H*.06,peak*.22),spans=[];let x0=-1;
+  for(let x=0;x<W;x++){if(col[x]>=thr){if(x0<0)x0=x}else if(x0>=0){if(x-x0>=W*.15)spans.push([x0,x-1]);x0=-1}}
   if(x0>=0&&W-x0>=W*.15)spans.push([x0,W-1]);
   const best=spans.sort((a,b)=>(b[1]-b[0])-(a[1]-a[0]))[0];
   if(!best)return{x0:0,y0:0,x1:W-1,y1:H-1,type:'auto'};
   const[sx0,sx1]=best;let ry0=yMax,ry1=yMin;
-  for(let y=yMin;y<yMax;y+=2){let hits=0;for(let x=sx0;x<=sx1;x+=4)if(isIce((y*W+x)*4))hits++;if(hits>((sx1-sx0)/4)*.06){if(y<ry0)ry0=y;if(y>ry1)ry1=y}}
+  for(let y=yMin;y<yMax;y+=2){let hits=0;for(let x=sx0;x<=sx1;x+=4){const i=(y*W+x)*4;if(isIceBgPx(d[i],d[i+1],d[i+2]))hits++}if(hits>((sx1-sx0)/4)*.10){if(y<ry0)ry0=y;if(y>ry1)ry1=y}}
   return{x0:sx0+2,y0:Math.max(0,ry0),x1:sx1-2,y1:Math.min(H-1,ry1),type:'ice'};
 }
 
+function ringEval(d,W,H,cx,cy,R){
+  let hits=0,topHits=0,gap=0,maxGap=0,firstGap=0,seenHit=0,cSum=0;
+  let extR=0,extG=0,extB=0,extN=0;
+  const r1=R+Math.max(3.5,R*.12),r2=R+Math.max(6,R*.20);
+  for(let k=0;k<36;k++){
+    const[cs,sn,isTop]=ANG36[k];
+    let bestW=-999,bestL=0,bestS=255;
+    for(let dr=-2.5;dr<=2.51;dr+=0.85){
+      const px=Math.round(cx+cs*(R+dr)),py=Math.round(cy+sn*(R+dr));
+      if(px<0||px>=W||py<0||py>=H)continue;
+      const i=(py*W+px)*4,r=d[i],g=d[i+1],b=d[i+2];
+      const mn=r<g?(r<b?r:b):(g<b?g:b),mx=r>g?(r>b?r:b):(g>b?g:b),sat=mx-mn,w=mn-sat*.75;
+      if(w>bestW){bestW=w;bestL=r*.299+g*.587+b*.114;bestS=sat}
+    }
+    let wOut=999,lumOut=255,satOut=0,or1=0,og1=0,ob1=0,hasOut=0;
+    for(const ro of[r1,r2]){
+      const ox=Math.round(cx+cs*ro),oy=Math.round(cy+sn*ro);
+      if(ox<0||ox>=W||oy<0||oy>=H)continue;
+      const i=(oy*W+ox)*4,r=d[i],g=d[i+1],b=d[i+2];
+      const mn=r<g?(r<b?r:b):(g<b?g:b),mx=r>g?(r>b?r:b):(g>b?g:b),sat=mx-mn,w=mn-sat*.75;
+      if(w<wOut){wOut=w;lumOut=r*.299+g*.587+b*.114;satOut=sat;or1=r;og1=g;ob1=b;hasOut=1}
+    }
+    if(hasOut&&isTop){extR+=or1;extG+=og1;extB+=ob1;extN++}
+    const ok=hasOut&&bestW>=120&&bestL>=168&&bestS<=78&&(bestW-wOut>=24||bestL-lumOut>=18||satOut-bestS>=22);
+    if(ok){
+      hits++;if(isTop)topHits++;cSum+=Math.max(0,bestW-wOut);
+      if(!seenHit){firstGap=gap;seenHit=1}
+      if(gap>maxGap)maxGap=gap;gap=0;
+    }else gap++;
+  }
+  maxGap=Math.max(maxGap,seenHit?gap+firstGap:36);
+  return{hits,topHits,maxGap,cAvg:hits?cSum/hits:0,extR:extN?extR/extN:0,extG:extN?extG/extN:0,extB:extN?extB/extN:0,extN};
+}
+
+function circleHasContent(d,W,H,ev,cx,cy,R){
+  let sumL=0,sumL2=0,cnt=0,diff=0;
+  const samp=(x,y)=>{
+    const px=Math.round(x),py=Math.round(y);if(px<0||px>=W||py<0||py>=H)return;
+    const i=(py*W+px)*4,r=d[i],g=d[i+1],b=d[i+2],l=r*.299+g*.587+b*.114;
+    sumL+=l;sumL2+=l*l;cnt++;
+    if(ev.extN&&(Math.abs(r-ev.extR)+Math.abs(g-ev.extG)+Math.abs(b-ev.extB))>30)diff++;
+  };
+  samp(cx,cy);
+  for(const rf of[.28,.54])for(let k=0;k<12;k++){const a=k*Math.PI/6;samp(cx+Math.cos(a)*R*rf,cy+Math.sin(a)*R*rf)}
+  if(cnt<10)return false;
+  const mean=sumL/cnt,std=Math.sqrt(Math.max(0,sumL2/cnt-mean*mean));
+  return std>=7.5&&(diff>=7||!ev.extN);
+}
+
 function detectCircles(d,W,H,box){
-  const bw=box.x1-box.x0+1,bh=box.y1-box.y0+1;if(bw<40||bh<40)return[];
-  const isBg=(i)=>{
-    const r=d[i],g=d[i+1],b=d[i+2];
-    if(box.type==='sky')return b>158&&g>88&&g<208&&r<118&&(b-r)>66;
-    if(box.type==='ice')return b>185&&g>155&&r>115&&(b-r)>=-5&&(b-r)<95&&Math.abs(b-g)<65;
-    return (b>158&&g>88&&g<208&&r<118&&(b-r)>66)||(b>185&&g>155&&r>115&&(b-r)>=-5&&(b-r)<95&&Math.abs(b-g)<65);
-  };
-  const bg=new Uint8Array(bw*bh);
-  for(let y=0;y<bh;y++)for(let x=0;x<bw;x++)if(isBg(((box.y0+y)*W+(box.x0+x))*4))bg[y*bw+x]=1;
-  const ext=new Uint8Array(bw*bh),stk=new Int32Array(bw*bh);
-  const flood=(seed)=>{let sp=0;stk[sp++]=seed;ext[seed]=1;while(sp){const p=stk[--sp],px=p%bw,py=(p-px)/bw;
-    if(px>0&&bg[p-1]&&!ext[p-1]){ext[p-1]=1;stk[sp++]=p-1}if(px<bw-1&&bg[p+1]&&!ext[p+1]){ext[p+1]=1;stk[sp++]=p+1}
-    if(py>0&&bg[p-bw]&&!ext[p-bw]){ext[p-bw]=1;stk[sp++]=p-bw}if(py<bh-1&&bg[p+bw]&&!ext[p+bw]){ext[p+bw]=1;stk[sp++]=p+bw}}};
-  for(let x=0;x<bw;x++){if(bg[x]&&!ext[x])flood(x);const b=(bh-1)*bw+x;if(bg[b]&&!ext[b])flood(b)}
-  for(let y=0;y<bh;y++){const l=y*bw,r=l+bw-1;if(bg[l]&&!ext[l])flood(l);if(bg[r]&&!ext[r])flood(r)}
-  const cvis=new Uint8Array(bw*bh),tmp=new Int32Array(bw*bh);
-  for(let y=4;y<bh-4;y+=6)for(let x=4;x<bw-4;x+=6){
-    const st=y*bw+x;if(!bg[st]||ext[st]||cvis[st])continue;
-    let sp=0,cnt=0,bx0=x,bx1=x,by0=y,by1=y;tmp[sp++]=st;cvis[st]=1;
-    while(sp){const p=stk[cnt++]=tmp[--sp],px=p%bw,py=(p-px)/bw;if(px<bx0)bx0=px;if(px>bx1)bx1=px;if(py<by0)by0=py;if(py>by1)by1=py;
-      if(px>0&&bg[p-1]&&!cvis[p-1]){cvis[p-1]=1;tmp[sp++]=p-1}if(px<bw-1&&bg[p+1]&&!cvis[p+1]){cvis[p+1]=1;tmp[sp++]=p+1}
-      if(py>0&&bg[p-bw]&&!cvis[p-bw]){cvis[p-bw]=1;tmp[sp++]=p-bw}if(py<bh-1&&bg[p+bw]&&!cvis[p+bw]){cvis[p+bw]=1;tmp[sp++]=p+bw}}
-    if(bx1-bx0>bw*.48||by1-by0>bh*.48||cnt>bw*bh*.12)for(let i=0;i<cnt;i++)ext[stk[i]]=1;
-  }
-
-  const m=new Uint8Array(bw*bh);for(let i=0;i<bw*bh;i++)if(!ext[i])m[i]=1;
-  const rad=Math.min(3,Math.max(2,Math.round(Math.min(bw,bh)/160))),er=new Uint8Array(bw*bh);
-  for(let y=rad;y<bh-rad;y++)for(let x=rad;x<bw-rad;x++){
-    const k=y*bw+x;if(m[k]&&m[k-rad]&&m[k+rad]&&m[k-rad*bw]&&m[k+rad*bw]&&m[k-1]&&m[k+1]&&m[k-bw]&&m[k+bw])er[k]=1;
-  }
-
-  const vis=new Uint8Array(bw*bh),raw=[];
-  for(let y=0;y<bh;y++)for(let x=0;x<bw;x++){
-    const st=y*bw+x;if(!er[st]||vis[st])continue;
-    let sp=0,cnt=0,x0=x,x1=x,y0=y,y1=y;stk[sp++]=st;vis[st]=1;
-    while(sp){const p=stk[--sp],px=p%bw,py=(p-px)/bw;cnt++;
-      if(px<x0)x0=px;if(px>x1)x1=px;if(py<y0)y0=py;if(py>y1)y1=py;
-      if(px>0&&er[p-1]&&!vis[p-1]){vis[p-1]=1;stk[sp++]=p-1}if(px<bw-1&&er[p+1]&&!vis[p+1]){vis[p+1]=1;stk[sp++]=p+1}
-      if(py>0&&er[p-bw]&&!vis[p-bw]){vis[p-bw]=1;stk[sp++]=p-bw}if(py<bh-1&&er[p+bw]&&!vis[p+bw]){vis[p+bw]=1;stk[sp++]=p+bw}}
-    const w=x1-x0+1+rad*2,h=y1-y0+1+rad*2;
-    if(cnt<180||w<24||h<24||w>bw*.88||h>bh*.94)continue;
-    raw.push({gx0:Math.max(box.x0,box.x0+x0-rad),gy0:Math.max(box.y0,box.y0+y0-rad),w,h});
-  }
-
-  const singles=raw.filter(b=>b.h/b.w>=0.78&&b.h/b.w<=1.28&&b.w<=bw*.48).map(b=>(b.w+b.h)/2).sort((a,b)=>a-b);
-  const unitD=singles.length?singles[Math.floor(singles.length*.35)]:0;
-
-  const blobs=[],angs=[-168,-150,-132,-114,-96,-78,-60,-42,-24,-6,12,30,150];
-  const pushValid=(gx0,gy0,w,h)=>{
-    if(h/w<0.76||h/w>1.32)return;
-    const R=(w+h)/4,cx=gx0+w/2,cy=gy0+h/2;
-    if(cx-R<box.x0-5||cx+R>box.x1+5||cy-R<box.y0-5||cy+R>box.y1+5)return;
-    let rimHits=0;
-    for(const a of angs){
-      let ok=0;
-      for(const dr of[0,1.2,2.2,-1]){
-        const rx=Math.round(cx+Math.cos(a*Math.PI/180)*(R-dr)),ry=Math.round(cy+Math.sin(a*Math.PI/180)*(R-dr));
-        if(rx>=0&&rx<W&&ry>=0&&ry<H){const i=(ry*W+rx)*4,r=d[i],g=d[i+1],b=d[i+2];if(r>178&&g>178&&b>178&&Math.max(r,g,b)-Math.min(r,g,b)<58){ok=1;break}}
-      }
-      if(ok)rimHits++;
-    }
-    if(rimHits>=4)blobs.push({cx,cy,R,x0:gx0,y0:gy0,w,h,rimHits});
-  };
-
-  for(const b of raw){
-    const asp=b.h/b.w;
-    if(asp>=0.78&&asp<=1.28&&(!unitD||(b.w<unitD*1.48&&b.h<unitD*1.48))){pushValid(b.gx0,b.gy0,b.w,b.h)}
-    else{
-      const refD=unitD||Math.min(b.w,b.h),cols=Math.max(1,Math.round(b.w/(refD*1.04))),rows=Math.max(1,Math.round(b.h/(refD*1.04)));
-      if(cols*rows>1&&cols<=8&&rows<=8){const cw=b.w/cols,ch=b.h/rows;for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)pushValid(b.gx0+c*cw,b.gy0+r*ch,cw,ch)}
-      else if(asp>=0.76&&asp<=1.32)pushValid(b.gx0,b.gy0,b.w,b.h);
+  const bw=box.x1-box.x0+1,bh=box.y1-box.y0+1;if(bw<36||bh<36)return[];
+  const s=Math.min(1,340/Math.min(bw,bh),520/Math.max(bw,bh));
+  const sw=Math.max(36,Math.round(bw*s)),sh=Math.max(36,Math.round(bh*s));
+  const wh=new Float32Array(sw*sh);
+  for(let y=0;y<sh;y++){
+    const gy=Math.min(H-1,box.y0+Math.round(y/s));
+    for(let x=0;x<sw;x++){
+      const gx=Math.min(W-1,box.x0+Math.round(x/s)),i=(gy*W+gx)*4,r=d[i],g=d[i+1],b=d[i+2];
+      const mn=r<g?(r<b?r:b):(g<b?g:b),mx=r>g?(r>b?r:b):(g>b?g:b);
+      wh[y*sw+x]=mn-(mx-mn)*.75;
     }
   }
-  const uniq=[];
-  for(const b of blobs.sort((a,b)=>b.rimHits-a.rimHits))if(!uniq.some(u=>Math.hypot(u.cx-b.cx,u.cy-b.cy)<Math.min(u.R,b.R)*.85))uniq.push(b);
-  uniq.sort((a,b)=>Math.abs(a.cy-b.cy)<a.R*.9?a.cx-b.cx:a.cy-b.cy);
-  return uniq;
+  const rMin=Math.max(8,Math.round(sw*.028)),rMax=Math.min(Math.round(Math.min(sw,sh)*.47),120);
+  if(rMax<=rMin+2)return[];
+  const acc=new Float32Array(sw*sh);
+  for(let y=2;y<sh-2;y++)for(let x=2;x<sw-2;x++){
+    const p=y*sw+x;if(wh[p]<135)continue;
+    const gx=-wh[p-sw-1]+wh[p-sw+1]-2*wh[p-1]+2*wh[p+1]-wh[p+sw-1]+wh[p+sw+1];
+    const gy=-wh[p-sw-1]-2*wh[p-sw]-wh[p-sw+1]+wh[p+sw-1]+2*wh[p+sw]+wh[p+sw+1];
+    const mag=Math.hypot(gx,gy);if(mag<65)continue;
+    const nx=gx/mag,ny=gy/mag;
+    for(let r=rMin;r<=rMax;r++){
+      const cx=Math.round(x+nx*r),cy=Math.round(y+ny*r);
+      if(cx>=2&&cx<sw-2&&cy>=2&&cy<sh-2)acc[cy*sw+cx]+=1;
+    }
+  }
+  const accS=new Float32Array(sw*sh);
+  for(let y=1;y<sh-1;y++)for(let x=1;x<sw-1;x++){
+    const p=y*sw+x;
+    accS[p]=acc[p]*2+acc[p-1]+acc[p+1]+acc[p-sw]+acc[p+sw]+(acc[p-sw-1]+acc[p-sw+1]+acc[p+sw-1]+acc[p+sw+1])*.5;
+  }
+  const peaks=[],minSep=Math.max(4,rMin*.65);
+  for(let y=rMin;y<sh-rMin;y++)for(let x=rMin;x<sw-rMin;x++){
+    const p=y*sw+x,v=accS[p];if(v<26)continue;
+    if(v>=accS[p-1]&&v>=accS[p+1]&&v>=accS[p-sw]&&v>=accS[p+sw]&&v>=accS[p-sw-1]&&v>=accS[p-sw+1]&&v>=accS[p+sw-1]&&v>=accS[p+sw+1]){
+      peaks.push({x,y,v});
+    }
+  }
+  peaks.sort((a,b)=>b.v-a.v);
+  const cands=[];
+  for(const pk of peaks){if(!cands.some(c=>Math.hypot(c.x-pk.x,c.y-pk.y)<minSep)){cands.push(pk);if(cands.length>=75)break}}
+
+  const R_min_f=Math.max(11,Math.round(bw*.028)),R_max_f=Math.round(Math.min(bw,bh)*.47),step=Math.max(1,Math.round((R_max_f-R_min_f)/36));
+  const valid=[];
+  for(const pk of cands){
+    const cx0=box.x0+pk.x/s,cy0=box.y0+pk.y/s;
+    let bestR=-1,bestScore=-1;
+    for(let R=R_min_f;R<=R_max_f;R+=step){
+      if(cx0-R<box.x0-5||cx0+R>box.x1+5||cy0-R<box.y0-5||cy0+R>box.y1+5)continue;
+      const ev=ringEval(d,W,H,cx0,cy0,R);
+      const sc=ev.hits*12+ev.topHits*6-ev.maxGap*8+ev.cAvg*.15;
+      if(ev.hits>=16&&sc>bestScore){bestScore=sc;bestR=R}
+    }
+    if(bestR<0)continue;
+    let bx=cx0,by=cy0,br=bestR,bev=ringEval(d,W,H,bx,by,br),bsc=bev.hits*14+bev.topHits*7-bev.maxGap*9+bev.cAvg*.2;
+    for(let dx=-2;dx<=2;dx+=2)for(let dy=-2;dy<=2;dy+=2)for(let dr=-2;dr<=2;dr+=1){
+      const tx=cx0+dx,ty=cy0+dy,tr=bestR+dr;
+      if(tr<R_min_f||tx-tr<box.x0-4||tx+tr>box.x1+4||ty-tr<box.y0-4||ty+tr>box.y1+4)continue;
+      if(tx-tr<-2||tx+tr>W+2||ty-tr<-2||ty+tr>H+2)continue;
+      const ev=ringEval(d,W,H,tx,ty,tr),sc=ev.hits*14+ev.topHits*7-ev.maxGap*9+ev.cAvg*.2;
+      if(sc>bsc){bsc=sc;bx=tx;by=ty;br=tr;bev=ev}
+    }
+    if(bev.hits<23||bev.topHits<15||bev.maxGap>7)continue;
+    if(bx-br<-2||bx+br>W+2||by-br<-2||by+br>H+2)continue;
+    if(!circleHasContent(d,W,H,bev,bx,by,br))continue;
+    valid.push({cx:bx,cy:by,R:br,score:bsc,ev:bev});
+  }
+  valid.sort((a,b)=>b.score-a.score);
+  const nms=[];
+  for(const v of valid)if(!nms.some(u=>Math.hypot(u.cx-v.cx,u.cy-v.cy)<1.55*Math.min(u.R,v.R)))nms.push(v);
+
+  let out=nms;
+  if(nms.length>=2){
+    let baseR=nms[0].R,bestSup=-1;
+    for(const a of nms){
+      const sup=nms.filter(b=>Math.abs(b.R-a.R)<=a.R*.20).length;
+      if(sup>bestSup||(sup===bestSup&&a.R>baseR)){bestSup=sup;baseR=a.R}
+    }
+    if(bestSup>=2)out=nms.filter(v=>v.R>=baseR*.72&&v.R<=baseR*1.38);
+  }
+  out.sort((a,b)=>Math.abs(a.cy-b.cy)<a.R*.9?a.cx-b.cx:a.cy-b.cy);
+  return out;
+}
+
+function splitTradeCircles(all,d,W,H,invP){
+  const list=all.filter(c=>{
+    if(invP&&c.cx>=invP.x0-4&&c.cx<=invP.x1+4&&c.cy>=invP.y0-4&&c.cy<=invP.y1+4)return false;
+    const e=c.ev;
+    if(e&&e.extN&&isIceBgPx(e.extR,e.extG,e.extB)&&c.cx<W*.52)return false;
+    return true;
+  });
+  if(!list.length)return{give:[],get:[]};
+  const xs=[...list].sort((a,b)=>a.cx-b.cx);
+  let splitX=invP?invP.x1+(W-invP.x1)*.5:W*.5,maxGap=0;
+  for(let i=1;i<xs.length;i++){
+    const g=xs[i].cx-xs[i-1].cx;
+    if(g>maxGap&&g>Math.max(W*.08,xs[i].R*2.8)){maxGap=g;splitX=(xs[i].cx+xs[i-1].cx)/2}
+  }
+  const ord=(a,b)=>Math.abs(a.cy-b.cy)<a.R*.9?a.cx-b.cx:a.cy-b.cy;
+  return{give:list.filter(c=>c.cx<splitX).sort(ord),get:list.filter(c=>c.cx>=splitX).sort(ord)};
+}
+
+function circleBgColor(d,W,H,c){
+  const bins=new Map();
+  for(let a=-195;a<=15;a+=7){
+    const rad=a*Math.PI/180,ca=Math.cos(rad),sa=Math.sin(rad);
+    for(const rf of[.75,.83]){
+      const x=Math.round(c.cx+ca*c.R*rf),y=Math.round(c.cy+sa*c.R*rf);
+      if(x<0||x>=W||y<0||y>=H)continue;
+      const i=(y*W+x)*4,r=d[i],g=d[i+1],b=d[i+2];
+      const mn=r<g?(r<b?r:b):(g<b?g:b),mx=r>g?(r>b?r:b):(g>b?g:b);
+      if(mn>222&&(mx-mn)<24)continue;
+      const key=((r>>4)<<8)|((g>>4)<<4)|(b>>4);
+      let arr=bins.get(key);if(!arr)bins.set(key,arr=[]);
+      arr.push([r,g,b]);
+    }
+  }
+  let bestArr=null;
+  for(const arr of bins.values())if(!bestArr||arr.length>bestArr.length)bestArr=arr;
+  if(!bestArr||!bestArr.length)return[40,60,110];
+  const med=k=>bestArr.map(p=>p[k]).sort((x,y)=>x-y)[bestArr.length>>1];
+  return[med(0),med(1),med(2)];
+}
+
+function buildPatch(srcCv,rx,ry,rSide,c,bR,bG,bB,sz){
+  if(!_scTcv){_scTcv=document.createElement('canvas');_scTcx=_scTcv.getContext('2d',{willReadFrequently:true})}
+  if(_scTcv.width!==sz){_scTcv.width=sz;_scTcv.height=sz}
+  _scTcx.clearRect(0,0,sz,sz);
+  _scTcx.drawImage(srcCv,rx,ry,rSide,rSide,0,0,sz,sz);
+  const px=_scTcx.getImageData(0,0,sz,sz).data,n=sz*sz,bLum=bR*.299+bG*.587+bB*.114;
+  const cr=new Uint8Array(n),cg=new Uint8Array(n),cb=new Uint8Array(n),lum=new Float32Array(n),fg=new Uint8Array(n),tMask=new Uint8Array(n),wt=new Float32Array(n);
+  for(let y=0;y<sz;y++)for(let x=0;x<sz;x++){
+    const i=y*sz+x,k=i*4,r=px[k],g=px[k+1],b=px[k+2],l=r*.299+g*.587+b*.114;
+    cr[i]=r;cg[i]=g;cb[i]=b;lum[i]=l;
+    const gx=rx+(x+.5)/sz*rSide,gy=ry+(y+.5)/sz*rSide,dist=Math.hypot(gx-c.cx,gy-c.cy);
+    if(dist>c.R*.90){wt[i]=0;tMask[i]=1;continue}
+    const mn=r<g?(r<b?r:b):(g<b?g:b),mx=r>g?(r>b?r:b):(g>b?g:b),sat=mx-mn,yRel=(gy-c.cy)/c.R;
+    if(yRel>=.40){
+      const isTxt=(l>180&&sat<56)||(l<48&&yRel>=.45);
+      if(isTxt){tMask[i]=1;wt[i]=.02;continue}
+      wt[i]=yRel>=.55?.14:.36;
+    }else wt[i]=1;
+    const dRGB=Math.hypot((r-bR)*.85,(g-bG)*1.15,(b-bB)*.85);
+    const dHue=Math.abs((r-g)-(bR-bG))+Math.abs((g-b)-(bG-bB));
+    if(dRGB>34||Math.abs(l-bLum)>26||dHue>30)fg[i]=1;
+  }
+  const fgC=new Uint8Array(fg);
+  for(let y=1;y<sz-1;y++)for(let x=1;x<sz-1;x++){
+    const i=y*sz+x;if(!fg[i])continue;
+    const nb=fg[i-1]+fg[i+1]+fg[i-sz]+fg[i+sz];
+    if(nb<2)fgC[i]=0;
+  }
+  const ed=sobel(lum,sz);
+  for(let y=0;y<sz;y++)for(let x=0;x<sz;x++){
+    const i=y*sz+x,gx=rx+(x+.5)/sz*rSide,gy=ry+(y+.5)/sz*rSide;
+    if(tMask[i]||Math.hypot(gx-c.cx,gy-c.cy)>c.R*.83)ed[i]=0;
+  }
+  return{cr,cg,cb,lum,fg:fgC,wt,ed,g8:grid8(cr,cg,cb,fgC,ed,sz)};
 }
 
 function matchCircle(srcCv,d,W,H,c){
-  const sz=IC.size||24,n=sz*sz,br=[],bg=[],bb=[];
-  for(const[a0,a1]of[[-165,-125],[-55,-15]])for(let a=a0;a<=a1;a+=8)for(const rf of[.72,.83]){
-    const x=Math.round(c.cx+Math.cos(a*Math.PI/180)*c.R*rf),y=Math.round(c.cy+Math.sin(a*Math.PI/180)*c.R*rf);
-    if(x<0||x>=W||y<0||y>=H)continue;
-    const i=(y*W+x)*4,r=d[i],g=d[i+1],b=d[i+2];if(r>225&&g>225&&b>225)continue;
-    br.push(r);bg.push(g);bb.push(b);
+  const sz=IC.size||32;
+  if(!_scPcv){_scPcv=document.createElement('canvas');_scPcx=_scPcv.getContext('2d',{willReadFrequently:true});_scPcv.width=48;_scPcv.height=48}
+  _scPcx.clearRect(0,0,48,48);
+  _scPcx.drawImage(srcCv,c.cx-c.R,c.cy-c.R,c.R*2,c.R*2,0,0,48,48);
+  const crop=_scPcv.toDataURL('image/jpeg',.85);
+  if(!REFS.length)return{crop,cands:[],name:'',lowConf:true};
+
+  const[bR,bG,bB]=circleBgColor(d,W,H,c);
+  const baseSide=c.R*1.84,baseX=c.cx-c.R*.92,baseY=c.cy-c.R*.92;
+  const baseP=buildPatch(srcCv,baseX,baseY,baseSide,c,bR,bG,bB,sz);
+
+  let fx0=sz,fy0=sz,fx1=-1,fy1=-1;
+  for(let y=1;y<sz-1;y++)for(let x=1;x<sz-1;x++){
+    const i=y*sz+x;if(baseP.fg[i]&&baseP.wt[i]>.3){if(x<fx0)fx0=x;if(x>fx1)fx1=x;if(y<fy0)fy0=y;if(y>fy1)fy1=y}
   }
-  const med=a=>a.length?a.slice().sort((x,y)=>x-y)[a.length>>1]:128,bR=med(br),bG=med(bg),bB=med(bb);
+  const boxes=[];
+  if(fx1-fx0>=sz*.22&&fy1-fy0>=sz*.22){
+    const pad=Math.max(1,Math.round(Math.max(fx1-fx0+1,fy1-fy0+1)*.04));
+    const bx0=Math.max(0,fx0-pad),by0=Math.max(0,fy0-pad),bx1=Math.min(sz-1,fx1+pad),by1=Math.min(sz-1,fy1+pad);
+    const bw=bx1-bx0+1,bh=by1-by0+1,side=Math.max(bw,bh),cxP=(bx0+bx1+1)/2,cyP=(by0+by1+1)/2;
+    const rx=baseX+(cxP-side/2)/sz*baseSide,ry=baseY+(cyP-side/2)/sz*baseSide,rSide=side/sz*baseSide;
+    boxes.push([rx,ry,rSide]);
+  }
+  for(const[sc,dy]of[[.86,-.04],[.74,-.05],[.98,0]])boxes.push([c.cx-c.R*sc,c.cy+c.R*(dy-sc),c.R*sc*2]);
 
-  const pcv=document.createElement('canvas');pcv.width=48;pcv.height=48;
-  pcv.getContext('2d').drawImage(srcCv,c.cx-c.R,c.cy-c.R,c.R*2,c.R*2,0,0,48,48);
-  const crop=pcv.toDataURL('image/jpeg',.82);
-
-  const tmp=document.createElement('canvas');tmp.width=sz;tmp.height=sz;
-  const tx=tmp.getContext('2d',{willReadFrequently:true}),bestByRef=new Map();
-  const SH=[[0,0],[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-2,0],[2,0],[0,-2]];
-
-  for(const sc of[.84,.72]){
-    tx.clearRect(0,0,sz,sz);const s=c.R*sc;
-    tx.drawImage(srcCv,c.cx-s,c.cy-s,s*2,s*2,0,0,sz,sz);
-    const px=tx.getImageData(0,0,sz,sz).data;
-    const cr=new Uint8Array(n),cg=new Uint8Array(n),cb=new Uint8Array(n),fg=new Uint8Array(n),wt=new Float32Array(n),lum=new Float32Array(n),tMask=new Uint8Array(n);
-    let fCnt=0,mr=0,mg=0,mb=0;
-    for(let y=0;y<sz;y++)for(let x=0;x<sz;x++){
-      const i=y*sz+x,k=i*4,r=px[k],g=px[k+1],b=px[k+2];
-      cr[i]=r;cg[i]=g;cb[i]=b;lum[i]=r*.299+g*.587+b*.114;
-      const dx=(x+0.5)/sz*2-1,dy=(y+0.5)/sz*2-1;if(dx*dx+dy*dy>0.96){wt[i]=0;continue}
-      fg[i]=(Math.abs(r-bR)+Math.abs(g-bG)+Math.abs(b-bB))>46?1:0;
-      let w=1;
-      if(y>=sz*.72){const isText=(r>192&&g>192&&b>192)||(r<45&&g<45&&b<45);if(isText||y>=sz*.77){tMask[i]=1;w=isText?0.04:0.18}else w=0.35}
-      wt[i]=w;if(fg[i]&&w>0.5){fCnt++;mr+=r;mg+=g;mb+=b}
+  const patches=boxes.map(([rx,ry,rSide])=>buildPatch(srcCv,rx,ry,rSide,c,bR,bG,bB,sz));
+  const coarse=REFS.map((ref,idx)=>{
+    let best=1e9;
+    for(const P of patches){
+      const pg=P.g8;
+      for(const[dx,dy]of[[0,0],[-1,0],[1,0],[0,-1]]){
+        let cSum=0,hSum=0,sSum=0,wSum=0;
+        for(let y=0;y<6;y++)for(let x=0;x<8;x++){
+          const rx=x+dx,ry=y+dy;if(rx<0||rx>=8||ry<0||ry>=8)continue;
+          const pk=y*8+x,rk=ry*8+rx,rc=ref.c8[rk],pc=pg.c8[pk];
+          if(rc>.15&&pc>.15){
+            const w=rc*pc;
+            cSum+=w*(Math.abs(pg.r8[pk]-ref.r8[rk])+Math.abs(pg.g8[pk]-ref.g8[rk])+Math.abs(pg.b8[pk]-ref.b8[rk]))/3;
+            hSum+=w*(Math.abs((pg.r8[pk]-pg.g8[pk])-(ref.r8[rk]-ref.g8[rk]))+Math.abs((pg.g8[pk]-pg.b8[pk])-(ref.g8[rk]-ref.b8[rk])))/2;
+            wSum+=w;
+          }
+          if(ref.fill<=.85)sSum+=Math.abs(pc-rc);
+        }
+        if(wSum<.3)continue;
+        const sc=(cSum/wSum)+(hSum/wSum)*.8+(sSum/48)*35;
+        if(sc<best)best=sc;
+      }
     }
-    const cEdge=sobel(lum,sz);for(let i=0;i<n;i++)if(tMask[i])cEdge[i]=0;
-    if(fCnt){mr/=fCnt;mg/=fCnt;mb/=fCnt}
+    return{idx,best};
+  }).sort((a,b)=>a.best-b.best).slice(0,20);
 
-    for(const ref of REFS){
-      let best=bestByRef.get(ref.name)??1e9;
-      const dR=fCnt?(mr-ref.mr)*.42:0,dG=fCnt?(mg-ref.mg)*.42:0,dB=fCnt?(mb-ref.mb)*.42:0;
-      for(const[ox,oy]of SH){
-        let cErr=0,chErr=0,eErr=0,sPen=0,wSum=0,allW=0;
+  const scored=[];
+  for(const{idx}of coarse){
+    const ref=REFS[idx],isFull=ref.fill>.85;
+    let best=1e9;
+    for(const P of patches){
+      for(const[ox,oy]of OFF13){
+        let mLC=0,mLR=0,mN=0;
         for(let y=1;y<sz-1;y++)for(let x=1;x<sz-1;x++){
-          const i=y*sz+x,w=wt[i];if(!w)continue;
+          const i=y*sz+x;if(P.wt[i]<.3)continue;
+          const rx=x+ox,ry=y+oy;if(rx<0||rx>=sz||ry<0||ry>=sz)continue;
+          const j=ry*sz+rx;if(ref.a[j]<60)continue;
+          mLC+=P.lum[i];mLR+=ref.lum[j];mN++;
+        }
+        if(mN<16)continue;
+        mLC/=mN;mLR/=mN;
+        const dL=Math.max(-22,Math.min(22,mLC-mLR));
+
+        let cErr=0,chErr=0,wSum=0,eErr=0,eW=0,sInter=0,sUnion=0,cN=0,cov=0,vC=0,vR=0;
+        for(let y=1;y<sz-1;y++)for(let x=1;x<sz-1;x++){
+          const i=y*sz+x,w=P.wt[i];if(!w)continue;
           const rx=x+ox,ry=y+oy;if(rx<0||rx>=sz||ry<0||ry>=sz)continue;
           const j=ry*sz+rx,al=ref.a[j];
-          if(al>45){
-            const aw=w*(al/255),rr=ref.r[j],rg=ref.g[j],rb=ref.b[j];
-            cErr+=aw*(Math.abs(cr[i]-rr-dR)+Math.abs(cg[i]-rg-dG)+Math.abs(cb[i]-rb-dB))/3;
-            chErr+=aw*(Math.abs((cr[i]-cg[i])-(rr-rg))+Math.abs((cg[i]-cb[i])-(rg-rb)))/2;
-            eErr+=aw*Math.abs(cEdge[i]-ref.ed[j]);
-            if(!fg[i])sPen+=aw*32;
+          if(al>=60){
+            const aw=w*(al>=160?1:.38),rr=ref.r[j],rg=ref.g[j],rb=ref.b[j];
+            cErr+=aw*(Math.abs(P.cr[i]-(rr+dL))+Math.abs(P.cg[i]-(rg+dL))+Math.abs(P.cb[i]-(rb+dL)))/3;
+            chErr+=aw*(Math.abs((P.cr[i]-P.cg[i])-(rr-rg))+Math.abs((P.cg[i]-P.cb[i])-(rg-rb)))/2;
             wSum+=aw;
-          }else if(al<20&&fg[i]){sPen+=w*22}
-          allW+=w;
+            if(w>=.3){
+              const dc=P.lum[i]-mLC,dr=ref.lum[j]-mLR;
+              cov+=dc*dr;vC+=dc*dc;vR+=dr*dr;cN++;
+            }
+          }
+          if(w>.5&&al>=48){eErr+=Math.abs(P.ed[i]-ref.ed[j]);eW++}
+          if(w>.5&&!isFull){
+            const inRef=al>=64,inFg=P.fg[i]===1;
+            if(inRef&&inFg)sInter++;
+            if(inRef||inFg)sUnion++;
+          }
         }
-        if(wSum<10)continue;
-        const score=(cErr/wSum)*0.95+(chErr/wSum)*0.45+(eErr/wSum)*0.75+(sPen/(allW||1))*1.15;
-        if(score<best)best=score;
+        if(wSum<10||cN<14)continue;
+        const zncc=(vC>4&&vR>4)?cov/Math.sqrt(vC*vR):0;
+        const eZncc=(1-Math.max(-1,Math.min(1,zncc)))*28;
+        const sErr=isFull?0:(1-sInter/(sUnion||1))*36;
+        const sc=(cErr/wSum)*.85+(chErr/wSum)*.75+eZncc*.90+sErr*.85+(eW?eErr/eW:0)*.45;
+        if(sc<best)best=sc;
       }
-      bestByRef.set(ref.name,best);
     }
+    scored.push({name:ref.name,score:best});
   }
-  const scored=[...bestByRef.entries()].map(([name,score])=>({name,score})).sort((a,b)=>a.score-b.score);
-  const lowConf=!scored[0]||scored[0].score>62||(scored[1]&&scored[1].score-scored[0].score<3.0);
+  scored.sort((a,b)=>a.score-b.score);
+  const lowConf=!scored[0]||scored[0].score>64||(scored[1]&&scored[1].score-scored[0].score<2.5);
   return{crop,cands:scored.slice(0,4).map(x=>x.name),name:scored[0]?.name||'',lowConf};
 }
 
-function scanOpen(kind){SC={kind,annUrl:'',give:[],get:[],items:[],err:''};SC_SLOT=null;renderScan();openDl(0,1)}
+function scanOpen(kind){SC={kind,annUrl:'',give:[],get:[],items:[],err:'',info:''};SC_SLOT=null;renderScan();openDl(0,1)}
 async function scPickFile(file){
   if(!file||!SC)return;
-  if(!REFS.length){SC.err='Не загружены эталоны портретов (data/icons.json). Сначала запусти Actions или обнови цены.';return renderScan()}
+  if(!REFS.length){SC.err='Не загружены эталоны портретов (data/icons.json). Сначала обнови цены.';return renderScan()}
   try{
     const img=await loadCv(file),ann=document.createElement('canvas');ann.width=img.w;ann.height=img.h;
     const ax=ann.getContext('2d');ax.drawImage(img.cv,0,0);
-    const drawBoxes=(list,col)=>{ax.lineWidth=Math.max(2,img.w/400);ax.strokeStyle=col;list.forEach(c=>{ax.beginPath();ax.arc(c.cx,c.cy,c.R,0,Math.PI*2);ax.stroke()})};
+    const drawCircles=(list,col)=>{
+      const lw=Math.max(2,img.w/380),fs=Math.max(12,Math.round(img.w/65));
+      ax.lineWidth=lw;ax.font=`bold ${fs}px monospace`;
+      list.forEach((c,idx)=>{
+        ax.strokeStyle=col;ax.beginPath();ax.arc(c.cx,c.cy,c.R,0,Math.PI*2);ax.stroke();
+        const tx=Math.max(4,c.cx-c.R),ty=Math.max(fs+4,c.cy-c.R+fs);
+        ax.fillStyle='#020a08d8';ax.fillRect(tx-2,ty-fs,fs*1.5,fs+3);
+        ax.fillStyle=col;ax.fillText('#'+(idx+1),tx,ty-2);
+      });
+    };
     const toSlot=(c)=>({...matchCircle(img.cv,img.data,img.w,img.h,c),qty:1,signed:false});
 
     if(SC.kind==='trade'){
-      const boxes=findTradeBoxes(img.data,img.w,img.h)||[{x0:0,y0:0,x1:Math.floor(img.w*.5)-1,y1:img.h-1,type:'auto'},{x0:Math.floor(img.w*.5),y0:0,x1:img.w-1,y1:img.h-1,type:'auto'}];
-      const cL=detectCircles(img.data,img.w,img.h,boxes[0]),cR=detectCircles(img.data,img.w,img.h,boxes[1]);
-      ax.lineWidth=2;ax.strokeStyle='#00ff9c';ax.strokeRect(boxes[0].x0,boxes[0].y0,boxes[0].x1-boxes[0].x0,boxes[0].y1-boxes[0].y0);
-      ax.strokeStyle='#00e5ff';ax.strokeRect(boxes[1].x0,boxes[1].y0,boxes[1].x1-boxes[1].x0,boxes[1].y1-boxes[1].y0);
-      drawBoxes(cL,'#00ff9c');drawBoxes(cR,'#00e5ff');SC.give=cL.map(toSlot);SC.get=cR.map(toSlot);
+      const{boxes,invP}=findTradeBoxes(img.data,img.w,img.h);
+      let cL=[],cR=[],modeInfo='';
+      if(boxes){
+        cL=detectCircles(img.data,img.w,img.h,boxes[0]);
+        cR=detectCircles(img.data,img.w,img.h,boxes[1]);
+        ax.lineWidth=2;ax.strokeStyle='#00ff9c';ax.strokeRect(boxes[0].x0,boxes[0].y0,boxes[0].x1-boxes[0].x0,boxes[0].y1-boxes[0].y0);
+        ax.strokeStyle='#00e5ff';ax.strokeRect(boxes[1].x0,boxes[1].y0,boxes[1].x1-boxes[1].x0,boxes[1].y1-boxes[1].y0);
+        if(invP){ax.setLineDash([6,4]);ax.strokeStyle='#ffd00099';ax.strokeRect(invP.x0,invP.y0,invP.x1-invP.x0,invP.y1-invP.y0);ax.setLineDash([])}
+        modeInfo=`Панели трейда найдены${invP?' (инвентарь слева игнорирован)':''}`;
+      }else{
+        const all=detectCircles(img.data,img.w,img.h,{x0:0,y0:0,x1:img.w-1,y1:img.h-1,type:'auto'});
+        const sp=splitTradeCircles(all,img.data,img.w,img.h,invP);
+        cL=sp.give;cR=sp.get;
+        modeInfo='Резервный поиск кружков по всему экрану';
+      }
+      drawCircles(cL,'#00ff9c');drawCircles(cR,'#00e5ff');
+      SC.give=cL.map(toSlot);SC.get=cR.map(toSlot);
+      SC.info=`${modeInfo} · Отдаю: ${cL.length} · Получаю: ${cR.length}`;
     }else{
       const box=findInvBox(img.data,img.w,img.h),cs=detectCircles(img.data,img.w,img.h,box);
       ax.lineWidth=2;ax.strokeStyle='#00ff9c';ax.strokeRect(box.x0,box.y0,box.x1-box.x0,box.y1-box.y0);
-      drawBoxes(cs,'#00ff9c');SC.items=cs.map(toSlot);
+      drawCircles(cs,'#00ff9c');SC.items=cs.map(toSlot);
+      SC.info=`Распознано кружков: ${cs.length}`;
     }
     SC.annUrl=ann.toDataURL('image/jpeg',.86);SC.err='';sfx('win');renderScan();
   }catch(e){SC.err=String(e);sfx('err');renderScan()}
 }
+
 function renderScan(){
   if(!SC)return;
   const k=SC.kind,opts=[...ALL].sort((a,b)=>a.name.localeCompare(b.name)).map(i=>`<option value="${esc(i.name)}">${esc(i.name)} (${i.value?sfmt(i.value):'N/A'})</option>`).join('');
   const slotList=(arr,side)=>arr.map((r,idx)=>{
     const u=IDX.get(r.name),uv=(u?.value||0)*(r.signed&&!isSigned(u)?1+(S.mk??15)/100:1);
     const alts=(r.cands||[]).map(cn=>{const cu=IDX.get(cn);return `<button class="sc-alt ${cn===r.name?'on':''}" data-a="scPickAlt" data-s="${side}" data-i="${idx}" data-n="${esc(cn)}">${cu&&cu.img?`<img src="${esc(cu.img)}" onerror="this.remove()">`:''}${esc(cn)}</button>`}).join('');
-    return `<div class="sc-slot ${r.lowConf?'low':''}"><div class="row">${r.crop?`<img class="sc-crop" src="${r.crop}">`:''}${u?imgTag(u,'u'):''}<span class="n"><b data-a="det" data-ret="scan" data-n="${esc(r.name)}" style="cursor:pointer">${esc(r.name||'Не распознан')}</b>${r.lowConf?' <span class="tag" style="border-color:var(--y);color:var(--y)">?</span>':''}${!isSigned(u)?` <button class="sm tag ${r.signed?'':'off'}" data-a="scSg" data-s="${side}" data-i="${idx}">SG</button>`:''}<div class="m">${u&&u.value?fmt(uv*r.qty):'<span class="tg">N/A</span>'}</div></span><button class="sm" data-a="scPickModal" data-s="${side}" data-i="${idx}">Выбрать</button><button class="sm" data-a="scQ" data-s="${side}" data-i="${idx}" data-d="-1">−</button><b>${r.qty}</b><button class="sm" data-a="scQ" data-s="${side}" data-i="${idx}" data-d="1">+</button></div>${alts?`<div class="sc-alts">${alts}</div>`:''}</div>`;
-  }).join('')||'<div class="m">Кружки не найдены — проверь чёткость скриншота</div>';
+    return `<div class="sc-slot ${r.lowConf?'low':''}"><div class="row"><span class="sc-num ${side==='get'?'b':''}">#${idx+1}</span>${r.crop?`<img class="sc-crop" src="${r.crop}">`:''}${u?imgTag(u,'u'):''}<span class="n"><b data-a="det" data-ret="scan" data-n="${esc(r.name)}" style="cursor:pointer">${esc(r.name||'Не распознан')}</b>${r.lowConf?' <span class="tag" style="border-color:var(--y);color:var(--y)">?</span>':''}${!isSigned(u)?` <button class="sm tag ${r.signed?'':'off'}" data-a="scSg" data-s="${side}" data-i="${idx}">SG</button>`:''}<div class="m">${u&&u.value?fmt(uv*r.qty):'<span class="tg">N/A</span>'}</div></span><button class="sm" data-a="scPickModal" data-s="${side}" data-i="${idx}">Выбрать</button><button class="sm" data-a="scQ" data-s="${side}" data-i="${idx}" data-d="-1">−</button><b>${r.qty}</b><button class="sm" data-a="scQ" data-s="${side}" data-i="${idx}" data-d="1">+</button><button class="sm" data-a="scDel" data-s="${side}" data-i="${idx}" title="Удалить">✕</button></div>${alts?`<div class="sc-alts">${alts}</div>`:''}</div>`;
+  }).join('')||'<div class="m">Кружки не найдены — проверь чёткость или добавь вручную ниже</div>';
   const box=(title,arr,side)=>`<div class="sc-box"><b>${title} (${arr.length})</b>${slotList(arr,side)}<div class="sc-add"><select id="sc-sel-${side}">${opts}</select><button class="sm" data-a="scAdd" data-s="${side}">${I('plus')}</button></div></div>`;
 
   let preview='';
@@ -889,12 +1156,12 @@ function renderScan(){
   }
   const totalNonSg=ALL.filter(u=>!isSigned(u)&&u.img).length;
   $('dl').innerHTML=`<div class="row"><h3 style="flex:1;margin:0">${k==='trade'?'Скан трейда':'Скан инвентаря'}</h3><button class="sm" data-a="close">${I('x')}</button></div>
-  <div class="sc-drop">${SC.annUrl?`<img src="${SC.annUrl}">`:`<div class="m">Локальное распознавание по портрету (без VPN). Загрузи скриншот или вставь <b>Ctrl+V</b>.</div>`}
+  <div class="sc-drop">${SC.annUrl?`<img src="${SC.annUrl}">`:`<div class="m">Локальное распознавание по кольцам и портрету (без VPN). Загрузи скриншот или вставь <b>Ctrl+V</b>.</div>`}
     <div class="bar" style="width:100%;margin:0">
       <label style="flex:1;display:block"><input id="scf" type="file" accept="image/*" hidden><span style="display:block;padding:8px 10px;border:1px solid rgba(var(--gr),.35);border-radius:3px;background:rgba(var(--gr),.08);cursor:pointer;font-size:12px;text-transform:uppercase">${SC.annUrl?'Другой скрин':'Выбрать скрин'}</span></label>
       <button data-a="scPaste">Из буфера</button>
     </div>
-    <div class="m">Эталонов портретов (${IC.size||24}×${IC.size||24}): <b>${REFS.length}/${totalNonSg}</b></div>
+    <div class="m">${SC.info?esc(SC.info)+' · ':''}Эталонов (${IC.size||32}×${IC.size||32}): <b>${REFS.length}/${totalNonSg}</b></div>
   </div>${SC.err?`<div class="warn">${esc(SC.err)}</div>`:''}${preview}`;
 }
 async function scPaste(){
@@ -1236,6 +1503,7 @@ const ACT={
   scPickModal:el=>{SC_SLOT={s:el.dataset.s,side:el.dataset.s,idx:+el.dataset.i};pick('scan');sfx('tap')},
   scBack:()=>{SC_SLOT=null;if(SC){renderScan();openDl(0,1)}else $('dl').close()},
   scQ:el=>{const a=SC[el.dataset.s],i=+el.dataset.i;if(!a?.[i])return;a[i].qty+=+el.dataset.d;if(a[i].qty<=0)a.splice(i,1);renderScan();sfx('tap')},
+  scDel:el=>{const a=SC[el.dataset.s],i=+el.dataset.i;if(!a?.[i])return;a.splice(i,1);renderScan();sfx('tap')},
   scSg:el=>{const a=SC[el.dataset.s],i=+el.dataset.i;if(!a?.[i])return;a[i].signed=!a[i].signed;renderScan();sfx('tap')},
   scAdd:el=>{const s=el.dataset.s,nm=$('sc-sel-'+s)?.value;if(!nm||!SC[s])return;SC[s].push({name:nm,qty:1,signed:false,cands:[nm],lowConf:false});renderScan();sfx('add')}
 };
