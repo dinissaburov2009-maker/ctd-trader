@@ -48,7 +48,7 @@ button:hover{background:rgba(var(--gr),.16);border-color:var(--g);box-shadow:var
 .tag{font-size:10px;padding:1px 6px;border:1px solid var(--g);border-radius:3px;color:var(--g)}
 .db{display:block;height:4px;background:#ffffff14;margin-top:6px;overflow:hidden;border-radius:2px}.db i{display:block;height:100%;background:linear-gradient(90deg,var(--b),var(--g));box-shadow:0 0 8px var(--g);animation:gr .9s .2s both}@keyframes gr{from{width:0}}
 .tw{overflow-x:auto;margin-top:8px}
-.kv{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid rgba(var(--gr),.12)}.kv span{color:var(--m)}.kv b{text-align:right}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px solid rgba(var(--gr),.12)}.kv span{color:var(--m)}.kv b{text-align:right}
 .sw{display:flex;gap:8px;align-items:center;margin:8px 0}.sw input{width:auto}
 .adv{margin-top:8px;padding:8px;border:1px dashed var(--g)}
 #res h2{margin:6px 0;font-size:22px;letter-spacing:.08em;text-shadow:0 0 18px currentColor;animation:gl .5s}
@@ -84,58 +84,78 @@ img.u{width:34px;height:34px;border-radius:4px;object-fit:cover;background:var(-
 .lst .li{display:flex;align-items:center;gap:8px;padding:7px 8px;margin-bottom:5px;cursor:pointer;background:var(--c);border:1px solid rgba(var(--rr,var(--gr)),.25);border-left:3px solid rgb(var(--rr,var(--gr)));border-radius:3px;animation:in .3s both}
 .lst .li:hover{box-shadow:0 0 14px rgba(var(--rr,var(--gr)),.3)}.lst .li .n{flex:1;min-width:0}.lst .li b.v{color:var(--g)}.lst .li b.v.z{color:var(--y);font-weight:400;font-size:12px}
 
-/* ===== обычные модалки и ПОЛНОЭКРАННОЕ ДОСЬЕ ===== */
+/* ===== обычные модалки и ПОЛНОЭКРАННОЕ HUD-ДОСЬЕ ===== */
 dialog{width:min(94vw,560px);max-height:88vh;padding:14px;color:var(--t);background:#04100cf2;border:1px solid var(--g);box-shadow:0 0 40px rgba(var(--gr),.2);border-radius:4px}
 dialog[open]{animation:dp .3s cubic-bezier(.2,1.3,.4,1)}@keyframes dp{from{opacity:0;transform:scale(.95) translateY(14px);filter:blur(4px)}}
 dialog::backdrop{background:#000c;backdrop-filter:blur(4px)}
-dialog.full{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;padding:0;border:0;border-radius:0;background:radial-gradient(900px 460px at 50% -10%,rgba(var(--rr,var(--gr)),.22),transparent 70%),var(--bg);overflow:hidden}
+dialog.full{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;padding:0;border:0;border-radius:0;background:radial-gradient(900px 520px at 50% 10%,rgba(var(--rr,var(--gr)),.24),transparent 70%),var(--bg);overflow:hidden}
 dialog.full[open]{display:flex;flex-direction:column;animation:tin .25s both}
-.dh-bar{flex:none;display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;background:rgba(2,10,8,.92);border-bottom:1px solid rgba(var(--rr,var(--gr)),.38);backdrop-filter:blur(12px)}
+.dh-bar{flex:none;display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;background:rgba(2,10,8,.92);border-bottom:1px solid rgba(var(--rr,var(--gr)),.4);backdrop-filter:blur(12px)}
 .dh-bar .dt{flex:1;min-width:0;display:flex;align-items:center;gap:8px}
 .dh-bar b{font-size:14px;color:rgb(var(--rr,var(--gr)));letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dh-bar .xb{width:auto;padding:6px 10px;display:flex;align-items:center;gap:5px;border-color:rgba(var(--rr,var(--gr)),.5)}
-.dh-body{flex:1;overflow-y:auto;padding:14px 12px calc(30px + env(safe-area-inset-bottom));width:100%;max-width:1060px;margin:0 auto}
+.dh-body{flex:1;overflow-y:auto;padding:14px 12px calc(32px + env(safe-area-inset-bottom));width:100%;max-width:1160px;margin:0 auto}
+.rpill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;border:1px solid rgb(var(--rr,var(--gr)));color:rgb(var(--rr,var(--gr)));background:rgba(var(--rr,var(--gr)),.12);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
 
-/* шапка героя в досье */
-.hero{position:relative;display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding:16px;margin-bottom:12px;background:linear-gradient(135deg,rgba(var(--rr,var(--gr)),.16),rgba(var(--gr),.03));border:1px solid rgba(var(--rr,var(--gr)),.55);border-left:4px solid rgb(var(--rr,var(--gr)));border-radius:4px;box-shadow:0 0 28px rgba(var(--rr,var(--gr)),.18),inset 0 0 30px rgba(var(--rr,var(--gr)),.08)}
-.hero .hi{width:88px;height:88px;border-radius:8px;object-fit:cover;background:var(--c2);border:1px solid rgba(var(--rr,var(--gr)),.55);filter:drop-shadow(0 0 12px rgba(var(--rr,var(--gr)),.65))}
-@media(min-width:640px){.hero .hi{width:108px;height:108px}}
-.hero .hph{display:flex;align-items:center;justify-content:center;font-size:34px;color:rgb(var(--rr,var(--gr)))}
-.hero .hm{flex:1;min-width:210px}
-.hero h2{margin:0 0 6px;font-size:20px;line-height:1.2;color:#fff;text-shadow:0 0 14px rgba(var(--rr,var(--gr)),.7)}
-.hero .hmeta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
-.rpill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;border:1px solid rgb(var(--rr,var(--gr)));color:rgb(var(--rr,var(--gr)));background:rgba(var(--rr,var(--gr)),.12);text-transform:uppercase;letter-spacing:.06em}
-.hero .hact{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.hero .hact button{flex:1 1 110px}
+/* ===== схема HUD: большой юнит + рамки + палочки к ним ===== */
+.hud-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.hud-center{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:18px 14px 16px;background:radial-gradient(circle at 50% 42%,rgba(var(--rr,var(--gr)),.28),rgba(var(--rr,var(--gr)),.03) 68%),rgba(4,12,10,.84);border:1px solid rgba(var(--rr,var(--gr)),.65);border-radius:6px;box-shadow:0 0 36px rgba(var(--rr,var(--gr)),.24),inset 0 0 40px rgba(var(--rr,var(--gr)),.08)}
+.hud-stage{position:relative;display:flex;align-items:center;justify-content:center;width:190px;height:190px;margin:6px auto 12px;background:radial-gradient(circle,rgba(var(--rr,var(--gr)),.22),transparent 70%)}
+@media(min-width:860px){.hud-stage{width:220px;height:220px}}
+.hud-stage::before,.hud-stage::after{content:"";position:absolute;inset:0;border:2px solid rgba(var(--rr,var(--gr)),.75);pointer-events:none}
+.hud-stage::before{clip-path:polygon(0 0,24px 0,24px 3px,3px 3px,3px 24px,0 24px,0 0,100% 0,100% 24px,calc(100% - 3px) 24px,calc(100% - 3px) 3px,calc(100% - 24px) 3px,calc(100% - 24px) 0)}
+.hud-stage::after{clip-path:polygon(0 100%,24px 100%,24px calc(100% - 3px),3px calc(100% - 3px),3px calc(100% - 24px),0 calc(100% - 24px),0 100%,100% 100%,100% calc(100% - 24px),calc(100% - 3px) calc(100% - 24px),calc(100% - 3px) calc(100% - 3px),calc(100% - 24px) calc(100% - 3px),calc(100% - 24px) 100%)}
+.hud-stage img{width:166px;height:166px;object-fit:cover;border-radius:8px;filter:drop-shadow(0 0 18px rgba(var(--rr,var(--gr)),.75));animation:flh 4s ease-in-out infinite}
+@media(min-width:860px){.hud-stage img{width:192px;height:192px}}
+@keyframes flh{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.hud-stage .hph{width:160px;height:160px;display:flex;align-items:center;justify-content:center;font-size:46px;color:rgb(var(--rr,var(--gr)));border:1px dashed rgba(var(--rr,var(--gr)),.5);border-radius:8px}
+.hud-center h2{margin:0 0 6px;font-size:21px;line-height:1.2;color:#fff;text-shadow:0 0 16px rgba(var(--rr,var(--gr)),.8)}
+.hud-val{font-size:26px;font-weight:700;color:var(--g);text-shadow:var(--glow);margin:4px 0 6px}
+.hud-val.z{font-size:16px;color:var(--y);text-shadow:none}
+.hud-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin-bottom:8px}
+.hud-act{display:flex;flex-wrap:wrap;gap:6px;width:100%;margin-top:8px}.hud-act button{flex:1 1 95px}
 
-/* KPI сетка и секции досье */
-.kpis{display:grid;gap:8px;grid-template-columns:repeat(2,1fr);margin-bottom:12px}
-@media(min-width:680px){.kpis{grid-template-columns:repeat(4,1fr)}}
-.kpi{padding:10px 12px;background:var(--c);border:1px solid rgba(var(--gr),.22);border-top:2px solid rgba(var(--rr,var(--gr)),.75);border-radius:4px}
-.kpi .kl{font-size:10px;color:var(--m);text-transform:uppercase;letter-spacing:.08em}
-.kpi .kv2{font-size:19px;font-weight:700;color:var(--t);margin:3px 0 2px}
-.kpi .ks{font-size:11px;color:var(--m);line-height:1.35}
-.dgrid{display:grid;gap:12px}@media(min-width:860px){.dgrid{grid-template-columns:1.15fr .85fr;align-items:start}}
+/* рамки с палочками */
+.hud-card{position:relative;overflow:visible;background:var(--c);border:1px solid rgba(var(--rr,var(--gr)),.45);border-radius:4px;padding:11px 12px;box-shadow:0 0 16px rgba(var(--rr,var(--gr)),.12),inset 0 0 24px rgba(var(--rr,var(--gr)),.05)}
+.hud-card h4{margin:0 0 8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgb(var(--rr,var(--gr)));border-bottom:1px solid rgba(var(--rr,var(--gr)),.25);padding-bottom:5px;display:flex;justify-content:space-between;align-items:center}
+.hud-card h4::before{content:"[ "}.hud-card h4::after{content:" ]"}
+
+/* на телефоне: ветка-палочка слева от юнита вниз к каждой рамке */
+@media(max-width:859px){
+  .hud-card{margin-left:18px}
+  .hud-card::before{content:"";position:absolute;left:-14px;top:-14px;bottom:50%;width:2px;background:linear-gradient(180deg,rgba(var(--rr,var(--gr)),.3),rgb(var(--rr,var(--gr))));pointer-events:none}
+  .hud-card::after{content:"";position:absolute;left:-14px;top:calc(50% - 1px);width:14px;height:2px;background:rgb(var(--rr,var(--gr)));box-shadow:0 0 8px rgb(var(--rr,var(--gr)));pointer-events:none}
+}
+/* на планшете и ПК: юнит по центру, 4 рамки по бокам + палочки с точками к центру */
+@media(min-width:860px){
+  .hud-grid{display:grid;grid-template-columns:1fr minmax(290px,350px) 1fr;grid-template-rows:auto auto;gap:18px 32px;align-items:center}
+  .hud-center{grid-column:2;grid-row:1 / span 2;min-height:420px;justify-content:center}
+  .hud-L1{grid-column:1;grid-row:1}.hud-L2{grid-column:1;grid-row:2}
+  .hud-R1{grid-column:3;grid-row:1}.hud-R2{grid-column:3;grid-row:2}
+  .hud-L::before,.hud-R::before{content:"";position:absolute;top:50%;width:32px;height:2px;pointer-events:none}
+  .hud-L::before{right:-32px;background:linear-gradient(90deg,rgb(var(--rr,var(--gr))),rgba(var(--rr,var(--gr)),.35))}
+  .hud-R::before{left:-32px;background:linear-gradient(270deg,rgb(var(--rr,var(--gr))),rgba(var(--rr,var(--gr)),.35))}
+  .hud-L::after,.hud-R::after{content:"";position:absolute;top:calc(50% - 4px);width:8px;height:8px;border-radius:50%;background:rgb(var(--rr,var(--gr)));box-shadow:0 0 10px rgb(var(--rr,var(--gr)));pointer-events:none}
+  .hud-L::after{right:-36px}.hud-R::after{left:-36px}
+}
+
+/* ===== нижние секции досье (график, таблица, настройки цены) ===== */
 .dsec{background:var(--c);border:1px solid rgba(var(--gr),.22);border-left:3px solid rgb(var(--rr,var(--gr)));border-radius:4px;padding:12px;margin-bottom:12px}
 .dsec h4{margin:0 0 10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--g);text-shadow:var(--glow)}.dsec h4::before{content:"> "}
-
-/* график цен */
-.cbox{background:rgba(0,0,0,.28);border:1px solid rgba(var(--gr),.18);border-radius:4px;padding:8px}
+.cbox{background:rgba(0,0,0,.3);border:1px solid rgba(var(--gr),.2);border-radius:4px;padding:8px}
 .chart{width:100%;height:auto;display:block;touch-action:pan-y;cursor:crosshair}
 .chart .gl{stroke:rgba(var(--gr),.14);stroke-width:1;stroke-dasharray:2 4}
 .chart .ax{fill:var(--m);font-size:10px}
 .chart .ln{fill:none;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;filter:drop-shadow(0 0 4px currentColor)}
 .leg{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;margin:8px 0 4px}.leg i{display:inline-block;width:12px;height:3px;margin-right:5px;vertical-align:middle}
 #ctip{min-height:1.8em;font-size:12px;color:var(--t);padding:4px 0 0}
-
-/* полоска спроса/предложения и описания */
 .bsbar{display:flex;height:7px;border-radius:4px;overflow:hidden;background:#ffffff14;margin:6px 0}
 .bsbar .bu{background:var(--g);box-shadow:0 0 8px var(--g)}.bsbar .se{background:var(--r)}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.chips button{flex:none;min-width:0;padding:5px 9px;text-transform:none;letter-spacing:0}
-.abt{font-size:13px;line-height:1.55;padding:10px 12px;margin:0 0 10px;background:rgba(var(--rr,var(--gr)),.07);border-left:3px solid rgb(var(--rr,var(--gr)));border-radius:3px;color:var(--t)}
-.sgrid{display:grid;gap:6px;grid-template-columns:repeat(2,1fr);margin-bottom:8px}@media(min-width:520px){.sgrid{grid-template-columns:repeat(3,1fr)}}
-.sbox{padding:7px 9px;background:rgba(var(--gr),.05);border:1px solid rgba(var(--gr),.15);border-radius:3px}
-.sbox span{display:block;font-size:10px;color:var(--m);text-transform:uppercase}.sbox b{font-size:13px}
+.abt{font-size:12.5px;line-height:1.5;color:var(--t);margin:0 0 8px}
+.sgrid{display:grid;gap:6px;grid-template-columns:repeat(2,1fr)}
+.sbox{padding:6px 8px;background:rgba(var(--gr),.05);border:1px solid rgba(var(--gr),.16);border-radius:3px}
+.sbox span{display:block;font-size:10px;color:var(--m);text-transform:uppercase}.sbox b{font-size:12.5px}
 
 /* таблицы уровней */
 table{border-collapse:collapse;width:100%;font-size:12px}
@@ -268,7 +288,6 @@ let ALL=[],IDX=new Map(),NK=new Map(),RN=0;
 let mode='give',CU='',OPT=[],lv0='',TGL='',tabNow=0,FN=null,CHD=null,AC,fxP=[],fxRun=0;
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch{}};
 
-// надёжный парсинг дат (поддерживает YYYY-MM-DD, ISO, "Oct 28", "Nov 24, 2026", timestamp) и значений ("8.5K")
 const parseDate=d=>{
   if(typeof d=='number')return d<1e12?d*1000:d;
   const s=String(d||'').trim();if(!s)return NaN;
@@ -329,7 +348,7 @@ const toast=m=>{const e=document.createElement('div');e.className='ts';e.textCon
   setInterval(()=>{if(document.hidden)return;x.fillStyle='rgba(4,7,11,.12)';x.fillRect(0,0,W,H);x.fillStyle=window.RC||'#00ff9c';x.font='14px monospace';dr.forEach((y,i)=>{x.fillText(ch[Math.random()*ch.length|0],i*16,y*16);dr[i]=y*16>H&&Math.random()>.975?0:y+1})},55);
 })();
 (()=>{
-  const b=$('boot'),L=['> CTD//TRADER v4.1','> establishing secure link ...... OK','> pulling prices.json ........... OK','> decrypting market data ........ OK','> ACCESS GRANTED'];let k=0;
+  const b=$('boot'),L=['> CTD//TRADER v4.2','> establishing secure link ...... OK','> pulling prices.json ........... OK','> decrypting market data ........ OK','> ACCESS GRANTED'];let k=0;
   b.onclick=()=>b.classList.add('x');
   (function tp(){if(k<L.length){b.textContent+=L[k++]+'\n';setTimeout(tp,200)}else setTimeout(()=>b.classList.add('x'),350)})();
 })();
@@ -460,28 +479,35 @@ function cat(){
 }
 
 /* ================= график цен ================= */
-function normSeries(raw){
+function normSeries(raw,allowZero=0){
   const byDay=new Map();
   for(const[d,v]of raw){
     const t=parseDate(d),y=parseVal(v);
-    if(isFinite(t)&&isFinite(y)&&y>0)byDay.set(Math.round(t/864e5)*864e5,y);
+    if(isFinite(t)&&isFinite(y)&&(allowZero?y>=0:y>0))byDay.set(Math.round(t/864e5)*864e5,y);
   }
   return [...byDay.entries()].sort((a,b)=>a[0]-b[0]);
 }
 function series(u){
   const botRaw=(HI.items[u.name]||[]).map(r=>[r[0],r[1]]),today=(D.updated||'').slice(0,10);
+  // подмешиваем историю изменений из changelog (если по юниту уже были сдвиги цен)
+  const chg=(D.changelog||[]).filter(c=>nrm(c.name)===nrm(u.name)).sort((a,b)=>parseDate(a.date)-parseDate(b.date));
+  if(chg.length){
+    const t0=parseDate(chg[0].date);
+    if(isFinite(t0)&&chg[0].old>=0)botRaw.push([t0-864e5,chg[0].old]);
+    chg.forEach(c=>botRaw.push([c.date,c.new]));
+  }
   if(today&&u.official>0)botRaw.push([today,u.official]);
   const mkRaw=(u.priceHistory||[]).map(p=>Array.isArray(p)?[p[0],p[1]]:[p.date??p.d??p.t,p.value??p.v??p.price]);
-  const bot=normSeries(botRaw),mk=normSeries(mkRaw);
+  const bot=normSeries(botRaw,chg.length>0),mk=normSeries(mkRaw,0);
   return[{k:'vvx',name:'Value (Vaulted Values)',pts:bot,col:'var(--g)'},{k:'mkt',name:'Рынок (game.guide)',pts:mk,col:'var(--b)'}].filter(s=>s.pts.length);
 }
 function chart(u){
   const ss=series(u);CHD=null;
-  if(!ss.length)return '<div class="cbox m">Истории цен пока нет — появится после следующих обновлений базы.</div>';
+  if(!ss.length)return '<div class="cbox m">Истории цен для этой позиции пока нет — появится после следующих запусков парсера.</div>';
   const ts=ss.flatMap(s=>s.pts.map(p=>p[0])),vs=ss.flatMap(s=>s.pts.map(p=>p[1]));
   let t0=Math.min(...ts),t1=Math.max(...ts);const singleT=t0===t1;if(singleT){t0-=864e5;t1+=864e5}
-  let v0=Math.min(...vs),v1=Math.max(...vs);const pd=(v1-v0)*.14||v1*.15||1;v0=Math.max(0,v0-pd);v1+=pd;
-  const L=48,R=584,W=R-L,T=18,B=184,H=B-T;
+  let v0=Math.min(...vs),v1=Math.max(...vs);const pd=(v1-v0)*.16||v1*.15||10;v0=Math.max(0,v0-pd);v1+=pd;
+  const L=50,R=584,W=R-L,T=20,B=184,H=B-T;
   const X=t=>singleT?L+W/2:L+(t-t0)/(t1-t0)*W,Y=v=>B-(v-v0)/(v1-v0)*H;
   CHD={ss,t0,t1,v0,v1,X,Y,L,R,T,B};
   const yTicks=[0,.33,.66,1].map(k=>{const v=v0+(v1-v0)*k,y=Y(v).toFixed(1);return `<line class="gl" x1="${L}" x2="${R}" y1="${y}" y2="${y}"/><text class="ax" x="${L-6}" y="${+y+3}" text-anchor="end">${sfmt(v)}</text>`}).join('');
@@ -492,16 +518,19 @@ function chart(u){
   const body=ss.map(s=>{
     if(s.pts.length===1){
       const px=X(s.pts[0][0]).toFixed(1),py=Y(s.pts[0][1]).toFixed(1);
-      return `<g style="color:${s.col}"><line x1="${L}" x2="${R}" y1="${py}" y2="${py}" stroke="${s.col}" stroke-width="1.5" stroke-dasharray="5 5" opacity=".7"/><circle cx="${px}" cy="${py}" r="9" fill="${s.col}" opacity=".22"/><circle cx="${px}" cy="${py}" r="4.5" fill="${s.col}"/></g>`;
+      return `<g style="color:${s.col}"><line x1="${L}" x2="${R}" y1="${py}" y2="${py}" stroke="${s.col}" stroke-width="1.5" stroke-dasharray="5 5" opacity=".7"/><circle cx="${px}" cy="${py}" r="10" fill="${s.col}" opacity=".2"/><circle cx="${px}" cy="${py}" r="4.5" fill="${s.col}"/><text class="ax" x="${px}" y="${Math.max(14,+py-10)}" fill="${s.col}" text-anchor="middle">${sfmt(s.pts[0][1])}</text></g>`;
     }
     const xy=s.pts.map(p=>[X(p[0]).toFixed(1),Y(p[1]).toFixed(1)]);
     const area=`M${xy[0][0]},${B} L${xy.map(p=>p.join(',')).join(' L')} L${xy[xy.length-1][0]},${B} Z`;
-    return `<g style="color:${s.col}"><path d="${area}" fill="url(#cg-${s.k})"/><polyline class="ln" stroke="${s.col}" points="${xy.map(p=>p.join(',')).join(' ')}"/>${s.pts.length<=45?xy.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="2.6" fill="${s.col}"/>`).join(''):''}</g>`;
+    const mn=s.pts.reduce((a,b)=>b[1]<a[1]?b:a),mx=s.pts.reduce((a,b)=>b[1]>a[1]?b:a);
+    const lbl=p=>`<text class="ax" x="${X(p[0]).toFixed(1)}" y="${Math.max(12,Y(p[1])-7).toFixed(1)}" fill="${s.col}" text-anchor="middle">${sfmt(p[1])}</text>`;
+    return `<g style="color:${s.col}"><path d="${area}" fill="url(#cg-${s.k})"/><polyline class="ln" stroke="${s.col}" points="${xy.map(p=>p.join(',')).join(' ')}"/>${s.pts.length<=45?xy.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="2.6" fill="${s.col}"/>`).join(''):''}${lbl(mx)}${mn[0]!==mx[0]?lbl(mn):''}</g>`;
   }).join('');
-  const oneHint=ss.every(s=>s.pts.length===1)?' · накоплена 1 точка (график вырастет с ежедневными запусками бота)':'';
+  const only1=ss.every(s=>s.pts.length===1),hasMkt=ss.some(s=>s.k=='mkt');
+  const note=only1&&!hasMkt?'Пока 1 снимок цены — как только докрутим парсер истории с game.guide и накопятся дни, здесь будет кривая вверх-вниз.':'Проведи по графику — увидишь точную дату и цену';
   return `<div class="cbox"><svg class="chart" viewBox="0 0 600 220">${defs}${yTicks}${xTicks}${body}<line id="cur" x1="0" x2="0" y1="${T}" y2="${B}" stroke="var(--t)" stroke-width="1" stroke-dasharray="3 3" opacity="0"/><circle id="cdot" r="5" fill="var(--t)" opacity="0" cx="0" cy="0"/></svg>
   <div class="leg">${ss.map(s=>`<span><i style="background:${s.col}"></i>${s.name} (${s.pts.length} т.)</span>`).join('')}</div>
-  <div id="ctip" class="m">Проведи по графику — увидишь точную дату и цену${oneHint}</div></div>`;
+  <div id="ctip" class="m">${note}</div></div>`;
 }
 function chartAt(e,svg){
   if(!CHD)return;const r=svg.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*600,t=CHD.t0+(x-CHD.L)/(CHD.R-CHD.L)*(CHD.t1-CHD.t0);
@@ -512,7 +541,7 @@ function chartAt(e,svg){
   $('ctip').innerHTML=`<b>${new Date(b.p[0]).toLocaleDateString('ru')}</b> · ${lines.join(' · ')}`;
 }
 
-/* ================= полноэкранное досье юнита ================= */
+/* ================= полноэкранное HUD-досье юнита ================= */
 const lvType=u=>u.levelsType||(/spawner/i.test(u.role||'')?'spawner':/farm/i.test(u.role||'')?'farm':/support/i.test(u.role||'')?'support':'damage');
 function lvTable(u){
   const L=u.levels||[];if(!L.length)return '';
@@ -542,74 +571,80 @@ function det(n,keepScroll=0){
   const iv=S.inv[n]||0,tgv=S.give[n]||0,tge=S.get[n]||0;
   const rr=u.rarityRank?`#${u.rarityRank}${RN?' из '+RN:''}`:'';
   const about=u.about||u.description;
-
-  // KPI блоки
-  const kpi1=`<div class="kpi"><div class="kl">Value (Vaulted)</div><div class="kv2 ${vv?'win':'tg'}">${vv?fmt(vv):'Нет цены'}</div><div class="ks">${S.ov[n]!=null?'Своя: '+fmt(S.ov[n]):sgOn(n)?'С Signed: '+fmt(val(n)):'Официальная оценка'}</div></div>`;
-  const kpi2=m.median?`<div class="kpi"><div class="kl">Рынок (game.guide)</div><div class="kv2" style="color:var(--b)">${fmt(m.median)}</div><div class="ks">${diff!=null?`<span class="${diff>=0?'win':'lose'}">${diff>0?'+':''}${diff.toFixed(0)}%</span> к Value`:''}${m.min&&m.max?' · '+sfmt(m.min)+'–'+sfmt(m.max):''}</div></div>`
-    :`<div class="kpi"><div class="kl">Вилка / Оценка</div><div class="kv2">${sgOn(n)?fmt(val(n)):pf(vv)}</div><div class="ks">${m.min&&m.max?sfmt(m.min)+'–'+sfmt(m.max):'Рыночной медианы нет'}</div></div>`;
-  const kpi3=`<div class="kpi"><div class="kl">Спрос (Demand)</div><div class="kv2">${u.demand}/10</div><i class="db"><i style="width:${u.demand*10}%"></i></i><div class="ks">${u.rawStability?esc(u.rawStability):u.flags.join(' · ')}</div></div>`;
-  const kpi4=nb||isSigned(u)?`<div class="kpi"><div class="kl">Редкость / Exist</div><div class="kv2">${u.exist?sfmt(u.exist):esc(u.category)}</div><div class="ks">${rr?'Ранг '+rr:esc(u.howToGet||u.category)}</div></div>`
-    :`<div class="kpi"><div class="kl">${dmg?'Max DPS':'Прокачка'}</div><div class="kv2">${dmg&&u.maxDps?sfmt(u.maxDps):u.cashToMax?sfmt(u.cashToMax):'—'}</div><div class="ks">${u.exist?'Exist '+sfmt(u.exist):''}${rr?' · '+rr:''}</div></div>`;
-
-  // левая колонка: график + рынок + топ обменов
   const bu=m.buyers||0,se=m.sellers||0,bsTot=bu+se;
-  const mktSec=`<div class="dsec"><h4>Рынок и обмены</h4>
+
+  // Рамка L1: Оценка и Спрос
+  const cL1=`<div class="hud-card hud-L hud-L1"><h4>Оценка и спрос</h4>
+    ${kv('Value (Vaulted)',vv?fmt(vv):'<span class="tg">Нет цены (0)</span>')}
+    ${S.ov[n]!=null?kv('Твоя цена',fmt(S.ov[n])):''}
+    ${sgOn(n)?kv('С учётом Signed',fmt(val(n))):''}
+    ${kv('Спрос (Demand)',`<b>${u.demand}/10</b>`)}
+    <i class="db" style="margin:4px 0 6px"><i style="width:${u.demand*10}%"></i></i>
+    ${kv('Стабильность',flagHtml(u))}
+    ${u.rawStability&&u.rawStability.toLowerCase()!=u.flags.join(' ').toLowerCase()?`<div class="m" style="margin-top:3px">На сайте: ${esc(u.rawStability)}</div>`:''}
+  </div>`;
+
+  // Рамка L2: Рынок и Редкость
+  const cL2=`<div class="hud-card hud-L hud-L2"><h4>Рынок и редкость</h4>
+    ${m.median?kv('Медиана (game.guide)',`<b style="color:var(--b)">${fmt(m.median)}</b>`+(diff!=null?` <span class="${diff>=0?'win':'lose'}">(${diff>0?'+':''}${diff.toFixed(0)}%)</span>`:'')):kv('Медиана (game.guide)','<span class="m">нет данных</span>')}
+    ${kvo('Вилка цен',m.min&&m.max?fmt(m.min)+' – '+fmt(m.max):'')}
     ${bsTot?`<div class="kv"><span>Покупатели / Продавцы</span><b><span class="win">${bu}</span> / <span class="lose">${se}</span></b></div><div class="bsbar"><i class="bu" style="width:${bu/bsTot*100}%"></i><i class="se" style="width:${se/bsTot*100}%"></i></div>`:''}
     ${kvo('Сделок за неделю',m.trades7d?fmt(m.trades7d):'')}
-    ${kvo('Рыночная вилка',m.min&&m.max?fmt(m.min)+' – '+fmt(m.max):'')}
-    ${kvo('Всего в игре (Exist)',u.exist?fmt(u.exist):'')}
-    ${kvo('Редкость в базе',rr?rr+' (1 — самый редкий)':'')}
-    ${tops.length?`<div class="m" style="margin-top:8px">На что чаще всего меняют:</div><div class="chips">${tops.map(x=>{const tn=NK.get(nrm(x.name)),tx=esc(x.name)+(x.count?` · ${f2(x.count)}${x.pct?'%':''}`:'');return tn?`<button data-a="det" data-n="${esc(tn)}">${tx}</button>`:`<span class="tag">${tx}</span>`}).join('')}</div>`:(!bsTot&&!m.trades7d?'<div class="m">Живой рыночной статистики с game.guide для этой позиции пока нет.</div>':'')}
+    ${kv('В игре (Exist)',u.exist?fmt(u.exist):'—')}
+    ${rr?kv('Ранг редкости',rr):''}
   </div>`;
 
-  // правая колонка: управление ценой + боевое досье
+  // Рамка R1: Боевые статы (или инфо для бустов/кейсов)
+  const sb=nb?sbox('Тип',esc(u.kind=='boost'?'Геймпасс / Буст':u.kind=='crate'?'Кейс':'Предмет'))+sbox('Категория',esc(u.category))+sbox('Спрос',u.demand+'/10')+sbox('Exist',u.exist?sfmt(u.exist):'—')
+    :sbox('Роль',esc(u.role||'Юнит'))+sbox('Tier',u.tier&&esc(u.tier))+(dmg?sbox('Max DPS',u.maxDps&&fmt(u.maxDps))+sbox('DPS / 1K',u.dpsPer1k&&f2(u.dpsPer1k)):'')+sbox('Прокачка',u.cashToMax&&fmt(u.cashToMax))+sbox('Макс. на карте',u.maxOnMap)+sbox('Дальность',u.maxRange);
+  const cR1=`<div class="hud-card hud-R hud-R1"><h4>${nb?'Параметры предмета':'Боевые характеристики'}</h4>
+    ${sb?`<div class="sgrid">${sb}</div>`:'<div class="m">Характеристики для этого предмета не указаны в вики.</div>'}
+  </div>`;
+
+  // Рамка R2: Откуда и Описание
+  const cR2=`<div class="hud-card hud-R hud-R2"><h4>Описание и получение</h4>
+    ${isSigned(u)?`<div class="note" style="margin-bottom:6px"><b class="tg">[i]</b> Коллекционная DevSigned-версия.${b?` <button class="sm" data-a="det" data-n="${esc(b.name)}">Обычная: ${esc(b.name)}</button>`:''}</div>`:''}
+    ${about?`<div class="abt">${esc(about)}</div>`:'<div class="m" style="margin-bottom:6px">Подробное текстовое описание пока отсутствует.</div>'}
+    ${kvo('Как получить',esc(u.howToGet||''))}
+    ${kvo('Шанс дропа',u.dropChance?f2(u.dropChance)+'%':'')}
+    ${kvo('Добавлен',esc(u.added||''))}
+    ${kvo('Обновление',esc(u.update||''))}
+  </div>`;
+
+  // Центральный подиум с огромным артом юнита
+  const center=`<div class="hud-center">
+    <div class="hud-meta">
+      <span class="rpill">${esc(u.category)}</span>
+      ${rbadge(u)?`<span class="tag">${rbadge(u)}</span>`:''}
+      ${u.role?`<span class="tag">${esc(u.role)}</span>`:''}
+      ${sgOn(n)?'<span class="tag">SIGNED +'+S.mk+'%</span>':''}
+    </div>
+    <div class="hud-stage">${u.img?`<img src="${esc(u.img)}" onerror="this.outerHTML='<div class=\\'hph\\'>?</div>'">`:'<div class="hph">?</div>'}</div>
+    <h2>${esc(n)}</h2>
+    <div class="hud-val ${u.value?'':'z'}">${u.value?fmt(val(n)):'Цена не указана (0)'}</div>
+    <div class="m">В инвентаре: <b style="color:var(--t)">${iv}</b>${tgv||tge?` · в трейде: <b>${tgv}</b> / <b>${tge}</b>`:''}</div>
+    <div class="hud-act">
+      <button data-a="dact" data-k="give">+ Отдаю</button>
+      <button data-a="dact" data-k="get">+ Получаю</button>
+      <button class="p" data-a="dact" data-k="inv">+ Инвентарь</button>
+    </div>
+  </div>`;
+
+  const topsSec=tops.length?`<div class="dsec"><h4>На что чаще всего меняют</h4><div class="chips">${tops.map(x=>{const tn=NK.get(nrm(x.name)),tx=esc(x.name)+(x.count?` · ${f2(x.count)}${x.pct?'%':''}`:'');return tn?`<button data-a="det" data-n="${esc(tn)}">${tx}</button>`:`<span class="tag">${tx}</span>`}).join('')}</div></div>`:'';
+  const tblSec=!nb&&(u.levels||[]).length?`<div class="dsec"><h4>Уровни и прокачка</h4>${lvTable(u)}</div>`:'';
   const sgCtl=isSigned(u)?`<div class="note"><b class="tg">[i]</b> DevSigned — отдельный предмет. Наценка «Signed» к нему не применяется.</div>`
     :`<label class="sw"><input type="checkbox" data-c="sg" ${S.sg[n]?'checked':''}> Signed (+${S.mk}%) — мой юнит подписан</label><div class="row"><span class="n m">Наценка Signed, %</span><input type="number" data-c="mk" style="width:90px" value="${S.mk}"></div>`;
-  const priceSec=`<div class="dsec"><h4>Твоя оценка и Signed</h4>
-    ${sgCtl}<div class="row"><span class="n m">Ручная цена</span><input id="dv" type="number" value="${u.value}" style="width:130px"></div>
-    <div class="bar"><button data-a="dact" data-k="sv">Сохранить цену</button><button data-a="dact" data-k="rs">Сбросить</button></div>
-  </div>`;
-
-  const statsGrid=sbox('Роль',esc(u.role||''))+sbox('Tier',u.tier&&esc(u.tier))+(dmg?sbox('Max DPS',u.maxDps&&fmt(u.maxDps))+sbox('DPS / 1K',u.dpsPer1k&&f2(u.dpsPer1k)):'')+sbox('Cash to Max',u.cashToMax&&fmt(u.cashToMax))+sbox('Max on Map',u.maxOnMap)+sbox('Max Range',u.maxRange)+sbox('Добавлен',esc(u.added||''))+sbox('Обновление',esc(u.update||''))+sbox('Как получить',esc(u.howToGet||''))+sbox('Шанс дропа',u.dropChance?f2(u.dropChance)+'%':'');
-  const battleSec=nb?'':`<div class="dsec"><h4>Досье и характеристики</h4>
-    ${isSigned(u)?`<div class="note" style="margin-bottom:8px"><b class="tg">[i]</b> Коллекционная DevSigned-версия.${b?` Боевые характеристики смотри у обычного юнита: <button class="sm" data-a="det" data-n="${esc(b.name)}">${esc(b.name)}</button>`:''}</div>`:''}
-    ${about?`<div class="abt">${esc(about)}</div>`:''}
-    ${statsGrid?`<div class="sgrid">${statsGrid}</div>`:''}
-    ${lvTable(u)||(!about&&!statsGrid?'<div class="m">Подробных боевых характеристик для этой позиции пока нет в вики.</div>':'')}
-  </div>`;
 
   $('dl').innerHTML=`<div class="dh-bar r-${esc(u.category)}"><div class="dt"><span class="rpill">${esc(u.category)}</span><b>${esc(n)}</b></div><button class="xb" data-a="close">${I('x')} Закрыть</button></div>
   <div class="dh-body r-${esc(u.category)}">
-    <div class="hero">
-      ${u.img?`<img class="hi" src="${esc(u.img)}" onerror="this.outerHTML='<div class=\\'hi hph\\'>?</div>'">`:'<div class="hi hph">?</div>'}
-      <div class="hm">
-        <h2>${esc(n)}</h2>
-        <div class="hmeta">
-          <span class="rpill">${esc(u.category)}</span>
-          ${rbadge(u)?`<span class="tag">${rbadge(u)}</span>`:''}
-          ${u.role?`<span class="tag">${esc(u.role)}</span>`:''}
-          ${sgOn(n)?'<span class="tag">SIGNED +'+S.mk+'%</span>':''}
-          ${flagHtml(u)}
-        </div>
-        <div class="m">В инвентаре: <b style="color:var(--t)">${iv}</b>${tgv||tge?` · в трейде: отдаю <b>${tgv}</b> / получаю <b>${tge}</b>`:''}</div>
-        <div class="hact">
-          <button data-a="dact" data-k="give">+ В «Отдаю»</button>
-          <button data-a="dact" data-k="get">+ В «Получаю»</button>
-          <button class="p" data-a="dact" data-k="inv">+ В инвентарь</button>
-        </div>
-      </div>
-    </div>
     ${!vv?'<div class="warn" style="margin-bottom:10px"><b class="tg">[!]</b> У предмета нет официальной цены (договорная / 0). В калькуляторе он считается как 0.</div>':''}
-    <div class="kpis">${kpi1}${kpi2}${kpi3}${kpi4}</div>
-    <div class="dgrid">
-      <div>
-        <div class="dsec"><h4>График истории цен</h4>${chart(u)}</div>
-        ${mktSec}
-      </div>
-      <div>
-        ${battleSec}
-        ${priceSec}
-      </div>
+    <div class="hud-grid">${center}${cL1}${cL2}${cR1}${cR2}</div>
+    <div class="dsec"><h4>График истории цен</h4>${chart(u)}</div>
+    ${topsSec}
+    ${tblSec}
+    <div class="dsec"><h4>Своя цена и Signed</h4>
+      ${sgCtl}<div class="row"><span class="n m">Ручная цена</span><input id="dv" type="number" value="${u.value}" style="width:130px"></div>
+      <div class="bar"><button data-a="dact" data-k="sv">Сохранить цену</button><button data-a="dact" data-k="rs">Сбросить</button></div>
     </div>
   </div>`;
   openDl(1);
