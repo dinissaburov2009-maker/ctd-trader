@@ -47,11 +47,18 @@ jobs:
         run: |
           git config user.name "ctd-bot"
           git config user.email "bot@users.noreply.github.com"
+          # Коммитим ТОЛЬКО файлы парсера.
+          # data/game-icons.json (родные эталоны из игры) бот не трогает никогда.
           git add data/prices.json data/history.json data/icons.json
           if git diff --cached --quiet; then
             echo "Нет изменений"
             exit 0
           fi
           git commit -m "update prices $(date -u +%Y-%m-%dT%H:%MZ)"
-          git pull --rebase origin "${GITHUB_REF_NAME}"
-          git push
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push && exit 0
+            echo "push не удался, попытка $i из 3"
+            sleep $((i * 5))
+          done
+          echo "Не удалось запушить после 3 попыток"
+          exit 1
