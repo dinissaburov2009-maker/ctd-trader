@@ -1,4 +1,4 @@
-// scripts/scrape.mjs — CTD Trader v11
+// scripts/scrape.mjs — CTD Trader v11.1
 // Источник 1: vaultedvaluesx.com (официальные Value, demand, stability)
 // Источник 2: game.guide (/units + /cameraman-tower-defense-value-list: юниты, статы, рынок, 30д график, доп. юниты и иконки)
 // + data/history.json — собственная ежедневная история Value
@@ -94,97 +94,105 @@ function parseStability(lines) {
 
 async function openPage(b, url) {
   const p = await b.newPage({ userAgent: UA });
-  await p.goto(url, { waitUntil: 'domcontentloaded', timeout: 90000 });
-  await p.waitForLoadState('networkidle', { timeout: 30000 }).catch(() => {});
-  return p;
+  try {
+    await p.goto(url, { waitUntil: 'domcontentloaded', timeout: 90000 });
+    await p.waitForLoadState('networkidle', { timeout: 30000 }).catch(() => {});
+    return p;
+  } catch (e) {
+    await p.close().catch(() => {});
+    throw e;
+  }
 }
 
 /* ---------- Источник 1: Vaulted Values X ---------- */
 async function scrapeValuesOnce(b) {
   const p = await openPage(b, LIST);
-  await p.waitForSelector('a[href*="/items/"]', { timeout: 60000 }).catch(() => {});
+  try {
+    await p.waitForSelector('a[href*="/items/"]', { timeout: 60000 }).catch(() => {});
 
-  const total = await p.evaluate(() => {
-    const t = document.body.innerText;
-    return +((t.match(/(\d+)\s+tracked items/i) || t.match(/(\d+)\s+items/i) || [])[1] || 0);
-  });
-  const count = () => p.evaluate(() => new Set([...document.querySelectorAll('a[href*="/items/"]')].map((a) => a.href.split('?')[0])).size);
-
-  let prev = await count(), stuck = 0;
-  for (let i = 0; i < 80; i++) {
-    if (total && prev >= total) break;
-    await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    const btn = p.locator('button, [role="button"], a').filter({ hasText: /load more/i }).first();
-    const visible = await btn.isVisible().catch(() => false);
-    if (visible) {
-      await btn.scrollIntoViewIfNeeded().catch(() => {});
-      await btn.click({ timeout: 5000 }).catch(() => {});
-    }
-    let grew = false;
-    for (let w = 0; w < 20; w++) {
-      await sleep(400);
-      const n = await count();
-      if (n > prev) { prev = n; grew = true; break; }
-    }
-    if (grew) stuck = 0;
-    else if (++stuck >= (visible ? 6 : 3)) break;
-  }
-
-  const raw = await p.evaluate(() => {
-    const out = [], used = new Set();
-    document.querySelectorAll('a[href*="/items/"]').forEach((a) => {
-      const id = a.href.split('?')[0];
-      if (used.has(id)) return;
-      let card = a;
-      while (card.parentElement && card.parentElement !== document.body) {
-        const par = card.parentElement;
-        const ids = new Set([...par.querySelectorAll('a[href*="/items/"]')].map((x) => x.href.split('?')[0]));
-        if (ids.size > 1) break;
-        card = par;
-      }
-      used.add(id);
-      const links = [...card.querySelectorAll('a[href*="/items/"]')];
-      const nm = links.map((x) => x.innerText.trim()).find((t) => t && !/artwork/i.test(t));
-      const im = card.querySelector('img');
-      out.push({ id, t: card.innerText.trim(), name: nm || im?.alt || '', img: im?.currentSrc || im?.src || '' });
+    const total = await p.evaluate(() => {
+      const t = document.body.innerText;
+      return +((t.match(/(\d+)\s+tracked items/i) || t.match(/(\d+)\s+items/i) || [])[1] || 0);
     });
-    return out;
-  });
+    const count = () => p.evaluate(() => new Set([...document.querySelectorAll('a[href*="/items/"]')].map((a) => a.href.split('?')[0])).size);
 
-  const seen = new Map();
-  for (const r of raw) {
-    const L = r.t.split('\n').map((s) => s.trim()).filter(Boolean);
-    const name = (r.name || L[0] || '').replace(/\s*artwork\s*$/i, '').trim();
-    if (!name || seen.has(r.id)) continue;
+    let prev = await count(), stuck = 0;
+    for (let i = 0; i < 80; i++) {
+      if (total && prev >= total) break;
+      await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      const btn = p.locator('button, [role="button"], a').filter({ hasText: /load more/i }).first();
+      const visible = await btn.isVisible().catch(() => false);
+      if (visible) {
+        await btn.scrollIntoViewIfNeeded().catch(() => {});
+        await btn.click({ timeout: 5000 }).catch(() => {});
+      }
+      let grew = false;
+      for (let w = 0; w < 20; w++) {
+        await sleep(400);
+        const n = await count();
+        if (n > prev) { prev = n; grew = true; break; }
+      }
+      if (grew) stuck = 0;
+      else if (++stuck >= (visible ? 6 : 3)) break;
+    }
 
-    const { stability, flags, rawStability } = parseStability(L);
-    let category = L.map((l) => CATS.find((c) => c.toLowerCase() === l.toLowerCase())).find(Boolean)
-      || CATS.find((c) => new RegExp('\\b' + c + '\\b', 'i').test(r.t)) || 'Other';
-    if (category === 'Gamepass') category = 'Gamepasses';
-    if (category === 'Crate') category = 'Crates';
+    const raw = await p.evaluate(() => {
+      const out = [], used = new Set();
+      document.querySelectorAll('a[href*="/items/"]').forEach((a) => {
+        const id = a.href.split('?')[0];
+        if (used.has(id)) return;
+        let card = a;
+        while (card.parentElement && card.parentElement !== document.body) {
+          const par = card.parentElement;
+          const ids = new Set([...par.querySelectorAll('a[href*="/items/"]')].map((x) => x.href.split('?')[0]));
+          if (ids.size > 1) break;
+          card = par;
+        }
+        used.add(id);
+        const links = [...card.querySelectorAll('a[href*="/items/"]')];
+        const nm = links.map((x) => x.innerText.trim()).find((t) => t && !/artwork/i.test(t));
+        const im = card.querySelector('img');
+        out.push({ id, t: card.innerText.trim(), name: nm || im?.alt || '', img: im?.currentSrc || im?.src || '' });
+      });
+      return out;
+    });
 
-    const after = (label) => { const i = L.findIndex((l) => new RegExp('^' + label + '$', 'i').test(l)); return i >= 0 ? (L[i + 1] || '') : ''; };
-    let valTxt = after('value');
-    if (!valTxt) valTxt = (r.t.match(/value\s*[:\-]?\s*([\d.,]+\s*[kKmM]?(?:\s*[-–]\s*[\d.,]+\s*[kKmM]?)?)/i) || [])[1] || '';
-    const value = /no value|n\/a|unknown|^—$|^-$/i.test(valTxt) ? 0 : Math.round(num(valTxt));
-    const demand = dem((after('demand') || (r.t.match(/demand\s*[:\-]?\s*([\d.,]+)/i) || [])[1] || '').split('/')[0]);
+    const seen = new Map();
+    for (const r of raw) {
+      const L = r.t.split('\n').map((s) => s.trim()).filter(Boolean);
+      const name = (r.name || L[0] || '').replace(/\s*artwork\s*$/i, '').trim();
+      if (!name || seen.has(r.id)) continue;
 
-    seen.set(r.id, { name, category, kind: getKind(name, category), value, demand, stability, flags, rawStability, img: r.img });
+      const { stability, flags, rawStability } = parseStability(L);
+      let category = L.map((l) => CATS.find((c) => c.toLowerCase() === l.toLowerCase())).find(Boolean)
+        || CATS.find((c) => new RegExp('\\b' + c + '\\b', 'i').test(r.t)) || 'Other';
+      if (category === 'Gamepass') category = 'Gamepasses';
+      if (category === 'Crate') category = 'Crates';
+
+      const after = (label) => { const i = L.findIndex((l) => new RegExp('^' + label + '$', 'i').test(l)); return i >= 0 ? (L[i + 1] || '') : ''; };
+      let valTxt = after('value');
+      if (!valTxt) valTxt = (r.t.match(/value\s*[:\-]?\s*([\d.,]+\s*[kKmM]?(?:\s*[-–]\s*[\d.,]+\s*[kKmM]?)?)/i) || [])[1] || '';
+      const value = /no value|n\/a|unknown|^—$|^-$/i.test(valTxt) ? 0 : Math.round(num(valTxt));
+      const demand = dem((after('demand') || (r.t.match(/demand\s*[:\-]?\s*([\d.,]+)/i) || [])[1] || '').split('/')[0]);
+
+      seen.set(r.id, { name, category, kind: getKind(name, category), value, demand, stability, flags, rawStability, img: r.img });
+    }
+    if (total && seen.size < total) console.warn(`values: на странице заявлено ${total}, собрано ${seen.size}`);
+    if (!seen.size || (total && seen.size < total)) fs.writeFileSync('debug-values.html', await p.content());
+
+    const dedup = new Map();
+    for (const it of seen.values()) {
+      const k = norm(it.name);
+      const prevIt = dedup.get(k);
+      if (!prevIt) { dedup.set(k, it); continue; }
+      const score = (x) => (x.value > 0 ? 1e6 : 0) + x.value + x.demand * 100 + (x.img ? 10 : 0);
+      if (score(it) > score(prevIt)) dedup.set(k, { ...it, img: it.img || prevIt.img });
+      else if (!prevIt.img && it.img) prevIt.img = it.img;
+    }
+    return { items: [...dedup.values()], total };
+  } finally {
+    await p.close().catch(() => {});
   }
-  if (total && seen.size < total) console.warn(`values: на странице заявлено ${total}, собрано ${seen.size}`);
-  if (!seen.size || (total && seen.size < total)) fs.writeFileSync('debug-values.html', await p.content());
-  await p.close();
-
-  const dedup = new Map();
-  for (const it of seen.values()) {
-    const k = norm(it.name);
-    const prev = dedup.get(k);
-    if (!prev) { dedup.set(k, it); continue; }
-    const score = (x) => (x.value > 0 ? 1e6 : 0) + x.value + x.demand * 100 + (x.img ? 10 : 0);
-    if (score(it) > score(prev)) dedup.set(k, { ...it, img: it.img || prev.img });
-    else if (!prev.img && it.img) prev.img = it.img;
-  }
-  return { items: [...dedup.values()], total };
 }
 
 async function scrapeValues(b) {
@@ -435,25 +443,29 @@ function parseUnitPage(d, role) {
 }
 
 async function scrapeWiki(b) {
+  let rows = [];
   const p = await openPage(b, UNITS);
-  await p.waitForSelector('table tbody tr a', { timeout: 45000 }).catch(() => {});
-  const rows = await p.evaluate(() => {
-    const t = document.querySelector('table');
-    if (!t) return [];
-    const head = [...t.querySelectorAll('thead th, tr:first-child th')].map((h) => h.innerText.trim().toLowerCase());
-    return [...t.querySelectorAll('tbody tr')].map((tr) => {
-      const a = tr.querySelector('a[href]');
-      const im = a?.querySelector('img') || tr.querySelector('img');
-      let img = im?.currentSrc || im?.src || '';
-      if (img.includes('/_next/image')) {
-        try { const u = new URL(img).searchParams.get('url'); if (u) img = new URL(u, location.origin).href; } catch {}
-      }
-      const cells = [...tr.children].map((c) => c.innerText.trim());
-      return { href: a?.href || '', cells, head, name: im?.alt || '', img };
+  try {
+    await p.waitForSelector('table tbody tr a', { timeout: 45000 }).catch(() => {});
+    rows = await p.evaluate(() => {
+      const t = document.querySelector('table');
+      if (!t) return [];
+      const head = [...t.querySelectorAll('thead th, tr:first-child th')].map((h) => h.innerText.trim().toLowerCase());
+      return [...t.querySelectorAll('tbody tr')].map((tr) => {
+        const a = tr.querySelector('a[href]');
+        const im = a?.querySelector('img') || tr.querySelector('img');
+        let img = im?.currentSrc || im?.src || '';
+        if (img.includes('/_next/image')) {
+          try { const u = new URL(img).searchParams.get('url'); if (u) img = new URL(u, location.origin).href; } catch {}
+        }
+        const cells = [...tr.children].map((c) => c.innerText.trim());
+        return { href: a?.href || '', cells, head, name: im?.alt || '', img };
+      });
     });
-  });
-  if (!rows.length) fs.writeFileSync('debug-wiki.html', await p.content());
-  await p.close();
+    if (!rows.length) fs.writeFileSync('debug-wiki.html', await p.content());
+  } finally {
+    await p.close().catch(() => {});
+  }
 
   const stats = new Map();
   const pages = [];
@@ -496,33 +508,38 @@ async function scrapeWiki(b) {
 
   try {
     const v = await openPage(b, VLIST);
-    await v.waitForSelector('a[href*="-value-cameraman-tower-defense"]', { timeout: 45000 }).catch(() => {});
-    const vEntries = await v.evaluate(() => {
-      const out = [], seenUrl = new Set();
-      document.querySelectorAll('a[href*="-value-cameraman-tower-defense"]').forEach((a) => {
-        const href = a.href.split('?')[0].split('#')[0];
-        if (seenUrl.has(href)) return;
-        seenUrl.add(href);
-        let box = a;
-        while (box.parentElement && box.parentElement !== document.body) {
-          const par = box.parentElement;
-          if (par.querySelectorAll('a[href*="-value-cameraman-tower-defense"]').length > 1) break;
-          box = par;
-        }
-        const im = a.querySelector('img') || box.querySelector('img');
-        let img = im?.currentSrc || im?.src || '';
-        if (img.includes('/_next/image')) {
-          try { const u = new URL(img).searchParams.get('url'); if (u) img = new URL(u, location.origin).href; } catch {}
-        }
-        out.push({ href, text: (box.innerText || a.innerText || '').trim(), img });
+    let vEntries = [];
+    try {
+      await v.waitForSelector('a[href*="-value-cameraman-tower-defense"]', { timeout: 45000 }).catch(() => {});
+      vEntries = await v.evaluate(() => {
+        const out = [], seenUrl = new Set();
+        document.querySelectorAll('a[href*="-value-cameraman-tower-defense"]').forEach((a) => {
+          const href = a.href.split('?')[0].split('#')[0];
+          if (seenUrl.has(href)) return;
+          seenUrl.add(href);
+          let box = a;
+          while (box.parentElement && box.parentElement !== document.body) {
+            const par = box.parentElement;
+            if (par.querySelectorAll('a[href*="-value-cameraman-tower-defense"]').length > 1) break;
+            box = par;
+          }
+          const im = a.querySelector('img') || box.querySelector('img');
+          let img = im?.currentSrc || im?.src || '';
+          if (img.includes('/_next/image')) {
+            try { const u = new URL(img).searchParams.get('url'); if (u) img = new URL(u, location.origin).href; } catch {}
+          }
+          out.push({ href, text: (box.innerText || a.innerText || '').trim(), img });
+        });
+        return out;
       });
-      return out;
-    });
-    await v.close();
+    } finally {
+      await v.close().catch(() => {});
+    }
 
     let addedExtra = 0;
     for (const ve of vEntries) {
-      const pathname = new URL(ve.href).pathname;
+      let pathname = '';
+      try { pathname = new URL(ve.href).pathname; } catch { continue; }
       if (!pathname.endsWith('-value-cameraman-tower-defense')) continue;
       const slug = pathname.replace(/^\//, '').replace(/-value-cameraman-tower-defense$/, '');
       if (!slug || slug.includes('/')) continue;
@@ -562,8 +579,9 @@ async function scrapeWiki(b) {
   let sampled = false;
   const modes = {};
   const doPage = async (pg) => {
+    let q = null;
     try {
-      const q = await openPage(b, pg.href);
+      q = await openPage(b, pg.href);
       await q.waitForSelector('.recharts-surface path.recharts-curve', { timeout: 4000 }).catch(() => {});
       const d = await q.evaluate(() => {
         const tables = [...document.querySelectorAll('table')].map((t) =>
@@ -619,7 +637,6 @@ async function scrapeWiki(b) {
         const chart = extractSvg();
         return { tables, text: document.body.innerText, html: document.documentElement.outerHTML, about: sec('^about'), how: sec('^how to get'), stats: sec('^stats'), wikiImg, wikiTitle: h1, svgMode: chart.mode, svgPts: chart.pts };
       });
-      await q.close();
       if (!sampled) { sampled = true; fs.writeFileSync('debug-unit-sample.html', d.html); fs.writeFileSync('debug-unit-sample.txt', d.text); }
       const { o, chartMode } = parseUnitPage(d, pg.o.role || '');
       modes[chartMode.split(':')[0]] = (modes[chartMode.split(':')[0]] || 0) + 1;
@@ -630,7 +647,11 @@ async function scrapeWiki(b) {
       if (!pg.o.wikiValue && keepVal) pg.o.wikiValue = keepVal;
       if (keepTitle && keepTitle.length >= 2) pg.o.wikiTitle = keepTitle;
       if (pg.o.wikiTitle) keys(pg.o.wikiTitle).forEach((k) => { if (!stats.has(k)) stats.set(k, pg.o); });
-    } catch (e) { console.warn('wiki skip', pg.href, e.message); }
+    } catch (e) {
+      console.warn('wiki skip', pg.href, e.message);
+    } finally {
+      if (q) await q.close().catch(() => {});
+    }
   };
 
   let next = 0;
@@ -661,95 +682,98 @@ async function buildIcons(b, items, wikiImgByName) {
   } catch {}
 
   const p = await b.newPage({ userAgent: UA });
-  const out = {};
-  const urlCache = new Map();
-  let ok = 0;
-  const failed = [];
+  try {
+    const out = {};
+    const urlCache = new Map();
+    let ok = 0;
+    const failed = [];
 
-  const fetchDataUrl = async (url) => {
-    if (!url) return '';
-    if (urlCache.has(url)) return urlCache.get(url);
-    const toDataUrl = (buf, hdr) => `data:${sniffMime(buf, hdr)};base64,${buf.toString('base64')}`;
-    try {
-      const r = await fetch(url, { headers: { 'User-Agent': UA } });
-      if (r.ok) {
-        const buf = Buffer.from(await r.arrayBuffer());
-        if (buf.length > 64) {
-          const res = toDataUrl(buf, r.headers.get('content-type'));
-          urlCache.set(url, res);
-          return res;
+    const fetchOnce = async (url) => {
+      const toDataUrl = (buf, hdr) => `data:${sniffMime(buf, hdr)};base64,${buf.toString('base64')}`;
+      try {
+        const r = await fetch(url, { headers: { 'User-Agent': UA } });
+        if (r.ok) {
+          const buf = Buffer.from(await r.arrayBuffer());
+          if (buf.length > 64) return toDataUrl(buf, r.headers.get('content-type'));
         }
-      }
-    } catch {}
-    try {
-      const r2 = await p.request.get(url, { timeout: 15000 });
-      if (r2.ok()) {
-        const buf = await r2.body();
-        if (buf.length > 64) {
-          const res = toDataUrl(buf, r2.headers()['content-type']);
-          urlCache.set(url, res);
-          return res;
+      } catch {}
+      try {
+        const r2 = await p.request.get(url, { timeout: 15000 });
+        if (r2.ok()) {
+          const buf = await r2.body();
+          if (buf.length > 64) return toDataUrl(buf, r2.headers()['content-type']);
         }
-      }
-    } catch {}
-    urlCache.set(url, '');
-    return '';
-  };
+      } catch {}
+      return '';
+    };
 
-  const targetItems = items.filter((it) => it.category !== 'Signed');
-  for (let idx = 0; idx < targetItems.length; idx += 8) {
-    const batch = targetItems.slice(idx, idx + 8);
-    const loaded = await Promise.all(batch.map(async (it) => {
-      const wImg = wikiImgByName.get(it.name) || '';
-      const dataUrl = (await fetchDataUrl(it.img)) || (wImg && wImg !== it.img ? await fetchDataUrl(wImg) : '');
-      return { name: it.name, dataUrl };
-    }));
-
-    const encoded = await p.evaluate(async ({ list, S }) => {
-      const c1 = document.createElement('canvas'); c1.width = 128; c1.height = 128;
-      const x1 = c1.getContext('2d', { willReadFrequently: true });
-      const c2 = document.createElement('canvas'); c2.width = S; c2.height = S;
-      const x2 = c2.getContext('2d', { willReadFrequently: true });
-      const res = {};
-      for (const { name, dataUrl } of list) {
-        if (!dataUrl) continue;
-        const im = new Image();
-        const loadedOk = await new Promise((r) => { im.onload = () => r(true); im.onerror = () => r(false); im.src = dataUrl; });
-        if (!loadedOk || !im.width || !im.height) continue;
-        x1.clearRect(0, 0, 128, 128);
-        x1.drawImage(im, 0, 0, 128, 128);
-        const d = x1.getImageData(0, 0, 128, 128).data;
-        let x0 = 128, y0 = 128, x1b = 0, y1b = 0;
-        for (let y = 0; y < 128; y++) for (let x = 0; x < 128; x++) {
-          if (d[(y * 128 + x) * 4 + 3] > 24) {
-            if (x < x0) x0 = x; if (x > x1b) x1b = x;
-            if (y < y0) y0 = y; if (y > y1b) y1b = y;
-          }
-        }
-        if (x1b <= x0 || y1b <= y0) { x0 = 0; y0 = 0; x1b = 127; y1b = 127; }
-        const bw = x1b - x0 + 1, bh = y1b - y0 + 1, side = Math.max(bw, bh);
-        const pad = 1, ds = S - pad * 2, dw = (bw / side) * ds, dh = (bh / side) * ds;
-        x2.clearRect(0, 0, S, S);
-        x2.drawImage(c1, x0, y0, bw, bh, pad + (ds - dw) / 2, pad + (ds - dh) / 2, dw, dh);
-        const px = x2.getImageData(0, 0, S, S).data;
-        let bin = '';
-        for (let i = 0; i < px.length; i++) bin += String.fromCharCode(px[i]);
-        res[name] = btoa(bin);
-      }
+    const fetchDataUrl = async (url) => {
+      if (!url) return '';
+      if (urlCache.has(url)) return urlCache.get(url);
+      let res = await fetchOnce(url);
+      if (!res) { await sleep(600); res = await fetchOnce(url); }
+      if (res) urlCache.set(url, res);
       return res;
-    }, { list: loaded, S: ICON_SIZE });
+    };
 
-    for (const it of batch) {
-      if (encoded[it.name]) { out[it.name] = encoded[it.name]; ok++; }
-      else if (oldSize === ICON_SIZE && oldIcons[it.name]) { out[it.name] = oldIcons[it.name]; ok++; }
-      else failed.push(it.name);
+    const targetItems = items.filter((it) => it.category !== 'Signed');
+    for (let idx = 0; idx < targetItems.length; idx += 4) {
+      const batch = targetItems.slice(idx, idx + 4);
+      const loaded = await Promise.all(batch.map(async (it) => {
+        const wImg = wikiImgByName.get(it.name) || '';
+        const dataUrl = (await fetchDataUrl(it.img)) || (wImg && wImg !== it.img ? await fetchDataUrl(wImg) : '');
+        return { name: it.name, dataUrl };
+      }));
+
+      const encoded = await p.evaluate(async ({ list, S }) => {
+        const c1 = document.createElement('canvas'); c1.width = 128; c1.height = 128;
+        const x1 = c1.getContext('2d', { willReadFrequently: true });
+        const c2 = document.createElement('canvas'); c2.width = S; c2.height = S;
+        const x2 = c2.getContext('2d', { willReadFrequently: true });
+        const res = {};
+        for (const { name, dataUrl } of list) {
+          if (!dataUrl) continue;
+          const im = new Image();
+          const loadedOk = await new Promise((r) => { im.onload = () => r(true); im.onerror = () => r(false); im.src = dataUrl; });
+          if (!loadedOk || !im.width || !im.height) continue;
+          x1.clearRect(0, 0, 128, 128);
+          x1.drawImage(im, 0, 0, 128, 128);
+          const d = x1.getImageData(0, 0, 128, 128).data;
+          let x0 = 128, y0 = 128, x1b = 0, y1b = 0;
+          for (let y = 0; y < 128; y++) for (let x = 0; x < 128; x++) {
+            if (d[(y * 128 + x) * 4 + 3] > 36) {
+              if (x < x0) x0 = x; if (x > x1b) x1b = x;
+              if (y < y0) y0 = y; if (y > y1b) y1b = y;
+            }
+          }
+          if (x1b <= x0 || y1b <= y0) { x0 = 0; y0 = 0; x1b = 127; y1b = 127; }
+          const bw = x1b - x0 + 1, bh = y1b - y0 + 1, side = Math.max(bw, bh);
+          const pad = 1, ds = S - pad * 2, dw = (bw / side) * ds, dh = (bh / side) * ds;
+          x2.clearRect(0, 0, S, S);
+          x2.drawImage(c1, x0, y0, bw, bh, pad + (ds - dw) / 2, pad + (ds - dh) / 2, dw, dh);
+          const px = x2.getImageData(0, 0, S, S).data;
+          let bin = '';
+          for (let i = 0; i < px.length; i++) bin += String.fromCharCode(px[i]);
+          res[name] = btoa(bin);
+        }
+        return res;
+      }, { list: loaded, S: ICON_SIZE });
+
+      for (const it of batch) {
+        if (encoded[it.name]) { out[it.name] = encoded[it.name]; ok++; }
+        else if (oldSize === ICON_SIZE && oldIcons[it.name]) { out[it.name] = oldIcons[it.name]; ok++; }
+        else failed.push(it.name);
+      }
+      await sleep(120);
     }
+
+    fs.mkdirSync('data', { recursive: true });
+    fs.writeFileSync(FI, JSON.stringify({ version: 2, size: ICON_SIZE, updated: new Date().toISOString(), items: out }));
+    console.log(`icons.json (${ICON_SIZE}x${ICON_SIZE}): ${ok} / ${targetItems.length}`);
+    if (failed.length) console.warn('icons missing:', failed.join(', '));
+  } finally {
+    await p.close().catch(() => {});
   }
-  await p.close();
-  fs.mkdirSync('data', { recursive: true });
-  fs.writeFileSync(FI, JSON.stringify({ version: 2, size: ICON_SIZE, updated: new Date().toISOString(), items: out }));
-  console.log(`icons.json (${ICON_SIZE}x${ICON_SIZE}): ${ok} / ${targetItems.length}`);
-  if (failed.length) console.warn('icons missing:', failed.join(', '));
 }
 
 /* ---------- Слияние и запись ---------- */
@@ -867,10 +891,13 @@ for (const i of items) {
 }
 hist.updated = new Date().toISOString();
 
+const todayChanges = items
+  .filter((i) => { const p = findOld(i.name); return p && p.value !== i.value; })
+  .map((i) => ({ name: i.name, old: findOld(i.name).value, new: i.value, date: d }));
+const seenChg = new Set(todayChanges.map((c) => `${norm(c.name)}|${c.date}`));
 const changelog = [
-  ...items.filter((i) => { const p = findOld(i.name); return p && p.value !== i.value; })
-    .map((i) => ({ name: i.name, old: findOld(i.name).value, new: i.value, date: d })),
-  ...(old.changelog || []),
+  ...todayChanges,
+  ...(old.changelog || []).filter((c) => !seenChg.has(`${norm(c.name)}|${c.date}`)),
 ].slice(0, 200);
 
 fs.mkdirSync('data', { recursive: true });
