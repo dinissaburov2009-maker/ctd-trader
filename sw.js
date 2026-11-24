@@ -1,7 +1,7 @@
-/* CTD Trader — service worker v4.0.0
+/* CTD Trader — service worker v5.2.0
    HTML и data/*.json (prices, history): network-first (всегда свежее, кэш только офлайн)
    Остальное (иконки, картинки юнитов): stale-while-revalidate */
-const VERSION = 'ctd-v4.0.0';
+const VERSION = 'ctd-v5.2.0';
 const CORE = ['./', './index.html', './manifest.json', './icon.svg'];
 
 self.addEventListener('install', (e) => {
@@ -31,6 +31,7 @@ function isFresh(req, url) {
     || url.pathname.endsWith('.html')
     || url.pathname.endsWith('/data/prices.json')
     || url.pathname.endsWith('/data/history.json')
+    || url.pathname.endsWith('/data/icons.json')
     || url.pathname.endsWith('/manifest.json');
 }
 
