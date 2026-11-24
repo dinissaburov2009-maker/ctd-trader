@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-24T07:16:35.107Z",
- "version": 8,
+ "updated": "2026-11-24T08:34:07.390Z",
+ "version": 9,
  "sources": {
   "values": 82,
   "valuesTotal": 82,
@@ -240,8 +240,8 @@
     "median": 15400,
     "min": 7500,
     "max": 25000,
-    "buyers": 105,
-    "sellers": 60,
+    "buyers": 104,
+    "sellers": 63,
     "trades7d": 5,
     "topTrades": [
      {
@@ -438,9 +438,9 @@
     "median": 8000,
     "min": 3900,
     "max": 14500,
-    "buyers": 109,
-    "sellers": 78,
-    "trades7d": 10,
+    "buyers": 108,
+    "sellers": 77,
+    "trades7d": 11,
     "topTrades": [
      {
       "name": "Hacked Cameraman",
@@ -452,15 +452,15 @@
      },
      {
       "name": "Chaos Cameraman",
-      "count": 12
+      "count": 13
      },
      {
       "name": "Titan Cinemaman",
-      "count": 5
+      "count": 6
      },
      {
-      "name": "TV Spider",
-      "count": 4
+      "name": "TV Woman",
+      "count": 5
      }
     ]
    },
@@ -646,9 +646,9 @@
     "median": 6300,
     "min": 3400,
     "max": 12000,
-    "buyers": 107,
+    "buyers": 106,
     "sellers": 121,
-    "trades7d": 13,
+    "trades7d": 14,
     "topTrades": [
      {
       "name": "Upgraded Titan Cameraman",
@@ -865,8 +865,8 @@
     "median": 4500,
     "min": 3000,
     "max": 8300,
-    "buyers": 209,
-    "sellers": 219,
+    "buyers": 210,
+    "sellers": 220,
     "trades7d": 19,
     "topTrades": [
      {
@@ -1214,7 +1214,7 @@
     "median": 3100,
     "min": 2000,
     "max": 6000,
-    "buyers": 191,
+    "buyers": 192,
     "sellers": 231,
     "trades7d": 24,
     "topTrades": [
@@ -1478,8 +1478,8 @@
     "median": 1500,
     "min": 800,
     "max": 3500,
-    "buyers": 155,
-    "sellers": 86,
+    "buyers": 154,
+    "sellers": 83,
     "trades7d": 9,
     "topTrades": [
      {
@@ -1605,7 +1605,7 @@
     "median": 1700,
     "min": 800,
     "max": 3000,
-    "buyers": 6,
+    "buyers": 5,
     "sellers": 17
    },
    "priceHistory": [
@@ -1863,8 +1863,8 @@
     "median": 1800,
     "min": 1000,
     "max": 3000,
-    "buyers": 314,
-    "sellers": 262,
+    "buyers": 315,
+    "sellers": 260,
     "trades7d": 28,
     "topTrades": [
      {
@@ -1993,7 +1993,7 @@
     "min": 1000,
     "max": 2400,
     "buyers": 33,
-    "sellers": 116,
+    "sellers": 115,
     "trades7d": 4,
     "topTrades": [
      {
@@ -2171,8 +2171,8 @@
     "median": 946,
     "min": 450,
     "max": 2500,
-    "buyers": 81,
-    "sellers": 61,
+    "buyers": 79,
+    "sellers": 62,
     "trades7d": 5,
     "topTrades": [
      {
@@ -2632,7 +2632,7 @@
     "min": 200,
     "max": 1000,
     "buyers": 48,
-    "sellers": 258,
+    "sellers": 256,
     "trades7d": 24,
     "topTrades": [
      {
@@ -2741,7 +2741,7 @@
     "min": 140,
     "max": 550,
     "buyers": 18,
-    "sellers": 108,
+    "sellers": 106,
     "trades7d": 13,
     "topTrades": [
      {
@@ -2863,7 +2863,7 @@
     "min": 200,
     "max": 800,
     "buyers": 60,
-    "sellers": 79,
+    "sellers": 75,
     "trades7d": 7,
     "topTrades": [
      {
@@ -3022,7 +3022,7 @@
     "min": 200,
     "max": 800,
     "buyers": 101,
-    "sellers": 112,
+    "sellers": 110,
     "trades7d": 8,
     "topTrades": [
      {
@@ -3222,7 +3222,7 @@
     "median": 404,
     "min": 150,
     "max": 650,
-    "buyers": 31,
+    "buyers": 30,
     "sellers": 68,
     "trades7d": 14,
     "topTrades": [
@@ -3428,12 +3428,12 @@
    "levelsType": "damage",
    "about": "Large Scientist Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 31,841 in the game. It trades for about 410 gems, with offers usually between 200 and 650 gems. Demand is low and the price is unstable.",
    "market": {
-    "median": 415,
+    "median": 409,
     "min": 200,
     "max": 650,
     "buyers": 64,
-    "sellers": 169,
-    "trades7d": 17,
+    "sellers": 166,
+    "trades7d": 18,
     "topTrades": [
      {
       "name": "Glitch Cameraman",
@@ -3629,12 +3629,12 @@
    "levelsType": "damage",
    "about": "Camera Attack Helicopter is a Mythic unit in Cameraman Tower Defense. There are 54,114 in the game. It trades for about 235 gems, with offers usually between 80 and 500 gems. Demand is low and the price is unstable.",
    "market": {
-    "median": 187,
+    "median": 189,
     "min": 80,
     "max": 500,
     "buyers": 5,
-    "sellers": 288,
-    "trades7d": 20,
+    "sellers": 286,
+    "trades7d": 21,
     "topTrades": [
      {
       "name": "Large Laser Cameraman",
@@ -3792,12 +3792,12 @@
    "levelsType": "damage",
    "about": "Titan Cinemaman is a Mythic unit in Cameraman Tower Defense. There are 130,438 in the game. It trades for about 265 gems, with offers usually between 100 and 500 gems. Demand is medium.",
    "market": {
-    "median": 257,
+    "median": 255,
     "min": 100,
     "max": 500,
     "buyers": 106,
-    "sellers": 363,
-    "trades7d": 34,
+    "sellers": 359,
+    "trades7d": 35,
     "topTrades": [
      {
       "name": "Upgraded Titan Speakerman",
@@ -3985,12 +3985,12 @@
    "levelsType": "damage",
    "about": "Large Laser Cameraman is a Mythic unit in Cameraman Tower Defense. There are 68,075 in the game. It trades for about 240 gems, with offers usually between 100 and 450 gems. Demand is medium.",
    "market": {
-    "median": 210,
+    "median": 217,
     "min": 100,
     "max": 450,
     "buyers": 32,
-    "sellers": 221,
-    "trades7d": 23,
+    "sellers": 222,
+    "trades7d": 24,
     "topTrades": [
      {
       "name": "Titan Cinemaman",
@@ -4152,12 +4152,12 @@
    "levelsType": "damage",
    "about": "Upgraded Brute Prototype is a Mythic unit in Cameraman Tower Defense. There are 60,438 in the game. It trades for about 225 gems, with offers usually between 90 and 500 gems. Demand is low.",
    "market": {
-    "median": 201,
+    "median": 198,
     "min": 90,
     "max": 500,
     "buyers": 53,
-    "sellers": 281,
-    "trades7d": 17,
+    "sellers": 277,
+    "trades7d": 19,
     "topTrades": [
      {
       "name": "Glitch Cameraman",
@@ -4176,7 +4176,7 @@
       "count": 3
      },
      {
-      "name": "Large Scientist Cameraman",
+      "name": "Titan Cinemaman",
       "count": 2
      }
     ]
@@ -4325,8 +4325,8 @@
     "min": 80,
     "max": 310,
     "buyers": 35,
-    "sellers": 240,
-    "trades7d": 21,
+    "sellers": 239,
+    "trades7d": 20,
     "topTrades": [
      {
       "name": "Scientist Cameraman",
@@ -4490,8 +4490,8 @@
     "median": 171,
     "min": 70,
     "max": 300,
-    "buyers": 275,
-    "sellers": 130,
+    "buyers": 274,
+    "sellers": 129,
     "trades7d": 14,
     "topTrades": [
      {
@@ -4697,11 +4697,11 @@
    "levelsType": "damage",
    "about": "TV Woman is a Mythic unit in Cameraman Tower Defense. There are 30,787 in the game. It trades for about 210 gems, with offers usually between 100 and 385 gems. Demand is low.",
    "market": {
-    "median": 199,
+    "median": 194,
     "min": 100,
     "max": 385,
     "buyers": 28,
-    "sellers": 184,
+    "sellers": 183,
     "trades7d": 17,
     "topTrades": [
      {
@@ -4883,7 +4883,7 @@
     "min": 70,
     "max": 300,
     "buyers": 40,
-    "sellers": 215,
+    "sellers": 212,
     "trades7d": 26,
     "topTrades": [
      {
@@ -5056,12 +5056,12 @@
    "levelsType": "damage",
    "about": "Upgraded Titan Speakerman is a Mythic unit in Cameraman Tower Defense. There are 54,299 in the game. It trades for about 125 gems, with offers usually between 50 and 210 gems. Demand is low and the price is unstable.",
    "market": {
-    "median": 123,
+    "median": 122,
     "min": 50,
     "max": 210,
-    "buyers": 83,
-    "sellers": 220,
-    "trades7d": 18,
+    "buyers": 81,
+    "sellers": 215,
+    "trades7d": 19,
     "topTrades": [
      {
       "name": "Upgraded Videotapper Prototype",
@@ -5178,8 +5178,8 @@
     "min": 35,
     "max": 105,
     "buyers": 28,
-    "sellers": 182,
-    "trades7d": 24,
+    "sellers": 184,
+    "trades7d": 23,
     "topTrades": [
      {
       "name": "Scientist Cameraman",
@@ -5228,7 +5228,7 @@
     "median": 58,
     "min": 30,
     "max": 125,
-    "buyers": 10,
+    "buyers": 9,
     "sellers": 30,
     "trades7d": 3
    },
@@ -5411,8 +5411,8 @@
     "min": 30,
     "max": 150,
     "buyers": 9,
-    "sellers": 170,
-    "trades7d": 9
+    "sellers": 169,
+    "trades7d": 8
    },
    "priceHistory": [
     {
@@ -5472,8 +5472,8 @@
     "median": 26,
     "min": 15,
     "max": 75,
-    "buyers": 21,
-    "sellers": 81,
+    "buyers": 19,
+    "sellers": 82,
     "trades7d": 7,
     "topTrades": [
      {
@@ -5608,8 +5608,8 @@
     "median": 17,
     "min": 10,
     "max": 50,
-    "buyers": 45,
-    "sellers": 62,
+    "buyers": 44,
+    "sellers": 61,
     "trades7d": 15,
     "topTrades": [
      {
@@ -5781,7 +5781,7 @@
     "median": 29,
     "min": 10,
     "max": 35,
-    "buyers": 10,
+    "buyers": 9,
     "sellers": 23,
     "trades7d": 4
    },
@@ -5922,8 +5922,8 @@
     "median": 10,
     "min": 4,
     "max": 20,
-    "buyers": 9,
-    "sellers": 50,
+    "buyers": 10,
+    "sellers": 49,
     "trades7d": 4,
     "topTrades": [
      {
@@ -6049,7 +6049,7 @@
     "min": 5,
     "max": 20,
     "buyers": 3,
-    "sellers": 41,
+    "sellers": 39,
     "trades7d": 2
    },
    "priceHistory": [
@@ -6268,8 +6268,8 @@
     "median": 6,
     "min": 3,
     "max": 10,
-    "buyers": 4,
-    "sellers": 23,
+    "buyers": 3,
+    "sellers": 24,
     "trades7d": 2
    },
    "priceHistory": [
@@ -6413,7 +6413,7 @@
     "min": 2,
     "max": 7,
     "buyers": 1,
-    "sellers": 17
+    "sellers": 15
    },
    "priceHistory": [
     {
@@ -6517,7 +6517,7 @@
     "min": 1,
     "max": 5,
     "buyers": 7,
-    "sellers": 8,
+    "sellers": 7,
     "topTrades": [
      {
       "name": "Ninja Cameraman",
@@ -6656,7 +6656,7 @@
     "min": 1,
     "max": 5,
     "buyers": 3,
-    "sellers": 30
+    "sellers": 28
    },
    "priceHistory": [
     {
@@ -6742,7 +6742,7 @@
     "min": 1,
     "max": 5,
     "buyers": 4,
-    "sellers": 26,
+    "sellers": 24,
     "trades7d": 2
    },
    "priceHistory": [
@@ -6833,7 +6833,7 @@
     "min": 1,
     "max": 5,
     "buyers": 3,
-    "sellers": 29,
+    "sellers": 27,
     "trades7d": 2
    },
    "priceHistory": [
@@ -6958,7 +6958,7 @@
     "min": 1,
     "max": 5,
     "buyers": 7,
-    "sellers": 27,
+    "sellers": 25,
     "trades7d": 3
    },
    "priceHistory": [
@@ -7057,7 +7057,7 @@
     "min": 1,
     "max": 2,
     "buyers": 3,
-    "sellers": 21
+    "sellers": 19
    },
    "priceHistory": [
     {
@@ -7773,7 +7773,7 @@
    "rarityRank": 52,
    "market": {
     "buyers": 7,
-    "sellers": 11
+    "sellers": 12
    },
    "name": "Cameraman",
    "category": "Common",
@@ -7785,7 +7785,7 @@
     "Stable"
    ],
    "rawStability": "",
-   "img": ""
+   "img": "https://www.game.guide/images/cameraman-tower-defense/game/cameraman.webp"
   },
   {
    "tier": "D",
@@ -7929,8 +7929,8 @@
     "min": 30,
     "max": 150,
     "buyers": 9,
-    "sellers": 170,
-    "trades7d": 9
+    "sellers": 169,
+    "trades7d": 8
    },
    "priceHistory": [
     {
@@ -8208,7 +8208,7 @@
     "Stable"
    ],
    "rawStability": "",
-   "img": ""
+   "img": "https://www.game.guide/images/cameraman-tower-defense/game/large-cameraman.webp"
   },
   {
    "tier": "D",
@@ -8269,7 +8269,7 @@
     "Stable"
    ],
    "rawStability": "",
-   "img": ""
+   "img": "https://www.game.guide/images/cameraman-tower-defense/game/large-speakerman.webp"
   },
   {
    "tier": "D",
@@ -8409,7 +8409,7 @@
    "about": "Speakerman is a Basic unit in Cameraman Tower Defense. There are 3,705,125 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
    "market": {
     "buyers": 38,
-    "sellers": 32,
+    "sellers": 34,
     "trades7d": 5,
     "topTrades": [
      {
@@ -8446,7 +8446,7 @@
     "Stable"
    ],
    "rawStability": "",
-   "img": ""
+   "img": "https://www.game.guide/images/cameraman-tower-defense/game/speakerman.webp"
   },
   {
    "tier": "D",
@@ -8519,10 +8519,16 @@
     "Stable"
    ],
    "rawStability": "",
-   "img": ""
+   "img": "https://www.game.guide/images/cameraman-tower-defense/game/tv-man.webp"
   }
  ],
  "changelog": [
+  {
+   "name": "Chocolate Tv Man",
+   "old": 0,
+   "new": 65,
+   "date": "2026-11-24"
+  },
   {
    "name": "Chocolate Tv Man",
    "old": 0,
