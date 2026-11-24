@@ -1,8 +1,8 @@
 {
- "updated": "2026-11-24T05:30:52.355Z",
- "version": 4,
+ "updated": "2026-11-24T06:05:03.992Z",
+ "version": 5,
  "sources": {
-  "values": 70,
+  "values": 82,
   "valuesTotal": 82,
   "wiki": 56
  },
@@ -15,42 +15,91 @@
    "levels": [
     {
      "level": "Place",
-     "cost": 200
+     "cost": 200,
+     "spawns": "Mummy Cameraman",
+     "hp": 200,
+     "unitDps": 0,
+     "cooldown": 20
     },
     {
      "level": "Lv 2",
-     "cost": 400
+     "cost": 400,
+     "spawns": "Mummy Cameraman",
+     "hp": 500,
+     "unitDps": 0,
+     "cooldown": 20
     },
     {
      "level": "Lv 3",
-     "cost": 900
+     "cost": 900,
+     "spawns": "Mummy Cameraman",
+     "hp": 2000,
+     "unitDps": 0,
+     "cooldown": 20
     },
     {
      "level": "Lv 4",
-     "cost": 1500
+     "cost": 1500,
+     "spawns": "Mummy Cameraman",
+     "hp": 4000,
+     "unitDps": 0,
+     "cooldown": 20
     },
     {
      "level": "Lv 5",
-     "cost": 2500
+     "cost": 2500,
+     "spawns": "Mummy Cameraman",
+     "hp": 8000,
+     "unitDps": 0,
+     "cooldown": 20
     },
     {
      "level": "Lv 6",
-     "cost": 9000
+     "cost": 9000,
+     "spawns": "Mummy Cameraman",
+     "hp": 50000,
+     "unitDps": 0,
+     "cooldown": 20
     },
     {
      "level": "Lv 7",
-     "cost": 30000
+     "cost": 30000,
+     "spawns": "Mummy Cameraman",
+     "hp": 250000,
+     "unitDps": 0,
+     "cooldown": 20
     }
    ],
    "howToGet": "Sand Coffin Crate",
    "description": "Pharaoh Cameraman doesn't attack. Every 20s it sends out a Mummy Cameraman with 250,000 health at max level, which has no attack of its own. Placing it and buying all 6 upgrades costs 44,500 cash, and you can have 2 on the map.",
+   "levelsType": "spawner",
+   "about": "Pharaoh Cameraman is a Mythic unit in Cameraman Tower Defense. There are only 829 in the game, the 2nd rarest of 56 units. It trades for about 25.5K gems, with offers usually between 12K and 40K gems. Demand is high and the price is unstable.",
+   "market": {
+    "min": 12000,
+    "max": 40000,
+    "topTrades": [
+     {
+      "name": "X2 Speed"
+     },
+     {
+      "name": "2 trades"
+     }
+    ]
+   },
+   "dropChance": 1,
+   "added": "Update 5 (Nov 4, 2026)",
    "name": "Pharaoh Cameraman",
    "category": "Mythic",
    "kind": "unit",
    "value": 27000,
    "demand": 7.5,
    "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/e3514b9a-ecfb-4106-b178-d6c8a233ac7e/d52737a78da454c55a7f1f3992821c726237b0d5356dcd9ad0789ac80a6aebe0.webp?w=128"
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/e3514b9a-ecfb-4106-b178-d6c8a233ac7e/d52737a78da454c55a7f1f3992821c726237b0d5356dcd9ad0789ac80a6aebe0.webp?w=128",
+   "rarityRank": 2
   },
   {
    "name": "Furnace Large TV Man",
@@ -59,6 +108,10 @@
    "value": 21000,
    "demand": 9,
    "stability": "Overpaid",
+   "flags": [
+    "Overpaid"
+   ],
+   "rawStability": "HeavilyOverpaid For",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/14dd5b61-0e86-4f8b-988f-ab6b021d197f/4f8e8275613691b87b3e921591efe46779693cc995f4836f50b13ae70174a320.webp?w=128"
   },
   {
@@ -137,13 +190,41 @@
    "maxRange": 40,
    "howToGet": "Exclusive Spider Crate",
    "description": "Fully upgraded, TV Spider does 10,000 DPS. Placing it and buying all 6 upgrades costs 40,000 cash, and you can have 4 on the map. At max level it moves around the map and returns to its spot.",
+   "levelsType": "damage",
+   "about": "TV Spider is an Exclusive unit in Cameraman Tower Defense. There are only 5,752 in the game, the 6th rarest of 56 units. It trades for about 16K gems, with offers usually between 7.5K and 25K gems. Demand is high and the price is stable.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Engineer Cameraman"
+     },
+     {
+      "name": "9 trades"
+     },
+     {
+      "name": "Chaos Cameraman"
+     },
+     {
+      "name": "4 trades"
+     },
+     {
+      "name": "Hacked Cameraman"
+     }
+    ]
+   },
+   "dropChance": 0.2,
+   "added": "Update 3 (Oct 10, 2026)",
    "name": "Spider Tv",
    "category": "Exclusive",
    "kind": "unit",
    "value": 16300,
    "demand": 8,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/dfc3e861-26f0-4f4e-95e3-9c02810eca9f/dc1fc361cab75cb1a206716ee0b30560b0dca0a8a8846f30f0842c90aaf8c95f.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "stable/fluctating",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/dfc3e861-26f0-4f4e-95e3-9c02810eca9f/dc1fc361cab75cb1a206716ee0b30560b0dca0a8a8846f30f0842c90aaf8c95f.webp?w=128",
+   "rarityRank": 6
   },
   {
    "role": "Spawner",
@@ -153,38 +234,93 @@
    "levels": [
     {
      "level": "Place",
-     "cost": 200
+     "cost": 200,
+     "spawns": "Camera Toilet",
+     "hp": 250,
+     "unitDps": 0,
+     "cooldown": 15
     },
     {
      "level": "Lv 2",
-     "cost": 300
+     "cost": 300,
+     "spawns": "Camera Toilet",
+     "hp": 500,
+     "unitDps": 0,
+     "cooldown": 15
     },
     {
      "level": "Lv 3",
-     "cost": 500
+     "cost": 500,
+     "spawns": "Camera Toilet",
+     "hp": 2500,
+     "unitDps": 0,
+     "cooldown": 20
     },
     {
      "level": "Lv 4",
-     "cost": 1000
+     "cost": 1000,
+     "spawns": "Large Camera Toilet",
+     "hp": 5000,
+     "unitDps": 0,
+     "cooldown": 25
     },
     {
      "level": "Lv 5",
-     "cost": 2000
+     "cost": 2000,
+     "spawns": "Large Camera Toilet",
+     "hp": 10000,
+     "unitDps": 0,
+     "cooldown": 25
     },
     {
      "level": "Lv 6",
-     "cost": 20000
+     "cost": 20000,
+     "spawns": "Laser Car Camera",
+     "hp": 100000,
+     "unitDps": 5000,
+     "cooldown": 20
     }
    ],
    "howToGet": "Exclusive Scientist Crate",
    "description": "Engineer Cameraman doesn't attack. Every 20s it sends out a Laser Car Camera with 100,000 health and 5,000 DPS at max level. Placing it and buying all 5 upgrades costs 24,000 cash, and you can have 3 on the map.",
+   "levelsType": "spawner",
+   "about": "Engineer Cameraman is an Exclusive unit in Cameraman Tower Defense. There are only 6,558 in the game, the 8th rarest of 56 units. It trades for about 7.7K gems, with offers usually between 3.9K and 14.5K gems. Demand is very high and the price is overpaid.",
+   "market": {
+    "min": 3900,
+    "max": 14500,
+    "topTrades": [
+     {
+      "name": "Hacked Cameraman"
+     },
+     {
+      "name": "15 trades"
+     },
+     {
+      "name": "Upgraded Titan TV Man"
+     },
+     {
+      "name": "15 trades"
+     },
+     {
+      "name": "Chaos Cameraman"
+     }
+    ]
+   },
+   "dropChance": 1,
+   "added": "Update 2 (Sep 30, 2026)",
    "name": "Engineer Cameraman",
    "category": "Exclusive",
    "kind": "unit",
    "value": 8750,
    "demand": 8.5,
    "stability": "Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/fa368e6b-d486-4bc5-ae88-1ef24efbef91/c6372f4491646037927e023b47c027f74f6940a07bf2a48f9d536c3ce813bd2d.webp?w=128"
+   "flags": [
+    "Overpaid",
+    "Rising"
+   ],
+   "rawStability": "slowly rising | overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/fa368e6b-d486-4bc5-ae88-1ef24efbef91/c6372f4491646037927e023b47c027f74f6940a07bf2a48f9d536c3ce813bd2d.webp?w=128",
+   "rarityRank": 8
   },
   {
    "role": "Damage",
@@ -248,13 +384,41 @@
    "maxRange": 40,
    "howToGet": "Exclusive Halloween Crate",
    "description": "Fully upgraded, Chaos Cameraman does 15,000 DPS. Placing it and buying all 5 upgrades costs 30,000 cash, and you can have 6 on the map.",
+   "levelsType": "damage",
+   "about": "Chaos Cameraman is a Mythic unit in Cameraman Tower Defense. There are only 6,787 in the game, the 9th rarest of 56 units. It trades for about 6.7K gems, with offers usually between 3.4K and 12K gems. Demand is high and the price is unstable.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Upgraded Titan Cameraman"
+     },
+     {
+      "name": "19 trades"
+     },
+     {
+      "name": "Titan Cinemaman"
+     },
+     {
+      "name": "15 trades"
+     },
+     {
+      "name": "Engineer Cameraman"
+     }
+    ]
+   },
+   "dropChance": 0.1,
+   "added": "Update 4 (Oct 18, 2026)",
    "name": "Chaos cameraman",
    "category": "Mythic",
    "kind": "unit",
    "value": 8000,
    "demand": 8,
    "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/5bf034d1-07cf-46de-b926-3107cb63e6b0/aab137395fe7e26225c883a02beaf7a89ffc035e48840ef4d5e0b6075e202c9f.webp?w=128"
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable | Fluctuating",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/5bf034d1-07cf-46de-b926-3107cb63e6b0/aab137395fe7e26225c883a02beaf7a89ffc035e48840ef4d5e0b6075e202c9f.webp?w=128",
+   "rarityRank": 9
   },
   {
    "role": "Damage · AOE",
@@ -322,13 +486,40 @@
    "maxRange": 20,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Upgraded Titan TV Man does 22,500 DPS counting its TV and Core attacks. Placing it and buying all 5 upgrades costs 49,450 cash, and you can have 3 on the map.",
+   "levelsType": "damage",
+   "about": "Upgraded Titan TV Man is a Godly unit in Cameraman Tower Defense. There are 34,769 in the game. It trades for about 4.6K gems, with offers usually between 3K and 8.3K gems. Demand is high and the price is stable.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Upgraded Titan Cameraman"
+     },
+     {
+      "name": "14 trades"
+     },
+     {
+      "name": "Hacked Cameraman"
+     },
+     {
+      "name": "11 trades"
+     },
+     {
+      "name": "Upgraded Videotapper Prototype"
+     }
+    ]
+   },
+   "added": "Update 5 (Nov 4, 2026)",
    "name": "Upgraded Titan TV Man",
    "category": "Godly",
    "kind": "unit",
    "value": 4000,
    "demand": 7.5,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/00c83051-0126-4686-8c95-8fd920e72aa1/831c54894de2abcd0ac4aa7f6b1013dd5621fe37f5956810abeafe064fd73370.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/00c83051-0126-4686-8c95-8fd920e72aa1/831c54894de2abcd0ac4aa7f6b1013dd5621fe37f5956810abeafe064fd73370.webp?w=128",
+   "rarityRank": 17
   },
   {
    "role": "Damage · AOE",
@@ -385,13 +576,40 @@
    "maxRange": 25,
    "howToGet": "Halloween battle pass",
    "description": "Fully upgraded, Executioner TV Man does 16,000 DPS. Placing it and buying all 4 upgrades costs 50,000 cash, and you can have 5 on the map.",
+   "levelsType": "damage",
+   "about": "Executioner TV Man is an Exclusive unit in Cameraman Tower Defense. There are only 6,242 in the game, the 7th rarest of 56 units. It trades for about 2.3K gems, with offers usually between 1.3K and 4.7K gems. Demand is very high and the price is overpaid.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Titan Cinemaman"
+     },
+     {
+      "name": "6 trades"
+     },
+     {
+      "name": "Large Scientist Cameraman"
+     },
+     {
+      "name": "6 trades"
+     },
+     {
+      "name": "Jetpack Cameraman"
+     }
+    ]
+   },
+   "added": "Update 4 (Oct 18, 2026)",
    "name": "executioner tv man",
    "category": "Exclusive",
    "kind": "unit",
    "value": 3200,
    "demand": 8.5,
    "stability": "Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/6c6ee8c6-9320-4e97-b01c-ed93d49c490f/8cfa18cde3f75d6ef4541572712c5b7a2f06c03b67cded507c19c7e610c91121.webp?w=128"
+   "flags": [
+    "Overpaid"
+   ],
+   "rawStability": "overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/6c6ee8c6-9320-4e97-b01c-ed93d49c490f/8cfa18cde3f75d6ef4541572712c5b7a2f06c03b67cded507c19c7e610c91121.webp?w=128",
+   "rarityRank": 7
   },
   {
    "role": "Damage · AOE",
@@ -408,7 +626,10 @@
      "damage": 300,
      "cooldown": 1,
      "range": 13,
-     "dps": 300
+     "dps": 300,
+     "cols": {
+      "CONE": "50°"
+     }
     },
     {
      "level": "Lv 2",
@@ -416,7 +637,10 @@
      "damage": 500,
      "cooldown": 1,
      "range": 15,
-     "dps": 500
+     "dps": 500,
+     "cols": {
+      "CONE": "60°"
+     }
     },
     {
      "level": "Lv 3",
@@ -424,7 +648,10 @@
      "damage": 1000,
      "cooldown": 1,
      "range": 17,
-     "dps": 1000
+     "dps": 1000,
+     "cols": {
+      "CONE": "70°"
+     }
     },
     {
      "level": "Lv 4",
@@ -433,6 +660,9 @@
      "cooldown": 1,
      "range": 19,
      "dps": 3900,
+     "cols": {
+      "CONE": "80°"
+     },
      "extra": "+ Miniguns: 200 damage every 0.2s, range 25 + Gun: 900 damage every 1s, range 22"
     },
     {
@@ -442,6 +672,9 @@
      "cooldown": 1,
      "range": 20,
      "dps": 6500,
+     "cols": {
+      "CONE": "90°"
+     },
      "extra": "+ Miniguns: 400 damage every 0.2s, range 30 + Gun: 2,000 damage every 1s, range 25"
     },
     {
@@ -451,19 +684,49 @@
      "cooldown": 1,
      "range": 25,
      "dps": 20000,
+     "cols": {
+      "CONE": "100°"
+     },
      "extra": "+ Hammer: 15,000 damage every 3s, range 15 + Miniguns: 600 damage every 0.2s, range 40 + Gun: 5,000 damage every 1s, range 30"
     }
    ],
    "maxRange": 25,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Upgraded Titan Cameraman does 20,000 DPS counting its Hammer, Miniguns and Gun attacks. Placing it and buying all 5 upgrades costs 42,600 cash, and you can have 3 on the map. At max level it hits everything in a 100° cone.",
+   "levelsType": "damage",
+   "about": "Upgraded Titan Cameraman is a Godly unit in Cameraman Tower Defense. There are 14,038 in the game. It trades for about 3.1K gems, with offers usually between 2K and 6K gems. Demand is medium and the price is unstable.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Hacked Cameraman"
+     },
+     {
+      "name": "18 trades"
+     },
+     {
+      "name": "Upgraded Brute Prototype"
+     },
+     {
+      "name": "10 trades"
+     },
+     {
+      "name": "Titan Cinemaman"
+     }
+    ]
+   },
+   "added": "Update 4 (Oct 18, 2026)",
    "name": "upgraded Titan Cameraman",
    "category": "Godly",
    "kind": "unit",
    "value": 2600,
    "demand": 6,
    "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/f2fae317-ff29-4a0c-928f-794f691ae48d/4502e52d1094eee24dde0583a4f4d6bb41b277dc9d095f1040ccaf81a76f39b0.webp?w=128"
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/f2fae317-ff29-4a0c-928f-794f691ae48d/4502e52d1094eee24dde0583a4f4d6bb41b277dc9d095f1040ccaf81a76f39b0.webp?w=128",
+   "rarityRank": 11
   },
   {
    "name": "2x Turkey Leg",
@@ -472,6 +735,10 @@
    "value": 2500,
    "demand": 7.5,
    "stability": "Overpaid",
+   "flags": [
+    "Overpaid"
+   ],
+   "rawStability": "Overpaid For",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/54b4bd21-1630-47d6-8fde-2172b5adcb24/f489caa99bd66cc4f87ae7c8282f2fd2a7c7fb0d2587cfabb7183a32f280e476.webp?w=128"
   },
   {
@@ -481,6 +748,10 @@
    "value": 2500,
    "demand": 8,
    "stability": "Overpaid",
+   "flags": [
+    "Overpaid"
+   ],
+   "rawStability": "overpaid",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/268f7160-9d16-43a6-a87a-620d11651443/0dfedd52ec00c343861f78ac658297ce13fc5fcfcc8939d8530aa358130a2887.webp?w=128"
   },
   {
@@ -490,6 +761,10 @@
    "value": 2500,
    "demand": 4,
    "stability": "Unstable",
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/18bb5e96-29c9-4e46-8d50-afcf7649ccf0/764ab9b45477acd904c8e703a3c58e1cc66673837b9f40f51a9256b8a2d62536.webp?w=128"
   },
   {
@@ -499,6 +774,10 @@
    "value": 2200,
    "demand": 2,
    "stability": "Unstable",
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/75cfb6fb-5eba-4f4c-9858-21cb709e6afe/95cc79af5b66317cc85646afde1200b8021c37bc05db3b6b92e1d8d0d1b9949b.webp?w=128"
   },
   {
@@ -508,6 +787,10 @@
    "value": 2000,
    "demand": 8,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/27f6a801-9765-46c4-928a-748f092e0b59/0848ac8e70d0089fa17a07ebbb1099220127ba3edd5d6c759fe44b5933c4f720.webp?w=128"
   },
   {
@@ -517,6 +800,10 @@
    "value": 2000,
    "demand": 6.5,
    "stability": "Dropping",
+   "flags": [
+    "Dropping"
+   ],
+   "rawStability": "Dropping",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/9db42594-c790-4f18-9b91-b78279f88517/b5a799674568a354c66c98d650e82bf087002a023bc2c27c3bc15e6ffbda256b.webp?w=128"
   },
   {
@@ -526,6 +813,10 @@
    "value": 1800,
    "demand": 7.5,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4e78128f-354d-41a7-b9d9-158b17ebffb4/d0652947941d09c6d755414d836d73d941d288ab2765eafc63eea143c8254479.webp?w=128"
   },
   {
@@ -588,13 +879,40 @@
    ],
    "maxRange": 25,
    "description": "Fully upgraded, Hacked Cameraman does 5,000 DPS. Placing it and buying all 5 upgrades costs 7,900 cash, and you can have 4 on the map.",
+   "levelsType": "damage",
+   "about": "Hacked Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 86,454 in the game. It trades for about 1.9K gems, with offers usually between 1K and 3K gems. Demand is high and the price is unstable.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Titan Cinemaman"
+     },
+     {
+      "name": "9 trades"
+     },
+     {
+      "name": "Glitch Cameraman"
+     },
+     {
+      "name": "9 trades"
+     },
+     {
+      "name": "Camera Attack Helicopter"
+     }
+    ]
+   },
+   "added": "Update 5 (Nov 4, 2026)",
    "name": "Hacked Cameraman",
    "category": "Exclusive",
    "kind": "unit",
    "value": 1750,
    "demand": 7,
-   "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/76fc6e57-a321-4a16-9839-226ac4c21d50/b54285fdc15e3534901037bd6ee58643913bfc9f216551e48e821660d76b0387.webp?w=128"
+   "stability": "Unstable",
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Fluctuating",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/76fc6e57-a321-4a16-9839-226ac4c21d50/b54285fdc15e3534901037bd6ee58643913bfc9f216551e48e821660d76b0387.webp?w=128",
+   "rarityRank": 24
   },
   {
    "role": "Damage",
@@ -649,13 +967,32 @@
    "maxRange": 30,
    "howToGet": "Exclusive Party Crate",
    "description": "Fully upgraded, Baker Titan Speakerman does 8,000 DPS. Placing it and buying all 4 upgrades costs 28,000 cash, and you can have 4 on the map.",
+   "levelsType": "damage",
+   "about": "Baker Titan Speakerman is an Exclusive unit in Cameraman Tower Defense. There are only 1,141 in the game, the 3rd rarest of 56 units. It trades for about 1.4K gems, with offers usually between 1K and 2.4K gems. Demand is low and the price is dropping.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Hacked Cameraman"
+     },
+     {
+      "name": "3 trades"
+     }
+    ]
+   },
+   "dropChance": 0.5,
+   "added": "Update 6 (Nov 15, 2026)",
    "name": "Baker Titan Speakerman",
    "category": "Exclusive",
    "kind": "unit",
    "value": 1500,
    "demand": 3,
    "stability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/8211f2e5-0246-4df7-bd35-e19fe3a0e7d6/332b78f9cbc066ccbc6b5c8fb017a8216537a9b692af329474d40dc5bc648d9f.webp?w=128"
+   "flags": [
+    "Dropping"
+   ],
+   "rawStability": "Dropping",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/8211f2e5-0246-4df7-bd35-e19fe3a0e7d6/332b78f9cbc066ccbc6b5c8fb017a8216537a9b692af329474d40dc5bc648d9f.webp?w=128",
+   "rarityRank": 3
   },
   {
    "role": "Damage",
@@ -710,13 +1047,31 @@
    ],
    "maxRange": 30,
    "description": "Fully upgraded, Reinforced Titan Cameraman does 10,000 DPS. Placing it and buying all 4 upgrades costs 29,000 cash, and you can have 6 on the map.",
+   "levelsType": "damage",
+   "about": "Reinforced Titan Cameraman is an Exclusive unit in Cameraman Tower Defense. There are only 1,882 in the game, the 4th rarest of 56 units. It trades for about 1.1K gems, with offers usually between 650 and 2.3K gems. Demand is medium and the price is stable.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Reinforced Titan Speakerman"
+     },
+     {
+      "name": "2 trades"
+     }
+    ]
+   },
+   "added": "QoL 1 (Nov 7, 2026)",
    "name": "Reinforced Titan Cameraman",
    "category": "Exclusive",
    "kind": "unit",
    "value": 1200,
    "demand": 5,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/05bc46ab-1f88-4fc5-bec9-3700b3b1d6b4/4c30e904123968368294a31800cd0079613eccbe405899b54f6d08ace87998b8.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/05bc46ab-1f88-4fc5-bec9-3700b3b1d6b4/4c30e904123968368294a31800cd0079613eccbe405899b54f6d08ace87998b8.webp?w=128",
+   "rarityRank": 4
   },
   {
    "name": "2X speed",
@@ -725,6 +1080,11 @@
    "value": 1050,
    "demand": 7,
    "stability": "Overpaid",
+   "flags": [
+    "Overpaid",
+    "Stable"
+   ],
+   "rawStability": "Overpaid/Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/cabe34f0-9054-42b5-95d3-88865dca83fd/8941af3600b237a7c882c5c46363d34d60ef9eb9ed09ea7e912c191704cfb08c.webp?w=128"
   },
   {
@@ -780,13 +1140,37 @@
    ],
    "maxRange": 24,
    "description": "Fully upgraded, Reinforced Titan Speakerman does 7,500 DPS. Placing it and buying all 4 upgrades costs 29,000 cash, and you can have 5 on the map.",
+   "levelsType": "damage",
+   "about": "Reinforced Titan Speakerman is an Exclusive unit in Cameraman Tower Defense. There are only 2,705 in the game, the 5th rarest of 56 units. It trades for about 695 gems, with offers usually between 300 and 1.4K gems. Demand is low.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Glitch Cameraman"
+     },
+     {
+      "name": "2 trades"
+     },
+     {
+      "name": "TV Woman"
+     },
+     {
+      "name": "2 trades"
+     }
+    ]
+   },
+   "added": "QoL 1 (Nov 7, 2026)",
    "name": "Reinforced Titan Speakerman",
    "category": "Exclusive",
    "kind": "unit",
    "value": 550,
    "demand": 2.5,
    "stability": "Underpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/11c1c6d3-65fc-4382-a278-39ac39176217/5ea2949738d82ae69605e0ab7729c57629c0bd58b2e6202f69ba9422fda25558.webp?w=128"
+   "flags": [
+    "Underpaid"
+   ],
+   "rawStability": "Underpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/11c1c6d3-65fc-4382-a278-39ac39176217/5ea2949738d82ae69605e0ab7729c57629c0bd58b2e6202f69ba9422fda25558.webp?w=128",
+   "rarityRank": 5
   },
   {
    "name": "Scientist Crate",
@@ -795,6 +1179,10 @@
    "value": 500,
    "demand": 7,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/032927c0-a2bc-4ff1-b41c-0b9ac7c18126/c08f09d46db397c0a2cd7ab3c4407153177e8dc7743f7dd938d874660504515b.webp?w=128"
   },
   {
@@ -845,13 +1233,40 @@
    ],
    "maxRange": 25,
    "description": "Fully upgraded, Prototypes Duo does 5,000 DPS. Placing it and buying all 3 upgrades costs 18,000 cash, and you can have 5 on the map.",
+   "levelsType": "damage",
+   "about": "Prototypes Duo is an Exclusive unit in Cameraman Tower Defense. There are 17,772 in the game. It trades for about 515 gems, with offers usually between 200 and 1K gems. Demand is low and the price is dropping.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Titan Cinemaman"
+     },
+     {
+      "name": "8 trades"
+     },
+     {
+      "name": "Camera Attack Helicopter"
+     },
+     {
+      "name": "5 trades"
+     },
+     {
+      "name": "Glitch Cameraman"
+     }
+    ]
+   },
+   "added": "QoL 1 (Nov 7, 2026)",
    "name": "Prototype Duo",
    "category": "Exclusive",
    "kind": "unit",
    "value": 450,
    "demand": 3,
    "stability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/1043b5bd-2143-4136-9203-0c19d5f96e76/f09a163ba94cb608ff4b54cfd74c93c05513daf8c54c94f2e3ea8989cab30269.webp?w=128"
+   "flags": [
+    "Dropping"
+   ],
+   "rawStability": "Dropping",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/1043b5bd-2143-4136-9203-0c19d5f96e76/f09a163ba94cb608ff4b54cfd74c93c05513daf8c54c94f2e3ea8989cab30269.webp?w=128",
+   "rarityRank": 12
   },
   {
    "name": "Sand Coffin Crate",
@@ -859,7 +1274,11 @@
    "kind": "crate",
    "value": 350,
    "demand": 2,
-   "stability": "Stable",
+   "stability": "Unstable",
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Fluctuating",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/afc2631b-377e-4e1a-ac25-f8337d7a1a9a/effcca4c72f97918920fedc1f92da0646aeb052862ba4c2599661103e2619c9a.webp?w=128"
   },
   {
@@ -906,13 +1325,40 @@
    ],
    "maxRange": 22,
    "description": "Fully upgraded, Vampire Cameraman does 2,800 DPS. Placing it and buying all 3 upgrades costs 10,000 cash.",
+   "levelsType": "damage",
+   "about": "Vampire Cameraman is an Exclusive unit in Cameraman Tower Defense. There are only 10,001 in the game, the 10th rarest of 56 units. It trades for about 465 gems, with offers usually between 200 and 800 gems. Demand is very low and the price is dropping.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Headless TV Man"
+     },
+     {
+      "name": "4 trades"
+     },
+     {
+      "name": "Glitch Cameraman"
+     },
+     {
+      "name": "3 trades"
+     },
+     {
+      "name": "Large Scientist Cameraman"
+     }
+    ]
+   },
+   "added": "Update 5 (Nov 4, 2026)",
    "name": "Vampire Camera Man",
    "category": "Exclusive",
    "kind": "unit",
    "value": 350,
    "demand": 1,
    "stability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a9208d25-b17f-42ca-8f3d-3dca80f216c9/d62e23483eb2dfa49c3b4c85c0e73ef7f4d5fb6c6156328a5f75c0bc30f3e310.webp?w=128"
+   "flags": [
+    "Dropping"
+   ],
+   "rawStability": "Dropping",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a9208d25-b17f-42ca-8f3d-3dca80f216c9/d62e23483eb2dfa49c3b4c85c0e73ef7f4d5fb6c6156328a5f75c0bc30f3e310.webp?w=128",
+   "rarityRank": 10
   },
   {
    "role": "Damage · AOE",
@@ -969,13 +1415,37 @@
    "maxRange": 25,
    "howToGet": "Halloween battle pass",
    "description": "Fully upgraded, Headless TV Man does 11,000 DPS. Placing it and buying all 4 upgrades costs 40,000 cash, and you can have 4 on the map.",
+   "levelsType": "damage",
+   "about": "Headless TV Man is a Mythic unit in Cameraman Tower Defense. There are 20,311 in the game. It trades for about 405 gems, with offers usually between 200 and 800 gems. Demand is very low.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Titan Cinemaman"
+     },
+     {
+      "name": "4 trades"
+     },
+     {
+      "name": "Upgraded Titan Speakerman"
+     },
+     {
+      "name": "2 trades"
+     }
+    ]
+   },
+   "added": "Update 4 (Oct 18, 2026)",
    "name": "headless tv man",
    "category": "Mythic",
    "kind": "unit",
    "value": 330,
    "demand": 1,
    "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/1bd11a79-5544-416a-84a5-fd9004eb6e4c/688505608418af7feff9d5d79b0ba007e1f00d51a1064136b643d93fed1a77dd.webp?w=128"
+   "flags": [
+    "Unwanted"
+   ],
+   "rawStability": "Unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/1bd11a79-5544-416a-84a5-fd9004eb6e4c/688505608418af7feff9d5d79b0ba007e1f00d51a1064136b643d93fed1a77dd.webp?w=128",
+   "rarityRank": 13
   },
   {
    "role": "Damage",
@@ -1046,13 +1516,41 @@
    "maxRange": 30,
    "howToGet": "Jetpack Pack",
    "description": "Fully upgraded, Jetpack Cameraman does 5,000 DPS. Placing it and buying all 6 upgrades costs 11,000 cash, and you can have 8 on the map.",
+   "levelsType": "damage",
+   "about": "Jetpack Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 33,107 in the game. It trades for about 405 gems, with offers usually between 150 and 650 gems. Demand is low and the price is stable.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Titan Cinemaman"
+     },
+     {
+      "name": "5 trades"
+     },
+     {
+      "name": "Upgraded Brute Prototype"
+     },
+     {
+      "name": "3 trades"
+     },
+     {
+      "name": "Upgraded Titan Speakerman"
+     }
+    ]
+   },
+   "added": "Release (Sep 19, 2026)",
    "name": "Jetpack Cameraman",
    "category": "Exclusive",
    "kind": "unit",
    "value": 275,
    "demand": 3,
    "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/aec381b0-5c15-45f1-8567-cf88ad52a3e6/bb2cddbb28d1454d43ead2297f0603428d26674a4516c96d028853fdd9fbd7b1.webp?w=128"
+   "flags": [
+    "Unwanted",
+    "Stable"
+   ],
+   "rawStability": "Stable/Unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/aec381b0-5c15-45f1-8567-cf88ad52a3e6/bb2cddbb28d1454d43ead2297f0603428d26674a4516c96d028853fdd9fbd7b1.webp?w=128",
+   "rarityRank": 16
   },
   {
    "role": "Damage · AOE",
@@ -1069,7 +1567,10 @@
      "damage": 25,
      "cooldown": 0.5,
      "range": 9,
-     "dps": 50
+     "dps": 50,
+     "cols": {
+      "CONE": "60°"
+     }
     },
     {
      "level": "Lv 2",
@@ -1077,7 +1578,10 @@
      "damage": 75,
      "cooldown": 0.4,
      "range": 11,
-     "dps": 187.5
+     "dps": 187.5,
+     "cols": {
+      "CONE": "70°"
+     }
     },
     {
      "level": "Lv 3",
@@ -1085,7 +1589,10 @@
      "damage": 150,
      "cooldown": 0.4,
      "range": 13,
-     "dps": 375
+     "dps": 375,
+     "cols": {
+      "CONE": "80°"
+     }
     },
     {
      "level": "Lv 4",
@@ -1093,7 +1600,10 @@
      "damage": 250,
      "cooldown": 0.3,
      "range": 15,
-     "dps": 833.3
+     "dps": 833.3,
+     "cols": {
+      "CONE": "100°"
+     }
     },
     {
      "level": "Lv 5",
@@ -1101,19 +1611,50 @@
      "damage": 250,
      "cooldown": 0.2,
      "range": 20,
-     "dps": 1250
+     "dps": 1250,
+     "cols": {
+      "CONE": "120°"
+     }
     }
    ],
    "maxRange": 20,
    "howToGet": "Exclusive Scientist Crate",
    "description": "Fully upgraded, Large Scientist Cameraman does 1,250 DPS. Placing it and buying all 4 upgrades costs 7,200 cash, and you can have 9 on the map. At max level it hits everything in a 120° cone.",
+   "levelsType": "damage",
+   "about": "Large Scientist Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 31,841 in the game. It trades for about 410 gems, with offers usually between 200 and 650 gems. Demand is low and the price is unstable.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Glitch Cameraman"
+     },
+     {
+      "name": "8 trades"
+     },
+     {
+      "name": "Upgraded Brute Prototype"
+     },
+     {
+      "name": "7 trades"
+     },
+     {
+      "name": "TV Woman"
+     }
+    ]
+   },
+   "dropChance": 10,
+   "added": "Update 2 (Sep 30, 2026)",
    "name": "Large Scientist Cameraman",
    "category": "Exclusive",
    "kind": "unit",
    "value": 275,
    "demand": 3,
    "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4c7879b9-586d-4c95-b1dc-5c608396286b/f9c91061b8260ec6f180414470ee8967dd84aad01c9e550b2b94d799175284a0.webp?w=128"
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4c7879b9-586d-4c95-b1dc-5c608396286b/f9c91061b8260ec6f180414470ee8967dd84aad01c9e550b2b94d799175284a0.webp?w=128",
+   "rarityRank": 15
   },
   {
    "role": "Damage",
@@ -1159,13 +1700,37 @@
    ],
    "maxRange": 19,
    "description": "Fully upgraded, Camera Attack Helicopter does 4,000 DPS. Placing it and buying all 3 upgrades costs 19,000 cash, and you can have 7 on the map.",
+   "levelsType": "damage",
+   "about": "Camera Attack Helicopter is a Mythic unit in Cameraman Tower Defense. There are 54,114 in the game. It trades for about 235 gems, with offers usually between 80 and 500 gems. Demand is low and the price is unstable.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Large Laser Cameraman"
+     },
+     {
+      "name": "3 trades"
+     },
+     {
+      "name": "TV Woman"
+     },
+     {
+      "name": "2 trades"
+     }
+    ]
+   },
+   "added": "Update 5 (Nov 4, 2026)",
    "name": "Camera Attack Helicopter",
    "category": "Mythic",
    "kind": "unit",
    "value": 200,
    "demand": 3,
    "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/5047cb47-9d22-4dd9-afe4-186215b68a7d/5e4f6b6804823a9a1d69462600f91649fff5e46a3ff6c48b29c5997dfeccf8c2.webp?w=128"
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/5047cb47-9d22-4dd9-afe4-186215b68a7d/5e4f6b6804823a9a1d69462600f91649fff5e46a3ff6c48b29c5997dfeccf8c2.webp?w=128",
+   "rarityRank": 19
   },
   {
    "role": "Damage · AOE",
@@ -1182,7 +1747,10 @@
      "damage": 1000,
      "cooldown": 2,
      "range": 13,
-     "dps": 500
+     "dps": 500,
+     "cols": {
+      "CONE": "-"
+     }
     },
     {
      "level": "Lv 2",
@@ -1190,7 +1758,10 @@
      "damage": 1000,
      "cooldown": 1,
      "range": 15,
-     "dps": 1000
+     "dps": 1000,
+     "cols": {
+      "CONE": "-"
+     }
     },
     {
      "level": "Lv 3",
@@ -1198,7 +1769,10 @@
      "damage": 1000,
      "cooldown": 1,
      "range": 15,
-     "dps": 1000
+     "dps": 1000,
+     "cols": {
+      "CONE": "80°"
+     }
     },
     {
      "level": "Lv 4",
@@ -1206,7 +1780,10 @@
      "damage": 1000,
      "cooldown": 0.5,
      "range": 20,
-     "dps": 2000
+     "dps": 2000,
+     "cols": {
+      "CONE": "85°"
+     }
     },
     {
      "level": "Lv 5",
@@ -1214,7 +1791,10 @@
      "damage": 1400,
      "cooldown": 0.4,
      "range": 25,
-     "dps": 3500
+     "dps": 3500,
+     "cols": {
+      "CONE": "90°"
+     }
     },
     {
      "level": "Lv 6",
@@ -1222,19 +1802,49 @@
      "damage": 1400,
      "cooldown": 0.2,
      "range": 30,
-     "dps": 7000
+     "dps": 7000,
+     "cols": {
+      "CONE": "110°"
+     }
     }
    ],
    "maxRange": 30,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Titan Cinemaman does 7,000 DPS. Placing it and buying all 5 upgrades costs 41,000 cash, and you can have 4 on the map. At max level it hits everything in a 110° cone.",
+   "levelsType": "damage",
+   "about": "Titan Cinemaman is a Mythic unit in Cameraman Tower Defense. There are 130,438 in the game. It trades for about 265 gems, with offers usually between 100 and 500 gems. Demand is medium.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Upgraded Titan Speakerman"
+     },
+     {
+      "name": "11 trades"
+     },
+     {
+      "name": "Upgraded Videotapper Prototype"
+     },
+     {
+      "name": "10 trades"
+     },
+     {
+      "name": "Glitch Cameraman"
+     }
+    ]
+   },
+   "added": "Update 1 (Sep 24, 2026)",
    "name": "CinemaMan Titan",
    "category": "Mythic",
    "kind": "unit",
    "value": 200,
    "demand": 5.5,
    "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/52b533c5-0734-413c-9d32-391c08039fbe/9abeef4b9078903f74e2fad881994c16684641f69db56eeb0ed4b22ef0be61d1.webp?w=128"
+   "flags": [
+    "Unwanted"
+   ],
+   "rawStability": "Unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/52b533c5-0734-413c-9d32-391c08039fbe/9abeef4b9078903f74e2fad881994c16684641f69db56eeb0ed4b22ef0be61d1.webp?w=128",
+   "rarityRank": 27
   },
   {
    "role": "Damage",
@@ -1281,13 +1891,40 @@
    "maxRange": 22,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Large Laser Cameraman does 5,500 DPS. Placing it and buying all 3 upgrades costs 14,000 cash, and you can have 7 on the map.",
+   "levelsType": "damage",
+   "about": "Large Laser Cameraman is a Mythic unit in Cameraman Tower Defense. There are 68,075 in the game. It trades for about 240 gems, with offers usually between 100 and 450 gems. Demand is medium.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Titan Cinemaman"
+     },
+     {
+      "name": "4 trades"
+     },
+     {
+      "name": "Upgraded Videotapper Prototype"
+     },
+     {
+      "name": "3 trades"
+     },
+     {
+      "name": "Pumpkin Farmer"
+     }
+    ]
+   },
+   "added": "Update 5 (Nov 4, 2026)",
    "name": "Large Laser Cameraman",
    "category": "Mythic",
    "kind": "unit",
    "value": 200,
    "demand": 4,
    "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/863118df-1159-4021-8158-083bdc8c23ab/976587a9102f41446f7018e36c914d7b3f35e35bdf3cea5376dbe04c143d006e.webp?w=128"
+   "flags": [
+    "Unwanted"
+   ],
+   "rawStability": "Unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/863118df-1159-4021-8158-083bdc8c23ab/976587a9102f41446f7018e36c914d7b3f35e35bdf3cea5376dbe04c143d006e.webp?w=128",
+   "rarityRank": 22
   },
   {
    "tier": "A",
@@ -1352,13 +1989,40 @@
    "maxRange": 26,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Upgraded Brute Prototype does 7,500 DPS. Placing it and buying all 5 upgrades costs 31,000 cash, and you can have 6 on the map.",
+   "levelsType": "damage",
+   "about": "Upgraded Brute Prototype is a Mythic unit in Cameraman Tower Defense. There are 60,438 in the game. It trades for about 225 gems, with offers usually between 90 and 500 gems. Demand is low.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Glitch Cameraman"
+     },
+     {
+      "name": "7 trades"
+     },
+     {
+      "name": "Pumpkin Farmer"
+     },
+     {
+      "name": "6 trades"
+     },
+     {
+      "name": "Upgraded Videotapper Prototype"
+     }
+    ]
+   },
+   "added": "Update 3 (Oct 10, 2026)",
    "name": "large prototype titan",
    "category": "Mythic",
    "kind": "unit",
    "value": 200,
    "demand": 3.5,
    "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/3e230bc2-6d3e-4edb-8602-1a2b39811487/4dbcfbedde29eb378d4695d691526cfdab982a9fd501dfebdfa6b903b90f9aee.webp?w=128"
+   "flags": [
+    "Unwanted"
+   ],
+   "rawStability": "Unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/3e230bc2-6d3e-4edb-8602-1a2b39811487/4dbcfbedde29eb378d4695d691526cfdab982a9fd501dfebdfa6b903b90f9aee.webp?w=128",
+   "rarityRank": 21
   },
   {
    "tier": "A",
@@ -1405,13 +2069,40 @@
    "maxRange": 25,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Glitch Cameraman does 5,000 DPS. Placing it and buying all 3 upgrades costs 12,500 cash, and you can have 7 on the map.",
+   "levelsType": "damage",
+   "about": "Glitch Cameraman is a Mythic unit in Cameraman Tower Defense. There are 53,900 in the game. It trades for about 185 gems, with offers usually between 80 and 310 gems. Demand is medium.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Scientist Cameraman"
+     },
+     {
+      "name": "4 trades"
+     },
+     {
+      "name": "Upgraded Brute Prototype"
+     },
+     {
+      "name": "3 trades"
+     },
+     {
+      "name": "Upgraded Titan Speakerman"
+     }
+    ]
+   },
+   "added": "Update 3 (Oct 10, 2026)",
    "name": "Glitch plungerman",
    "category": "Mythic",
    "kind": "unit",
    "value": 175,
    "demand": 4.5,
    "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/df65a04b-b692-46bd-9c42-023f8e43aa40/2b905823ba5c987940c5526e75bccb61e629d1605ab5319884c1720b9914f4aa.webp?w=128"
+   "flags": [
+    "Unwanted"
+   ],
+   "rawStability": "Unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/df65a04b-b692-46bd-9c42-023f8e43aa40/2b905823ba5c987940c5526e75bccb61e629d1605ab5319884c1720b9914f4aa.webp?w=128",
+   "rarityRank": 18
   },
   {
    "role": "Farm",
@@ -1421,34 +2112,69 @@
    "levels": [
     {
      "level": "Place",
-     "cost": 200
+     "cost": 200,
+     "income": 100
     },
     {
      "level": "Lv 2",
-     "cost": 300
+     "cost": 300,
+     "income": 150
     },
     {
      "level": "Lv 3",
-     "cost": 600
+     "cost": 600,
+     "income": 200
     },
     {
      "level": "Lv 4",
-     "cost": 900
+     "cost": 900,
+     "income": 300
     },
     {
      "level": "Lv 5",
-     "cost": 1800
+     "cost": 1800,
+     "income": 600
     }
    ],
    "howToGet": "Exclusive Scientist Crate",
    "description": "Scientist Cameraman doesn't attack. It pays 600 cash every wave at max level, 3,000 with all 5 placed. Placing it and buying all 4 upgrades costs 3,800 cash, and you can have 5 on the map.",
+   "levelsType": "farm",
+   "about": "Scientist Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 276,413 in the game. It trades for about 140 gems, with offers usually between 70 and 300 gems. Demand is high and the price is overpaid.",
+   "market": {
+    "min": 70,
+    "max": 300,
+    "topTrades": [
+     {
+      "name": "Glitch Cameraman"
+     },
+     {
+      "name": "5 trades"
+     },
+     {
+      "name": "Pumpkin Farmer"
+     },
+     {
+      "name": "4 trades"
+     },
+     {
+      "name": "Titan Cinemaman"
+     }
+    ]
+   },
+   "dropChance": 89,
+   "added": "Update 2 (Sep 30, 2026)",
    "name": "Scientist Cameraman",
    "category": "Exclusive",
    "kind": "unit",
    "value": 175,
    "demand": 7,
    "stability": "Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/964df9f4-ff39-4852-82ed-0910a2e1bc28/b988f0a6858a5644659fdbe853ac4f805f6cb1707af6d0cb7acdce8e17a0f0dd.webp?w=128"
+   "flags": [
+    "Overpaid"
+   ],
+   "rawStability": "Overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/964df9f4-ff39-4852-82ed-0910a2e1bc28/b988f0a6858a5644659fdbe853ac4f805f6cb1707af6d0cb7acdce8e17a0f0dd.webp?w=128",
+   "rarityRank": 30
   },
   {
    "role": "Damage · AOE",
@@ -1465,7 +2191,11 @@
      "damage": 90,
      "cooldown": 0.9,
      "range": 9,
-     "dps": 100
+     "dps": 100,
+     "cols": {
+      "CONE": "70°",
+      "BURN": "25 for 1s"
+     }
     },
     {
      "level": "Lv 2",
@@ -1473,7 +2203,11 @@
      "damage": 200,
      "cooldown": 0.8,
      "range": 11,
-     "dps": 250
+     "dps": 250,
+     "cols": {
+      "CONE": "80°",
+      "BURN": "50 for 1s"
+     }
     },
     {
      "level": "Lv 3",
@@ -1481,7 +2215,11 @@
      "damage": 500,
      "cooldown": 0.7,
      "range": 13,
-     "dps": 714.2
+     "dps": 714.2,
+     "cols": {
+      "CONE": "90°",
+      "BURN": "50 for 2s"
+     }
     },
     {
      "level": "Lv 4",
@@ -1489,7 +2227,11 @@
      "damage": 750,
      "cooldown": 0.5,
      "range": 15,
-     "dps": 1500
+     "dps": 1500,
+     "cols": {
+      "CONE": "100°",
+      "BURN": "100 for 4s"
+     }
     },
     {
      "level": "Lv 5",
@@ -1497,19 +2239,51 @@
      "damage": 1500,
      "cooldown": 0.5,
      "range": 20,
-     "dps": 3000
+     "dps": 3000,
+     "cols": {
+      "CONE": "110°",
+      "BURN": "200 for 5s"
+     }
     }
    ],
    "maxRange": 20,
    "howToGet": "Woman Crate",
    "description": "Fully upgraded, TV Woman does 3,000 DPS. Placing it and buying all 4 upgrades costs 18,000 cash, and you can have 6 on the map. At max level it hits everything in a 110° cone and sets toilets burning for 200 over 5s.",
+   "levelsType": "damage",
+   "about": "TV Woman is a Mythic unit in Cameraman Tower Defense. There are 30,787 in the game. It trades for about 210 gems, with offers usually between 100 and 385 gems. Demand is low.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Upgraded Brute Prototype"
+     },
+     {
+      "name": "3 trades"
+     },
+     {
+      "name": "Upgraded Titan Speakerman"
+     },
+     {
+      "name": "3 trades"
+     },
+     {
+      "name": "Upgraded Videotapper Prototype"
+     }
+    ]
+   },
+   "dropChance": 2,
+   "added": "Update 3 (Oct 10, 2026)",
    "name": "Tv woman",
    "category": "Mythic",
    "kind": "unit",
    "value": 175,
    "demand": 2,
    "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/c67706d6-15ab-4bf1-bc5e-dc2a8ff968af/81efa62b74fe158f686b1cbab063179458525e6e866b0750fdb021e67349202a.webp?w=128"
+   "flags": [
+    "Unwanted"
+   ],
+   "rawStability": "unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/c67706d6-15ab-4bf1-bc5e-dc2a8ff968af/81efa62b74fe158f686b1cbab063179458525e6e866b0750fdb021e67349202a.webp?w=128",
+   "rarityRank": 14
   },
   {
    "role": "Damage",
@@ -1564,13 +2338,40 @@
    "maxRange": 35,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Upgraded Videotapper Prototype does 7,000 DPS. Placing it and buying all 4 upgrades costs 20,500 cash, and you can have 6 on the map.",
+   "levelsType": "damage",
+   "about": "Upgraded Videotapper Prototype is a Mythic unit in Cameraman Tower Defense. There are 78,058 in the game. It trades for about 155 gems, with offers usually between 70 and 300 gems. Demand is low.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Upgraded Titan Speakerman"
+     },
+     {
+      "name": "8 trades"
+     },
+     {
+      "name": "Camera Repair Drone"
+     },
+     {
+      "name": "7 trades"
+     },
+     {
+      "name": "Pumpkin Farmer"
+     }
+    ]
+   },
+   "added": "Update 3 (Oct 10, 2026)",
    "name": "videotaper titan",
    "category": "Mythic",
    "kind": "unit",
    "value": 140,
    "demand": 2.5,
    "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/fca791b5-5a2f-429b-8458-97745b0e8f17/ee380d6de2782b7fa7624a1346f85cbc1ddbac070202c6627e96a9203a37a088.webp?w=128"
+   "flags": [
+    "Unwanted"
+   ],
+   "rawStability": "Unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/fca791b5-5a2f-429b-8458-97745b0e8f17/ee380d6de2782b7fa7624a1346f85cbc1ddbac070202c6627e96a9203a37a088.webp?w=128",
+   "rarityRank": 23
   },
   {
    "name": "Musketeer Large Cameraman",
@@ -1579,6 +2380,10 @@
    "value": 100,
    "demand": 1,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/ec268299-14e6-46c1-8a26-55476b19ce54/335a32cef0ae8120bb1d535be7d78784a59d3d71de787172c373c611e773a2d3.webp?w=128"
   },
   {
@@ -1637,13 +2442,40 @@
    "maxRange": 25,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Upgraded Titan Speakerman does 8,000 DPS. Placing it and buying all 4 upgrades costs 23,000 cash, and you can have 5 on the map.",
+   "levelsType": "damage",
+   "about": "Upgraded Titan Speakerman is a Mythic unit in Cameraman Tower Defense. There are 54,299 in the game. It trades for about 125 gems, with offers usually between 50 and 210 gems. Demand is low and the price is unstable.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Upgraded Videotapper Prototype"
+     },
+     {
+      "name": "4 trades"
+     },
+     {
+      "name": "Spider Crate"
+     },
+     {
+      "name": "3 trades"
+     },
+     {
+      "name": "Glitch Cameraman"
+     }
+    ]
+   },
+   "added": "Update 2 (Sep 30, 2026)",
    "name": "Upgraded Titan Speakerman",
    "category": "Mythic",
    "kind": "unit",
    "value": 100,
    "demand": 2,
    "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/d3fab060-41ea-41cf-b130-3c8be8073aff/b9a9e2d10a725be20c3c9dc2454519ca42dc0737642daa9908c9c844f7fcff40.webp?w=128"
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/d3fab060-41ea-41cf-b130-3c8be8073aff/b9a9e2d10a725be20c3c9dc2454519ca42dc0737642daa9908c9c844f7fcff40.webp?w=128",
+   "rarityRank": 20
   },
   {
    "name": "MLG Cameraman",
@@ -1652,6 +2484,10 @@
    "value": 90,
    "demand": 4,
    "stability": "Dropping",
+   "flags": [
+    "Dropping"
+   ],
+   "rawStability": "Dropping",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/0934e29b-3fc1-47fe-850d-ce48b0e2e8ce/16f5b72a798502d232cd44e7f8717d0ab907cb7c7036b786f749c7f19a985209.webp?w=128"
   },
   {
@@ -1661,6 +2497,10 @@
    "value": 80,
    "demand": 7,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/1b899fc0-3194-44e8-9d90-0ad9b5828124/1945436eae178811569637312d3107c9de5dddebcd78d04245f21782e41fa011.webp?w=128"
   },
   {
@@ -1670,6 +2510,10 @@
    "value": 70,
    "demand": 4.5,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/68309eea-27a2-4d63-b765-f90f3958d699/2d93fd3c80fafa5842a5d07b87ecd717fbc553949646157e5c7c243a95f55b8d.webp?w=128"
   },
   {
@@ -1687,7 +2531,10 @@
      "damage": 150,
      "cooldown": 1,
      "range": 15,
-     "dps": 150
+     "dps": 150,
+     "cols": {
+      "CONE": "70°"
+     }
     },
     {
      "level": "Lv 2",
@@ -1695,7 +2542,10 @@
      "damage": 300,
      "cooldown": 1,
      "range": 15,
-     "dps": 300
+     "dps": 300,
+     "cols": {
+      "CONE": "75°"
+     }
     },
     {
      "level": "Lv 3",
@@ -1703,7 +2553,10 @@
      "damage": 300,
      "cooldown": 0.5,
      "range": 20,
-     "dps": 600
+     "dps": 600,
+     "cols": {
+      "CONE": "80°"
+     }
     },
     {
      "level": "Lv 4",
@@ -1711,7 +2564,10 @@
      "damage": 500,
      "cooldown": 0.5,
      "range": 20,
-     "dps": 1000
+     "dps": 1000,
+     "cols": {
+      "CONE": "85°"
+     }
     },
     {
      "level": "Lv 5",
@@ -1719,7 +2575,10 @@
      "damage": 750,
      "cooldown": 0.5,
      "range": 25,
-     "dps": 1500
+     "dps": 1500,
+     "cols": {
+      "CONE": "90°"
+     }
     },
     {
      "level": "Lv 6",
@@ -1727,19 +2586,31 @@
      "damage": 1300,
      "cooldown": 0.5,
      "range": 25,
-     "dps": 2600
+     "dps": 2600,
+     "cols": {
+      "CONE": "100°"
+     }
     }
    ],
    "maxRange": 25,
    "howToGet": "Exclusive Party Crate",
    "description": "Fully upgraded, Chocolate TV Man does 2,600 DPS. Placing it and buying all 5 upgrades costs 15,900 cash, and you can have 6 on the map. At max level it hits everything in a 100° cone.",
+   "levelsType": "damage",
+   "about": "Chocolate TV Man is an Exclusive unit in Cameraman Tower Defense. There are 176,595 in the game. It trades for about 68 gems, with offers usually between 30 and 150 gems. Demand is low and the price is stable.",
+   "dropChance": 20,
+   "added": "Update 6 (Nov 15, 2026)",
    "name": "Chocolate Tv Man",
    "category": "Exclusive",
    "kind": "unit",
    "value": 65,
    "demand": 3,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/3a2babd5-cb4a-4654-a0ee-090e0e2d130f/59dd94ec94e22bd2d694126c3cdff199b617f709a85a94650f8ffc628acc378a.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/3a2babd5-cb4a-4654-a0ee-090e0e2d130f/59dd94ec94e22bd2d694126c3cdff199b617f709a85a94650f8ffc628acc378a.webp?w=128",
+   "rarityRank": 28
   },
   {
    "name": "Cooker Cameraman",
@@ -1748,6 +2619,10 @@
    "value": 50,
    "demand": 1,
    "stability": "Unstable",
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/273d61b5-232e-4348-9503-8161caa392a3/46d6925efe87169dc68be78ad5df81af8f768fbca00b1c26d2cfb20b58605bec.webp?w=128"
   },
   {
@@ -1757,6 +2632,10 @@
    "value": 30,
    "demand": 3.5,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/c614353c-8d30-4c77-bc80-7ea66b1ac6d6/2cea74b96a52c7ef40dfa18948d591f16c87c18e3f8269b3874e634ab7fe27c5.webp?w=128"
   },
   {
@@ -1768,34 +2647,65 @@
     {
      "level": "Place",
      "cost": 200,
-     "range": 10
+     "range": 10,
+     "cooldown": 5
     },
     {
      "level": "Lv 2",
      "cost": 500,
-     "range": 13
+     "range": 13,
+     "cooldown": 4
     },
     {
      "level": "Lv 3",
      "cost": 1500,
-     "range": 16
+     "range": 16,
+     "cooldown": 3
     },
     {
      "level": "Lv 4",
      "cost": 3800,
-     "range": 20
+     "range": 20,
+     "cooldown": 1
     }
    ],
    "maxRange": 20,
    "howToGet": "Summon board",
    "description": "Camera Repair Drone doesn't attack. It clears stuns on units in range, every 1s at max level. Placing it and buying all 3 upgrades costs 6,000 cash, and you can have 2 on the map.",
+   "levelsType": "support",
+   "about": "Camera Repair Drone is a Legendary unit in Cameraman Tower Defense. There are 720,702 in the game. It trades for about 22 gems, with offers usually between 10 and 50 gems. Demand is medium and the price is overpaid.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Pumpkin Farmer"
+     },
+     {
+      "name": "8 trades"
+     },
+     {
+      "name": "Speakerman"
+     },
+     {
+      "name": "2 trades"
+     },
+     {
+      "name": "Dark Speakerman"
+     }
+    ]
+   },
+   "added": "Update 4 (Oct 18, 2026)",
    "name": "Camera Repair Drone",
    "category": "Legendary",
    "kind": "unit",
    "value": 20,
    "demand": 4,
    "stability": "Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/e997f0df-783f-4f18-8ea4-0c1fc7528721/2ad114cc5124a64861073607c41a0f19d75813297064dcdd3fc5682f15f44c69.webp?w=128"
+   "flags": [
+    "Overpaid"
+   ],
+   "rawStability": "overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/e997f0df-783f-4f18-8ea4-0c1fc7528721/2ad114cc5124a64861073607c41a0f19d75813297064dcdd3fc5682f15f44c69.webp?w=128",
+   "rarityRank": 34
   },
   {
    "role": "Damage",
@@ -1855,13 +2765,22 @@
    "maxRange": 35,
    "howToGet": "Exclusive Spider Crate",
    "description": "Fully upgraded, Camera Spider does 3,500 DPS. Placing it and buying all 4 upgrades costs 10,000 cash, and you can have 9 on the map. At max level it moves around the map and returns to its spot.",
+   "levelsType": "damage",
+   "about": "Camera Spider is an Exclusive unit in Cameraman Tower Defense. There are 103,719 in the game. It trades for about 18 gems, with offers usually between 10 and 35 gems. Demand is low and the price is stable.",
+   "dropChance": 9.8,
+   "added": "Update 3 (Oct 10, 2026)",
    "name": "Camera spider",
    "category": "Exclusive",
    "kind": "unit",
    "value": 15,
    "demand": 2,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/feb18825-c818-4efd-8ba9-515208fc7b1d/1a1dc2b4ec818fdbef8b1b45af2e2f10ef0fa6b6bab3e5503897150a0e1f43c7.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/feb18825-c818-4efd-8ba9-515208fc7b1d/1a1dc2b4ec818fdbef8b1b45af2e2f10ef0fa6b6bab3e5503897150a0e1f43c7.webp?w=128",
+   "rarityRank": 26
   },
   {
    "name": "Villager Speakerman",
@@ -1870,6 +2789,10 @@
    "value": 10,
    "demand": 1,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4524e5c7-118d-4d02-93f5-aa7f498c6856/d2a18a59c00e72c89d171e2951f4b760152283e58f62b22f9a113a0b529c88f4.webp?w=128"
   },
   {
@@ -1924,13 +2847,31 @@
    ],
    "maxRange": 21,
    "description": "Fully upgraded, Dark Speakerman does 1,500 DPS. Placing it and buying all 4 upgrades costs 3,650 cash, and you can have 9 on the map.",
+   "levelsType": "damage",
+   "about": "Dark Speakerman is a Legendary unit in Cameraman Tower Defense. There are 576,701 in the game. It trades for about 11 gems, with offers usually between 4 and 20 gems. Demand is low and the price is stable.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Camera Repair Drone"
+     },
+     {
+      "name": "2 trades"
+     }
+    ]
+   },
+   "added": "Update 5 (Nov 4, 2026)",
    "name": "Dark Speakerman",
    "category": "Legendary",
    "kind": "unit",
    "value": 8,
    "demand": 2,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/d4a327b7-9309-476b-9383-e2e2aeab3339/2057fa5650fab5333e6bced7ea31ce344cb8eb965019da1bbb0811c085914224.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/d4a327b7-9309-476b-9383-e2e2aeab3339/2057fa5650fab5333e6bced7ea31ce344cb8eb965019da1bbb0811c085914224.webp?w=128",
+   "rarityRank": 32
   },
   {
    "role": "Damage",
@@ -1947,7 +2888,10 @@
      "damage": 400,
      "cooldown": 2,
      "range": 11,
-     "dps": 200
+     "dps": 200,
+     "cols": {
+      "CONE": "100°"
+     }
     },
     {
      "level": "Lv 2",
@@ -1955,7 +2899,10 @@
      "damage": 900,
      "cooldown": 2,
      "range": 13,
-     "dps": 450
+     "dps": 450,
+     "cols": {
+      "CONE": "120°"
+     }
     },
     {
      "level": "Lv 3",
@@ -1963,7 +2910,10 @@
      "damage": 2500,
      "cooldown": 2,
      "range": 15,
-     "dps": 1250
+     "dps": 1250,
+     "cols": {
+      "CONE": "-"
+     }
     },
     {
      "level": "Lv 4",
@@ -1971,18 +2921,29 @@
      "damage": 5000,
      "cooldown": 2,
      "range": 19,
-     "dps": 2500
+     "dps": 2500,
+     "cols": {
+      "CONE": "-"
+     }
     }
    ],
    "maxRange": 19,
    "description": "Fully upgraded, Speaker Helicopter does 2,500 DPS. Placing it and buying all 3 upgrades costs 12,500 cash, and you can have 7 on the map.",
+   "levelsType": "damage",
+   "about": "Speaker Helicopter is a Legendary unit in Cameraman Tower Defense. There are 324,572 in the game. It trades for about 10 gems, with offers usually between 5 and 20 gems. Demand is very low and the price is stable.",
+   "added": "Update 5 (Nov 4, 2026)",
    "name": "Speaker Helicopter",
    "category": "Legendary",
    "kind": "unit",
    "value": 8,
    "demand": 1,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/22a04178-3b29-4f31-9148-dfbfbcc8fc05/9273c5b22fe24ba27bb4c225f4d66866734a2a13c15bef86d6884dc8455e3ca4.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/22a04178-3b29-4f31-9148-dfbfbcc8fc05/9273c5b22fe24ba27bb4c225f4d66866734a2a13c15bef86d6884dc8455e3ca4.webp?w=128",
+   "rarityRank": 31
   },
   {
    "role": "Farm",
@@ -1992,34 +2953,69 @@
    "levels": [
     {
      "level": "Place",
-     "cost": 100
+     "cost": 100,
+     "income": 50
     },
     {
      "level": "Lv 2",
-     "cost": 300
+     "cost": 300,
+     "income": 100
     },
     {
      "level": "Lv 3",
-     "cost": 600
+     "cost": 600,
+     "income": 200
     },
     {
      "level": "Lv 4",
-     "cost": 900
+     "cost": 900,
+     "income": 300
     },
     {
      "level": "Lv 5",
-     "cost": 2000
+     "cost": 2000,
+     "income": 500
     }
    ],
    "howToGet": "Exclusive Halloween Crate",
    "description": "Pumpkin Farmer doesn't attack. It pays 500 cash every wave at max level, 2,000 with all 4 placed. Placing it and buying all 4 upgrades costs 3,900 cash, and you can have 4 on the map.",
+   "levelsType": "farm",
+   "about": "Pumpkin Farmer is an Epic unit in Cameraman Tower Defense. There are 2,226,189 in the game. It trades for about 10 gems, with offers usually between 7 and 15 gems. Demand is low and the price is stable.",
+   "market": {
+    "min": 7,
+    "max": 15,
+    "topTrades": [
+     {
+      "name": "Camera Repair Drone"
+     },
+     {
+      "name": "7 trades"
+     },
+     {
+      "name": "Halloween Crate"
+     },
+     {
+      "name": "5 trades"
+     },
+     {
+      "name": "Scientist Cameraman"
+     }
+    ]
+   },
+   "dropChance": 8.9,
+   "added": "Update 4 (Oct 18, 2026)",
    "name": "Pumpkin Farmer",
    "category": "Epic",
    "kind": "unit",
    "value": 7,
    "demand": 3,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/24dad965-e8af-4f5c-8a92-26884bff32e4/f4a62465d12ed8d388c0b0792f15efe72d38cd4b10640cc05e5c1dcc1900d0aa.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/24dad965-e8af-4f5c-8a92-26884bff32e4/f4a62465d12ed8d388c0b0792f15efe72d38cd4b10640cc05e5c1dcc1900d0aa.webp?w=128",
+   "rarityRank": 42
   },
   {
    "name": "Woman Crate",
@@ -2028,6 +3024,10 @@
    "value": 5,
    "demand": 1.8,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/4fff864f-3b29-4581-9e38-c09d2b199ac5/49c9dc293bab04248ba16049a30de3e935b324987d6039ba075772c95317bd14.webp?w=128"
   },
   {
@@ -2091,13 +3091,22 @@
    "maxRange": 20,
    "howToGet": "Woman Crate",
    "description": "Fully upgraded, Speakerwoman does 2,500 DPS. Placing it and buying all 5 upgrades costs 9,000 cash, and you can have 9 on the map.",
+   "levelsType": "damage",
+   "about": "Speakerwoman is a Legendary unit in Cameraman Tower Defense. There are 772,562 in the game. It trades for about 4 gems, with offers usually between 2 and 7 gems. Demand is very low and the price is unstable.",
+   "dropChance": 20,
+   "added": "Update 3 (Oct 10, 2026)",
    "name": "SpeakerWoman",
    "category": "Legendary",
    "kind": "unit",
    "value": 3,
    "demand": 1.5,
    "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/355ee768-56ee-4074-8f88-e5251590e4bf/283294316c933b862389f8299c5c78324bd92ea3434b949f9dd38af100d917b8.webp?w=128"
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/355ee768-56ee-4074-8f88-e5251590e4bf/283294316c933b862389f8299c5c78324bd92ea3434b949f9dd38af100d917b8.webp?w=128",
+   "rarityRank": 36
   },
   {
    "role": "Damage",
@@ -2152,13 +3161,32 @@
    "maxRange": 20,
    "howToGet": "Exclusive Halloween Crate",
    "description": "Fully upgraded, Dragon Cameraman does 4,400 DPS. Placing it and buying all 4 upgrades costs 16,500 cash, and you can have 6 on the map.",
+   "levelsType": "damage",
+   "about": "Dragon Cameraman is a Legendary unit in Cameraman Tower Defense. There are 91,314 in the game. It trades for about 3 gems, with offers usually between 1 and 5 gems. Demand is very low and the price is dropping.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Ninja Cameraman"
+     },
+     {
+      "name": "2 trades"
+     }
+    ]
+   },
+   "dropChance": 1,
+   "added": "Update 4 (Oct 18, 2026)",
    "name": "dragon cameraman",
    "category": "Legendary",
    "kind": "unit",
    "value": 2,
    "demand": 1,
    "stability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a6fb8a80-a9ef-413e-ad58-289078dfca88/e1d6c96ca90c5ba743bf3f17ef0f8f6d5cef382b3bf71eea2dea3ff21cbfbe54.webp?w=128"
+   "flags": [
+    "Dropping"
+   ],
+   "rawStability": "Slowly dropping",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a6fb8a80-a9ef-413e-ad58-289078dfca88/e1d6c96ca90c5ba743bf3f17ef0f8f6d5cef382b3bf71eea2dea3ff21cbfbe54.webp?w=128",
+   "rarityRank": 25
   },
   {
    "role": "Damage",
@@ -2213,13 +3241,21 @@
    "maxRange": 30,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Laser Cameraman Car does 2,500 DPS. Placing it and buying all 4 upgrades costs 7,000 cash, and you can have 11 on the map.",
+   "levelsType": "damage",
+   "about": "Laser Cameraman Car is a Legendary unit in Cameraman Tower Defense. There are 654,274 in the game. It trades for about 3 gems, with offers usually between 1 and 5 gems. Demand is very low and the price is stable.",
+   "added": "Update 2 (Sep 30, 2026)",
    "name": "Laser Cameraman Car",
    "category": "Legendary",
    "kind": "unit",
    "value": 2,
    "demand": 1,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/c0f35975-59b6-431b-a6d5-f09bd20964d5/113ad8fd6dc1694251696023d99cc250602d801190ff76be0ce0dfe8abc7cfca.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/c0f35975-59b6-431b-a6d5-f09bd20964d5/113ad8fd6dc1694251696023d99cc250602d801190ff76be0ce0dfe8abc7cfca.webp?w=128",
+   "rarityRank": 33
   },
   {
    "role": "Damage",
@@ -2274,13 +3310,21 @@
    "maxRange": 20,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Ninja Cameraman does 1,000 DPS. Placing it and buying all 4 upgrades costs 3,000 cash.",
+   "levelsType": "damage",
+   "about": "Ninja Cameraman is a Legendary unit in Cameraman Tower Defense. There are 1,037,794 in the game. It trades for about 3 gems, with offers usually between 1 and 5 gems. Demand is very low and the price is stable.",
+   "added": "Release (Sep 19, 2026)",
    "name": "Ninja Cameraman",
    "category": "Legendary",
    "kind": "unit",
    "value": 2,
    "demand": 1.8,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/f8e4904d-0af7-42ad-86f6-e7878156b5e3/93588b894fcd16d1266338da788a5f0a46f5a925efd74e9fd098af3e0b7eafdd.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/f8e4904d-0af7-42ad-86f6-e7878156b5e3/93588b894fcd16d1266338da788a5f0a46f5a925efd74e9fd098af3e0b7eafdd.webp?w=128",
+   "rarityRank": 39
   },
   {
    "role": "Damage",
@@ -2335,13 +3379,21 @@
    "maxRange": 30,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Titan Cameraman does 3,000 DPS. Placing it and buying all 4 upgrades costs 9,000 cash, and you can have 8 on the map.",
+   "levelsType": "damage",
+   "about": "Titan Cameraman is a Legendary unit in Cameraman Tower Defense. There are 760,549 in the game. It trades for about 3 gems, with offers usually between 1 and 5 gems. Demand is very low and the price is stable.",
+   "added": "Update 1 (Sep 24, 2026)",
    "name": "Titan Cameraman",
    "category": "Legendary",
    "kind": "unit",
    "value": 2,
    "demand": 1.5,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/f65a8a83-94bd-477c-9d46-99801737c2dd/2813bfc279ec6b09d79843be0fb9a118a871905dbeeae1083e555605cbb99054.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/f65a8a83-94bd-477c-9d46-99801737c2dd/2813bfc279ec6b09d79843be0fb9a118a871905dbeeae1083e555605cbb99054.webp?w=128",
+   "rarityRank": 35
   },
   {
    "role": "Damage · AOE · Hidden detection",
@@ -2358,7 +3410,10 @@
      "damage": 100,
      "cooldown": 1,
      "range": 15,
-     "dps": 100
+     "dps": 100,
+     "cols": {
+      "CONE": "70°"
+     }
     },
     {
      "level": "Lv 2",
@@ -2366,7 +3421,10 @@
      "damage": 200,
      "cooldown": 1,
      "range": 15,
-     "dps": 200
+     "dps": 200,
+     "cols": {
+      "CONE": "75°"
+     }
     },
     {
      "level": "Lv 3",
@@ -2374,7 +3432,10 @@
      "damage": 200,
      "cooldown": 0.5,
      "range": 20,
-     "dps": 400
+     "dps": 400,
+     "cols": {
+      "CONE": "80°"
+     }
     },
     {
      "level": "Lv 4",
@@ -2382,7 +3443,10 @@
      "damage": 400,
      "cooldown": 0.5,
      "range": 20,
-     "dps": 800
+     "dps": 800,
+     "cols": {
+      "CONE": "85°"
+     }
     },
     {
      "level": "Lv 5",
@@ -2390,7 +3454,10 @@
      "damage": 500,
      "cooldown": 0.4,
      "range": 25,
-     "dps": 1250
+     "dps": 1250,
+     "cols": {
+      "CONE": "90°"
+     }
     },
     {
      "level": "Lv 6",
@@ -2398,19 +3465,30 @@
      "damage": 500,
      "cooldown": 0.25,
      "range": 25,
-     "dps": 2000
+     "dps": 2000,
+     "cols": {
+      "CONE": "100°"
+     }
     }
    ],
    "maxRange": 25,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Titan TV Man does 2,000 DPS. Placing it and buying all 5 upgrades costs 16,000 cash, and you can have 7 on the map. At max level it hits everything in a 100° cone and has hidden detection.",
+   "levelsType": "damage",
+   "about": "Titan TV Man is a Legendary unit in Cameraman Tower Defense. There are 798,702 in the game. It trades for about 3 gems, with offers usually between 1 and 5 gems. Demand is very low and the price is stable.",
+   "added": "Update 1 (Sep 24, 2026)",
    "name": "Titan TV Man",
    "category": "Legendary",
    "kind": "unit",
    "value": 2,
    "demand": 1.5,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/0b8cb560-f1c2-4d91-89a3-64172be2f617/94da9586b9ff2d38f655bca07cf7a29a45ba15452c8079baf253fc349708c7bc.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/0b8cb560-f1c2-4d91-89a3-64172be2f617/94da9586b9ff2d38f655bca07cf7a29a45ba15452c8079baf253fc349708c7bc.webp?w=128",
+   "rarityRank": 37
   },
   {
    "role": "Damage",
@@ -2465,13 +3543,21 @@
    "maxRange": 25,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Titan Speakerman does 2,000 DPS. Placing it and buying all 4 upgrades costs 4,500 cash, and you can have 11 on the map.",
+   "levelsType": "damage",
+   "about": "Titan Speakerman is a Legendary unit in Cameraman Tower Defense. There are 838,155 in the game. It trades for about 1 gem, with offers usually between 1 and 2 gems. Demand is very low and the price is stable.",
+   "added": "Release (Sep 19, 2026)",
    "name": "Titan Speakerman",
    "category": "Legendary",
    "kind": "unit",
    "value": 1,
    "demand": 1,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/81e5df42-ba6e-4fa7-8f03-350008bf6f8b/95fda52f361a7ef2b9157517c65a5aab3c7fa002110ca7d64be1d9ad3cbea61c.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/81e5df42-ba6e-4fa7-8f03-350008bf6f8b/95fda52f361a7ef2b9157517c65a5aab3c7fa002110ca7d64be1d9ad3cbea61c.webp?w=128",
+   "rarityRank": 38
   },
   {
    "tier": "D",
@@ -2510,13 +3596,21 @@
    "maxRange": 15,
    "howToGet": "Summon board",
    "description": "Fully upgraded, Brown Cameraman does 150 DPS. Placing it and buying all 2 upgrades costs 700 cash.",
+   "levelsType": "damage",
+   "about": "Brown Cameraman is an Uncommon unit in Cameraman Tower Defense. There are 22,885,188 in the game, one of the most common units. It trades for about 2 gems, with offers usually between 1 and 5 gems.",
+   "added": "Release (Sep 19, 2026)",
    "name": "Brown Cameraman",
    "category": "Uncommon",
    "kind": "unit",
    "value": 0,
    "demand": 0,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/db3a0bd1-09cf-4663-a20b-b9a518f95ab9/7bc939af8c99bbfe2bd4c0d4e5e8dfaef8b527dbb4e8bf0929c45fc5c5fd401b.webp?w=128"
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/db3a0bd1-09cf-4663-a20b-b9a518f95ab9/7bc939af8c99bbfe2bd4c0d4e5e8dfaef8b527dbb4e8bf0929c45fc5c5fd401b.webp?w=128",
+   "rarityRank": 49
   },
   {
    "role": "Farm",
@@ -2526,30 +3620,46 @@
    "levels": [
     {
      "level": "Place",
-     "cost": 150
+     "cost": 150,
+     "income": 50
     },
     {
      "level": "Lv 2",
-     "cost": 300
+     "cost": 300,
+     "income": 100
     },
     {
      "level": "Lv 3",
-     "cost": 450
+     "cost": 450,
+     "income": 150
     },
     {
      "level": "Lv 4",
-     "cost": 600
+     "cost": 600,
+     "income": 200
     }
    ],
    "howToGet": "Summon board",
    "description": "Popcorn Cameraman doesn't attack. It pays 200 cash every wave at max level, 600 with all 3 placed. Placing it and buying all 3 upgrades costs 1,500 cash, and you can have 3 on the map.",
+   "levelsType": "farm",
+   "about": "Popcorn Cameraman is a Rare unit in Cameraman Tower Defense. There are 17,573,163 in the game. It trades for about 2 gems, with offers usually between 1 and 5 gems. Demand is very high and the price is unstable.",
+   "market": {
+    "min": 1,
+    "max": 5
+   },
+   "added": "Update 2 (Sep 30, 2026)",
    "name": "Popcorn Cameraman",
    "category": "Rare",
    "kind": "unit",
    "value": 0,
    "demand": 0,
    "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/80695f2f-0350-4a35-9bd2-f69e5bd32346/8bf2550dc5531ed0a5f3ace06eb0b6bf032f0b99ec32dc2e0e598ead4e50f435.webp?w=128"
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/80695f2f-0350-4a35-9bd2-f69e5bd32346/8bf2550dc5531ed0a5f3ace06eb0b6bf032f0b99ec32dc2e0e598ead4e50f435.webp?w=128",
+   "rarityRank": 48
   },
   {
    "name": "Speaker Strider",
@@ -2558,6 +3668,10 @@
    "value": 0,
    "demand": 0,
    "stability": "Unstable",
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/37034d69-fb7f-45c0-91f0-65ccdd102ede/8df266d62fb0fa07645bde1de0740b02a5f8ef0512a3817fbf3b9191a7328eb8.webp?w=128"
   },
   {
@@ -2571,46 +3685,494 @@
      "cost": 500,
      "damage": 3,
      "cooldown": 3,
-     "range": 2
+     "range": 2,
+     "cols": {
+      "REACH": "20"
+     }
     },
     {
      "level": "Lv 2",
      "cost": 1000,
      "damage": 6,
      "cooldown": 6,
-     "range": 4
+     "range": 4,
+     "cols": {
+      "REACH": "20"
+     }
     },
     {
      "level": "Lv 3",
      "cost": 1500,
      "damage": 9,
      "cooldown": 9,
-     "range": 6
+     "range": 6,
+     "cols": {
+      "REACH": "20"
+     }
     },
     {
      "level": "Lv 4",
      "cost": 2000,
      "damage": 12,
      "cooldown": 12,
-     "range": 8
+     "range": 8,
+     "cols": {
+      "REACH": "20"
+     }
     },
     {
      "level": "Lv 5",
      "cost": 2500,
      "damage": 15,
      "cooldown": 15,
-     "range": 10
+     "range": 10,
+     "cols": {
+      "REACH": "20"
+     }
     }
    ],
    "howToGet": "Exclusive Party Crate",
    "description": "Alliance Cake doesn't attack. At max level it gives units within 20 studs +15% damage, -15% cooldown and +10% range. Placing it and buying all 4 upgrades costs 7,500 cash, and you can have 1 on the map.",
+   "levelsType": "support",
+   "about": "Alliance Cake is an Exclusive unit in Cameraman Tower Defense. There are only 242 in the game, the rarest of 56 units. It has no set trade value yet, so the trading hub is the place to see what players offer for it. Demand is very high and the price is overpaid.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "TV Spider"
+     },
+     {
+      "name": "2 trades"
+     }
+    ]
+   },
+   "dropChance": 0.1,
+   "added": "Update 6 (Nov 15, 2026)",
    "name": "Alliance Cake",
    "category": "Exclusive",
    "kind": "unit",
    "value": 0,
    "demand": 9,
    "stability": "Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a2afd555-6b9c-4d19-8f5e-083f991b3642/f8f39a1d78285bf07f1c8be141a840523a68c1c4ac4b87af7a776cf28b6f70e4.webp?w=128"
+   "flags": [
+    "Overpaid"
+   ],
+   "rawStability": "Heavily Overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a2afd555-6b9c-4d19-8f5e-083f991b3642/f8f39a1d78285bf07f1c8be141a840523a68c1c4ac4b87af7a776cf28b6f70e4.webp?w=128",
+   "rarityRank": 1
+  },
+  {
+   "tier": "D",
+   "maxDps": 500,
+   "dpsPer1k": 128,
+   "cashToMax": 3900,
+   "maxOnMap": "No cap",
+   "exist": 1671445,
+   "role": "Damage · AOE",
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 350,
+     "damage": 35,
+     "cooldown": 1,
+     "range": 10,
+     "dps": 35,
+     "cols": {
+      "CONE": "70°"
+     }
+    },
+    {
+     "level": "Lv 2",
+     "cost": 450,
+     "damage": 70,
+     "cooldown": 1,
+     "range": 12,
+     "dps": 70,
+     "cols": {
+      "CONE": "80°"
+     }
+    },
+    {
+     "level": "Lv 3",
+     "cost": 750,
+     "damage": 150,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 150,
+     "cols": {
+      "CONE": "90°"
+     }
+    },
+    {
+     "level": "Lv 4",
+     "cost": 950,
+     "damage": 250,
+     "cooldown": 1,
+     "range": 18,
+     "dps": 250,
+     "cols": {
+      "CONE": "90°"
+     }
+    },
+    {
+     "level": "Lv 5",
+     "cost": 1400,
+     "damage": 250,
+     "cooldown": 0.5,
+     "range": 20,
+     "dps": 500,
+     "cols": {
+      "CONE": "100°"
+     }
+    }
+   ],
+   "levelsType": "damage",
+   "maxRange": 20,
+   "howToGet": "Exclusive Party Crate",
+   "description": "Fully upgraded, Balloon Speakerman does 500 DPS. Placing it and buying all 4 upgrades costs 3,900 cash. At max level it hits everything in a 100° cone.",
+   "about": "Balloon Speakerman is an Exclusive unit in Cameraman Tower Defense. There are 1,671,445 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
+   "dropChance": 78.4,
+   "added": "Update 6 (Nov 15, 2026)",
+   "name": "Balloon Speakerman",
+   "category": "Exclusive",
+   "kind": "unit",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/bd0ac2e3-f5da-4547-9359-47cdac5d051b/240648d18cf522bc8947a04d5b9c430521324e83c3b11764b45fed5e78911cea.webp?w=128",
+   "rarityRank": 40
+  },
+  {
+   "cashToMax": 7000,
+   "maxOnMap": 2,
+   "exist": 1904506,
+   "role": "Spawner",
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 200,
+     "spawns": "Mini Cameraman",
+     "hp": 100,
+     "unitDps": 50,
+     "cooldown": 25
+    },
+    {
+     "level": "Lv 2",
+     "cost": 300,
+     "spawns": "Mini Cameraman",
+     "hp": 250,
+     "unitDps": 50,
+     "cooldown": 25
+    },
+    {
+     "level": "Lv 3",
+     "cost": 800,
+     "spawns": "Mini Large Cameraman",
+     "hp": 500,
+     "unitDps": 250,
+     "cooldown": 25
+    },
+    {
+     "level": "Lv 4",
+     "cost": 1200,
+     "spawns": "Mini Large Cameraman",
+     "hp": 2500,
+     "unitDps": 250,
+     "cooldown": 25
+    },
+    {
+     "level": "Lv 5",
+     "cost": 4500,
+     "spawns": "Mini Titan Cameraman",
+     "hp": 10000,
+     "unitDps": 1000,
+     "cooldown": 25
+    }
+   ],
+   "levelsType": "spawner",
+   "howToGet": "Summon board",
+   "description": "Camera Helicopter doesn't attack. Every 25s it sends out a Mini Titan Cameraman with 10,000 health and 1,000 DPS at max level. Placing it and buying all 4 upgrades costs 7,000 cash, and you can have 2 on the map.",
+   "about": "Camera Helicopter is an Epic unit in Cameraman Tower Defense. There are 1,904,506 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
+   "added": "Update 2 (Sep 30, 2026)",
+   "name": "Camera Helicopter",
+   "category": "Epic",
+   "kind": "unit",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/787df8b6-cb40-493f-b348-995b8f949fe6/af2b6ceadaa1c76c5497ff198657da718cdee74be1566d7e84bbb6565ebd1cf5.webp?w=128",
+   "rarityRank": 41
+  },
+  {
+   "tier": "D",
+   "maxDps": 100,
+   "dpsPer1k": 189,
+   "cashToMax": 530,
+   "maxOnMap": "No cap",
+   "exist": 210469546,
+   "role": "Damage",
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 80,
+     "damage": 25,
+     "cooldown": 3,
+     "range": 8,
+     "dps": 8.3
+    },
+    {
+     "level": "Lv 2",
+     "cost": 150,
+     "damage": 50,
+     "cooldown": 2,
+     "range": 10,
+     "dps": 25
+    },
+    {
+     "level": "Lv 3",
+     "cost": 300,
+     "damage": 100,
+     "cooldown": 1,
+     "range": 12,
+     "dps": 100
+    }
+   ],
+   "levelsType": "damage",
+   "maxRange": 12,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Cameraman does 100 DPS. Placing it and buying all 2 upgrades costs 530 cash.",
+   "about": "Cameraman is a Basic unit in Cameraman Tower Defense. There are 210,469,546 in the game, one of the most common units. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
+   "added": "Release (Sep 19, 2026)",
+   "name": "Cameraman",
+   "category": "Common",
+   "kind": "unit",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "",
+   "rarityRank": 52
+  },
+  {
+   "tier": "D",
+   "maxDps": 150,
+   "dpsPer1k": 167,
+   "cashToMax": 900,
+   "maxOnMap": "No cap",
+   "exist": 42643176,
+   "role": "Damage",
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 150,
+     "damage": 40,
+     "cooldown": 3,
+     "range": 10,
+     "dps": 13.3
+    },
+    {
+     "level": "Lv 2",
+     "cost": 250,
+     "damage": 75,
+     "cooldown": 2,
+     "range": 15,
+     "dps": 37.5
+    },
+    {
+     "level": "Lv 3",
+     "cost": 500,
+     "damage": 150,
+     "cooldown": 1,
+     "range": 20,
+     "dps": 150
+    }
+   ],
+   "levelsType": "damage",
+   "maxRange": 20,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Car Speakerman does 150 DPS. Placing it and buying all 2 upgrades costs 900 cash.",
+   "about": "Car Speakerman is an Uncommon unit in Cameraman Tower Defense. There are 42,643,176 in the game, one of the most common units. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
+   "added": "Release (Sep 19, 2026)",
+   "name": "Car Speakerman",
+   "category": "Uncommon",
+   "kind": "unit",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/ff4f4e70-1ce9-44f7-b3b7-a25091da0a63/f0b170d64d512cc1590d9c33a79436146cb83ea325e757dd3016ba86c7f62dfd.webp?w=128",
+   "rarityRank": 51
+  },
+  {
+   "role": "Damage · AOE",
+   "cashToMax": 15900,
+   "maxOnMap": 6,
+   "exist": 176595,
+   "tier": "B",
+   "maxDps": 2600,
+   "dpsPer1k": 164,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 900,
+     "damage": 150,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 150,
+     "cols": {
+      "CONE": "70°"
+     }
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1000,
+     "damage": 300,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 300,
+     "cols": {
+      "CONE": "75°"
+     }
+    },
+    {
+     "level": "Lv 3",
+     "cost": 2000,
+     "damage": 300,
+     "cooldown": 0.5,
+     "range": 20,
+     "dps": 600,
+     "cols": {
+      "CONE": "80°"
+     }
+    },
+    {
+     "level": "Lv 4",
+     "cost": 3000,
+     "damage": 500,
+     "cooldown": 0.5,
+     "range": 20,
+     "dps": 1000,
+     "cols": {
+      "CONE": "85°"
+     }
+    },
+    {
+     "level": "Lv 5",
+     "cost": 4000,
+     "damage": 750,
+     "cooldown": 0.5,
+     "range": 25,
+     "dps": 1500,
+     "cols": {
+      "CONE": "90°"
+     }
+    },
+    {
+     "level": "Lv 6",
+     "cost": 5000,
+     "damage": 1300,
+     "cooldown": 0.5,
+     "range": 25,
+     "dps": 2600,
+     "cols": {
+      "CONE": "100°"
+     }
+    }
+   ],
+   "maxRange": 25,
+   "howToGet": "Exclusive Party Crate",
+   "description": "Fully upgraded, Chocolate TV Man does 2,600 DPS. Placing it and buying all 5 upgrades costs 15,900 cash, and you can have 6 on the map. At max level it hits everything in a 100° cone.",
+   "levelsType": "damage",
+   "about": "Chocolate TV Man is an Exclusive unit in Cameraman Tower Defense. There are 176,595 in the game. It trades for about 68 gems, with offers usually between 30 and 150 gems. Demand is low and the price is stable.",
+   "dropChance": 20,
+   "added": "Update 6 (Nov 15, 2026)",
+   "name": "Chocolate TV Man",
+   "category": "Exclusive",
+   "kind": "unit",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/2899d911-f6cb-48ea-9e37-7097860b132b/59dd94ec94e22bd2d694126c3cdff199b617f709a85a94650f8ffc628acc378a.webp?w=128",
+   "rarityRank": 29
+  },
+  {
+   "tier": "D",
+   "maxDps": 300,
+   "dpsPer1k": 143,
+   "cashToMax": 2100,
+   "maxOnMap": "No cap",
+   "exist": 7170717,
+   "role": "Damage",
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 200,
+     "damage": 25,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 25
+    },
+    {
+     "level": "Lv 2",
+     "cost": 400,
+     "damage": 50,
+     "cooldown": 0.8,
+     "range": 20,
+     "dps": 62.5
+    },
+    {
+     "level": "Lv 3",
+     "cost": 600,
+     "damage": 80,
+     "cooldown": 0.6,
+     "range": 24,
+     "dps": 133.3
+    },
+    {
+     "level": "Lv 4",
+     "cost": 900,
+     "damage": 150,
+     "cooldown": 0.5,
+     "range": 30,
+     "dps": 300
+    }
+   ],
+   "levelsType": "damage",
+   "maxRange": 30,
+   "howToGet": "Woman Crate",
+   "description": "Fully upgraded, Dark Camerawoman does 300 DPS. Placing it and buying all 3 upgrades costs 2,100 cash.",
+   "about": "Dark Camerawoman is an Epic unit in Cameraman Tower Defense. There are 7,170,717 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
+   "dropChance": 78,
+   "added": "Update 3 (Oct 10, 2026)",
+   "name": "Dark Camerawoman",
+   "category": "Epic",
+   "kind": "unit",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/6f33ad73-742a-4a4d-af76-eb38db06caa8/fc3fc89e002eb414f61b2395b058d89f40ee7e51a757b0eea1a59293ca3c9a19.webp?w=128",
+   "rarityRank": 47
   },
   {
    "name": "DevSigned engineer",
@@ -2619,6 +4181,10 @@
    "value": 0,
    "demand": 9,
    "stability": "Unstable",
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/6691bfc2-715a-4e04-934a-5bba63acd634/db1b88bfb1b6ae6a02e0b57b0317be91622b0e52846158e970e401ce4409527d.webp?w=128"
   },
   {
@@ -2628,6 +4194,10 @@
    "value": 0,
    "demand": 5,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/65ac4aec-fdee-46a4-b919-c9cbbb8584a1/2eb146e3103d83b41d6c6f1f8714b6e54ea4a69c83a0c899a567abb5cbe2e747.webp?w=128"
   },
   {
@@ -2637,6 +4207,10 @@
    "value": 0,
    "demand": 8,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/0a5586d3-e305-49d8-8f36-b8399ba5f1e6/f4a62465d12ed8d388c0b0792f15efe72d38cd4b10640cc05e5c1dcc1900d0aa.webp?w=128"
   },
   {
@@ -2646,6 +4220,10 @@
    "value": 0,
    "demand": 7,
    "stability": "Unstable",
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a73063d4-ae4a-4797-aaed-73ba83590e58/b988f0a6858a5644659fdbe853ac4f805f6cb1707af6d0cb7acdce8e17a0f0dd.webp?w=128"
   },
   {
@@ -2655,6 +4233,10 @@
    "value": 0,
    "demand": 6,
    "stability": "Unstable",
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/3be6afb2-995a-4961-a00c-fc9efaef0254/dc1fc361cab75cb1a206716ee0b30560b0dca0a8a8846f30f0842c90aaf8c95f.webp?w=128"
   },
   {
@@ -2664,6 +4246,10 @@
    "value": 0,
    "demand": 8,
    "stability": "Unstable",
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a71dcd89-e3d1-4354-8524-8942689b9e6e/4502e52d1094eee24dde0583a4f4d6bb41b277dc9d095f1040ccaf81a76f39b0.webp?w=128"
   },
   {
@@ -2673,6 +4259,10 @@
    "value": 0,
    "demand": 5,
    "stability": "Unstable",
+   "flags": [
+    "Unstable"
+   ],
+   "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/05ac6abf-6456-4b65-82d8-2597ce0c3f65/f074e0d53349eb542389b02bc8c1cba43856ddde7668bb5ad4fdbbedc618c51d.webp?w=128"
   },
   {
@@ -2682,6 +4272,10 @@
    "value": 0,
    "demand": 5,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/edaf536e-9875-4f9b-b239-93fc45d610bb/8c16029f53ebf2faa3a3bfd67ce6455b8489d5efb39fcee7df0ba0a5600a6871.webp?w=128"
   },
   {
@@ -2691,10 +4285,384 @@
    "value": 0,
    "demand": 4,
    "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a62477b7-3a68-405d-9499-4dd19fab9839/ee380d6de2782b7fa7624a1346f85cbc1ddbac070202c6627e96a9203a37a088.webp?w=128"
+  },
+  {
+   "tier": "D",
+   "maxDps": 500,
+   "dpsPer1k": 238,
+   "cashToMax": 2100,
+   "maxOnMap": "No cap",
+   "exist": 2686802,
+   "role": "Damage",
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 200,
+     "damage": 25,
+     "cooldown": 0.5,
+     "range": 12,
+     "dps": 50
+    },
+    {
+     "level": "Lv 2",
+     "cost": 350,
+     "damage": 50,
+     "cooldown": 0.4,
+     "range": 15,
+     "dps": 125
+    },
+    {
+     "level": "Lv 3",
+     "cost": 650,
+     "damage": 50,
+     "cooldown": 0.2,
+     "range": 18,
+     "dps": 250
+    },
+    {
+     "level": "Lv 4",
+     "cost": 900,
+     "damage": 100,
+     "cooldown": 0.2,
+     "range": 20,
+     "dps": 500
+    }
+   ],
+   "levelsType": "damage",
+   "maxRange": 20,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Large Cameraman does 500 DPS. Placing it and buying all 3 upgrades costs 2,100 cash.",
+   "about": "Large Cameraman is an Epic unit in Cameraman Tower Defense. There are 2,686,802 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
+   "added": "Release (Sep 19, 2026)",
+   "name": "Large Cameraman",
+   "category": "Epic",
+   "kind": "unit",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "",
+   "rarityRank": 44
+  },
+  {
+   "tier": "D",
+   "maxDps": 400,
+   "dpsPer1k": 276,
+   "cashToMax": 1450,
+   "maxOnMap": "No cap",
+   "exist": 2235586,
+   "role": "Damage",
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 180,
+     "damage": 50,
+     "cooldown": 1,
+     "range": 8,
+     "dps": 50
+    },
+    {
+     "level": "Lv 2",
+     "cost": 220,
+     "damage": 100,
+     "cooldown": 0.7,
+     "range": 12,
+     "dps": 142.8
+    },
+    {
+     "level": "Lv 3",
+     "cost": 450,
+     "damage": 125,
+     "cooldown": 0.5,
+     "range": 15,
+     "dps": 250
+    },
+    {
+     "level": "Lv 4",
+     "cost": 600,
+     "damage": 200,
+     "cooldown": 0.5,
+     "range": 15,
+     "dps": 400
+    }
+   ],
+   "levelsType": "damage",
+   "maxRange": 15,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Large Speakerman does 400 DPS. Placing it and buying all 3 upgrades costs 1,450 cash.",
+   "about": "Large Speakerman is an Epic unit in Cameraman Tower Defense. There are 2,235,586 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
+   "added": "Release (Sep 19, 2026)",
+   "name": "Large Speakerman",
+   "category": "Epic",
+   "kind": "unit",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "",
+   "rarityRank": 43
+  },
+  {
+   "tier": "D",
+   "maxDps": 500,
+   "dpsPer1k": 119,
+   "cashToMax": 4200,
+   "maxOnMap": "No cap",
+   "exist": 3094232,
+   "role": "Damage · AOE · Hidden detection",
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 400,
+     "damage": 20,
+     "cooldown": 0.5,
+     "range": 9,
+     "dps": 40,
+     "cols": {
+      "CONE": "60°"
+     }
+    },
+    {
+     "level": "Lv 2",
+     "cost": 500,
+     "damage": 25,
+     "cooldown": 0.4,
+     "range": 12,
+     "dps": 62.5,
+     "cols": {
+      "CONE": "70°"
+     }
+    },
+    {
+     "level": "Lv 3",
+     "cost": 800,
+     "damage": 35,
+     "cooldown": 0.2,
+     "range": 15,
+     "dps": 175,
+     "cols": {
+      "CONE": "80°"
+     }
+    },
+    {
+     "level": "Lv 4",
+     "cost": 1000,
+     "damage": 50,
+     "cooldown": 0.2,
+     "range": 18,
+     "dps": 250,
+     "cols": {
+      "CONE": "90°"
+     }
+    },
+    {
+     "level": "Lv 5",
+     "cost": 1500,
+     "damage": 100,
+     "cooldown": 0.2,
+     "range": 20,
+     "dps": 500,
+     "cols": {
+      "CONE": "100°"
+     }
+    }
+   ],
+   "levelsType": "damage",
+   "maxRange": 20,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Large TV Man does 500 DPS. Placing it and buying all 4 upgrades costs 4,200 cash. At max level it hits everything in a 100° cone and has hidden detection.",
+   "about": "Large TV Man is an Epic unit in Cameraman Tower Defense. There are 3,094,232 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
+   "added": "Release (Sep 19, 2026)",
+   "name": "Large TV Man",
+   "category": "Epic",
+   "kind": "unit",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "",
+   "rarityRank": 45
+  },
+  {
+   "name": "Party Cake Crate",
+   "category": "Crates",
+   "kind": "crate",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": ""
+  },
+  {
+   "tier": "D",
+   "maxDps": 100,
+   "dpsPer1k": 182,
+   "cashToMax": 550,
+   "maxOnMap": "No cap",
+   "exist": 3705125,
+   "role": "Damage",
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 100,
+     "damage": 10,
+     "cooldown": 1,
+     "range": 6,
+     "dps": 10
+    },
+    {
+     "level": "Lv 2",
+     "cost": 150,
+     "damage": 25,
+     "cooldown": 0.7,
+     "range": 8,
+     "dps": 35.7
+    },
+    {
+     "level": "Lv 3",
+     "cost": 300,
+     "damage": 50,
+     "cooldown": 0.5,
+     "range": 10,
+     "dps": 100
+    }
+   ],
+   "levelsType": "damage",
+   "maxRange": 10,
+   "howToGet": "Starter unit",
+   "description": "Fully upgraded, Speakerman does 100 DPS. Placing it and buying all 2 upgrades costs 550 cash.",
+   "about": "Speakerman is a Basic unit in Cameraman Tower Defense. There are 3,705,125 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
+   "market": {
+    "topTrades": [
+     {
+      "name": "Glitch Cameraman"
+     },
+     {
+      "name": "3 trades"
+     },
+     {
+      "name": "TV Spider"
+     },
+     {
+      "name": "3 trades"
+     },
+     {
+      "name": "Jetpack Cameraman"
+     }
+    ]
+   },
+   "added": "Release (Sep 19, 2026)",
+   "name": "Speakerman",
+   "category": "Common",
+   "kind": "unit",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "",
+   "rarityRank": 46
+  },
+  {
+   "tier": "D",
+   "maxDps": 250,
+   "dpsPer1k": 179,
+   "cashToMax": 1400,
+   "maxOnMap": "No cap",
+   "exist": 23272024,
+   "role": "Damage · AOE · Hidden detection",
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 200,
+     "damage": 10,
+     "cooldown": 0.5,
+     "range": 6,
+     "dps": 20,
+     "cols": {
+      "CONE": "60°"
+     }
+    },
+    {
+     "level": "Lv 2",
+     "cost": 200,
+     "damage": 25,
+     "cooldown": 0.5,
+     "range": 7,
+     "dps": 50,
+     "cols": {
+      "CONE": "70°"
+     }
+    },
+    {
+     "level": "Lv 3",
+     "cost": 400,
+     "damage": 70,
+     "cooldown": 0.5,
+     "range": 9,
+     "dps": 140,
+     "cols": {
+      "CONE": "80°"
+     }
+    },
+    {
+     "level": "Lv 4",
+     "cost": 600,
+     "damage": 125,
+     "cooldown": 0.5,
+     "range": 12,
+     "dps": 250,
+     "cols": {
+      "CONE": "90°"
+     }
+    }
+   ],
+   "levelsType": "damage",
+   "maxRange": 12,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, TV Man does 250 DPS. Placing it and buying all 3 upgrades costs 1,400 cash. At max level it hits everything in a 90° cone and has hidden detection.",
+   "about": "TV Man is a Rare unit in Cameraman Tower Defense. There are 23,272,024 in the game, one of the most common units. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
+   "added": "Release (Sep 19, 2026)",
+   "name": "TV Man",
+   "category": "Rare",
+   "kind": "unit",
+   "value": 0,
+   "demand": 0,
+   "stability": "Stable",
+   "flags": [
+    "Stable"
+   ],
+   "rawStability": "",
+   "img": "",
+   "rarityRank": 50
   }
  ],
  "changelog": [
+  {
+   "name": "Chocolate TV Man",
+   "old": 65,
+   "new": 0,
+   "date": "2026-11-24"
+  },
   {
    "name": "Pharaoh Cameraman",
    "old": 26500,
