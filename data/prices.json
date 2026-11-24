@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T13:06:30.410Z",
+ "updated": "2026-11-24T13:25:03.405Z",
  "version": 11,
  "sources": {
   "values": 81,
@@ -244,7 +244,7 @@
     "min": 7500,
     "max": 25000,
     "buyers": 107,
-    "sellers": 64,
+    "sellers": 65,
     "trades7d": 5,
     "topTrades": [
      {
@@ -653,7 +653,7 @@
     "max": 12000,
     "buyers": 104,
     "sellers": 125,
-    "trades7d": 13,
+    "trades7d": 12,
     "topTrades": [
      {
       "name": "Upgraded Titan Cameraman",
@@ -1234,7 +1234,7 @@
     "median": 3100,
     "min": 2000,
     "max": 6000,
-    "buyers": 195,
+    "buyers": 193,
     "sellers": 228,
     "trades7d": 25,
     "topTrades": [
@@ -1503,8 +1503,8 @@
     "median": 1500,
     "min": 800,
     "max": 3500,
-    "buyers": 153,
-    "sellers": 80,
+    "buyers": 151,
+    "sellers": 82,
     "trades7d": 9,
     "topTrades": [
      {
@@ -1891,8 +1891,8 @@
     "median": 1900,
     "min": 1000,
     "max": 3000,
-    "buyers": 320,
-    "sellers": 259,
+    "buyers": 318,
+    "sellers": 260,
     "trades7d": 28,
     "topTrades": [
      {
@@ -2132,8 +2132,8 @@
     "median": 1200,
     "min": 500,
     "max": 2300,
-    "buyers": 68,
-    "sellers": 33,
+    "buyers": 69,
+    "sellers": 35,
     "trades7d": 3,
     "topTrades": [
      {
@@ -2203,7 +2203,7 @@
     "min": 450,
     "max": 2500,
     "buyers": 80,
-    "sellers": 60,
+    "sellers": 61,
     "trades7d": 5,
     "topTrades": [
      {
@@ -2678,7 +2678,7 @@
     "min": 200,
     "max": 1000,
     "buyers": 46,
-    "sellers": 259,
+    "sellers": 256,
     "trades7d": 23,
     "topTrades": [
      {
@@ -2788,7 +2788,7 @@
     "min": 140,
     "max": 550,
     "buyers": 17,
-    "sellers": 109,
+    "sellers": 111,
     "trades7d": 13,
     "topTrades": [
      {
@@ -3853,7 +3853,7 @@
     "min": 100,
     "max": 500,
     "buyers": 106,
-    "sellers": 365,
+    "sellers": 366,
     "trades7d": 36,
     "topTrades": [
      {
@@ -4047,8 +4047,8 @@
     "min": 100,
     "max": 450,
     "buyers": 34,
-    "sellers": 220,
-    "trades7d": 25,
+    "sellers": 219,
+    "trades7d": 24,
     "topTrades": [
      {
       "name": "Titan Cinemaman",
@@ -4214,8 +4214,8 @@
     "median": 204,
     "min": 90,
     "max": 500,
-    "buyers": 53,
-    "sellers": 273,
+    "buyers": 52,
+    "sellers": 274,
     "trades7d": 19,
     "topTrades": [
      {
@@ -4551,7 +4551,7 @@
     "median": 164,
     "min": 70,
     "max": 300,
-    "buyers": 277,
+    "buyers": 276,
     "sellers": 128,
     "trades7d": 15,
     "topTrades": [
@@ -4946,16 +4946,16 @@
    "levelsType": "damage",
    "about": "Upgraded Videotapper Prototype is a Mythic unit in Cameraman Tower Defense. There are 78,058 in the game. It trades for about 155 gems, with offers usually between 70 and 300 gems. Demand is low.",
    "market": {
-    "median": 145,
+    "median": 142,
     "min": 70,
     "max": 300,
-    "buyers": 41,
+    "buyers": 42,
     "sellers": 214,
-    "trades7d": 25,
+    "trades7d": 26,
     "topTrades": [
      {
       "name": "Upgraded Titan Speakerman",
-      "count": 8
+      "count": 9
      },
      {
       "name": "Camera Repair Drone",
@@ -5301,7 +5301,7 @@
     "min": 30,
     "max": 125,
     "buyers": 7,
-    "sellers": 30,
+    "sellers": 29,
     "trades7d": 3
    },
    "priceHistory": [
@@ -6006,7 +6006,7 @@
     "min": 4,
     "max": 20,
     "buyers": 10,
-    "sellers": 49,
+    "sellers": 48,
     "trades7d": 3,
     "topTrades": [
      {
@@ -6227,7 +6227,7 @@
     "median": 12,
     "min": 7,
     "max": 15,
-    "buyers": 47,
+    "buyers": 49,
     "sellers": 101,
     "trades7d": 15,
     "topTrades": [
@@ -6356,7 +6356,7 @@
     "max": 10,
     "buyers": 3,
     "sellers": 25,
-    "trades7d": 2
+    "trades7d": 3
    },
    "priceHistory": [
     {
@@ -7615,7 +7615,7 @@
    "levelsType": "support",
    "about": "Alliance Cake is an Exclusive unit in Cameraman Tower Defense. There are only 242 in the game, the rarest of 56 units. It has no set trade value yet, so the trading hub is the place to see what players offer for it. Demand is very high and the price is overpaid.",
    "market": {
-    "buyers": 51,
+    "buyers": 50,
     "sellers": 20,
     "trades7d": 3,
     "topTrades": [
