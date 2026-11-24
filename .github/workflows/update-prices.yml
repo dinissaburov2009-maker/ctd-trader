@@ -33,19 +33,21 @@ jobs:
       - name: Scrape prices
         run: node scripts/scrape.mjs
 
-      - name: Save debug pages on failure
-        if: failure()
+      - name: Save debug pages
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: debug
-          path: debug-*.html
+          path: |
+            debug-*.html
+            debug-*.txt
           if-no-files-found: ignore
 
       - name: Commit and push
         run: |
           git config user.name "ctd-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/prices.json
+          git add data/prices.json data/history.json
           if git diff --cached --quiet; then
             echo "Нет изменений"
             exit 0
