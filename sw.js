@@ -1,7 +1,7 @@
-/* CTD Trader — service worker v5.3.0
-   HTML и data/*.json (prices, history, icons): network-first (всегда свежее, кэш только офлайн)
+/* CTD Trader — service worker v6.0.0
+   HTML и data/*.json (prices, history, icons): network-first (без раздувания кэша по ?t=)
    Остальное (иконки, картинки юнитов): stale-while-revalidate */
-const VERSION = 'ctd-v5.3.0';
+const VERSION = 'ctd-v6.0.0';
 const CORE = ['./', './index.html', './manifest.json', './icon.svg'];
 
 self.addEventListener('install', (e) => {
@@ -27,14 +27,16 @@ function isFresh(req, url) {
     || url.pathname.endsWith('/manifest.json');
 }
 
-async function networkFirst(req) {
+async function networkFirst(req, url) {
   const cache = await caches.open(VERSION);
+  const key = url.pathname.includes('/data/') ? (url.origin + url.pathname) : req;
   try {
     const res = await fetch(req, { cache: 'no-store' });
-    if (res && res.ok) cache.put(req, res.clone());
+    if (!res || !res.ok) throw new Error('bad status');
+    cache.put(key, res.clone());
     return res;
   } catch {
-    const hit = await cache.match(req, { ignoreSearch: true });
+    const hit = (await cache.match(key)) || (await cache.match(req, { ignoreSearch: true }));
     if (hit) return hit;
     if (req.mode === 'navigate') {
       const page = await cache.match('./index.html');
@@ -57,6 +59,6 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(req.url);
   if (!/^https?:$/.test(url.protocol)) return;
   if (url.origin !== location.origin && !/\.(png|jpe?g|webp|gif|svg)(\?|$)/i.test(url.pathname)) return;
-  if (url.origin === location.origin && isFresh(req, url)) e.respondWith(networkFirst(req));
+  if (url.origin === location.origin && isFresh(req, url)) e.respondWith(networkFirst(req, url));
   else e.respondWith(staleWhileRevalidate(req));
 });
