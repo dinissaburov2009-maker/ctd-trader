@@ -1,116 +1,469 @@
 {
- "updated": "2026-11-23T14:43:06.119Z",
+ "updated": "2026-11-24T05:09:08.167Z",
+ "version": 4,
+ "sources": {
+  "values": 69,
+  "valuesTotal": 82,
+  "wiki": 56
+ },
  "items": [
   {
-   "name": "Pharaoh Cameraman",
-   "category": "Mythic",
-   "value": 26500,
-   "demand": 6.5,
-   "stability": "Underpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/e3514b9a-ecfb-4106-b178-d6c8a233ac7e/d52737a78da454c55a7f1f3992821c726237b0d5356dcd9ad0789ac80a6aebe0.webp?w=128",
    "role": "Spawner",
    "cashToMax": 44500,
    "maxOnMap": 2,
-   "exist": 829
+   "exist": 829,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 200
+    },
+    {
+     "level": "Lv 2",
+     "cost": 400
+    },
+    {
+     "level": "Lv 3",
+     "cost": 900
+    },
+    {
+     "level": "Lv 4",
+     "cost": 1500
+    },
+    {
+     "level": "Lv 5",
+     "cost": 2500
+    },
+    {
+     "level": "Lv 6",
+     "cost": 9000
+    },
+    {
+     "level": "Lv 7",
+     "cost": 30000
+    }
+   ],
+   "howToGet": "Sand Coffin Crate",
+   "description": "Pharaoh Cameraman doesn't attack. Every 20s it sends out a Mummy Cameraman with 250,000 health at max level, which has no attack of its own. Placing it and buying all 6 upgrades costs 44,500 cash, and you can have 2 on the map.",
+   "name": "Pharaoh Cameraman",
+   "category": "Mythic",
+   "value": 27000,
+   "demand": 7.5,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/e3514b9a-ecfb-4106-b178-d6c8a233ac7e/d52737a78da454c55a7f1f3992821c726237b0d5356dcd9ad0789ac80a6aebe0.webp?w=128"
   },
   {
-   "name": "Alliance Cake",
-   "category": "Exclusive",
+   "name": "Furnace Large TV Man",
+   "category": "Godly",
    "value": 21000,
    "demand": 9,
    "stability": "Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a2afd555-6b9c-4d19-8f5e-083f991b3642/f8f39a1d78285bf07f1c8be141a840523a68c1c4ac4b87af7a776cf28b6f70e4.webp?w=128",
-   "role": "Support",
-   "cashToMax": 7500,
-   "maxOnMap": 1,
-   "exist": 242
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/14dd5b61-0e86-4f8b-988f-ab6b021d197f/4f8e8275613691b87b3e921591efe46779693cc995f4836f50b13ae70174a320.webp?w=128"
   },
   {
-   "name": "Spider Tv",
-   "category": "Exclusive",
-   "value": 16300,
-   "demand": 8,
-   "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/dfc3e861-26f0-4f4e-95e3-9c02810eca9f/dc1fc361cab75cb1a206716ee0b30560b0dca0a8a8846f30f0842c90aaf8c95f.webp?w=128",
    "role": "Damage · AOE",
    "cashToMax": 40000,
    "maxOnMap": 4,
    "exist": 5752,
    "tier": "S",
    "maxDps": 10000,
-   "dpsPer1k": 250
+   "dpsPer1k": 250,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 400,
+     "damage": 0,
+     "cooldown": 2,
+     "range": 15,
+     "dps": 125,
+     "extra": "+ Second attack: 250 damage every 2s, range 11, 50° cone"
+    },
+    {
+     "level": "Lv 2",
+     "cost": 600,
+     "damage": 0,
+     "cooldown": 1.5,
+     "range": 19,
+     "dps": 200,
+     "extra": "+ Second attack: 300 damage every 1.5s, range 13, 60° cone"
+    },
+    {
+     "level": "Lv 3",
+     "cost": 1000,
+     "damage": 0,
+     "cooldown": 1,
+     "range": 23,
+     "dps": 500,
+     "extra": "+ Second attack: 500 damage every 1s, range 15, 70° cone"
+    },
+    {
+     "level": "Lv 4",
+     "cost": 2500,
+     "damage": 0,
+     "cooldown": 0.8,
+     "range": 27,
+     "dps": 1000,
+     "extra": "+ Second attack: 800 damage every 0.8s, range 17, 80° cone"
+    },
+    {
+     "level": "Lv 5",
+     "cost": 5000,
+     "damage": 0,
+     "cooldown": 0.5,
+     "range": 31,
+     "dps": 2000,
+     "extra": "+ Second attack: 1,000 damage every 0.5s, range 19, 90° cone"
+    },
+    {
+     "level": "Lv 6",
+     "cost": 10500,
+     "damage": 0,
+     "cooldown": 0.25,
+     "range": 34,
+     "dps": 5000,
+     "extra": "+ Second attack: 1,250 damage every 0.25s, range 20, 100° cone"
+    },
+    {
+     "level": "Lv 7",
+     "cost": 20000,
+     "damage": 0,
+     "cooldown": 0.2,
+     "range": 40,
+     "dps": 10000,
+     "extra": "+ Second attack: 2,000 damage every 0.2s, range 20, 110° cone"
+    }
+   ],
+   "maxRange": 40,
+   "howToGet": "Exclusive Spider Crate",
+   "description": "Fully upgraded, TV Spider does 10,000 DPS. Placing it and buying all 6 upgrades costs 40,000 cash, and you can have 4 on the map. At max level it moves around the map and returns to its spot.",
+   "name": "Spider Tv",
+   "category": "Exclusive",
+   "value": 16300,
+   "demand": 8,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/dfc3e861-26f0-4f4e-95e3-9c02810eca9f/dc1fc361cab75cb1a206716ee0b30560b0dca0a8a8846f30f0842c90aaf8c95f.webp?w=128"
   },
   {
-   "name": "Engineer Cameraman",
-   "category": "Exclusive",
-   "value": 8500,
-   "demand": 8.5,
-   "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/fa368e6b-d486-4bc5-ae88-1ef24efbef91/c6372f4491646037927e023b47c027f74f6940a07bf2a48f9d536c3ce813bd2d.webp?w=128",
    "role": "Spawner",
    "cashToMax": 24000,
    "maxOnMap": 3,
-   "exist": 6558
+   "exist": 6558,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 200
+    },
+    {
+     "level": "Lv 2",
+     "cost": 300
+    },
+    {
+     "level": "Lv 3",
+     "cost": 500
+    },
+    {
+     "level": "Lv 4",
+     "cost": 1000
+    },
+    {
+     "level": "Lv 5",
+     "cost": 2000
+    },
+    {
+     "level": "Lv 6",
+     "cost": 20000
+    }
+   ],
+   "howToGet": "Exclusive Scientist Crate",
+   "description": "Engineer Cameraman doesn't attack. Every 20s it sends out a Laser Car Camera with 100,000 health and 5,000 DPS at max level. Placing it and buying all 5 upgrades costs 24,000 cash, and you can have 3 on the map.",
+   "name": "Engineer Cameraman",
+   "category": "Exclusive",
+   "value": 8750,
+   "demand": 8.5,
+   "stability": "Overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/fa368e6b-d486-4bc5-ae88-1ef24efbef91/c6372f4491646037927e023b47c027f74f6940a07bf2a48f9d536c3ce813bd2d.webp?w=128"
   },
   {
-   "name": "Chaos cameraman",
-   "category": "Mythic",
-   "value": 7000,
-   "demand": 7,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/5bf034d1-07cf-46de-b926-3107cb63e6b0/aab137395fe7e26225c883a02beaf7a89ffc035e48840ef4d5e0b6075e202c9f.webp?w=128",
    "role": "Damage",
    "cashToMax": 30000,
    "maxOnMap": 6,
    "exist": 6787,
    "tier": "S",
    "maxDps": 15000,
-   "dpsPer1k": 500
+   "dpsPer1k": 500,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1000,
+     "damage": 200,
+     "cooldown": 0.5,
+     "range": 14,
+     "dps": 400
+    },
+    {
+     "level": "Lv 2",
+     "cost": 2000,
+     "damage": 400,
+     "cooldown": 0.4,
+     "range": 16,
+     "dps": 1000
+    },
+    {
+     "level": "Lv 3",
+     "cost": 3000,
+     "damage": 400,
+     "cooldown": 0.2,
+     "range": 18,
+     "dps": 2000
+    },
+    {
+     "level": "Lv 4",
+     "cost": 6000,
+     "damage": 800,
+     "cooldown": 0.2,
+     "range": 20,
+     "dps": 4000
+    },
+    {
+     "level": "Lv 5",
+     "cost": 7000,
+     "damage": 1200,
+     "cooldown": 0.2,
+     "range": 25,
+     "dps": 6000
+    },
+    {
+     "level": "Lv 6",
+     "cost": 11000,
+     "damage": 2000,
+     "cooldown": 0.2,
+     "range": 40,
+     "dps": 15000,
+     "extra": "+ Second attack: 1,000 damage every 0.2s, range 20"
+    }
+   ],
+   "maxRange": 40,
+   "howToGet": "Exclusive Halloween Crate",
+   "description": "Fully upgraded, Chaos Cameraman does 15,000 DPS. Placing it and buying all 5 upgrades costs 30,000 cash, and you can have 6 on the map.",
+   "name": "Chaos cameraman",
+   "category": "Mythic",
+   "value": 8000,
+   "demand": 8,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/5bf034d1-07cf-46de-b926-3107cb63e6b0/aab137395fe7e26225c883a02beaf7a89ffc035e48840ef4d5e0b6075e202c9f.webp?w=128"
   },
   {
-   "name": "Upgraded Titan TV Man",
-   "category": "Godly",
-   "value": 4000,
-   "demand": 7.5,
-   "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/00c83051-0126-4686-8c95-8fd920e72aa1/831c54894de2abcd0ac4aa7f6b1013dd5621fe37f5956810abeafe064fd73370.webp?w=128",
    "role": "Damage · AOE",
    "cashToMax": 49450,
    "maxOnMap": 3,
    "exist": 34769,
    "tier": "S",
    "maxDps": 22500,
-   "dpsPer1k": 455
+   "dpsPer1k": 455,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1500,
+     "damage": 1000,
+     "cooldown": 2,
+     "range": 12,
+     "dps": 500
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1750,
+     "damage": 2000,
+     "cooldown": 2,
+     "range": 14,
+     "dps": 1500,
+     "extra": "+ TV: 500 damage every 1s, range 18, 80° cone"
+    },
+    {
+     "level": "Lv 3",
+     "cost": 4200,
+     "damage": 3000,
+     "cooldown": 2,
+     "range": 16,
+     "dps": 2500,
+     "extra": "+ TV: 500 damage every 0.5s, range 20, 90° cone"
+    },
+    {
+     "level": "Lv 4",
+     "cost": 10500,
+     "damage": 6000,
+     "cooldown": 2,
+     "range": 18,
+     "dps": 5000,
+     "extra": "+ TV: 1,000 damage every 0.5s, range 22, 100° cone"
+    },
+    {
+     "level": "Lv 5",
+     "cost": 14000,
+     "damage": 9000,
+     "cooldown": 2,
+     "range": 20,
+     "dps": 13000,
+     "extra": "+ TV: 2,000 damage every 0.5s, range 25, 100° cone + Core: 900 damage every 0.2s, range 30"
+    },
+    {
+     "level": "Lv 6",
+     "cost": 17500,
+     "damage": 27000,
+     "cooldown": 3,
+     "range": 20,
+     "dps": 22500,
+     "extra": "+ TV: 2,000 damage every 0.4s, range 30, 100° cone + Core: 1,200 damage every 0.2s, range 35"
+    }
+   ],
+   "maxRange": 20,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Upgraded Titan TV Man does 22,500 DPS counting its TV and Core attacks. Placing it and buying all 5 upgrades costs 49,450 cash, and you can have 3 on the map.",
+   "name": "Upgraded Titan TV Man",
+   "category": "Godly",
+   "value": 4000,
+   "demand": 7.5,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/00c83051-0126-4686-8c95-8fd920e72aa1/831c54894de2abcd0ac4aa7f6b1013dd5621fe37f5956810abeafe064fd73370.webp?w=128"
   },
   {
-   "name": "executioner tv man",
-   "category": "Exclusive",
-   "value": 2850,
-   "demand": 8.5,
-   "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/6c6ee8c6-9320-4e97-b01c-ed93d49c490f/8cfa18cde3f75d6ef4541572712c5b7a2f06c03b67cded507c19c7e610c91121.webp?w=128",
    "role": "Damage · AOE",
    "cashToMax": 50000,
    "maxOnMap": 5,
    "exist": 6242,
    "tier": "S",
    "maxDps": 16000,
-   "dpsPer1k": 320
+   "dpsPer1k": 320,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1000,
+     "damage": 400,
+     "cooldown": 1,
+     "range": 12,
+     "dps": 400
+    },
+    {
+     "level": "Lv 2",
+     "cost": 2000,
+     "damage": 700,
+     "cooldown": 0.7,
+     "range": 14,
+     "dps": 1000
+    },
+    {
+     "level": "Lv 3",
+     "cost": 4500,
+     "damage": 1250,
+     "cooldown": 0.5,
+     "range": 16,
+     "dps": 2500
+    },
+    {
+     "level": "Lv 4",
+     "cost": 13000,
+     "damage": 2500,
+     "cooldown": 0.5,
+     "range": 18,
+     "dps": 7000,
+     "extra": "+ Second attack: 2,000 damage every 1s, range 15, 90° cone"
+    },
+    {
+     "level": "Lv 5",
+     "cost": 29500,
+     "damage": 5000,
+     "cooldown": 0.5,
+     "range": 25,
+     "dps": 16000,
+     "extra": "+ Second attack: 1,200 damage every 0.2s, range 20, 100° cone"
+    }
+   ],
+   "maxRange": 25,
+   "howToGet": "Halloween battle pass",
+   "description": "Fully upgraded, Executioner TV Man does 16,000 DPS. Placing it and buying all 4 upgrades costs 50,000 cash, and you can have 5 on the map.",
+   "name": "executioner tv man",
+   "category": "Exclusive",
+   "value": 3200,
+   "demand": 8.5,
+   "stability": "Overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/6c6ee8c6-9320-4e97-b01c-ed93d49c490f/8cfa18cde3f75d6ef4541572712c5b7a2f06c03b67cded507c19c7e610c91121.webp?w=128"
   },
   {
-   "name": "upgraded Titan Cameraman",
-   "category": "Godly",
-   "value": 2600,
-   "demand": 6,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/f2fae317-ff29-4a0c-928f-794f691ae48d/4502e52d1094eee24dde0583a4f4d6bb41b277dc9d095f1040ccaf81a76f39b0.webp?w=128",
    "role": "Damage · AOE",
    "cashToMax": 42600,
    "maxOnMap": 3,
    "exist": 14038,
    "tier": "S",
    "maxDps": 20000,
-   "dpsPer1k": 469
+   "dpsPer1k": 469,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 2000,
+     "damage": 300,
+     "cooldown": 1,
+     "range": 13,
+     "dps": 300
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1400,
+     "damage": 500,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 500
+    },
+    {
+     "level": "Lv 3",
+     "cost": 2800,
+     "damage": 1000,
+     "cooldown": 1,
+     "range": 17,
+     "dps": 1000
+    },
+    {
+     "level": "Lv 4",
+     "cost": 7000,
+     "damage": 2000,
+     "cooldown": 1,
+     "range": 19,
+     "dps": 3900,
+     "extra": "+ Miniguns: 200 damage every 0.2s, range 25 + Gun: 900 damage every 1s, range 22"
+    },
+    {
+     "level": "Lv 5",
+     "cost": 10500,
+     "damage": 2500,
+     "cooldown": 1,
+     "range": 20,
+     "dps": 6500,
+     "extra": "+ Miniguns: 400 damage every 0.2s, range 30 + Gun: 2,000 damage every 1s, range 25"
+    },
+    {
+     "level": "Lv 6",
+     "cost": 18900,
+     "damage": 4000,
+     "cooldown": 1,
+     "range": 25,
+     "dps": 20000,
+     "extra": "+ Hammer: 15,000 damage every 3s, range 15 + Miniguns: 600 damage every 0.2s, range 40 + Gun: 5,000 damage every 1s, range 30"
+    }
+   ],
+   "maxRange": 25,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Upgraded Titan Cameraman does 20,000 DPS counting its Hammer, Miniguns and Gun attacks. Placing it and buying all 5 upgrades costs 42,600 cash, and you can have 3 on the map. At max level it hits everything in a 100° cone.",
+   "name": "upgraded Titan Cameraman",
+   "category": "Godly",
+   "value": 2600,
+   "demand": 6,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/f2fae317-ff29-4a0c-928f-794f691ae48d/4502e52d1094eee24dde0583a4f4d6bb41b277dc9d095f1040ccaf81a76f39b0.webp?w=128"
+  },
+  {
+   "name": "2x Turkey Leg",
+   "category": "Gamepasses",
+   "value": 2500,
+   "demand": 7.5,
+   "stability": "Overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/54b4bd21-1630-47d6-8fde-2172b5adcb24/f489caa99bd66cc4f87ae7c8282f2fd2a7c7fb0d2587cfabb7183a32f280e476.webp?w=128"
   },
   {
    "name": "Premium Pass",
@@ -119,6 +472,22 @@
    "demand": 8,
    "stability": "Overpaid",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/268f7160-9d16-43a6-a87a-620d11651443/0dfedd52ec00c343861f78ac658297ce13fc5fcfcc8939d8530aa358130a2887.webp?w=128"
+  },
+  {
+   "name": "Scarecrow Tv Man",
+   "category": "Mythic",
+   "value": 2500,
+   "demand": 4,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/18bb5e96-29c9-4e46-8d50-afcf7649ccf0/764ab9b45477acd904c8e703a3c58e1cc66673837b9f40f51a9256b8a2d62536.webp?w=128"
+  },
+  {
+   "name": "Pumkin Large Speakerman",
+   "category": "Mythic",
+   "value": 2200,
+   "demand": 2,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/75cfb6fb-5eba-4f4c-9858-21cb709e6afe/95cc79af5b66317cc85646afde1200b8021c37bc05db3b6b92e1d8d0d1b9949b.webp?w=128"
   },
   {
    "name": "2x Money",
@@ -145,49 +514,191 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4e78128f-354d-41a7-b9d9-158b17ebffb4/d0652947941d09c6d755414d836d73d941d288ab2765eafc63eea143c8254479.webp?w=128"
   },
   {
-   "name": "Hacked Cameraman",
-   "category": "Exclusive",
-   "value": 1750,
-   "demand": 7,
-   "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/76fc6e57-a321-4a16-9839-226ac4c21d50/b54285fdc15e3534901037bd6ee58643913bfc9f216551e48e821660d76b0387.webp?w=128",
    "role": "Damage",
    "cashToMax": 7900,
    "maxOnMap": 4,
    "exist": 86454,
    "tier": "B",
    "maxDps": 5000,
-   "dpsPer1k": 633
+   "dpsPer1k": 633,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 200,
+     "damage": 50,
+     "cooldown": 0.5,
+     "range": 12,
+     "dps": 100
+    },
+    {
+     "level": "Lv 2",
+     "cost": 450,
+     "damage": 75,
+     "cooldown": 0.25,
+     "range": 14,
+     "dps": 300
+    },
+    {
+     "level": "Lv 3",
+     "cost": 750,
+     "damage": 120,
+     "cooldown": 0.2,
+     "range": 16,
+     "dps": 600
+    },
+    {
+     "level": "Lv 4",
+     "cost": 1000,
+     "damage": 250,
+     "cooldown": 0.2,
+     "range": 18,
+     "dps": 1250
+    },
+    {
+     "level": "Lv 5",
+     "cost": 2500,
+     "damage": 600,
+     "cooldown": 0.2,
+     "range": 20,
+     "dps": 3000
+    },
+    {
+     "level": "Lv 6",
+     "cost": 3000,
+     "damage": 1000,
+     "cooldown": 0.2,
+     "range": 25,
+     "dps": 5000
+    }
+   ],
+   "maxRange": 25,
+   "description": "Fully upgraded, Hacked Cameraman does 5,000 DPS. Placing it and buying all 5 upgrades costs 7,900 cash, and you can have 4 on the map.",
+   "name": "Hacked Cameraman",
+   "category": "Exclusive",
+   "value": 1750,
+   "demand": 7,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/76fc6e57-a321-4a16-9839-226ac4c21d50/b54285fdc15e3534901037bd6ee58643913bfc9f216551e48e821660d76b0387.webp?w=128"
   },
   {
-   "name": "Baker Titan Speakerman",
-   "category": "Exclusive",
-   "value": 1500,
-   "demand": 3,
-   "stability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/8211f2e5-0246-4df7-bd35-e19fe3a0e7d6/332b78f9cbc066ccbc6b5c8fb017a8216537a9b692af329474d40dc5bc648d9f.webp?w=128",
    "role": "Damage",
    "cashToMax": 28000,
    "maxOnMap": 4,
    "exist": 1141,
    "tier": "A",
    "maxDps": 8000,
-   "dpsPer1k": 286
+   "dpsPer1k": 286,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1000,
+     "damage": 600,
+     "cooldown": 2,
+     "range": 15,
+     "dps": 300
+    },
+    {
+     "level": "Lv 2",
+     "cost": 3000,
+     "damage": 1800,
+     "cooldown": 2,
+     "range": 17,
+     "dps": 900
+    },
+    {
+     "level": "Lv 3",
+     "cost": 5000,
+     "damage": 3500,
+     "cooldown": 2,
+     "range": 20,
+     "dps": 1750
+    },
+    {
+     "level": "Lv 4",
+     "cost": 9000,
+     "damage": 7500,
+     "cooldown": 2,
+     "range": 24,
+     "dps": 3750
+    },
+    {
+     "level": "Lv 5",
+     "cost": 10000,
+     "damage": 12000,
+     "cooldown": 1.5,
+     "range": 30,
+     "dps": 8000
+    }
+   ],
+   "maxRange": 30,
+   "howToGet": "Exclusive Party Crate",
+   "description": "Fully upgraded, Baker Titan Speakerman does 8,000 DPS. Placing it and buying all 4 upgrades costs 28,000 cash, and you can have 4 on the map.",
+   "name": "Baker Titan Speakerman",
+   "category": "Exclusive",
+   "value": 1500,
+   "demand": 3,
+   "stability": "Dropping",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/8211f2e5-0246-4df7-bd35-e19fe3a0e7d6/332b78f9cbc066ccbc6b5c8fb017a8216537a9b692af329474d40dc5bc648d9f.webp?w=128"
   },
   {
-   "name": "Reinforced Titan Cameraman",
-   "category": "Exclusive",
-   "value": 1200,
-   "demand": 5,
-   "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/05bc46ab-1f88-4fc5-bec9-3700b3b1d6b4/4c30e904123968368294a31800cd0079613eccbe405899b54f6d08ace87998b8.webp?w=128",
    "role": "Damage",
    "cashToMax": 29000,
    "maxOnMap": 6,
    "exist": 1882,
    "tier": "A",
    "maxDps": 10000,
-   "dpsPer1k": 345
+   "dpsPer1k": 345,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1200,
+     "damage": 100,
+     "cooldown": 0.2,
+     "range": 14,
+     "dps": 500
+    },
+    {
+     "level": "Lv 2",
+     "cost": 2800,
+     "damage": 300,
+     "cooldown": 0.2,
+     "range": 16,
+     "dps": 1500
+    },
+    {
+     "level": "Lv 3",
+     "cost": 5000,
+     "damage": 600,
+     "cooldown": 0.2,
+     "range": 18,
+     "dps": 3000
+    },
+    {
+     "level": "Lv 4",
+     "cost": 8000,
+     "damage": 1000,
+     "cooldown": 0.2,
+     "range": 25,
+     "dps": 5000
+    },
+    {
+     "level": "Lv 5",
+     "cost": 12000,
+     "damage": 1000,
+     "cooldown": 0.2,
+     "range": 30,
+     "dps": 10000,
+     "extra": "+ Second attack: 10,000 damage every 2s, range 17"
+    }
+   ],
+   "maxRange": 30,
+   "description": "Fully upgraded, Reinforced Titan Cameraman does 10,000 DPS. Placing it and buying all 4 upgrades costs 29,000 cash, and you can have 6 on the map.",
+   "name": "Reinforced Titan Cameraman",
+   "category": "Exclusive",
+   "value": 1200,
+   "demand": 5,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/05bc46ab-1f88-4fc5-bec9-3700b3b1d6b4/4c30e904123968368294a31800cd0079613eccbe405899b54f6d08ace87998b8.webp?w=128"
   },
   {
    "name": "2X speed",
@@ -198,19 +709,64 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/cabe34f0-9054-42b5-95d3-88865dca83fd/8941af3600b237a7c882c5c46363d34d60ef9eb9ed09ea7e912c191704cfb08c.webp?w=128"
   },
   {
-   "name": "Reinforced Titan Speakerman",
-   "category": "Exclusive",
-   "value": 550,
-   "demand": 2.5,
-   "stability": "Underpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/11c1c6d3-65fc-4382-a278-39ac39176217/5ea2949738d82ae69605e0ab7729c57629c0bd58b2e6202f69ba9422fda25558.webp?w=128",
    "role": "Damage",
    "cashToMax": 29000,
    "maxOnMap": 5,
    "exist": 2705,
    "tier": "A",
    "maxDps": 7500,
-   "dpsPer1k": 259
+   "dpsPer1k": 259,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1000,
+     "damage": 500,
+     "cooldown": 2,
+     "range": 14,
+     "dps": 250
+    },
+    {
+     "level": "Lv 2",
+     "cost": 4000,
+     "damage": 2000,
+     "cooldown": 2,
+     "range": 16,
+     "dps": 1000
+    },
+    {
+     "level": "Lv 3",
+     "cost": 4500,
+     "damage": 4000,
+     "cooldown": 2,
+     "range": 18,
+     "dps": 2000
+    },
+    {
+     "level": "Lv 4",
+     "cost": 9500,
+     "damage": 8000,
+     "cooldown": 2,
+     "range": 20,
+     "dps": 4000
+    },
+    {
+     "level": "Lv 5",
+     "cost": 10000,
+     "damage": 9000,
+     "cooldown": 2,
+     "range": 24,
+     "dps": 7500,
+     "extra": "+ Second attack: 12,000 damage every 4s, range 15"
+    }
+   ],
+   "maxRange": 24,
+   "description": "Fully upgraded, Reinforced Titan Speakerman does 7,500 DPS. Placing it and buying all 4 upgrades costs 29,000 cash, and you can have 5 on the map.",
+   "name": "Reinforced Titan Speakerman",
+   "category": "Exclusive",
+   "value": 550,
+   "demand": 2.5,
+   "stability": "Underpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/11c1c6d3-65fc-4382-a278-39ac39176217/5ea2949738d82ae69605e0ab7729c57629c0bd58b2e6202f69ba9422fda25558.webp?w=128"
   },
   {
    "name": "Scientist Crate",
@@ -221,19 +777,59 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/032927c0-a2bc-4ff1-b41c-0b9ac7c18126/c08f09d46db397c0a2cd7ab3c4407153177e8dc7743f7dd938d874660504515b.webp?w=128"
   },
   {
-   "name": "Prototype Duo",
-   "category": "Exclusive",
-   "value": 450,
-   "demand": 3,
-   "stability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/1043b5bd-2143-4136-9203-0c19d5f96e76/f09a163ba94cb608ff4b54cfd74c93c05513daf8c54c94f2e3ea8989cab30269.webp?w=128",
    "role": "Damage · AOE",
    "cashToMax": 18000,
    "maxOnMap": 5,
    "exist": 17772,
    "tier": "A",
    "maxDps": 5000,
-   "dpsPer1k": 278
+   "dpsPer1k": 278,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 2000,
+     "damage": 200,
+     "cooldown": 1,
+     "range": 14,
+     "dps": 400,
+     "extra": "+ Second attack: 200 damage every 1s, range 10, 90° cone"
+    },
+    {
+     "level": "Lv 2",
+     "cost": 3000,
+     "damage": 700,
+     "cooldown": 1,
+     "range": 17,
+     "dps": 1200,
+     "extra": "+ Second attack: 500 damage every 1s, range 13, 90° cone"
+    },
+    {
+     "level": "Lv 3",
+     "cost": 5000,
+     "damage": 1500,
+     "cooldown": 1,
+     "range": 20,
+     "dps": 2500,
+     "extra": "+ Second attack: 1,000 damage every 1s, range 16, 90° cone"
+    },
+    {
+     "level": "Lv 4",
+     "cost": 8000,
+     "damage": 2000,
+     "cooldown": 1,
+     "range": 25,
+     "dps": 5000,
+     "extra": "+ Second attack: 1,500 damage every 0.5s, range 20, 90° cone"
+    }
+   ],
+   "maxRange": 25,
+   "description": "Fully upgraded, Prototypes Duo does 5,000 DPS. Placing it and buying all 3 upgrades costs 18,000 cash, and you can have 5 on the map.",
+   "name": "Prototype Duo",
+   "category": "Exclusive",
+   "value": 450,
+   "demand": 3,
+   "stability": "Dropping",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/1043b5bd-2143-4136-9203-0c19d5f96e76/f09a163ba94cb608ff4b54cfd74c93c05513daf8c54c94f2e3ea8989cab30269.webp?w=128"
   },
   {
    "name": "Sand Coffin Crate",
@@ -244,109 +840,424 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/afc2631b-377e-4e1a-ac25-f8337d7a1a9a/effcca4c72f97918920fedc1f92da0646aeb052862ba4c2599661103e2619c9a.webp?w=128"
   },
   {
-   "name": "Vampire Camera Man",
-   "category": "Exclusive",
-   "value": 350,
-   "demand": 1,
-   "stability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a9208d25-b17f-42ca-8f3d-3dca80f216c9/d62e23483eb2dfa49c3b4c85c0e73ef7f4d5fb6c6156328a5f75c0bc30f3e310.webp?w=128",
    "role": "Damage",
    "cashToMax": 10000,
    "maxOnMap": "No cap",
    "exist": 10001,
    "tier": "C",
    "maxDps": 2800,
-   "dpsPer1k": 280
+   "dpsPer1k": 280,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1000,
+     "damage": 250,
+     "cooldown": 1,
+     "range": 10,
+     "dps": 250
+    },
+    {
+     "level": "Lv 2",
+     "cost": 2000,
+     "damage": 700,
+     "cooldown": 1,
+     "range": 14,
+     "dps": 700
+    },
+    {
+     "level": "Lv 3",
+     "cost": 3000,
+     "damage": 1400,
+     "cooldown": 1,
+     "range": 18,
+     "dps": 1400
+    },
+    {
+     "level": "Lv 4",
+     "cost": 4000,
+     "damage": 2800,
+     "cooldown": 1,
+     "range": 22,
+     "dps": 2800
+    }
+   ],
+   "maxRange": 22,
+   "description": "Fully upgraded, Vampire Cameraman does 2,800 DPS. Placing it and buying all 3 upgrades costs 10,000 cash.",
+   "name": "Vampire Camera Man",
+   "category": "Exclusive",
+   "value": 350,
+   "demand": 1,
+   "stability": "Dropping",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a9208d25-b17f-42ca-8f3d-3dca80f216c9/d62e23483eb2dfa49c3b4c85c0e73ef7f4d5fb6c6156328a5f75c0bc30f3e310.webp?w=128"
   },
   {
-   "name": "headless tv man",
-   "category": "Mythic",
-   "value": 330,
-   "demand": 1,
-   "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/1bd11a79-5544-416a-84a5-fd9004eb6e4c/688505608418af7feff9d5d79b0ba007e1f00d51a1064136b643d93fed1a77dd.webp?w=128",
    "role": "Damage · AOE",
    "cashToMax": 40000,
    "maxOnMap": 4,
    "exist": 20311,
    "tier": "S",
    "maxDps": 11000,
-   "dpsPer1k": 275
+   "dpsPer1k": 275,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 900,
+     "damage": 300,
+     "cooldown": 1,
+     "range": 12,
+     "dps": 300
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1600,
+     "damage": 600,
+     "cooldown": 0.8,
+     "range": 14,
+     "dps": 750
+    },
+    {
+     "level": "Lv 3",
+     "cost": 3500,
+     "damage": 1200,
+     "cooldown": 0.6,
+     "range": 16,
+     "dps": 2000
+    },
+    {
+     "level": "Lv 4",
+     "cost": 10000,
+     "damage": 1800,
+     "cooldown": 0.5,
+     "range": 18,
+     "dps": 4600,
+     "extra": "+ Second attack: 1,000 damage every 1s, range 14, 70° cone"
+    },
+    {
+     "level": "Lv 5",
+     "cost": 24000,
+     "damage": 3500,
+     "cooldown": 0.5,
+     "range": 25,
+     "dps": 11000,
+     "extra": "+ Second attack: 1,000 damage every 0.25s, range 18, 80° cone"
+    }
+   ],
+   "maxRange": 25,
+   "howToGet": "Halloween battle pass",
+   "description": "Fully upgraded, Headless TV Man does 11,000 DPS. Placing it and buying all 4 upgrades costs 40,000 cash, and you can have 4 on the map.",
+   "name": "headless tv man",
+   "category": "Mythic",
+   "value": 330,
+   "demand": 1,
+   "stability": "Unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/1bd11a79-5544-416a-84a5-fd9004eb6e4c/688505608418af7feff9d5d79b0ba007e1f00d51a1064136b643d93fed1a77dd.webp?w=128"
   },
   {
-   "name": "Jetpack Cameraman",
-   "category": "Exclusive",
-   "value": 275,
-   "demand": 3,
-   "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/aec381b0-5c15-45f1-8567-cf88ad52a3e6/bb2cddbb28d1454d43ead2297f0603428d26674a4516c96d028853fdd9fbd7b1.webp?w=128",
    "role": "Damage",
    "cashToMax": 11000,
    "maxOnMap": 8,
    "exist": 33107,
    "tier": "A",
    "maxDps": 5000,
-   "dpsPer1k": 455
-  },
-  {
-   "name": "Large Scientist Cameraman",
+   "dpsPer1k": 455,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 300,
+     "damage": 250,
+     "cooldown": 3,
+     "range": 10,
+     "dps": 83.3
+    },
+    {
+     "level": "Lv 2",
+     "cost": 200,
+     "damage": 600,
+     "cooldown": 3,
+     "range": 10,
+     "dps": 200
+    },
+    {
+     "level": "Lv 3",
+     "cost": 500,
+     "damage": 1200,
+     "cooldown": 3,
+     "range": 15,
+     "dps": 400
+    },
+    {
+     "level": "Lv 4",
+     "cost": 1000,
+     "damage": 1500,
+     "cooldown": 2,
+     "range": 20,
+     "dps": 750
+    },
+    {
+     "level": "Lv 5",
+     "cost": 1500,
+     "damage": 2500,
+     "cooldown": 2,
+     "range": 25,
+     "dps": 1250
+    },
+    {
+     "level": "Lv 6",
+     "cost": 3000,
+     "damage": 2500,
+     "cooldown": 1,
+     "range": 30,
+     "dps": 2500
+    },
+    {
+     "level": "Lv 7",
+     "cost": 4500,
+     "damage": 5000,
+     "cooldown": 1,
+     "range": 30,
+     "dps": 5000
+    }
+   ],
+   "maxRange": 30,
+   "howToGet": "Jetpack Pack",
+   "description": "Fully upgraded, Jetpack Cameraman does 5,000 DPS. Placing it and buying all 6 upgrades costs 11,000 cash, and you can have 8 on the map.",
+   "name": "Jetpack Cameraman",
    "category": "Exclusive",
    "value": 275,
    "demand": 3,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4c7879b9-586d-4c95-b1dc-5c608396286b/f9c91061b8260ec6f180414470ee8967dd84aad01c9e550b2b94d799175284a0.webp?w=128",
+   "stability": "Unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/aec381b0-5c15-45f1-8567-cf88ad52a3e6/bb2cddbb28d1454d43ead2297f0603428d26674a4516c96d028853fdd9fbd7b1.webp?w=128"
+  },
+  {
    "role": "Damage · AOE",
    "cashToMax": 7200,
    "maxOnMap": 9,
    "exist": 31841,
    "tier": "C",
    "maxDps": 1250,
-   "dpsPer1k": 174
-  },
-  {
-   "name": "Camera Attack Helicopter",
-   "category": "Mythic",
-   "value": 200,
+   "dpsPer1k": 174,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 300,
+     "damage": 25,
+     "cooldown": 0.5,
+     "range": 9,
+     "dps": 50
+    },
+    {
+     "level": "Lv 2",
+     "cost": 700,
+     "damage": 75,
+     "cooldown": 0.4,
+     "range": 11,
+     "dps": 187.5
+    },
+    {
+     "level": "Lv 3",
+     "cost": 1200,
+     "damage": 150,
+     "cooldown": 0.4,
+     "range": 13,
+     "dps": 375
+    },
+    {
+     "level": "Lv 4",
+     "cost": 2000,
+     "damage": 250,
+     "cooldown": 0.3,
+     "range": 15,
+     "dps": 833.3
+    },
+    {
+     "level": "Lv 5",
+     "cost": 3000,
+     "damage": 250,
+     "cooldown": 0.2,
+     "range": 20,
+     "dps": 1250
+    }
+   ],
+   "maxRange": 20,
+   "howToGet": "Exclusive Scientist Crate",
+   "description": "Fully upgraded, Large Scientist Cameraman does 1,250 DPS. Placing it and buying all 4 upgrades costs 7,200 cash, and you can have 9 on the map. At max level it hits everything in a 120° cone.",
+   "name": "Large Scientist Cameraman",
+   "category": "Exclusive",
+   "value": 275,
    "demand": 3,
    "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/5047cb47-9d22-4dd9-afe4-186215b68a7d/5e4f6b6804823a9a1d69462600f91649fff5e46a3ff6c48b29c5997dfeccf8c2.webp?w=128",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4c7879b9-586d-4c95-b1dc-5c608396286b/f9c91061b8260ec6f180414470ee8967dd84aad01c9e550b2b94d799175284a0.webp?w=128"
+  },
+  {
    "role": "Damage",
    "cashToMax": 19000,
    "maxOnMap": 7,
    "exist": 54114,
    "tier": "B",
    "maxDps": 4000,
-   "dpsPer1k": 211
-  },
-  {
-   "name": "CinemaMan Titan",
+   "dpsPer1k": 211,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1000,
+     "damage": 600,
+     "cooldown": 2.5,
+     "range": 12,
+     "dps": 240
+    },
+    {
+     "level": "Lv 2",
+     "cost": 3500,
+     "damage": 1800,
+     "cooldown": 2.5,
+     "range": 14,
+     "dps": 720
+    },
+    {
+     "level": "Lv 3",
+     "cost": 5000,
+     "damage": 3000,
+     "cooldown": 2,
+     "range": 16,
+     "dps": 1500
+    },
+    {
+     "level": "Lv 4",
+     "cost": 9500,
+     "damage": 8000,
+     "cooldown": 2,
+     "range": 19,
+     "dps": 4000
+    }
+   ],
+   "maxRange": 19,
+   "description": "Fully upgraded, Camera Attack Helicopter does 4,000 DPS. Placing it and buying all 3 upgrades costs 19,000 cash, and you can have 7 on the map.",
+   "name": "Camera Attack Helicopter",
    "category": "Mythic",
    "value": 200,
-   "demand": 5.5,
-   "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/52b533c5-0734-413c-9d32-391c08039fbe/9abeef4b9078903f74e2fad881994c16684641f69db56eeb0ed4b22ef0be61d1.webp?w=128",
+   "demand": 3,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/5047cb47-9d22-4dd9-afe4-186215b68a7d/5e4f6b6804823a9a1d69462600f91649fff5e46a3ff6c48b29c5997dfeccf8c2.webp?w=128"
+  },
+  {
    "role": "Damage · AOE",
    "cashToMax": 41000,
    "maxOnMap": 4,
    "exist": 130438,
    "tier": "A",
    "maxDps": 7000,
-   "dpsPer1k": 171
-  },
-  {
-   "name": "Large Laser Cameraman",
+   "dpsPer1k": 171,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 2000,
+     "damage": 1000,
+     "cooldown": 2,
+     "range": 13,
+     "dps": 500
+    },
+    {
+     "level": "Lv 2",
+     "cost": 2000,
+     "damage": 1000,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 1000
+    },
+    {
+     "level": "Lv 3",
+     "cost": 3000,
+     "damage": 1000,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 1000
+    },
+    {
+     "level": "Lv 4",
+     "cost": 5000,
+     "damage": 1000,
+     "cooldown": 0.5,
+     "range": 20,
+     "dps": 2000
+    },
+    {
+     "level": "Lv 5",
+     "cost": 9000,
+     "damage": 1400,
+     "cooldown": 0.4,
+     "range": 25,
+     "dps": 3500
+    },
+    {
+     "level": "Lv 6",
+     "cost": 20000,
+     "damage": 1400,
+     "cooldown": 0.2,
+     "range": 30,
+     "dps": 7000
+    }
+   ],
+   "maxRange": 30,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Titan Cinemaman does 7,000 DPS. Placing it and buying all 5 upgrades costs 41,000 cash, and you can have 4 on the map. At max level it hits everything in a 110° cone.",
+   "name": "CinemaMan Titan",
    "category": "Mythic",
    "value": 200,
-   "demand": 4,
+   "demand": 5.5,
    "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/863118df-1159-4021-8158-083bdc8c23ab/976587a9102f41446f7018e36c914d7b3f35e35bdf3cea5376dbe04c143d006e.webp?w=128",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/52b533c5-0734-413c-9d32-391c08039fbe/9abeef4b9078903f74e2fad881994c16684641f69db56eeb0ed4b22ef0be61d1.webp?w=128"
+  },
+  {
    "role": "Damage",
    "cashToMax": 14000,
    "maxOnMap": 7,
    "exist": 68075,
    "tier": "A",
    "maxDps": 5500,
-   "dpsPer1k": 393
+   "dpsPer1k": 393,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 450,
+     "damage": 75,
+     "cooldown": 0.5,
+     "range": 12,
+     "dps": 150
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1050,
+     "damage": 200,
+     "cooldown": 0.5,
+     "range": 15,
+     "dps": 400
+    },
+    {
+     "level": "Lv 3",
+     "cost": 4500,
+     "damage": 400,
+     "cooldown": 0.2,
+     "range": 18,
+     "dps": 2000
+    },
+    {
+     "level": "Lv 4",
+     "cost": 8000,
+     "damage": 1100,
+     "cooldown": 0.2,
+     "range": 22,
+     "dps": 5500
+    }
+   ],
+   "maxRange": 22,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Large Laser Cameraman does 5,500 DPS. Placing it and buying all 3 upgrades costs 14,000 cash, and you can have 7 on the map.",
+   "name": "Large Laser Cameraman",
+   "category": "Mythic",
+   "value": 200,
+   "demand": 4,
+   "stability": "Unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/863118df-1159-4021-8158-083bdc8c23ab/976587a9102f41446f7018e36c914d7b3f35e35bdf3cea5376dbe04c143d006e.webp?w=128"
   },
   {
    "name": "large prototype titan",
@@ -365,61 +1276,231 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/df65a04b-b692-46bd-9c42-023f8e43aa40/2b905823ba5c987940c5526e75bccb61e629d1605ab5319884c1720b9914f4aa.webp?w=128"
   },
   {
-   "name": "Tv woman",
-   "category": "Mythic",
+   "role": "Farm",
+   "cashToMax": 3800,
+   "maxOnMap": 5,
+   "exist": 276413,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 200
+    },
+    {
+     "level": "Lv 2",
+     "cost": 300
+    },
+    {
+     "level": "Lv 3",
+     "cost": 600
+    },
+    {
+     "level": "Lv 4",
+     "cost": 900
+    },
+    {
+     "level": "Lv 5",
+     "cost": 1800
+    }
+   ],
+   "howToGet": "Exclusive Scientist Crate",
+   "description": "Scientist Cameraman doesn't attack. It pays 600 cash every wave at max level, 3,000 with all 5 placed. Placing it and buying all 4 upgrades costs 3,800 cash, and you can have 5 on the map.",
+   "name": "Scientist Cameraman",
+   "category": "Exclusive",
    "value": 175,
-   "demand": 2,
-   "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/c67706d6-15ab-4bf1-bc5e-dc2a8ff968af/81efa62b74fe158f686b1cbab063179458525e6e866b0750fdb021e67349202a.webp?w=128",
+   "demand": 7,
+   "stability": "Overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/964df9f4-ff39-4852-82ed-0910a2e1bc28/b988f0a6858a5644659fdbe853ac4f805f6cb1707af6d0cb7acdce8e17a0f0dd.webp?w=128"
+  },
+  {
    "role": "Damage · AOE",
    "cashToMax": 18000,
    "maxOnMap": 6,
    "exist": 30787,
    "tier": "B",
    "maxDps": 3000,
-   "dpsPer1k": 167
-  },
-  {
-   "name": "Scientist Cameraman",
-   "category": "Exclusive",
-   "value": 150,
-   "demand": 7,
-   "stability": "Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/964df9f4-ff39-4852-82ed-0910a2e1bc28/b988f0a6858a5644659fdbe853ac4f805f6cb1707af6d0cb7acdce8e17a0f0dd.webp?w=128",
-   "role": "Farm",
-   "cashToMax": 3800,
-   "maxOnMap": 5,
-   "exist": 276413
-  },
-  {
-   "name": "videotaper titan",
+   "dpsPer1k": 167,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 700,
+     "damage": 90,
+     "cooldown": 0.9,
+     "range": 9,
+     "dps": 100
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1000,
+     "damage": 200,
+     "cooldown": 0.8,
+     "range": 11,
+     "dps": 250
+    },
+    {
+     "level": "Lv 3",
+     "cost": 2300,
+     "damage": 500,
+     "cooldown": 0.7,
+     "range": 13,
+     "dps": 714.2
+    },
+    {
+     "level": "Lv 4",
+     "cost": 5000,
+     "damage": 750,
+     "cooldown": 0.5,
+     "range": 15,
+     "dps": 1500
+    },
+    {
+     "level": "Lv 5",
+     "cost": 9000,
+     "damage": 1500,
+     "cooldown": 0.5,
+     "range": 20,
+     "dps": 3000
+    }
+   ],
+   "maxRange": 20,
+   "howToGet": "Woman Crate",
+   "description": "Fully upgraded, TV Woman does 3,000 DPS. Placing it and buying all 4 upgrades costs 18,000 cash, and you can have 6 on the map. At max level it hits everything in a 110° cone and sets toilets burning for 200 over 5s.",
+   "name": "Tv woman",
    "category": "Mythic",
-   "value": 140,
-   "demand": 2.5,
+   "value": 175,
+   "demand": 2,
    "stability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/fca791b5-5a2f-429b-8458-97745b0e8f17/ee380d6de2782b7fa7624a1346f85cbc1ddbac070202c6627e96a9203a37a088.webp?w=128",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/c67706d6-15ab-4bf1-bc5e-dc2a8ff968af/81efa62b74fe158f686b1cbab063179458525e6e866b0750fdb021e67349202a.webp?w=128"
+  },
+  {
    "role": "Damage",
    "cashToMax": 20500,
    "maxOnMap": 6,
    "exist": 78058,
    "tier": "A",
    "maxDps": 7000,
-   "dpsPer1k": 341
+   "dpsPer1k": 341,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 600,
+     "damage": 150,
+     "cooldown": 1,
+     "range": 14,
+     "dps": 150
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1400,
+     "damage": 450,
+     "cooldown": 1,
+     "range": 18,
+     "dps": 450
+    },
+    {
+     "level": "Lv 3",
+     "cost": 3500,
+     "damage": 1000,
+     "cooldown": 1,
+     "range": 22,
+     "dps": 1000
+    },
+    {
+     "level": "Lv 4",
+     "cost": 6000,
+     "damage": 1400,
+     "cooldown": 0.5,
+     "range": 28,
+     "dps": 2800
+    },
+    {
+     "level": "Lv 5",
+     "cost": 9000,
+     "damage": 1400,
+     "cooldown": 0.2,
+     "range": 35,
+     "dps": 7000
+    }
+   ],
+   "maxRange": 35,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Upgraded Videotapper Prototype does 7,000 DPS. Placing it and buying all 4 upgrades costs 20,500 cash, and you can have 6 on the map.",
+   "name": "videotaper titan",
+   "category": "Mythic",
+   "value": 140,
+   "demand": 2.5,
+   "stability": "Unwanted",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/fca791b5-5a2f-429b-8458-97745b0e8f17/ee380d6de2782b7fa7624a1346f85cbc1ddbac070202c6627e96a9203a37a088.webp?w=128"
   },
   {
-   "name": "Upgraded Titan Speakerman",
-   "category": "Mythic",
+   "name": "Musketeer Large Cameraman",
+   "category": "Legendary",
    "value": 100,
-   "demand": 2,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/d3fab060-41ea-41cf-b130-3c8be8073aff/b9a9e2d10a725be20c3c9dc2454519ca42dc0737642daa9908c9c844f7fcff40.webp?w=128",
+   "demand": 1,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/ec268299-14e6-46c1-8a26-55476b19ce54/335a32cef0ae8120bb1d535be7d78784a59d3d71de787172c373c611e773a2d3.webp?w=128"
+  },
+  {
    "role": "Damage · AOE",
    "cashToMax": 23000,
    "maxOnMap": 5,
    "exist": 54299,
    "tier": "A",
    "maxDps": 8000,
-   "dpsPer1k": 348
+   "dpsPer1k": 348,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1000,
+     "damage": 250,
+     "cooldown": 1,
+     "range": 12,
+     "dps": 250
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1500,
+     "damage": 500,
+     "cooldown": 0.8,
+     "range": 15,
+     "dps": 625
+    },
+    {
+     "level": "Lv 3",
+     "cost": 2500,
+     "damage": 1000,
+     "cooldown": 0.7,
+     "range": 18,
+     "dps": 1678.5,
+     "extra": "+ Second attack: 250 damage every 1s, range 10, 70° cone"
+    },
+    {
+     "level": "Lv 4",
+     "cost": 6000,
+     "damage": 1500,
+     "cooldown": 0.5,
+     "range": 21,
+     "dps": 3500,
+     "extra": "+ Second attack: 500 damage every 1s, range 12, 80° cone"
+    },
+    {
+     "level": "Lv 5",
+     "cost": 12000,
+     "damage": 3000,
+     "cooldown": 0.5,
+     "range": 25,
+     "dps": 8000,
+     "extra": "+ Second attack: 1,000 damage every 0.5s, range 15, 100° cone"
+    }
+   ],
+   "maxRange": 25,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Upgraded Titan Speakerman does 8,000 DPS. Placing it and buying all 4 upgrades costs 23,000 cash, and you can have 5 on the map.",
+   "name": "Upgraded Titan Speakerman",
+   "category": "Mythic",
+   "value": 100,
+   "demand": 2,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/d3fab060-41ea-41cf-b130-3c8be8073aff/b9a9e2d10a725be20c3c9dc2454519ca42dc0737642daa9908c9c844f7fcff40.webp?w=128"
   },
   {
    "name": "MLG Cameraman",
@@ -446,19 +1527,80 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/68309eea-27a2-4d63-b765-f90f3958d699/2d93fd3c80fafa5842a5d07b87ecd717fbc553949646157e5c7c243a95f55b8d.webp?w=128"
   },
   {
-   "name": "Chocolate Tv Man",
-   "category": "Exclusive",
-   "value": 65,
-   "demand": 3,
-   "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/3a2babd5-cb4a-4654-a0ee-090e0e2d130f/59dd94ec94e22bd2d694126c3cdff199b617f709a85a94650f8ffc628acc378a.webp?w=128",
    "role": "Damage · AOE",
    "cashToMax": 15900,
    "maxOnMap": 6,
    "exist": 176595,
    "tier": "B",
    "maxDps": 2600,
-   "dpsPer1k": 164
+   "dpsPer1k": 164,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 900,
+     "damage": 150,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 150
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1000,
+     "damage": 300,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 300
+    },
+    {
+     "level": "Lv 3",
+     "cost": 2000,
+     "damage": 300,
+     "cooldown": 0.5,
+     "range": 20,
+     "dps": 600
+    },
+    {
+     "level": "Lv 4",
+     "cost": 3000,
+     "damage": 500,
+     "cooldown": 0.5,
+     "range": 20,
+     "dps": 1000
+    },
+    {
+     "level": "Lv 5",
+     "cost": 4000,
+     "damage": 750,
+     "cooldown": 0.5,
+     "range": 25,
+     "dps": 1500
+    },
+    {
+     "level": "Lv 6",
+     "cost": 5000,
+     "damage": 1300,
+     "cooldown": 0.5,
+     "range": 25,
+     "dps": 2600
+    }
+   ],
+   "maxRange": 25,
+   "howToGet": "Exclusive Party Crate",
+   "description": "Fully upgraded, Chocolate TV Man does 2,600 DPS. Placing it and buying all 5 upgrades costs 15,900 cash, and you can have 6 on the map. At max level it hits everything in a 100° cone.",
+   "name": "Chocolate Tv Man",
+   "category": "Exclusive",
+   "value": 65,
+   "demand": 3,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/3a2babd5-cb4a-4654-a0ee-090e0e2d130f/59dd94ec94e22bd2d694126c3cdff199b617f709a85a94650f8ffc628acc378a.webp?w=128"
+  },
+  {
+   "name": "Cooker Cameraman",
+   "category": "Legendary",
+   "value": 50,
+   "demand": 1,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/273d61b5-232e-4348-9503-8161caa392a3/46d6925efe87169dc68be78ad5df81af8f768fbca00b1c26d2cfb20b58605bec.webp?w=128"
   },
   {
    "name": "Halloween Crate",
@@ -469,73 +1611,260 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/c614353c-8d30-4c77-bc80-7ea66b1ac6d6/2cea74b96a52c7ef40dfa18948d591f16c87c18e3f8269b3874e634ab7fe27c5.webp?w=128"
   },
   {
+   "role": "Support",
+   "cashToMax": 6000,
+   "maxOnMap": 2,
+   "exist": 720702,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 200,
+     "range": 10
+    },
+    {
+     "level": "Lv 2",
+     "cost": 500,
+     "range": 13
+    },
+    {
+     "level": "Lv 3",
+     "cost": 1500,
+     "range": 16
+    },
+    {
+     "level": "Lv 4",
+     "cost": 3800,
+     "range": 20
+    }
+   ],
+   "maxRange": 20,
+   "howToGet": "Summon board",
+   "description": "Camera Repair Drone doesn't attack. It clears stuns on units in range, every 1s at max level. Placing it and buying all 3 upgrades costs 6,000 cash, and you can have 2 on the map.",
    "name": "Camera Repair Drone",
    "category": "Legendary",
    "value": 20,
    "demand": 4,
    "stability": "Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/e997f0df-783f-4f18-8ea4-0c1fc7528721/2ad114cc5124a64861073607c41a0f19d75813297064dcdd3fc5682f15f44c69.webp?w=128",
-   "role": "Support",
-   "cashToMax": 6000,
-   "maxOnMap": 2,
-   "exist": 720702
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/e997f0df-783f-4f18-8ea4-0c1fc7528721/2ad114cc5124a64861073607c41a0f19d75813297064dcdd3fc5682f15f44c69.webp?w=128"
   },
   {
-   "name": "Camera spider",
-   "category": "Exclusive",
-   "value": 15,
-   "demand": 2,
-   "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/feb18825-c818-4efd-8ba9-515208fc7b1d/1a1dc2b4ec818fdbef8b1b45af2e2f10ef0fa6b6bab3e5503897150a0e1f43c7.webp?w=128",
    "role": "Damage",
    "cashToMax": 10000,
    "maxOnMap": 9,
    "exist": 103719,
    "tier": "B",
    "maxDps": 3500,
-   "dpsPer1k": 350
-  },
-  {
-   "name": "Dark Speakerman",
-   "category": "Legendary",
-   "value": 8,
+   "dpsPer1k": 350,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 400,
+     "damage": 0,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 100,
+     "extra": "+ Second attack: 100 damage every 1s, range 10"
+    },
+    {
+     "level": "Lv 2",
+     "cost": 600,
+     "damage": 0,
+     "cooldown": 0.5,
+     "range": 20,
+     "dps": 200,
+     "extra": "+ Second attack: 100 damage every 0.5s, range 12"
+    },
+    {
+     "level": "Lv 3",
+     "cost": 2000,
+     "damage": 0,
+     "cooldown": 0.4,
+     "range": 25,
+     "dps": 750,
+     "extra": "+ Second attack: 300 damage every 0.4s, range 14"
+    },
+    {
+     "level": "Lv 4",
+     "cost": 3000,
+     "damage": 0,
+     "cooldown": 0.2,
+     "range": 30,
+     "dps": 1750,
+     "extra": "+ Second attack: 350 damage every 0.2s, range 16"
+    },
+    {
+     "level": "Lv 5",
+     "cost": 4000,
+     "damage": 0,
+     "cooldown": 0.2,
+     "range": 35,
+     "dps": 3500,
+     "extra": "+ Second attack: 700 damage every 0.2s, range 20"
+    }
+   ],
+   "maxRange": 35,
+   "howToGet": "Exclusive Spider Crate",
+   "description": "Fully upgraded, Camera Spider does 3,500 DPS. Placing it and buying all 4 upgrades costs 10,000 cash, and you can have 9 on the map. At max level it moves around the map and returns to its spot.",
+   "name": "Camera spider",
+   "category": "Exclusive",
+   "value": 15,
    "demand": 2,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/d4a327b7-9309-476b-9383-e2e2aeab3339/2057fa5650fab5333e6bced7ea31ce344cb8eb965019da1bbb0811c085914224.webp?w=128",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/feb18825-c818-4efd-8ba9-515208fc7b1d/1a1dc2b4ec818fdbef8b1b45af2e2f10ef0fa6b6bab3e5503897150a0e1f43c7.webp?w=128"
+  },
+  {
+   "name": "Villager Speakerman",
+   "category": "Epic",
+   "value": 10,
+   "demand": 1,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4524e5c7-118d-4d02-93f5-aa7f498c6856/d2a18a59c00e72c89d171e2951f4b760152283e58f62b22f9a113a0b529c88f4.webp?w=128"
+  },
+  {
    "role": "Damage",
    "cashToMax": 3650,
    "maxOnMap": 9,
    "exist": 576701,
    "tier": "C",
    "maxDps": 1500,
-   "dpsPer1k": 411
-  },
-  {
-   "name": "Speaker Helicopter",
+   "dpsPer1k": 411,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 200,
+     "damage": 75,
+     "cooldown": 1,
+     "range": 11,
+     "dps": 75
+    },
+    {
+     "level": "Lv 2",
+     "cost": 350,
+     "damage": 125,
+     "cooldown": 0.8,
+     "range": 13,
+     "dps": 156.2
+    },
+    {
+     "level": "Lv 3",
+     "cost": 650,
+     "damage": 150,
+     "cooldown": 0.5,
+     "range": 15,
+     "dps": 300
+    },
+    {
+     "level": "Lv 4",
+     "cost": 950,
+     "damage": 300,
+     "cooldown": 0.4,
+     "range": 17,
+     "dps": 750
+    },
+    {
+     "level": "Lv 5",
+     "cost": 1500,
+     "damage": 600,
+     "cooldown": 0.4,
+     "range": 21,
+     "dps": 1500
+    }
+   ],
+   "maxRange": 21,
+   "description": "Fully upgraded, Dark Speakerman does 1,500 DPS. Placing it and buying all 4 upgrades costs 3,650 cash, and you can have 9 on the map.",
+   "name": "Dark Speakerman",
    "category": "Legendary",
    "value": 8,
-   "demand": 1,
+   "demand": 2,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/22a04178-3b29-4f31-9148-dfbfbcc8fc05/9273c5b22fe24ba27bb4c225f4d66866734a2a13c15bef86d6884dc8455e3ca4.webp?w=128",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/d4a327b7-9309-476b-9383-e2e2aeab3339/2057fa5650fab5333e6bced7ea31ce344cb8eb965019da1bbb0811c085914224.webp?w=128"
+  },
+  {
    "role": "Damage",
    "cashToMax": 12500,
    "maxOnMap": 7,
    "exist": 324572,
    "tier": "C",
    "maxDps": 2500,
-   "dpsPer1k": 200
+   "dpsPer1k": 200,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1000,
+     "damage": 400,
+     "cooldown": 2,
+     "range": 11,
+     "dps": 200
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1500,
+     "damage": 900,
+     "cooldown": 2,
+     "range": 13,
+     "dps": 450
+    },
+    {
+     "level": "Lv 3",
+     "cost": 4000,
+     "damage": 2500,
+     "cooldown": 2,
+     "range": 15,
+     "dps": 1250
+    },
+    {
+     "level": "Lv 4",
+     "cost": 6000,
+     "damage": 5000,
+     "cooldown": 2,
+     "range": 19,
+     "dps": 2500
+    }
+   ],
+   "maxRange": 19,
+   "description": "Fully upgraded, Speaker Helicopter does 2,500 DPS. Placing it and buying all 3 upgrades costs 12,500 cash, and you can have 7 on the map.",
+   "name": "Speaker Helicopter",
+   "category": "Legendary",
+   "value": 8,
+   "demand": 1,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/22a04178-3b29-4f31-9148-dfbfbcc8fc05/9273c5b22fe24ba27bb4c225f4d66866734a2a13c15bef86d6884dc8455e3ca4.webp?w=128"
   },
   {
+   "role": "Farm",
+   "cashToMax": 3900,
+   "maxOnMap": 4,
+   "exist": 2226189,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 100
+    },
+    {
+     "level": "Lv 2",
+     "cost": 300
+    },
+    {
+     "level": "Lv 3",
+     "cost": 600
+    },
+    {
+     "level": "Lv 4",
+     "cost": 900
+    },
+    {
+     "level": "Lv 5",
+     "cost": 2000
+    }
+   ],
+   "howToGet": "Exclusive Halloween Crate",
+   "description": "Pumpkin Farmer doesn't attack. It pays 500 cash every wave at max level, 2,000 with all 4 placed. Placing it and buying all 4 upgrades costs 3,900 cash, and you can have 4 on the map.",
    "name": "Pumpkin Farmer",
    "category": "Epic",
    "value": 7,
    "demand": 3,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/24dad965-e8af-4f5c-8a92-26884bff32e4/f4a62465d12ed8d388c0b0792f15efe72d38cd4b10640cc05e5c1dcc1900d0aa.webp?w=128",
-   "role": "Farm",
-   "cashToMax": 3900,
-   "maxOnMap": 4,
-   "exist": 2226189
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/24dad965-e8af-4f5c-8a92-26884bff32e4/f4a62465d12ed8d388c0b0792f15efe72d38cd4b10640cc05e5c1dcc1900d0aa.webp?w=128"
   },
   {
    "name": "Woman Crate",
@@ -546,189 +1875,535 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/4fff864f-3b29-4581-9e38-c09d2b199ac5/49c9dc293bab04248ba16049a30de3e935b324987d6039ba075772c95317bd14.webp?w=128"
   },
   {
-   "name": "SpeakerWoman",
-   "category": "Legendary",
-   "value": 3,
-   "demand": 1.5,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/355ee768-56ee-4074-8f88-e5251590e4bf/283294316c933b862389f8299c5c78324bd92ea3434b949f9dd38af100d917b8.webp?w=128",
    "role": "Damage",
    "cashToMax": 9000,
    "maxOnMap": 9,
    "exist": 772562,
    "tier": "B",
    "maxDps": 2500,
-   "dpsPer1k": 278
+   "dpsPer1k": 278,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 350,
+     "damage": 125,
+     "cooldown": 2,
+     "range": 12,
+     "dps": 62.5
+    },
+    {
+     "level": "Lv 2",
+     "cost": 650,
+     "damage": 400,
+     "cooldown": 2,
+     "range": 14,
+     "dps": 200
+    },
+    {
+     "level": "Lv 3",
+     "cost": 1000,
+     "damage": 800,
+     "cooldown": 2,
+     "range": 16,
+     "dps": 400
+    },
+    {
+     "level": "Lv 4",
+     "cost": 1500,
+     "damage": 1000,
+     "cooldown": 1.5,
+     "range": 18,
+     "dps": 666.6
+    },
+    {
+     "level": "Lv 5",
+     "cost": 2500,
+     "damage": 1500,
+     "cooldown": 1,
+     "range": 20,
+     "dps": 1500
+    },
+    {
+     "level": "Lv 6",
+     "cost": 3000,
+     "damage": 2500,
+     "cooldown": 1,
+     "range": 20,
+     "dps": 2500
+    }
+   ],
+   "maxRange": 20,
+   "howToGet": "Woman Crate",
+   "description": "Fully upgraded, Speakerwoman does 2,500 DPS. Placing it and buying all 5 upgrades costs 9,000 cash, and you can have 9 on the map.",
+   "name": "SpeakerWoman",
+   "category": "Legendary",
+   "value": 3,
+   "demand": 1.5,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/355ee768-56ee-4074-8f88-e5251590e4bf/283294316c933b862389f8299c5c78324bd92ea3434b949f9dd38af100d917b8.webp?w=128"
   },
   {
-   "name": "dragon cameraman",
-   "category": "Legendary",
-   "value": 2,
-   "demand": 1,
-   "stability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a6fb8a80-a9ef-413e-ad58-289078dfca88/e1d6c96ca90c5ba743bf3f17ef0f8f6d5cef382b3bf71eea2dea3ff21cbfbe54.webp?w=128",
    "role": "Damage",
    "cashToMax": 16500,
    "maxOnMap": 6,
    "exist": 91314,
    "tier": "B",
    "maxDps": 4400,
-   "dpsPer1k": 267
-  },
-  {
-   "name": "Laser Cameraman Car",
+   "dpsPer1k": 267,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1000,
+     "damage": 250,
+     "cooldown": 1,
+     "range": 13,
+     "dps": 250
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1300,
+     "damage": 500,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 500
+    },
+    {
+     "level": "Lv 3",
+     "cost": 2200,
+     "damage": 1000,
+     "cooldown": 1,
+     "range": 16,
+     "dps": 1000
+    },
+    {
+     "level": "Lv 4",
+     "cost": 5000,
+     "damage": 2200,
+     "cooldown": 1,
+     "range": 18,
+     "dps": 2200
+    },
+    {
+     "level": "Lv 5",
+     "cost": 7000,
+     "damage": 2200,
+     "cooldown": 0.5,
+     "range": 20,
+     "dps": 4400
+    }
+   ],
+   "maxRange": 20,
+   "howToGet": "Exclusive Halloween Crate",
+   "description": "Fully upgraded, Dragon Cameraman does 4,400 DPS. Placing it and buying all 4 upgrades costs 16,500 cash, and you can have 6 on the map.",
+   "name": "dragon cameraman",
    "category": "Legendary",
    "value": 2,
    "demand": 1,
-   "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/c0f35975-59b6-431b-a6d5-f09bd20964d5/113ad8fd6dc1694251696023d99cc250602d801190ff76be0ce0dfe8abc7cfca.webp?w=128",
+   "stability": "Dropping",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a6fb8a80-a9ef-413e-ad58-289078dfca88/e1d6c96ca90c5ba743bf3f17ef0f8f6d5cef382b3bf71eea2dea3ff21cbfbe54.webp?w=128"
+  },
+  {
    "role": "Damage",
    "cashToMax": 7000,
    "maxOnMap": 11,
    "exist": 654274,
    "tier": "B",
    "maxDps": 2500,
-   "dpsPer1k": 357
-  },
-  {
-   "name": "Ninja Cameraman",
+   "dpsPer1k": 357,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 300,
+     "damage": 25,
+     "cooldown": 0.5,
+     "range": 10,
+     "dps": 50
+    },
+    {
+     "level": "Lv 2",
+     "cost": 500,
+     "damage": 50,
+     "cooldown": 0.5,
+     "range": 13,
+     "dps": 100
+    },
+    {
+     "level": "Lv 3",
+     "cost": 1000,
+     "damage": 150,
+     "cooldown": 0.4,
+     "range": 16,
+     "dps": 375
+    },
+    {
+     "level": "Lv 4",
+     "cost": 1700,
+     "damage": 200,
+     "cooldown": 0.2,
+     "range": 19,
+     "dps": 1000
+    },
+    {
+     "level": "Lv 5",
+     "cost": 3500,
+     "damage": 500,
+     "cooldown": 0.2,
+     "range": 30,
+     "dps": 2500
+    }
+   ],
+   "maxRange": 30,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Laser Cameraman Car does 2,500 DPS. Placing it and buying all 4 upgrades costs 7,000 cash, and you can have 11 on the map.",
+   "name": "Laser Cameraman Car",
    "category": "Legendary",
    "value": 2,
-   "demand": 1.8,
+   "demand": 1,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/f8e4904d-0af7-42ad-86f6-e7878156b5e3/93588b894fcd16d1266338da788a5f0a46f5a925efd74e9fd098af3e0b7eafdd.webp?w=128",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/c0f35975-59b6-431b-a6d5-f09bd20964d5/113ad8fd6dc1694251696023d99cc250602d801190ff76be0ce0dfe8abc7cfca.webp?w=128"
+  },
+  {
    "role": "Damage",
    "cashToMax": 3000,
    "maxOnMap": "No cap",
    "exist": 1037794,
    "tier": "D",
    "maxDps": 1000,
-   "dpsPer1k": 333
-  },
-  {
-   "name": "Titan Cameraman",
+   "dpsPer1k": 333,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 200,
+     "damage": 50,
+     "cooldown": 1,
+     "range": 10,
+     "dps": 50
+    },
+    {
+     "level": "Lv 2",
+     "cost": 300,
+     "damage": 70,
+     "cooldown": 0.7,
+     "range": 12,
+     "dps": 100
+    },
+    {
+     "level": "Lv 3",
+     "cost": 600,
+     "damage": 100,
+     "cooldown": 0.5,
+     "range": 15,
+     "dps": 200
+    },
+    {
+     "level": "Lv 4",
+     "cost": 900,
+     "damage": 200,
+     "cooldown": 0.4,
+     "range": 17,
+     "dps": 500
+    },
+    {
+     "level": "Lv 5",
+     "cost": 1000,
+     "damage": 400,
+     "cooldown": 0.4,
+     "range": 20,
+     "dps": 1000
+    }
+   ],
+   "maxRange": 20,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Ninja Cameraman does 1,000 DPS. Placing it and buying all 4 upgrades costs 3,000 cash.",
+   "name": "Ninja Cameraman",
    "category": "Legendary",
    "value": 2,
-   "demand": 1.5,
+   "demand": 1.8,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/f65a8a83-94bd-477c-9d46-99801737c2dd/2813bfc279ec6b09d79843be0fb9a118a871905dbeeae1083e555605cbb99054.webp?w=128",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/f8e4904d-0af7-42ad-86f6-e7878156b5e3/93588b894fcd16d1266338da788a5f0a46f5a925efd74e9fd098af3e0b7eafdd.webp?w=128"
+  },
+  {
    "role": "Damage",
    "cashToMax": 9000,
    "maxOnMap": 8,
    "exist": 760549,
    "tier": "B",
    "maxDps": 3000,
-   "dpsPer1k": 333
-  },
-  {
-   "name": "Titan TV Man",
+   "dpsPer1k": 333,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 800,
+     "damage": 25,
+     "cooldown": 0.25,
+     "range": 20,
+     "dps": 100
+    },
+    {
+     "level": "Lv 2",
+     "cost": 800,
+     "damage": 50,
+     "cooldown": 0.2,
+     "range": 22,
+     "dps": 250
+    },
+    {
+     "level": "Lv 3",
+     "cost": 1100,
+     "damage": 125,
+     "cooldown": 0.2,
+     "range": 24,
+     "dps": 625
+    },
+    {
+     "level": "Lv 4",
+     "cost": 2300,
+     "damage": 300,
+     "cooldown": 0.2,
+     "range": 27,
+     "dps": 1500
+    },
+    {
+     "level": "Lv 5",
+     "cost": 4000,
+     "damage": 600,
+     "cooldown": 0.2,
+     "range": 30,
+     "dps": 3000
+    }
+   ],
+   "maxRange": 30,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Titan Cameraman does 3,000 DPS. Placing it and buying all 4 upgrades costs 9,000 cash, and you can have 8 on the map.",
+   "name": "Titan Cameraman",
    "category": "Legendary",
    "value": 2,
    "demand": 1.5,
    "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/0b8cb560-f1c2-4d91-89a3-64172be2f617/94da9586b9ff2d38f655bca07cf7a29a45ba15452c8079baf253fc349708c7bc.webp?w=128",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/f65a8a83-94bd-477c-9d46-99801737c2dd/2813bfc279ec6b09d79843be0fb9a118a871905dbeeae1083e555605cbb99054.webp?w=128"
+  },
+  {
    "role": "Damage · AOE · Hidden detection",
    "cashToMax": 16000,
    "maxOnMap": 7,
    "exist": 798702,
    "tier": "C",
    "maxDps": 2000,
-   "dpsPer1k": 125
+   "dpsPer1k": 125,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1000,
+     "damage": 100,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 100
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1000,
+     "damage": 200,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 200
+    },
+    {
+     "level": "Lv 3",
+     "cost": 2000,
+     "damage": 200,
+     "cooldown": 0.5,
+     "range": 20,
+     "dps": 400
+    },
+    {
+     "level": "Lv 4",
+     "cost": 3000,
+     "damage": 400,
+     "cooldown": 0.5,
+     "range": 20,
+     "dps": 800
+    },
+    {
+     "level": "Lv 5",
+     "cost": 4000,
+     "damage": 500,
+     "cooldown": 0.4,
+     "range": 25,
+     "dps": 1250
+    },
+    {
+     "level": "Lv 6",
+     "cost": 5000,
+     "damage": 500,
+     "cooldown": 0.25,
+     "range": 25,
+     "dps": 2000
+    }
+   ],
+   "maxRange": 25,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Titan TV Man does 2,000 DPS. Placing it and buying all 5 upgrades costs 16,000 cash, and you can have 7 on the map. At max level it hits everything in a 100° cone and has hidden detection.",
+   "name": "Titan TV Man",
+   "category": "Legendary",
+   "value": 2,
+   "demand": 1.5,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/0b8cb560-f1c2-4d91-89a3-64172be2f617/94da9586b9ff2d38f655bca07cf7a29a45ba15452c8079baf253fc349708c7bc.webp?w=128"
   },
   {
-   "name": "Titan Speakerman",
-   "category": "Legendary",
-   "value": 1,
-   "demand": 1,
-   "stability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/81e5df42-ba6e-4fa7-8f03-350008bf6f8b/95fda52f361a7ef2b9157517c65a5aab3c7fa002110ca7d64be1d9ad3cbea61c.webp?w=128",
    "role": "Damage",
    "cashToMax": 4500,
    "maxOnMap": 11,
    "exist": 838155,
    "tier": "C",
    "maxDps": 2000,
-   "dpsPer1k": 444
-  },
-  {
-   "name": "2x Turkey Leg",
-   "category": "Gamepasses",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/54b4bd21-1630-47d6-8fde-2172b5adcb24/f489caa99bd66cc4f87ae7c8282f2fd2a7c7fb0d2587cfabb7183a32f280e476.webp?w=128"
-  },
-  {
-   "name": "Cooker Cameraman",
+   "dpsPer1k": 444,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 500,
+     "damage": 100,
+     "cooldown": 1,
+     "range": 15,
+     "dps": 100
+    },
+    {
+     "level": "Lv 2",
+     "cost": 400,
+     "damage": 150,
+     "cooldown": 0.7,
+     "range": 17,
+     "dps": 214.2
+    },
+    {
+     "level": "Lv 3",
+     "cost": 600,
+     "damage": 250,
+     "cooldown": 0.5,
+     "range": 19,
+     "dps": 500
+    },
+    {
+     "level": "Lv 4",
+     "cost": 1000,
+     "damage": 500,
+     "cooldown": 0.5,
+     "range": 22,
+     "dps": 1000
+    },
+    {
+     "level": "Lv 5",
+     "cost": 2000,
+     "damage": 1000,
+     "cooldown": 0.5,
+     "range": 25,
+     "dps": 2000
+    }
+   ],
+   "maxRange": 25,
+   "howToGet": "Summon board",
+   "description": "Fully upgraded, Titan Speakerman does 2,000 DPS. Placing it and buying all 4 upgrades costs 4,500 cash, and you can have 11 on the map.",
+   "name": "Titan Speakerman",
    "category": "Legendary",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/273d61b5-232e-4348-9503-8161caa392a3/46d6925efe87169dc68be78ad5df81af8f768fbca00b1c26d2cfb20b58605bec.webp?w=128"
+   "value": 1,
+   "demand": 1,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/81e5df42-ba6e-4fa7-8f03-350008bf6f8b/95fda52f361a7ef2b9157517c65a5aab3c7fa002110ca7d64be1d9ad3cbea61c.webp?w=128"
   },
   {
-   "name": "Furnace Large TV Man",
-   "category": "Godly",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/14dd5b61-0e86-4f8b-988f-ab6b021d197f/4f8e8275613691b87b3e921591efe46779693cc995f4836f50b13ae70174a320.webp?w=128"
-  },
-  {
-   "name": "Musketeer Large Cameraman",
-   "category": "Legendary",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/ec268299-14e6-46c1-8a26-55476b19ce54/335a32cef0ae8120bb1d535be7d78784a59d3d71de787172c373c611e773a2d3.webp?w=128"
-  },
-  {
-   "name": "Popcorn Cameraman",
-   "category": "Rare",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/80695f2f-0350-4a35-9bd2-f69e5bd32346/8bf2550dc5531ed0a5f3ace06eb0b6bf032f0b99ec32dc2e0e598ead4e50f435.webp?w=128",
    "role": "Farm",
    "cashToMax": 1500,
    "maxOnMap": 3,
-   "exist": 17573163
-  },
-  {
-   "name": "Pumkin Large Speakerman",
-   "category": "Mythic",
+   "exist": 17573163,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 150
+    },
+    {
+     "level": "Lv 2",
+     "cost": 300
+    },
+    {
+     "level": "Lv 3",
+     "cost": 450
+    },
+    {
+     "level": "Lv 4",
+     "cost": 600
+    }
+   ],
+   "howToGet": "Summon board",
+   "description": "Popcorn Cameraman doesn't attack. It pays 200 cash every wave at max level, 600 with all 3 placed. Placing it and buying all 3 upgrades costs 1,500 cash, and you can have 3 on the map.",
+   "name": "Popcorn Cameraman",
+   "category": "Rare",
    "value": 0,
-   "demand": 10,
+   "demand": 0,
    "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/75cfb6fb-5eba-4f4c-9858-21cb709e6afe/95cc79af5b66317cc85646afde1200b8021c37bc05db3b6b92e1d8d0d1b9949b.webp?w=128"
-  },
-  {
-   "name": "Scarecrow Tv Man",
-   "category": "Mythic",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/18bb5e96-29c9-4e46-8d50-afcf7649ccf0/764ab9b45477acd904c8e703a3c58e1cc66673837b9f40f51a9256b8a2d62536.webp?w=128"
-  },
-  {
-   "name": "Villager Speakerman",
-   "category": "Epic",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4524e5c7-118d-4d02-93f5-aa7f498c6856/d2a18a59c00e72c89d171e2951f4b760152283e58f62b22f9a113a0b529c88f4.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/80695f2f-0350-4a35-9bd2-f69e5bd32346/8bf2550dc5531ed0a5f3ace06eb0b6bf032f0b99ec32dc2e0e598ead4e50f435.webp?w=128"
   },
   {
    "name": "Speaker Strider",
    "category": "Exclusive",
    "value": 0,
-   "demand": 10,
+   "demand": 0,
    "stability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/37034d69-fb7f-45c0-91f0-65ccdd102ede/8df266d62fb0fa07645bde1de0740b02a5f8ef0512a3817fbf3b9191a7328eb8.webp?w=128"
   },
   {
+   "role": "Support",
+   "cashToMax": 7500,
+   "maxOnMap": 1,
+   "exist": 242,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 500,
+     "damage": 3,
+     "cooldown": 3,
+     "range": 2
+    },
+    {
+     "level": "Lv 2",
+     "cost": 1000,
+     "damage": 6,
+     "cooldown": 6,
+     "range": 4
+    },
+    {
+     "level": "Lv 3",
+     "cost": 1500,
+     "damage": 9,
+     "cooldown": 9,
+     "range": 6
+    },
+    {
+     "level": "Lv 4",
+     "cost": 2000,
+     "damage": 12,
+     "cooldown": 12,
+     "range": 8
+    },
+    {
+     "level": "Lv 5",
+     "cost": 2500,
+     "damage": 15,
+     "cooldown": 15,
+     "range": 10
+    }
+   ],
+   "howToGet": "Exclusive Party Crate",
+   "description": "Alliance Cake doesn't attack. At max level it gives units within 20 studs +15% damage, -15% cooldown and +10% range. Placing it and buying all 4 upgrades costs 7,500 cash, and you can have 1 on the map.",
+   "name": "Alliance Cake",
+   "category": "Exclusive",
+   "value": 0,
+   "demand": 9,
+   "stability": "Overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a2afd555-6b9c-4d19-8f5e-083f991b3642/f8f39a1d78285bf07f1c8be141a840523a68c1c4ac4b87af7a776cf28b6f70e4.webp?w=128"
+  },
+  {
    "name": "DevSigned engineer",
-   "category": "Other",
+   "category": "Signed",
    "value": 0,
    "demand": 9,
    "stability": "Unstable",
@@ -736,7 +2411,7 @@
   },
   {
    "name": "DevSigned Pharaoh Cameraman",
-   "category": "Other",
+   "category": "Signed",
    "value": 0,
    "demand": 5,
    "stability": "Stable",
@@ -744,7 +2419,7 @@
   },
   {
    "name": "DevSigned pumpkin farm",
-   "category": "Other",
+   "category": "Signed",
    "value": 0,
    "demand": 8,
    "stability": "Stable",
@@ -752,7 +2427,7 @@
   },
   {
    "name": "DevSigned Scientist",
-   "category": "Other",
+   "category": "Signed",
    "value": 0,
    "demand": 7,
    "stability": "Unstable",
@@ -760,14 +2435,124 @@
   },
   {
    "name": "DevSigned spider tv",
-   "category": "Other",
+   "category": "Signed",
    "value": 0,
    "demand": 6,
    "stability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/3be6afb2-995a-4961-a00c-fc9efaef0254/dc1fc361cab75cb1a206716ee0b30560b0dca0a8a8846f30f0842c90aaf8c95f.webp?w=128"
+  },
+  {
+   "name": "DevSigned Utc",
+   "category": "Signed",
+   "value": 0,
+   "demand": 8,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a71dcd89-e3d1-4354-8524-8942689b9e6e/4502e52d1094eee24dde0583a4f4d6bb41b277dc9d095f1040ccaf81a76f39b0.webp?w=128"
+  },
+  {
+   "name": "DevSigned Utsm",
+   "category": "Signed",
+   "value": 0,
+   "demand": 5,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/05ac6abf-6456-4b65-82d8-2597ce0c3f65/f074e0d53349eb542389b02bc8c1cba43856ddde7668bb5ad4fdbbedc618c51d.webp?w=128"
+  },
+  {
+   "name": "DevSigned UTTV",
+   "category": "Signed",
+   "value": 0,
+   "demand": 5,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/edaf536e-9875-4f9b-b239-93fc45d610bb/8c16029f53ebf2faa3a3bfd67ce6455b8489d5efb39fcee7df0ba0a5600a6871.webp?w=128"
+  },
+  {
+   "name": "DevSigned VideoTapper Prototype",
+   "category": "Signed",
+   "value": 0,
+   "demand": 4,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a62477b7-3a68-405d-9499-4dd19fab9839/ee380d6de2782b7fa7624a1346f85cbc1ddbac070202c6627e96a9203a37a088.webp?w=128"
   }
  ],
  "changelog": [
+  {
+   "name": "Pharaoh Cameraman",
+   "old": 26500,
+   "new": 27000,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Furnace Large TV Man",
+   "old": 0,
+   "new": 21000,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Engineer Cameraman",
+   "old": 8500,
+   "new": 8750,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Chaos cameraman",
+   "old": 7000,
+   "new": 8000,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "executioner tv man",
+   "old": 2850,
+   "new": 3200,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "2x Turkey Leg",
+   "old": 0,
+   "new": 2500,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Scarecrow Tv Man",
+   "old": 0,
+   "new": 2500,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Pumkin Large Speakerman",
+   "old": 0,
+   "new": 2200,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Scientist Cameraman",
+   "old": 150,
+   "new": 175,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Musketeer Large Cameraman",
+   "old": 0,
+   "new": 100,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Cooker Cameraman",
+   "old": 0,
+   "new": 50,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Villager Speakerman",
+   "old": 0,
+   "new": 10,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Alliance Cake",
+   "old": 21000,
+   "new": 0,
+   "date": "2026-11-24"
+  },
   {
    "name": "Engineer Cameraman",
    "old": 7000,
@@ -786,6 +2571,5 @@
    "new": 20,
    "date": "2026-11-23"
   }
- ],
- "version": 4
+ ]
 }
