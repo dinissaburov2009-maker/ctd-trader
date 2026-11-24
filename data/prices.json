@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T14:43:06.119Z",
+ "updated": "2026-11-24T01:58:03.353Z",
  "items": [
   {
    "name": "Cameraman Tower Defense values",
@@ -12,18 +12,18 @@
   {
    "name": "Pharaoh Cameraman",
    "category": "Mythic",
-   "value": 26500,
-   "demand": 6.5,
-   "stability": "Underpaid",
+   "value": 27000,
+   "demand": 7.5,
+   "stability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/e3514b9a-ecfb-4106-b178-d6c8a233ac7e/d52737a78da454c55a7f1f3992821c726237b0d5356dcd9ad0789ac80a6aebe0.webp?w=128"
   },
   {
-   "name": "Alliance Cake",
-   "category": "Exclusive",
+   "name": "Furnace Large TV Man",
+   "category": "Godly",
    "value": 21000,
    "demand": 9,
    "stability": "Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a2afd555-6b9c-4d19-8f5e-083f991b3642/f8f39a1d78285bf07f1c8be141a840523a68c1c4ac4b87af7a776cf28b6f70e4.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/14dd5b61-0e86-4f8b-988f-ab6b021d197f/4f8e8275613691b87b3e921591efe46779693cc995f4836f50b13ae70174a320.webp?w=128"
   },
   {
    "name": "Spider Tv",
@@ -36,16 +36,16 @@
   {
    "name": "Engineer Cameraman",
    "category": "Exclusive",
-   "value": 8500,
+   "value": 8750,
    "demand": 8.5,
-   "stability": "Stable",
+   "stability": "Overpaid",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/fa368e6b-d486-4bc5-ae88-1ef24efbef91/c6372f4491646037927e023b47c027f74f6940a07bf2a48f9d536c3ce813bd2d.webp?w=128"
   },
   {
    "name": "Chaos cameraman",
    "category": "Mythic",
-   "value": 7000,
-   "demand": 7,
+   "value": 8000,
+   "demand": 8,
    "stability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/5bf034d1-07cf-46de-b926-3107cb63e6b0/aab137395fe7e26225c883a02beaf7a89ffc035e48840ef4d5e0b6075e202c9f.webp?w=128"
   },
@@ -60,9 +60,9 @@
   {
    "name": "executioner tv man",
    "category": "Exclusive",
-   "value": 2850,
+   "value": 3200,
    "demand": 8.5,
-   "stability": "Stable",
+   "stability": "Overpaid",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/6c6ee8c6-9320-4e97-b01c-ed93d49c490f/8cfa18cde3f75d6ef4541572712c5b7a2f06c03b67cded507c19c7e610c91121.webp?w=128"
   },
   {
@@ -74,12 +74,36 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/f2fae317-ff29-4a0c-928f-794f691ae48d/4502e52d1094eee24dde0583a4f4d6bb41b277dc9d095f1040ccaf81a76f39b0.webp?w=128"
   },
   {
+   "name": "2x Turkey Leg",
+   "category": "Gamepasses",
+   "value": 2500,
+   "demand": 7.5,
+   "stability": "Overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/54b4bd21-1630-47d6-8fde-2172b5adcb24/f489caa99bd66cc4f87ae7c8282f2fd2a7c7fb0d2587cfabb7183a32f280e476.webp?w=128"
+  },
+  {
    "name": "Premium Pass",
    "category": "Gamepasses",
    "value": 2500,
    "demand": 8,
    "stability": "Overpaid",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/268f7160-9d16-43a6-a87a-620d11651443/0dfedd52ec00c343861f78ac658297ce13fc5fcfcc8939d8530aa358130a2887.webp?w=128"
+  },
+  {
+   "name": "Scarecrow Tv Man",
+   "category": "Mythic",
+   "value": 2500,
+   "demand": 4,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/18bb5e96-29c9-4e46-8d50-afcf7649ccf0/764ab9b45477acd904c8e703a3c58e1cc66673837b9f40f51a9256b8a2d62536.webp?w=128"
+  },
+  {
+   "name": "Pumkin Large Speakerman",
+   "category": "Mythic",
+   "value": 2200,
+   "demand": 2,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/75cfb6fb-5eba-4f4c-9858-21cb709e6afe/95cc79af5b66317cc85646afde1200b8021c37bc05db3b6b92e1d8d0d1b9949b.webp?w=128"
   },
   {
    "name": "2x Money",
@@ -242,6 +266,14 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/df65a04b-b692-46bd-9c42-023f8e43aa40/2b905823ba5c987940c5526e75bccb61e629d1605ab5319884c1720b9914f4aa.webp?w=128"
   },
   {
+   "name": "Scientist Cameraman",
+   "category": "Exclusive",
+   "value": 175,
+   "demand": 7,
+   "stability": "Overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/964df9f4-ff39-4852-82ed-0910a2e1bc28/b988f0a6858a5644659fdbe853ac4f805f6cb1707af6d0cb7acdce8e17a0f0dd.webp?w=128"
+  },
+  {
    "name": "Tv woman",
    "category": "Mythic",
    "value": 175,
@@ -250,20 +282,20 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/c67706d6-15ab-4bf1-bc5e-dc2a8ff968af/81efa62b74fe158f686b1cbab063179458525e6e866b0750fdb021e67349202a.webp?w=128"
   },
   {
-   "name": "Scientist Cameraman",
-   "category": "Exclusive",
-   "value": 150,
-   "demand": 7,
-   "stability": "Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/964df9f4-ff39-4852-82ed-0910a2e1bc28/b988f0a6858a5644659fdbe853ac4f805f6cb1707af6d0cb7acdce8e17a0f0dd.webp?w=128"
-  },
-  {
    "name": "videotaper titan",
    "category": "Mythic",
    "value": 140,
    "demand": 2.5,
    "stability": "Unwanted",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/fca791b5-5a2f-429b-8458-97745b0e8f17/ee380d6de2782b7fa7624a1346f85cbc1ddbac070202c6627e96a9203a37a088.webp?w=128"
+  },
+  {
+   "name": "Musketeer Large Cameraman",
+   "category": "Legendary",
+   "value": 100,
+   "demand": 1,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/ec268299-14e6-46c1-8a26-55476b19ce54/335a32cef0ae8120bb1d535be7d78784a59d3d71de787172c373c611e773a2d3.webp?w=128"
   },
   {
    "name": "Upgraded Titan Speakerman",
@@ -306,6 +338,14 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/3a2babd5-cb4a-4654-a0ee-090e0e2d130f/59dd94ec94e22bd2d694126c3cdff199b617f709a85a94650f8ffc628acc378a.webp?w=128"
   },
   {
+   "name": "Cooker Cameraman",
+   "category": "Legendary",
+   "value": 50,
+   "demand": 1,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/273d61b5-232e-4348-9503-8161caa392a3/46d6925efe87169dc68be78ad5df81af8f768fbca00b1c26d2cfb20b58605bec.webp?w=128"
+  },
+  {
    "name": "Halloween Crate",
    "category": "Crates",
    "value": 30,
@@ -328,6 +368,14 @@
    "demand": 2,
    "stability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/feb18825-c818-4efd-8ba9-515208fc7b1d/1a1dc2b4ec818fdbef8b1b45af2e2f10ef0fa6b6bab3e5503897150a0e1f43c7.webp?w=128"
+  },
+  {
+   "name": "Villager Speakerman",
+   "category": "Epic",
+   "value": 10,
+   "demand": 1,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4524e5c7-118d-4d02-93f5-aa7f498c6856/d2a18a59c00e72c89d171e2951f4b760152283e58f62b22f9a113a0b529c88f4.webp?w=128"
   },
   {
    "name": "Dark Speakerman",
@@ -418,38 +466,6 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/81e5df42-ba6e-4fa7-8f03-350008bf6f8b/95fda52f361a7ef2b9157517c65a5aab3c7fa002110ca7d64be1d9ad3cbea61c.webp?w=128"
   },
   {
-   "name": "2x Turkey Leg",
-   "category": "Gamepasses",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/54b4bd21-1630-47d6-8fde-2172b5adcb24/f489caa99bd66cc4f87ae7c8282f2fd2a7c7fb0d2587cfabb7183a32f280e476.webp?w=128"
-  },
-  {
-   "name": "Cooker Cameraman",
-   "category": "Legendary",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/273d61b5-232e-4348-9503-8161caa392a3/46d6925efe87169dc68be78ad5df81af8f768fbca00b1c26d2cfb20b58605bec.webp?w=128"
-  },
-  {
-   "name": "Furnace Large TV Man",
-   "category": "Godly",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/14dd5b61-0e86-4f8b-988f-ab6b021d197f/4f8e8275613691b87b3e921591efe46779693cc995f4836f50b13ae70174a320.webp?w=128"
-  },
-  {
-   "name": "Musketeer Large Cameraman",
-   "category": "Legendary",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/ec268299-14e6-46c1-8a26-55476b19ce54/335a32cef0ae8120bb1d535be7d78784a59d3d71de787172c373c611e773a2d3.webp?w=128"
-  },
-  {
    "name": "Popcorn Cameraman",
    "category": "Rare",
    "value": 0,
@@ -458,36 +474,20 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/80695f2f-0350-4a35-9bd2-f69e5bd32346/8bf2550dc5531ed0a5f3ace06eb0b6bf032f0b99ec32dc2e0e598ead4e50f435.webp?w=128"
   },
   {
-   "name": "Pumkin Large Speakerman",
-   "category": "Mythic",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/75cfb6fb-5eba-4f4c-9858-21cb709e6afe/95cc79af5b66317cc85646afde1200b8021c37bc05db3b6b92e1d8d0d1b9949b.webp?w=128"
-  },
-  {
-   "name": "Scarecrow Tv Man",
-   "category": "Mythic",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/18bb5e96-29c9-4e46-8d50-afcf7649ccf0/764ab9b45477acd904c8e703a3c58e1cc66673837b9f40f51a9256b8a2d62536.webp?w=128"
-  },
-  {
-   "name": "Villager Speakerman",
-   "category": "Epic",
-   "value": 0,
-   "demand": 10,
-   "stability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4524e5c7-118d-4d02-93f5-aa7f498c6856/d2a18a59c00e72c89d171e2951f4b760152283e58f62b22f9a113a0b529c88f4.webp?w=128"
-  },
-  {
    "name": "Speaker Strider",
    "category": "Exclusive",
    "value": 0,
    "demand": 10,
    "stability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/37034d69-fb7f-45c0-91f0-65ccdd102ede/8df266d62fb0fa07645bde1de0740b02a5f8ef0512a3817fbf3b9191a7328eb8.webp?w=128"
+  },
+  {
+   "name": "Alliance Cake",
+   "category": "Exclusive",
+   "value": 0,
+   "demand": 9,
+   "stability": "Overpaid",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a2afd555-6b9c-4d19-8f5e-083f991b3642/f8f39a1d78285bf07f1c8be141a840523a68c1c4ac4b87af7a776cf28b6f70e4.webp?w=128"
   },
   {
    "name": "DevSigned engineer",
@@ -530,6 +530,38 @@
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/3be6afb2-995a-4961-a00c-fc9efaef0254/dc1fc361cab75cb1a206716ee0b30560b0dca0a8a8846f30f0842c90aaf8c95f.webp?w=128"
   },
   {
+   "name": "DevSigned Utc",
+   "category": "Other",
+   "value": 0,
+   "demand": 8,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a71dcd89-e3d1-4354-8524-8942689b9e6e/4502e52d1094eee24dde0583a4f4d6bb41b277dc9d095f1040ccaf81a76f39b0.webp?w=128"
+  },
+  {
+   "name": "DevSigned Utsm",
+   "category": "Other",
+   "value": 0,
+   "demand": 5,
+   "stability": "Unstable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/05ac6abf-6456-4b65-82d8-2597ce0c3f65/f074e0d53349eb542389b02bc8c1cba43856ddde7668bb5ad4fdbbedc618c51d.webp?w=128"
+  },
+  {
+   "name": "DevSigned UTTV",
+   "category": "Other",
+   "value": 0,
+   "demand": 5,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/edaf536e-9875-4f9b-b239-93fc45d610bb/8c16029f53ebf2faa3a3bfd67ce6455b8489d5efb39fcee7df0ba0a5600a6871.webp?w=128"
+  },
+  {
+   "name": "DevSigned VideoTapper Prototype",
+   "category": "Other",
+   "value": 0,
+   "demand": 4,
+   "stability": "Stable",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a62477b7-3a68-405d-9499-4dd19fab9839/ee380d6de2782b7fa7624a1346f85cbc1ddbac070202c6627e96a9203a37a088.webp?w=128"
+  },
+  {
    "name": "Credits",
    "category": "Other",
    "value": 1,
@@ -539,6 +571,84 @@
   }
  ],
  "changelog": [
+  {
+   "name": "Pharaoh Cameraman",
+   "old": 26500,
+   "new": 27000,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Furnace Large TV Man",
+   "old": 0,
+   "new": 21000,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Engineer Cameraman",
+   "old": 8500,
+   "new": 8750,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Chaos cameraman",
+   "old": 7000,
+   "new": 8000,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "executioner tv man",
+   "old": 2850,
+   "new": 3200,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "2x Turkey Leg",
+   "old": 0,
+   "new": 2500,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Scarecrow Tv Man",
+   "old": 0,
+   "new": 2500,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Pumkin Large Speakerman",
+   "old": 0,
+   "new": 2200,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Scientist Cameraman",
+   "old": 150,
+   "new": 175,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Musketeer Large Cameraman",
+   "old": 0,
+   "new": 100,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Cooker Cameraman",
+   "old": 0,
+   "new": 50,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Villager Speakerman",
+   "old": 0,
+   "new": 10,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Alliance Cake",
+   "old": 21000,
+   "new": 0,
+   "date": "2026-11-24"
+  },
   {
    "name": "Engineer Cameraman",
    "old": 7000,
