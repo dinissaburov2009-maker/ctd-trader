@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-24T10:50:49.156Z",
- "version": 10,
+ "updated": "2026-11-24T11:30:49.530Z",
+ "version": 11,
  "sources": {
   "values": 81,
   "valuesTotal": 82,
@@ -80,7 +80,7 @@
     "min": 12000,
     "max": 40000,
     "buyers": 26,
-    "sellers": 43,
+    "sellers": 46,
     "trades7d": 2,
     "topTrades": [
      {
@@ -144,7 +144,8 @@
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/e3514b9a-ecfb-4106-b178-d6c8a233ac7e/d52737a78da454c55a7f1f3992821c726237b0d5356dcd9ad0789ac80a6aebe0.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/e3514b9a-ecfb-4106-b178-d6c8a233ac7e/d52737a78da454c55a7f1f3992821c726237b0d5356dcd9ad0789ac80a6aebe0.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "name": "Furnace Large TV Man",
@@ -157,7 +158,8 @@
     "Overpaid"
    ],
    "rawStability": "HeavilyOverpaid For",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/14dd5b61-0e86-4f8b-988f-ab6b021d197f/4f8e8275613691b87b3e921591efe46779693cc995f4836f50b13ae70174a320.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/14dd5b61-0e86-4f8b-988f-ab6b021d197f/4f8e8275613691b87b3e921591efe46779693cc995f4836f50b13ae70174a320.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -241,8 +243,8 @@
     "median": 15400,
     "min": 7500,
     "max": 25000,
-    "buyers": 104,
-    "sellers": 62,
+    "buyers": 105,
+    "sellers": 63,
     "trades7d": 5,
     "topTrades": [
      {
@@ -374,7 +376,8 @@
     "Stable"
    ],
    "rawStability": "stable/fluctating",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/dfc3e861-26f0-4f4e-95e3-9c02810eca9f/dc1fc361cab75cb1a206716ee0b30560b0dca0a8a8846f30f0842c90aaf8c95f.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/dfc3e861-26f0-4f4e-95e3-9c02810eca9f/dc1fc361cab75cb1a206716ee0b30560b0dca0a8a8846f30f0842c90aaf8c95f.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Spawner",
@@ -439,9 +442,9 @@
     "median": 8100,
     "min": 3900,
     "max": 14500,
-    "buyers": 109,
-    "sellers": 77,
-    "trades7d": 11,
+    "buyers": 107,
+    "sellers": 78,
+    "trades7d": 10,
     "topTrades": [
      {
       "name": "Hacked Cameraman",
@@ -577,7 +580,8 @@
     "Rising"
    ],
    "rawStability": "slowly rising | overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/fa368e6b-d486-4bc5-ae88-1ef24efbef91/c6372f4491646037927e023b47c027f74f6940a07bf2a48f9d536c3ce813bd2d.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/fa368e6b-d486-4bc5-ae88-1ef24efbef91/c6372f4491646037927e023b47c027f74f6940a07bf2a48f9d536c3ce813bd2d.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -647,9 +651,9 @@
     "median": 6300,
     "min": 3400,
     "max": 12000,
-    "buyers": 105,
-    "sellers": 123,
-    "trades7d": 14,
+    "buyers": 104,
+    "sellers": 125,
+    "trades7d": 13,
     "topTrades": [
      {
       "name": "Upgraded Titan Cameraman",
@@ -796,7 +800,8 @@
     "Unstable"
    ],
    "rawStability": "Unstable | Fluctuating",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/5bf034d1-07cf-46de-b926-3107cb63e6b0/aab137395fe7e26225c883a02beaf7a89ffc035e48840ef4d5e0b6075e202c9f.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/5bf034d1-07cf-46de-b926-3107cb63e6b0/aab137395fe7e26225c883a02beaf7a89ffc035e48840ef4d5e0b6075e202c9f.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -958,7 +963,8 @@
     "Stable"
    ],
    "rawStability": "stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/00c83051-0126-4686-8c95-8fd920e72aa1/831c54894de2abcd0ac4aa7f6b1013dd5621fe37f5956810abeafe064fd73370.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/00c83051-0126-4686-8c95-8fd920e72aa1/831c54894de2abcd0ac4aa7f6b1013dd5621fe37f5956810abeafe064fd73370.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -1021,7 +1027,7 @@
     "median": 2100,
     "min": 1300,
     "max": 4700,
-    "buyers": 131,
+    "buyers": 132,
     "sellers": 53,
     "trades7d": 7,
     "topTrades": [
@@ -1137,7 +1143,8 @@
     "Overpaid"
    ],
    "rawStability": "overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/6c6ee8c6-9320-4e97-b01c-ed93d49c490f/8cfa18cde3f75d6ef4541572712c5b7a2f06c03b67cded507c19c7e610c91121.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/6c6ee8c6-9320-4e97-b01c-ed93d49c490f/8cfa18cde3f75d6ef4541572712c5b7a2f06c03b67cded507c19c7e610c91121.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -1227,8 +1234,8 @@
     "median": 3200,
     "min": 2000,
     "max": 6000,
-    "buyers": 194,
-    "sellers": 233,
+    "buyers": 196,
+    "sellers": 230,
     "trades7d": 24,
     "topTrades": [
      {
@@ -1351,7 +1358,8 @@
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/f2fae317-ff29-4a0c-928f-794f691ae48d/4502e52d1094eee24dde0583a4f4d6bb41b277dc9d095f1040ccaf81a76f39b0.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/f2fae317-ff29-4a0c-928f-794f691ae48d/4502e52d1094eee24dde0583a4f4d6bb41b277dc9d095f1040ccaf81a76f39b0.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "name": "2x Turkey Leg",
@@ -1364,7 +1372,8 @@
     "Overpaid"
    ],
    "rawStability": "Overpaid For",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/54b4bd21-1630-47d6-8fde-2172b5adcb24/f489caa99bd66cc4f87ae7c8282f2fd2a7c7fb0d2587cfabb7183a32f280e476.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/54b4bd21-1630-47d6-8fde-2172b5adcb24/f489caa99bd66cc4f87ae7c8282f2fd2a7c7fb0d2587cfabb7183a32f280e476.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "description": "Premium Pass is a gamepass in Cameraman Tower Defense. It trades for about 2.0K gems, with offers usually between 1.3K and 3.4K gems. Demand is high and the price is overpaid.",
@@ -1373,8 +1382,8 @@
     "median": 2300,
     "min": 1300,
     "max": 3400,
-    "buyers": 27,
-    "sellers": 6
+    "buyers": 26,
+    "sellers": 7
    },
    "priceHistory": [
     {
@@ -1456,7 +1465,8 @@
     "Overpaid"
    ],
    "rawStability": "overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/268f7160-9d16-43a6-a87a-620d11651443/0dfedd52ec00c343861f78ac658297ce13fc5fcfcc8939d8530aa358130a2887.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/268f7160-9d16-43a6-a87a-620d11651443/0dfedd52ec00c343861f78ac658297ce13fc5fcfcc8939d8530aa358130a2887.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "name": "Scarecrow Tv Man",
@@ -1469,7 +1479,8 @@
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/18bb5e96-29c9-4e46-8d50-afcf7649ccf0/764ab9b45477acd904c8e703a3c58e1cc66673837b9f40f51a9256b8a2d62536.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/18bb5e96-29c9-4e46-8d50-afcf7649ccf0/764ab9b45477acd904c8e703a3c58e1cc66673837b9f40f51a9256b8a2d62536.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "name": "Pumkin Large Speakerman",
@@ -1482,7 +1493,8 @@
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/75cfb6fb-5eba-4f4c-9858-21cb709e6afe/95cc79af5b66317cc85646afde1200b8021c37bc05db3b6b92e1d8d0d1b9949b.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/75cfb6fb-5eba-4f4c-9858-21cb709e6afe/95cc79af5b66317cc85646afde1200b8021c37bc05db3b6b92e1d8d0d1b9949b.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "description": "Double Coins is a gamepass in Cameraman Tower Defense. It trades for about 1.9K gems, with offers usually between 800 and 3.5K gems. Demand is high and the price is stable.",
@@ -1491,7 +1503,7 @@
     "median": 1500,
     "min": 800,
     "max": 3500,
-    "buyers": 154,
+    "buyers": 153,
     "sellers": 82,
     "trades7d": 9,
     "topTrades": [
@@ -1609,7 +1621,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/27f6a801-9765-46c4-928a-748f092e0b59/0848ac8e70d0089fa17a07ebbb1099220127ba3edd5d6c759fe44b5933c4f720.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/27f6a801-9765-46c4-928a-748f092e0b59/0848ac8e70d0089fa17a07ebbb1099220127ba3edd5d6c759fe44b5933c4f720.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "description": "Double Candy is a gamepass in Cameraman Tower Defense. It trades for about 1.7K gems, with offers usually between 800 and 3K gems. Demand is medium and the price is dropping.",
@@ -1705,7 +1718,8 @@
     "Dropping"
    ],
    "rawStability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/9db42594-c790-4f18-9b91-b78279f88517/b5a799674568a354c66c98d650e82bf087002a023bc2c27c3bc15e6ffbda256b.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/9db42594-c790-4f18-9b91-b78279f88517/b5a799674568a354c66c98d650e82bf087002a023bc2c27c3bc15e6ffbda256b.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "description": "Double Luck is a gamepass in Cameraman Tower Defense. It trades for about 1.6K gems, with offers usually between 800 and 3.5K gems. Demand is high and the price is stable.",
@@ -1808,7 +1822,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4e78128f-354d-41a7-b9d9-158b17ebffb4/d0652947941d09c6d755414d836d73d941d288ab2765eafc63eea143c8254479.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4e78128f-354d-41a7-b9d9-158b17ebffb4/d0652947941d09c6d755414d836d73d941d288ab2765eafc63eea143c8254479.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -1876,8 +1891,8 @@
     "median": 1900,
     "min": 1000,
     "max": 3000,
-    "buyers": 317,
-    "sellers": 259,
+    "buyers": 320,
+    "sellers": 260,
     "trades7d": 28,
     "topTrades": [
      {
@@ -1944,7 +1959,8 @@
     "Unstable"
    ],
    "rawStability": "Fluctuating",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/76fc6e57-a321-4a16-9839-226ac4c21d50/b54285fdc15e3534901037bd6ee58643913bfc9f216551e48e821660d76b0387.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/76fc6e57-a321-4a16-9839-226ac4c21d50/b54285fdc15e3534901037bd6ee58643913bfc9f216551e48e821660d76b0387.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -2005,8 +2021,8 @@
     "median": 1900,
     "min": 1000,
     "max": 2400,
-    "buyers": 33,
-    "sellers": 114,
+    "buyers": 32,
+    "sellers": 116,
     "trades7d": 4,
     "topTrades": [
      {
@@ -2054,7 +2070,8 @@
     "Dropping"
    ],
    "rawStability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/8211f2e5-0246-4df7-bd35-e19fe3a0e7d6/332b78f9cbc066ccbc6b5c8fb017a8216537a9b692af329474d40dc5bc648d9f.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/8211f2e5-0246-4df7-bd35-e19fe3a0e7d6/332b78f9cbc066ccbc6b5c8fb017a8216537a9b692af329474d40dc5bc648d9f.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -2175,7 +2192,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/05bc46ab-1f88-4fc5-bec9-3700b3b1d6b4/4c30e904123968368294a31800cd0079613eccbe405899b54f6d08ace87998b8.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/05bc46ab-1f88-4fc5-bec9-3700b3b1d6b4/4c30e904123968368294a31800cd0079613eccbe405899b54f6d08ace87998b8.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "description": "X2 Speed is a gamepass in Cameraman Tower Defense. It trades for about 905 gems, with offers usually between 450 and 2.5K gems. Demand is high and the price is overpaid.",
@@ -2184,7 +2202,7 @@
     "median": 940,
     "min": 450,
     "max": 2500,
-    "buyers": 79,
+    "buyers": 80,
     "sellers": 59,
     "trades7d": 5,
     "topTrades": [
@@ -2331,7 +2349,8 @@
     "Stable"
    ],
    "rawStability": "Overpaid/Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/cabe34f0-9054-42b5-95d3-88865dca83fd/8941af3600b237a7c882c5c46363d34d60ef9eb9ed09ea7e912c191704cfb08c.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/cabe34f0-9054-42b5-95d3-88865dca83fd/8941af3600b237a7c882c5c46363d34d60ef9eb9ed09ea7e912c191704cfb08c.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -2393,7 +2412,7 @@
     "min": 300,
     "max": 1400,
     "buyers": 65,
-    "sellers": 50,
+    "sellers": 51,
     "trades7d": 3,
     "topTrades": [
      {
@@ -2480,7 +2499,8 @@
     "Underpaid"
    ],
    "rawStability": "Underpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/11c1c6d3-65fc-4382-a278-39ac39176217/5ea2949738d82ae69605e0ab7729c57629c0bd58b2e6202f69ba9422fda25558.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/11c1c6d3-65fc-4382-a278-39ac39176217/5ea2949738d82ae69605e0ab7729c57629c0bd58b2e6202f69ba9422fda25558.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "description": "Scientist Crate is a crate in Cameraman Tower Defense. It trades for about 445 gems, with offers usually between 200 and 900 gems. Demand is high and the price is stable.",
@@ -2600,7 +2620,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/032927c0-a2bc-4ff1-b41c-0b9ac7c18126/c08f09d46db397c0a2cd7ab3c4407153177e8dc7743f7dd938d874660504515b.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/032927c0-a2bc-4ff1-b41c-0b9ac7c18126/c08f09d46db397c0a2cd7ab3c4407153177e8dc7743f7dd938d874660504515b.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -2656,9 +2677,9 @@
     "median": 504,
     "min": 200,
     "max": 1000,
-    "buyers": 47,
-    "sellers": 258,
-    "trades7d": 24,
+    "buyers": 46,
+    "sellers": 257,
+    "trades7d": 23,
     "topTrades": [
      {
       "name": "Titan Cinemaman",
@@ -2756,7 +2777,8 @@
     "Dropping"
    ],
    "rawStability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/1043b5bd-2143-4136-9203-0c19d5f96e76/f09a163ba94cb608ff4b54cfd74c93c05513daf8c54c94f2e3ea8989cab30269.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/1043b5bd-2143-4136-9203-0c19d5f96e76/f09a163ba94cb608ff4b54cfd74c93c05513daf8c54c94f2e3ea8989cab30269.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "description": "Sand Coffin Crate is a crate in Cameraman Tower Defense. It trades for about 265 gems, with offers usually between 140 and 550 gems. Demand is low and the price is unstable.",
@@ -2766,7 +2788,7 @@
     "min": 140,
     "max": 550,
     "buyers": 17,
-    "sellers": 107,
+    "sellers": 108,
     "trades7d": 13,
     "topTrades": [
      {
@@ -2835,7 +2857,8 @@
     "Unstable"
    ],
    "rawStability": "Fluctuating",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/afc2631b-377e-4e1a-ac25-f8337d7a1a9a/effcca4c72f97918920fedc1f92da0646aeb052862ba4c2599661103e2619c9a.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/afc2631b-377e-4e1a-ac25-f8337d7a1a9a/effcca4c72f97918920fedc1f92da0646aeb052862ba4c2599661103e2619c9a.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -2887,8 +2910,8 @@
     "median": 479,
     "min": 200,
     "max": 800,
-    "buyers": 58,
-    "sellers": 75,
+    "buyers": 59,
+    "sellers": 74,
     "trades7d": 7,
     "topTrades": [
      {
@@ -2983,7 +3006,8 @@
     "Dropping"
    ],
    "rawStability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a9208d25-b17f-42ca-8f3d-3dca80f216c9/d62e23483eb2dfa49c3b4c85c0e73ef7f4d5fb6c6156328a5f75c0bc30f3e310.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a9208d25-b17f-42ca-8f3d-3dca80f216c9/d62e23483eb2dfa49c3b4c85c0e73ef7f4d5fb6c6156328a5f75c0bc30f3e310.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -3047,7 +3071,7 @@
     "min": 200,
     "max": 800,
     "buyers": 101,
-    "sellers": 110,
+    "sellers": 109,
     "trades7d": 8,
     "topTrades": [
      {
@@ -3170,7 +3194,8 @@
     "Unwanted"
    ],
    "rawStability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/1bd11a79-5544-416a-84a5-fd9004eb6e4c/688505608418af7feff9d5d79b0ba007e1f00d51a1064136b643d93fed1a77dd.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/1bd11a79-5544-416a-84a5-fd9004eb6e4c/688505608418af7feff9d5d79b0ba007e1f00d51a1064136b643d93fed1a77dd.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -3248,7 +3273,7 @@
     "min": 150,
     "max": 650,
     "buyers": 30,
-    "sellers": 68,
+    "sellers": 67,
     "trades7d": 14,
     "topTrades": [
      {
@@ -3380,7 +3405,8 @@
     "Stable"
    ],
    "rawStability": "Stable/Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/aec381b0-5c15-45f1-8567-cf88ad52a3e6/bb2cddbb28d1454d43ead2297f0603428d26674a4516c96d028853fdd9fbd7b1.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/aec381b0-5c15-45f1-8567-cf88ad52a3e6/bb2cddbb28d1454d43ead2297f0603428d26674a4516c96d028853fdd9fbd7b1.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -3456,7 +3482,7 @@
     "median": 404,
     "min": 150,
     "max": 650,
-    "buyers": 61,
+    "buyers": 60,
     "sellers": 165,
     "trades7d": 18,
     "topTrades": [
@@ -3609,7 +3635,8 @@
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4c7879b9-586d-4c95-b1dc-5c608396286b/f9c91061b8260ec6f180414470ee8967dd84aad01c9e550b2b94d799175284a0.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4c7879b9-586d-4c95-b1dc-5c608396286b/f9c91061b8260ec6f180414470ee8967dd84aad01c9e550b2b94d799175284a0.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -3661,8 +3688,8 @@
     "median": 187,
     "min": 80,
     "max": 500,
-    "buyers": 6,
-    "sellers": 289,
+    "buyers": 7,
+    "sellers": 292,
     "trades7d": 21,
     "topTrades": [
      {
@@ -3737,7 +3764,8 @@
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/5047cb47-9d22-4dd9-afe4-186215b68a7d/5e4f6b6804823a9a1d69462600f91649fff5e46a3ff6c48b29c5997dfeccf8c2.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/5047cb47-9d22-4dd9-afe4-186215b68a7d/5e4f6b6804823a9a1d69462600f91649fff5e46a3ff6c48b29c5997dfeccf8c2.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -3824,8 +3852,8 @@
     "median": 253,
     "min": 100,
     "max": 500,
-    "buyers": 103,
-    "sellers": 361,
+    "buyers": 105,
+    "sellers": 365,
     "trades7d": 36,
     "topTrades": [
      {
@@ -3964,7 +3992,8 @@
     "Unwanted"
    ],
    "rawStability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/52b533c5-0734-413c-9d32-391c08039fbe/9abeef4b9078903f74e2fad881994c16684641f69db56eeb0ed4b22ef0be61d1.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/52b533c5-0734-413c-9d32-391c08039fbe/9abeef4b9078903f74e2fad881994c16684641f69db56eeb0ed4b22ef0be61d1.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -4017,8 +4046,8 @@
     "median": 214,
     "min": 100,
     "max": 450,
-    "buyers": 33,
-    "sellers": 218,
+    "buyers": 34,
+    "sellers": 219,
     "trades7d": 24,
     "topTrades": [
      {
@@ -4113,7 +4142,8 @@
     "Unwanted"
    ],
    "rawStability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/863118df-1159-4021-8158-083bdc8c23ab/976587a9102f41446f7018e36c914d7b3f35e35bdf3cea5376dbe04c143d006e.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/863118df-1159-4021-8158-083bdc8c23ab/976587a9102f41446f7018e36c914d7b3f35e35bdf3cea5376dbe04c143d006e.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "tier": "A",
@@ -4184,8 +4214,8 @@
     "median": 201,
     "min": 90,
     "max": 500,
-    "buyers": 53,
-    "sellers": 275,
+    "buyers": 54,
+    "sellers": 273,
     "trades7d": 19,
     "topTrades": [
      {
@@ -4300,7 +4330,8 @@
     "Unwanted"
    ],
    "rawStability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/3e230bc2-6d3e-4edb-8602-1a2b39811487/4dbcfbedde29eb378d4695d691526cfdab982a9fd501dfebdfa6b903b90f9aee.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/3e230bc2-6d3e-4edb-8602-1a2b39811487/4dbcfbedde29eb378d4695d691526cfdab982a9fd501dfebdfa6b903b90f9aee.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "tier": "A",
@@ -4353,8 +4384,8 @@
     "median": 155,
     "min": 80,
     "max": 310,
-    "buyers": 36,
-    "sellers": 243,
+    "buyers": 35,
+    "sellers": 241,
     "trades7d": 20,
     "topTrades": [
      {
@@ -4477,7 +4508,8 @@
     "Unwanted"
    ],
    "rawStability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/df65a04b-b692-46bd-9c42-023f8e43aa40/2b905823ba5c987940c5526e75bccb61e629d1605ab5319884c1720b9914f4aa.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/df65a04b-b692-46bd-9c42-023f8e43aa40/2b905823ba5c987940c5526e75bccb61e629d1605ab5319884c1720b9914f4aa.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Farm",
@@ -4519,7 +4551,7 @@
     "median": 169,
     "min": 70,
     "max": 300,
-    "buyers": 273,
+    "buyers": 275,
     "sellers": 128,
     "trades7d": 14,
     "topTrades": [
@@ -4648,7 +4680,8 @@
     "Overpaid"
    ],
    "rawStability": "Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/964df9f4-ff39-4852-82ed-0910a2e1bc28/b988f0a6858a5644659fdbe853ac4f805f6cb1707af6d0cb7acdce8e17a0f0dd.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/964df9f4-ff39-4852-82ed-0910a2e1bc28/b988f0a6858a5644659fdbe853ac4f805f6cb1707af6d0cb7acdce8e17a0f0dd.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -4729,8 +4762,8 @@
     "median": 190,
     "min": 75,
     "max": 385,
-    "buyers": 28,
-    "sellers": 180,
+    "buyers": 29,
+    "sellers": 181,
     "trades7d": 17,
     "topTrades": [
      {
@@ -4854,7 +4887,8 @@
     "Unwanted"
    ],
    "rawStability": "unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/c67706d6-15ab-4bf1-bc5e-dc2a8ff968af/81efa62b74fe158f686b1cbab063179458525e6e866b0750fdb021e67349202a.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/c67706d6-15ab-4bf1-bc5e-dc2a8ff968af/81efa62b74fe158f686b1cbab063179458525e6e866b0750fdb021e67349202a.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -4916,7 +4950,7 @@
     "min": 70,
     "max": 300,
     "buyers": 40,
-    "sellers": 212,
+    "sellers": 213,
     "trades7d": 26,
     "topTrades": [
      {
@@ -5015,7 +5049,8 @@
     "Unwanted"
    ],
    "rawStability": "Unwanted",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/fca791b5-5a2f-429b-8458-97745b0e8f17/ee380d6de2782b7fa7624a1346f85cbc1ddbac070202c6627e96a9203a37a088.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/fca791b5-5a2f-429b-8458-97745b0e8f17/ee380d6de2782b7fa7624a1346f85cbc1ddbac070202c6627e96a9203a37a088.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "name": "Musketeer Large Cameraman",
@@ -5028,7 +5063,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/ec268299-14e6-46c1-8a26-55476b19ce54/335a32cef0ae8120bb1d535be7d78784a59d3d71de787172c373c611e773a2d3.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/ec268299-14e6-46c1-8a26-55476b19ce54/335a32cef0ae8120bb1d535be7d78784a59d3d71de787172c373c611e773a2d3.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -5092,8 +5128,8 @@
     "median": 122,
     "min": 50,
     "max": 210,
-    "buyers": 81,
-    "sellers": 215,
+    "buyers": 80,
+    "sellers": 216,
     "trades7d": 19,
     "topTrades": [
      {
@@ -5188,7 +5224,8 @@
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/d3fab060-41ea-41cf-b130-3c8be8073aff/b9a9e2d10a725be20c3c9dc2454519ca42dc0737642daa9908c9c844f7fcff40.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/d3fab060-41ea-41cf-b130-3c8be8073aff/b9a9e2d10a725be20c3c9dc2454519ca42dc0737642daa9908c9c844f7fcff40.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "name": "MLG Cameraman",
@@ -5201,7 +5238,8 @@
     "Dropping"
    ],
    "rawStability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/0934e29b-3fc1-47fe-850d-ce48b0e2e8ce/16f5b72a798502d232cd44e7f8717d0ab907cb7c7036b786f749c7f19a985209.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/0934e29b-3fc1-47fe-850d-ce48b0e2e8ce/16f5b72a798502d232cd44e7f8717d0ab907cb7c7036b786f749c7f19a985209.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "description": "Party Crate is a crate in Cameraman Tower Defense. It trades for about 71 gems, with offers usually between 35 and 105 gems. Demand is high and the price is stable.",
@@ -5210,8 +5248,8 @@
     "median": 67,
     "min": 35,
     "max": 105,
-    "buyers": 28,
-    "sellers": 180,
+    "buyers": 27,
+    "sellers": 179,
     "trades7d": 23,
     "topTrades": [
      {
@@ -5252,7 +5290,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/1b899fc0-3194-44e8-9d90-0ad9b5828124/1945436eae178811569637312d3107c9de5dddebcd78d04245f21782e41fa011.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/1b899fc0-3194-44e8-9d90-0ad9b5828124/1945436eae178811569637312d3107c9de5dddebcd78d04245f21782e41fa011.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "description": "Spider Crate is a crate in Cameraman Tower Defense. It trades for about 76 gems, with offers usually between 30 and 125 gems. Demand is medium and the price is stable.",
@@ -5353,7 +5392,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/68309eea-27a2-4d63-b765-f90f3958d699/2d93fd3c80fafa5842a5d07b87ecd717fbc553949646157e5c7c243a95f55b8d.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/68309eea-27a2-4d63-b765-f90f3958d699/2d93fd3c80fafa5842a5d07b87ecd717fbc553949646157e5c7c243a95f55b8d.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -5443,7 +5483,7 @@
     "median": 55,
     "min": 30,
     "max": 150,
-    "buyers": 10,
+    "buyers": 9,
     "sellers": 166,
     "trades7d": 8
    },
@@ -5487,7 +5527,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/3a2babd5-cb4a-4654-a0ee-090e0e2d130f/59dd94ec94e22bd2d694126c3cdff199b617f709a85a94650f8ffc628acc378a.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/3a2babd5-cb4a-4654-a0ee-090e0e2d130f/59dd94ec94e22bd2d694126c3cdff199b617f709a85a94650f8ffc628acc378a.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "name": "Cooker Cameraman",
@@ -5500,7 +5541,8 @@
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/273d61b5-232e-4348-9503-8161caa392a3/46d6925efe87169dc68be78ad5df81af8f768fbca00b1c26d2cfb20b58605bec.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/273d61b5-232e-4348-9503-8161caa392a3/46d6925efe87169dc68be78ad5df81af8f768fbca00b1c26d2cfb20b58605bec.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "description": "Halloween Crate is a crate in Cameraman Tower Defense. It trades for about 28 gems, with offers usually between 15 and 75 gems. Demand is low and the price is stable.",
@@ -5510,7 +5552,7 @@
     "min": 15,
     "max": 75,
     "buyers": 19,
-    "sellers": 79,
+    "sellers": 80,
     "trades7d": 7,
     "topTrades": [
      {
@@ -5603,7 +5645,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/c614353c-8d30-4c77-bc80-7ea66b1ac6d6/2cea74b96a52c7ef40dfa18948d591f16c87c18e3f8269b3874e634ab7fe27c5.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/d1d7ac3e-b8ab-41d5-9130-a5fec3962e04/approved/c614353c-8d30-4c77-bc80-7ea66b1ac6d6/2cea74b96a52c7ef40dfa18948d591f16c87c18e3f8269b3874e634ab7fe27c5.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Support",
@@ -5645,8 +5688,8 @@
     "median": 17,
     "min": 10,
     "max": 50,
-    "buyers": 43,
-    "sellers": 61,
+    "buyers": 45,
+    "sellers": 60,
     "trades7d": 15,
     "topTrades": [
      {
@@ -5749,7 +5792,8 @@
     "Overpaid"
    ],
    "rawStability": "overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/e997f0df-783f-4f18-8ea4-0c1fc7528721/2ad114cc5124a64861073607c41a0f19d75813297064dcdd3fc5682f15f44c69.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/e997f0df-783f-4f18-8ea4-0c1fc7528721/2ad114cc5124a64861073607c41a0f19d75813297064dcdd3fc5682f15f44c69.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -5886,7 +5930,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/feb18825-c818-4efd-8ba9-515208fc7b1d/1a1dc2b4ec818fdbef8b1b45af2e2f10ef0fa6b6bab3e5503897150a0e1f43c7.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/feb18825-c818-4efd-8ba9-515208fc7b1d/1a1dc2b4ec818fdbef8b1b45af2e2f10ef0fa6b6bab3e5503897150a0e1f43c7.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "name": "Villager Speakerman",
@@ -5899,7 +5944,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4524e5c7-118d-4d02-93f5-aa7f498c6856/d2a18a59c00e72c89d171e2951f4b760152283e58f62b22f9a113a0b529c88f4.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4524e5c7-118d-4d02-93f5-aa7f498c6856/d2a18a59c00e72c89d171e2951f4b760152283e58f62b22f9a113a0b529c88f4.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -5960,7 +6006,7 @@
     "min": 4,
     "max": 20,
     "buyers": 10,
-    "sellers": 48,
+    "sellers": 49,
     "trades7d": 4,
     "topTrades": [
      {
@@ -6019,7 +6065,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/d4a327b7-9309-476b-9383-e2e2aeab3339/2057fa5650fab5333e6bced7ea31ce344cb8eb965019da1bbb0811c085914224.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/d4a327b7-9309-476b-9383-e2e2aeab3339/2057fa5650fab5333e6bced7ea31ce344cb8eb965019da1bbb0811c085914224.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -6086,7 +6133,7 @@
     "min": 5,
     "max": 20,
     "buyers": 3,
-    "sellers": 37,
+    "sellers": 38,
     "trades7d": 2
    },
    "priceHistory": [
@@ -6137,7 +6184,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/22a04178-3b29-4f31-9148-dfbfbcc8fc05/9273c5b22fe24ba27bb4c225f4d66866734a2a13c15bef86d6884dc8455e3ca4.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/22a04178-3b29-4f31-9148-dfbfbcc8fc05/9273c5b22fe24ba27bb4c225f4d66866734a2a13c15bef86d6884dc8455e3ca4.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Farm",
@@ -6179,8 +6227,8 @@
     "median": 12,
     "min": 7,
     "max": 15,
-    "buyers": 44,
-    "sellers": 98,
+    "buyers": 45,
+    "sellers": 99,
     "trades7d": 16,
     "topTrades": [
      {
@@ -6296,7 +6344,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/24dad965-e8af-4f5c-8a92-26884bff32e4/f4a62465d12ed8d388c0b0792f15efe72d38cd4b10640cc05e5c1dcc1900d0aa.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/24dad965-e8af-4f5c-8a92-26884bff32e4/f4a62465d12ed8d388c0b0792f15efe72d38cd4b10640cc05e5c1dcc1900d0aa.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "description": "Woman Crate is a crate in Cameraman Tower Defense. It trades for about 7 gems, with offers usually between 3 and 10 gems. Demand is very low and the price is stable.",
@@ -6377,7 +6426,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/4fff864f-3b29-4581-9e38-c09d2b199ac5/49c9dc293bab04248ba16049a30de3e935b324987d6039ba075772c95317bd14.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/4fff864f-3b29-4581-9e38-c09d2b199ac5/49c9dc293bab04248ba16049a30de3e935b324987d6039ba075772c95317bd14.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -6492,7 +6542,8 @@
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/355ee768-56ee-4074-8f88-e5251590e4bf/283294316c933b862389f8299c5c78324bd92ea3434b949f9dd38af100d917b8.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/355ee768-56ee-4074-8f88-e5251590e4bf/283294316c933b862389f8299c5c78324bd92ea3434b949f9dd38af100d917b8.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -6553,7 +6604,7 @@
     "median": 2,
     "min": 1,
     "max": 5,
-    "buyers": 7,
+    "buyers": 8,
     "sellers": 7,
     "topTrades": [
      {
@@ -6629,7 +6680,8 @@
     "Dropping"
    ],
    "rawStability": "Slowly dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a6fb8a80-a9ef-413e-ad58-289078dfca88/e1d6c96ca90c5ba743bf3f17ef0f8f6d5cef382b3bf71eea2dea3ff21cbfbe54.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a6fb8a80-a9ef-413e-ad58-289078dfca88/e1d6c96ca90c5ba743bf3f17ef0f8f6d5cef382b3bf71eea2dea3ff21cbfbe54.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -6715,7 +6767,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/c0f35975-59b6-431b-a6d5-f09bd20964d5/113ad8fd6dc1694251696023d99cc250602d801190ff76be0ce0dfe8abc7cfca.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/c0f35975-59b6-431b-a6d5-f09bd20964d5/113ad8fd6dc1694251696023d99cc250602d801190ff76be0ce0dfe8abc7cfca.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -6779,7 +6832,7 @@
     "min": 1,
     "max": 5,
     "buyers": 4,
-    "sellers": 24,
+    "sellers": 25,
     "trades7d": 2
    },
    "priceHistory": [
@@ -6806,7 +6859,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/f8e4904d-0af7-42ad-86f6-e7878156b5e3/93588b894fcd16d1266338da788a5f0a46f5a925efd74e9fd098af3e0b7eafdd.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/f8e4904d-0af7-42ad-86f6-e7878156b5e3/93588b894fcd16d1266338da788a5f0a46f5a925efd74e9fd098af3e0b7eafdd.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -6905,7 +6959,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/f65a8a83-94bd-477c-9d46-99801737c2dd/2813bfc279ec6b09d79843be0fb9a118a871905dbeeae1083e555605cbb99054.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/f65a8a83-94bd-477c-9d46-99801737c2dd/2813bfc279ec6b09d79843be0fb9a118a871905dbeeae1083e555605cbb99054.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE · Hidden detection",
@@ -6995,7 +7050,7 @@
     "min": 1,
     "max": 5,
     "buyers": 7,
-    "sellers": 25,
+    "sellers": 26,
     "trades7d": 3
    },
    "priceHistory": [
@@ -7030,7 +7085,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/0b8cb560-f1c2-4d91-89a3-64172be2f617/94da9586b9ff2d38f655bca07cf7a29a45ba15452c8079baf253fc349708c7bc.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/0b8cb560-f1c2-4d91-89a3-64172be2f617/94da9586b9ff2d38f655bca07cf7a29a45ba15452c8079baf253fc349708c7bc.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -7094,7 +7150,7 @@
     "min": 1,
     "max": 2,
     "buyers": 3,
-    "sellers": 19
+    "sellers": 20
    },
    "priceHistory": [
     {
@@ -7128,7 +7184,8 @@
     "Stable"
    ],
    "rawStability": "Stable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/81e5df42-ba6e-4fa7-8f03-350008bf6f8b/95fda52f361a7ef2b9157517c65a5aab3c7fa002110ca7d64be1d9ad3cbea61c.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/8e9f1b76-6535-41c0-aaca-aa168fa0cb6d/approved/81e5df42-ba6e-4fa7-8f03-350008bf6f8b/95fda52f361a7ef2b9157517c65a5aab3c7fa002110ca7d64be1d9ad3cbea61c.webp?w=128",
+   "valueSource": "vaulted"
   },
   {
    "tier": "D",
@@ -7301,14 +7358,15 @@
    "name": "Brown Cameraman",
    "category": "Uncommon",
    "kind": "unit",
-   "value": 0,
+   "value": 2,
    "demand": 0,
    "stability": "Stable",
    "flags": [
     "Stable"
    ],
    "rawStability": "",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/db3a0bd1-09cf-4663-a20b-b9a518f95ab9/7bc939af8c99bbfe2bd4c0d4e5e8dfaef8b527dbb4e8bf0929c45fc5c5fd401b.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/db3a0bd1-09cf-4663-a20b-b9a518f95ab9/7bc939af8c99bbfe2bd4c0d4e5e8dfaef8b527dbb4e8bf0929c45fc5c5fd401b.webp?w=128",
+   "valueSource": "game.guide"
   },
   {
    "role": "Farm",
@@ -7473,14 +7531,15 @@
    "name": "Popcorn Cameraman",
    "category": "Rare",
    "kind": "unit",
-   "value": 0,
-   "demand": 0,
+   "value": 2,
+   "demand": 9,
    "stability": "Unstable",
    "flags": [
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/80695f2f-0350-4a35-9bd2-f69e5bd32346/8bf2550dc5531ed0a5f3ace06eb0b6bf032f0b99ec32dc2e0e598ead4e50f435.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/80695f2f-0350-4a35-9bd2-f69e5bd32346/8bf2550dc5531ed0a5f3ace06eb0b6bf032f0b99ec32dc2e0e598ead4e50f435.webp?w=128",
+   "valueSource": "game.guide"
   },
   {
    "name": "Speaker Strider",
@@ -7599,14 +7658,15 @@
    "name": "Alliance Cake",
    "category": "Exclusive",
    "kind": "unit",
-   "value": 0,
+   "value": 20500,
    "demand": 9,
    "stability": "Overpaid",
    "flags": [
     "Overpaid"
    ],
    "rawStability": "Heavily Overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a2afd555-6b9c-4d19-8f5e-083f991b3642/f8f39a1d78285bf07f1c8be141a840523a68c1c4ac4b87af7a776cf28b6f70e4.webp?w=128"
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a2afd555-6b9c-4d19-8f5e-083f991b3642/f8f39a1d78285bf07f1c8be141a840523a68c1c4ac4b87af7a776cf28b6f70e4.webp?w=128",
+   "valueSource": "game.guide"
   },
   {
    "tier": "D",
@@ -8316,7 +8376,7 @@
    "about": "Speakerman is a Basic unit in Cameraman Tower Defense. There are 3,705,125 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
    "market": {
     "buyers": 38,
-    "sellers": 33,
+    "sellers": 35,
     "trades7d": 5,
     "topTrades": [
      {
@@ -8481,6 +8541,7 @@
    },
    "dropChance": 99,
    "added": "Update 5 (Nov 4, 2026)",
+   "rarityRank": 24,
    "name": "Mummy Cameraman",
    "category": "Legendary",
    "kind": "unit",
@@ -8490,9 +8551,8 @@
    "flags": [
     "Stable"
    ],
-   "rawStability": "",
-   "img": "https://www.game.guide/images/cameraman-tower-defense/game/mummy-cameraman.webp",
-   "rarityRank": 24
+   "rawStability": "Stable",
+   "img": "https://www.game.guide/images/cameraman-tower-defense/game/mummy-cameraman.webp"
   },
   {
    "tier": "D",
@@ -8541,6 +8601,7 @@
    "description": "Fully upgraded, Rocket Cameraman does 1,000 DPS. Placing it and buying all 3 upgrades costs 7,000 cash, and you can have 7 on the map.",
    "about": "Rocket Cameraman is an Epic unit in Cameraman Tower Defense. There are 1,143,574 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
    "added": "Update 5 (Nov 4, 2026)",
+   "rarityRank": 40,
    "name": "Rocket Cameraman",
    "category": "Epic",
    "kind": "unit",
@@ -8550,9 +8611,8 @@
    "flags": [
     "Stable"
    ],
-   "rawStability": "",
-   "img": "https://www.game.guide/images/cameraman-tower-defense/game/rocket-cameraman.webp",
-   "rarityRank": 40
+   "rawStability": "Stable",
+   "img": "https://www.game.guide/images/cameraman-tower-defense/game/rocket-cameraman.webp"
   },
   {
    "tier": "D",
@@ -8605,6 +8665,7 @@
    "about": "Werewolf Speakerman is a Rare unit in Cameraman Tower Defense. There are 15,200,474 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
    "dropChance": 29,
    "added": "Update 4 (Oct 18, 2026)",
+   "rarityRank": 50,
    "name": "Werewolf Speakerman",
    "category": "Rare",
    "kind": "unit",
@@ -8614,9 +8675,8 @@
    "flags": [
     "Stable"
    ],
-   "rawStability": "",
-   "img": "https://www.game.guide/images/cameraman-tower-defense/game/werewolf-speakerman.webp",
-   "rarityRank": 50
+   "rawStability": "Stable",
+   "img": "https://www.game.guide/images/cameraman-tower-defense/game/werewolf-speakerman.webp"
   },
   {
    "tier": "D",
@@ -8800,18 +8860,19 @@
      "value": 3
     }
    ],
+   "rarityRank": 41,
    "name": "Speaker Spider",
    "category": "Exclusive",
    "kind": "unit",
-   "value": 0,
-   "demand": 0,
-   "stability": "Stable",
+   "value": 3,
+   "valueSource": "game.guide",
+   "demand": 9,
+   "stability": "Unstable",
    "flags": [
-    "Stable"
+    "Unstable"
    ],
-   "rawStability": "",
-   "img": "https://www.game.guide/images/cameraman-tower-defense/game/speaker-spider.webp",
-   "rarityRank": 41
+   "rawStability": "Unstable",
+   "img": "https://www.game.guide/images/cameraman-tower-defense/game/speaker-spider.webp"
   },
   {
    "tier": "D",
@@ -8864,6 +8925,7 @@
    "about": "Clown Speakerman is an Uncommon unit in Cameraman Tower Defense. There are 46,183,485 in the game, one of the most common units. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
    "dropChance": 60,
    "added": "Update 4 (Oct 18, 2026)",
+   "rarityRank": 55,
    "name": "Clown Speakerman",
    "category": "Uncommon",
    "kind": "unit",
@@ -8873,12 +8935,35 @@
    "flags": [
     "Stable"
    ],
-   "rawStability": "",
-   "img": "https://www.game.guide/images/cameraman-tower-defense/game/clown-speakerman.webp",
-   "rarityRank": 55
+   "rawStability": "Stable",
+   "img": "https://www.game.guide/images/cameraman-tower-defense/game/clown-speakerman.webp"
   }
  ],
  "changelog": [
+  {
+   "name": "Brown Cameraman",
+   "old": 0,
+   "new": 2,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Popcorn Cameraman",
+   "old": 0,
+   "new": 2,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Alliance Cake",
+   "old": 0,
+   "new": 20500,
+   "date": "2026-11-24"
+  },
+  {
+   "name": "Speaker Spider",
+   "old": 0,
+   "new": 3,
+   "date": "2026-11-24"
+  },
   {
    "name": "Chocolate Tv Man",
    "old": 0,
