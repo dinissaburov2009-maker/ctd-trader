@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T11:30:49.530Z",
+ "updated": "2026-11-24T12:13:15.265Z",
  "version": 11,
  "sources": {
   "values": 81,
@@ -79,7 +79,7 @@
     "median": 25500,
     "min": 12000,
     "max": 40000,
-    "buyers": 26,
+    "buyers": 25,
     "sellers": 46,
     "trades7d": 2,
     "topTrades": [
@@ -243,7 +243,7 @@
     "median": 15400,
     "min": 7500,
     "max": 25000,
-    "buyers": 105,
+    "buyers": 106,
     "sellers": 63,
     "trades7d": 5,
     "topTrades": [
@@ -443,7 +443,7 @@
     "min": 3900,
     "max": 14500,
     "buyers": 107,
-    "sellers": 78,
+    "sellers": 79,
     "trades7d": 10,
     "topTrades": [
      {
@@ -651,7 +651,7 @@
     "median": 6300,
     "min": 3400,
     "max": 12000,
-    "buyers": 104,
+    "buyers": 105,
     "sellers": 125,
     "trades7d": 13,
     "topTrades": [
@@ -876,7 +876,7 @@
     "min": 3000,
     "max": 8300,
     "buyers": 212,
-    "sellers": 220,
+    "sellers": 219,
     "trades7d": 19,
     "topTrades": [
      {
@@ -1024,12 +1024,12 @@
    "levelsType": "damage",
    "about": "Executioner TV Man is an Exclusive unit in Cameraman Tower Defense. There are only 6,242 in the game, the 7th rarest of 56 units. It trades for about 2.3K gems, with offers usually between 1.3K and 4.7K gems. Demand is very high and the price is overpaid.",
    "market": {
-    "median": 2100,
+    "median": 2200,
     "min": 1300,
     "max": 4700,
-    "buyers": 132,
-    "sellers": 53,
-    "trades7d": 7,
+    "buyers": 131,
+    "sellers": 52,
+    "trades7d": 8,
     "topTrades": [
      {
       "name": "Titan Cinemaman",
@@ -1231,12 +1231,12 @@
    "levelsType": "damage",
    "about": "Upgraded Titan Cameraman is a Godly unit in Cameraman Tower Defense. There are 14,038 in the game. It trades for about 3.1K gems, with offers usually between 2K and 6K gems. Demand is medium and the price is unstable.",
    "market": {
-    "median": 3200,
+    "median": 3100,
     "min": 2000,
     "max": 6000,
     "buyers": 196,
-    "sellers": 230,
-    "trades7d": 24,
+    "sellers": 228,
+    "trades7d": 25,
     "topTrades": [
      {
       "name": "Hacked Cameraman",
@@ -1503,8 +1503,8 @@
     "median": 1500,
     "min": 800,
     "max": 3500,
-    "buyers": 153,
-    "sellers": 82,
+    "buyers": 152,
+    "sellers": 81,
     "trades7d": 9,
     "topTrades": [
      {
@@ -1729,7 +1729,7 @@
     "min": 800,
     "max": 3500,
     "buyers": 89,
-    "sellers": 22,
+    "sellers": 20,
     "trades7d": 2,
     "topTrades": [
      {
@@ -1891,8 +1891,8 @@
     "median": 1900,
     "min": 1000,
     "max": 3000,
-    "buyers": 320,
-    "sellers": 260,
+    "buyers": 321,
+    "sellers": 261,
     "trades7d": 28,
     "topTrades": [
      {
@@ -2021,7 +2021,7 @@
     "median": 1900,
     "min": 1000,
     "max": 2400,
-    "buyers": 32,
+    "buyers": 33,
     "sellers": 116,
     "trades7d": 4,
     "topTrades": [
@@ -2132,7 +2132,7 @@
     "median": 1200,
     "min": 500,
     "max": 2300,
-    "buyers": 67,
+    "buyers": 68,
     "sellers": 33,
     "trades7d": 3,
     "topTrades": [
@@ -2202,7 +2202,7 @@
     "median": 940,
     "min": 450,
     "max": 2500,
-    "buyers": 80,
+    "buyers": 79,
     "sellers": 59,
     "trades7d": 5,
     "topTrades": [
@@ -2678,7 +2678,7 @@
     "min": 200,
     "max": 1000,
     "buyers": 46,
-    "sellers": 257,
+    "sellers": 258,
     "trades7d": 23,
     "topTrades": [
      {
@@ -2788,7 +2788,7 @@
     "min": 140,
     "max": 550,
     "buyers": 17,
-    "sellers": 108,
+    "sellers": 109,
     "trades7d": 13,
     "topTrades": [
      {
@@ -2910,8 +2910,8 @@
     "median": 479,
     "min": 200,
     "max": 800,
-    "buyers": 59,
-    "sellers": 74,
+    "buyers": 58,
+    "sellers": 75,
     "trades7d": 7,
     "topTrades": [
      {
@@ -3484,7 +3484,7 @@
     "max": 650,
     "buyers": 60,
     "sellers": 165,
-    "trades7d": 18,
+    "trades7d": 17,
     "topTrades": [
      {
       "name": "Glitch Cameraman",
@@ -3688,8 +3688,8 @@
     "median": 187,
     "min": 80,
     "max": 500,
-    "buyers": 7,
-    "sellers": 292,
+    "buyers": 8,
+    "sellers": 296,
     "trades7d": 21,
     "topTrades": [
      {
@@ -3852,8 +3852,8 @@
     "median": 253,
     "min": 100,
     "max": 500,
-    "buyers": 105,
-    "sellers": 365,
+    "buyers": 107,
+    "sellers": 366,
     "trades7d": 36,
     "topTrades": [
      {
@@ -4043,12 +4043,12 @@
    "levelsType": "damage",
    "about": "Large Laser Cameraman is a Mythic unit in Cameraman Tower Defense. There are 68,075 in the game. It trades for about 240 gems, with offers usually between 100 and 450 gems. Demand is medium.",
    "market": {
-    "median": 214,
+    "median": 209,
     "min": 100,
     "max": 450,
     "buyers": 34,
-    "sellers": 219,
-    "trades7d": 24,
+    "sellers": 221,
+    "trades7d": 25,
     "topTrades": [
      {
       "name": "Titan Cinemaman",
@@ -4215,7 +4215,7 @@
     "min": 90,
     "max": 500,
     "buyers": 54,
-    "sellers": 273,
+    "sellers": 274,
     "trades7d": 19,
     "topTrades": [
      {
@@ -4381,12 +4381,12 @@
    "levelsType": "damage",
    "about": "Glitch Cameraman is a Mythic unit in Cameraman Tower Defense. There are 53,900 in the game. It trades for about 185 gems, with offers usually between 80 and 310 gems. Demand is medium.",
    "market": {
-    "median": 155,
+    "median": 153,
     "min": 80,
     "max": 310,
     "buyers": 35,
-    "sellers": 241,
-    "trades7d": 20,
+    "sellers": 240,
+    "trades7d": 21,
     "topTrades": [
      {
       "name": "Scientist Cameraman",
@@ -4548,16 +4548,16 @@
    "levelsType": "farm",
    "about": "Scientist Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 276,413 in the game. It trades for about 140 gems, with offers usually between 70 and 300 gems. Demand is high and the price is overpaid.",
    "market": {
-    "median": 169,
+    "median": 164,
     "min": 70,
     "max": 300,
-    "buyers": 275,
+    "buyers": 278,
     "sellers": 128,
-    "trades7d": 14,
+    "trades7d": 15,
     "topTrades": [
      {
       "name": "Glitch Cameraman",
-      "count": 5
+      "count": 6
      },
      {
       "name": "Pumpkin Farmer",
@@ -4572,7 +4572,7 @@
       "count": 3
      },
      {
-      "name": "Camera Attack Helicopter",
+      "name": "Camera Repair Drone",
       "count": 3
      }
     ]
@@ -4762,7 +4762,7 @@
     "median": 190,
     "min": 75,
     "max": 385,
-    "buyers": 29,
+    "buyers": 32,
     "sellers": 181,
     "trades7d": 17,
     "topTrades": [
@@ -4949,7 +4949,7 @@
     "median": 142,
     "min": 70,
     "max": 300,
-    "buyers": 40,
+    "buyers": 41,
     "sellers": 213,
     "trades7d": 26,
     "topTrades": [
@@ -5129,8 +5129,8 @@
     "min": 50,
     "max": 210,
     "buyers": 80,
-    "sellers": 216,
-    "trades7d": 19,
+    "sellers": 215,
+    "trades7d": 18,
     "topTrades": [
      {
       "name": "Upgraded Videotapper Prototype",
@@ -5248,7 +5248,7 @@
     "median": 67,
     "min": 35,
     "max": 105,
-    "buyers": 27,
+    "buyers": 26,
     "sellers": 179,
     "trades7d": 23,
     "topTrades": [
@@ -5301,7 +5301,7 @@
     "min": 30,
     "max": 125,
     "buyers": 9,
-    "sellers": 29,
+    "sellers": 30,
     "trades7d": 3
    },
    "priceHistory": [
@@ -5484,7 +5484,7 @@
     "min": 30,
     "max": 150,
     "buyers": 9,
-    "sellers": 166,
+    "sellers": 168,
     "trades7d": 8
    },
    "priceHistory": [
@@ -5551,8 +5551,8 @@
     "median": 26,
     "min": 15,
     "max": 75,
-    "buyers": 19,
-    "sellers": 80,
+    "buyers": 21,
+    "sellers": 79,
     "trades7d": 7,
     "topTrades": [
      {
@@ -5688,9 +5688,9 @@
     "median": 17,
     "min": 10,
     "max": 50,
-    "buyers": 45,
-    "sellers": 60,
-    "trades7d": 15,
+    "buyers": 44,
+    "sellers": 59,
+    "trades7d": 16,
     "topTrades": [
      {
       "name": "Pumpkin Farmer",
@@ -5863,7 +5863,7 @@
     "min": 10,
     "max": 35,
     "buyers": 9,
-    "sellers": 22,
+    "sellers": 23,
     "trades7d": 4
    },
    "priceHistory": [
@@ -6007,7 +6007,7 @@
     "max": 20,
     "buyers": 10,
     "sellers": 49,
-    "trades7d": 4,
+    "trades7d": 3,
     "topTrades": [
      {
       "name": "Camera Repair Drone",
@@ -6227,8 +6227,8 @@
     "median": 12,
     "min": 7,
     "max": 15,
-    "buyers": 45,
-    "sellers": 99,
+    "buyers": 47,
+    "sellers": 100,
     "trades7d": 16,
     "topTrades": [
      {
@@ -6500,7 +6500,7 @@
     "min": 2,
     "max": 7,
     "buyers": 1,
-    "sellers": 15
+    "sellers": 16
    },
    "priceHistory": [
     {
@@ -6831,7 +6831,7 @@
     "median": 3,
     "min": 1,
     "max": 5,
-    "buyers": 4,
+    "buyers": 5,
     "sellers": 25,
     "trades7d": 2
    },
@@ -6924,8 +6924,7 @@
     "min": 1,
     "max": 5,
     "buyers": 3,
-    "sellers": 27,
-    "trades7d": 2
+    "sellers": 28
    },
    "priceHistory": [
     {
@@ -7050,7 +7049,7 @@
     "min": 1,
     "max": 5,
     "buyers": 7,
-    "sellers": 26,
+    "sellers": 27,
     "trades7d": 3
    },
    "priceHistory": [
@@ -7617,7 +7616,7 @@
    "about": "Alliance Cake is an Exclusive unit in Cameraman Tower Defense. There are only 242 in the game, the rarest of 56 units. It has no set trade value yet, so the trading hub is the place to see what players offer for it. Demand is very high and the price is overpaid.",
    "market": {
     "buyers": 51,
-    "sellers": 22,
+    "sellers": 21,
     "trades7d": 3,
     "topTrades": [
      {
@@ -7869,8 +7868,8 @@
    "added": "Release (Sep 19, 2026)",
    "rarityRank": 52,
    "market": {
-    "buyers": 8,
-    "sellers": 11
+    "buyers": 9,
+    "sellers": 10
    },
    "name": "Cameraman",
    "category": "Common",
@@ -8375,7 +8374,7 @@
    "description": "Fully upgraded, Speakerman does 100 DPS. Placing it and buying all 2 upgrades costs 550 cash.",
    "about": "Speakerman is a Basic unit in Cameraman Tower Defense. There are 3,705,125 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
    "market": {
-    "buyers": 38,
+    "buyers": 39,
     "sellers": 35,
     "trades7d": 5,
     "topTrades": [
