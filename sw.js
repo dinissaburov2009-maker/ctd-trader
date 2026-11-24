@@ -1,7 +1,7 @@
-/* CTD Trader — service worker v6.0.0
+/* CTD Trader — service worker v7.0.0
    HTML и data/*.json (prices, history, icons): network-first (без раздувания кэша по ?t=)
    Остальное (иконки, картинки юнитов): stale-while-revalidate */
-const VERSION = 'ctd-v6.0.0';
+const VERSION = 'ctd-v7.0.0';
 const CORE = ['./', './index.html', './manifest.json', './icon.svg'];
 
 self.addEventListener('install', (e) => {
