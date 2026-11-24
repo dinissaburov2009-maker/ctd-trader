@@ -1,8 +1,8 @@
-// scripts/scrape.mjs — CTD Trader v11.1
+// scripts/scrape.mjs — CTD Trader v12
 // Источник 1: vaultedvaluesx.com (официальные Value, demand, stability)
 // Источник 2: game.guide (/units + /cameraman-tower-defense-value-list: юниты, статы, рынок, 30д график, доп. юниты и иконки)
 // + data/history.json — собственная ежедневная история Value
-// + data/icons.json — 32x32 RGBA-эталоны портретов для локального сканера скриншотов (без VPN и CORS)
+// + data/icons.json — 48x48 RGBA-эталоны портретов (основные + alt с game.guide) для локального сканера скриншотов
 import { chromium } from 'playwright';
 import fs from 'fs';
 
@@ -12,7 +12,7 @@ const VLIST = 'https://www.game.guide/cameraman-tower-defense-value-list';
 const F = 'data/prices.json';
 const FH = 'data/history.json';
 const FI = 'data/icons.json';
-const ICON_SIZE = 32;
+const ICON_SIZE = 48;
 const UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36';
 const HIST_KEEP = 400;
 const CATS = ['Gamepasses', 'Gamepass', 'Crates', 'Crate', 'Godly', 'Mythic', 'Exclusive', 'Legendary', 'Epic', 'Rare', 'Uncommon', 'Common', 'Signed'];
@@ -662,7 +662,7 @@ async function scrapeWiki(b) {
   return stats;
 }
 
-/* ---------- Эталоны портретов (32x32 RGBA, обрезанные и отцентрованные по маске силуэта) ---------- */
+/* ---------- Эталоны портретов (48x48 RGBA + alt с game.guide, обрезанные по силуэту) ---------- */
 function sniffMime(buf, headerCt) {
   const ct = String(headerCt || '').split(';')[0].trim().toLowerCase();
   if (/^image\/(png|jpeg|jpg|webp|gif|svg\+xml)$/i.test(ct)) return ct === 'image/jpg' ? 'image/jpeg' : ct;
@@ -674,18 +674,19 @@ function sniffMime(buf, headerCt) {
 }
 
 async function buildIcons(b, items, wikiImgByName) {
-  let oldIcons = {}, oldSize = 0;
+  let oldIcons = {}, oldAlt = {}, oldSize = 0;
   try {
     const oldJ = JSON.parse(fs.readFileSync(FI, 'utf8'));
     oldIcons = oldJ.items || {};
+    oldAlt = oldJ.alt || {};
     oldSize = oldJ.size || 0;
   } catch {}
 
   const p = await b.newPage({ userAgent: UA });
   try {
-    const out = {};
+    const out = {}, outAlt = {};
     const urlCache = new Map();
-    let ok = 0;
+    let ok = 0, altOk = 0;
     const failed = [];
 
     const fetchOnce = async (url) => {
@@ -721,32 +722,35 @@ async function buildIcons(b, items, wikiImgByName) {
       const batch = targetItems.slice(idx, idx + 4);
       const loaded = await Promise.all(batch.map(async (it) => {
         const wImg = wikiImgByName.get(it.name) || '';
-        const dataUrl = (await fetchDataUrl(it.img)) || (wImg && wImg !== it.img ? await fetchDataUrl(wImg) : '');
-        return { name: it.name, dataUrl };
+        const [dMain, dAlt] = await Promise.all([
+          fetchDataUrl(it.img),
+          wImg && wImg !== it.img ? fetchDataUrl(wImg) : Promise.resolve(''),
+        ]);
+        return { name: it.name, d1: dMain || dAlt, d2: dMain && dAlt ? dAlt : '' };
       }));
 
       const encoded = await p.evaluate(async ({ list, S }) => {
-        const c1 = document.createElement('canvas'); c1.width = 128; c1.height = 128;
+        const c1 = document.createElement('canvas'); c1.width = 160; c1.height = 160;
         const x1 = c1.getContext('2d', { willReadFrequently: true });
         const c2 = document.createElement('canvas'); c2.width = S; c2.height = S;
         const x2 = c2.getContext('2d', { willReadFrequently: true });
-        const res = {};
-        for (const { name, dataUrl } of list) {
-          if (!dataUrl) continue;
+
+        const encodeOne = async (dataUrl) => {
+          if (!dataUrl) return null;
           const im = new Image();
           const loadedOk = await new Promise((r) => { im.onload = () => r(true); im.onerror = () => r(false); im.src = dataUrl; });
-          if (!loadedOk || !im.width || !im.height) continue;
-          x1.clearRect(0, 0, 128, 128);
-          x1.drawImage(im, 0, 0, 128, 128);
-          const d = x1.getImageData(0, 0, 128, 128).data;
-          let x0 = 128, y0 = 128, x1b = 0, y1b = 0;
-          for (let y = 0; y < 128; y++) for (let x = 0; x < 128; x++) {
-            if (d[(y * 128 + x) * 4 + 3] > 36) {
+          if (!loadedOk || !im.width || !im.height) return null;
+          x1.clearRect(0, 0, 160, 160);
+          x1.drawImage(im, 0, 0, 160, 160);
+          const d = x1.getImageData(0, 0, 160, 160).data;
+          let x0 = 160, y0 = 160, x1b = 0, y1b = 0;
+          for (let y = 0; y < 160; y++) for (let x = 0; x < 160; x++) {
+            if (d[(y * 160 + x) * 4 + 3] > 36) {
               if (x < x0) x0 = x; if (x > x1b) x1b = x;
               if (y < y0) y0 = y; if (y > y1b) y1b = y;
             }
           }
-          if (x1b <= x0 || y1b <= y0) { x0 = 0; y0 = 0; x1b = 127; y1b = 127; }
+          if (x1b <= x0 || y1b <= y0) { x0 = 0; y0 = 0; x1b = 159; y1b = 159; }
           const bw = x1b - x0 + 1, bh = y1b - y0 + 1, side = Math.max(bw, bh);
           const pad = 1, ds = S - pad * 2, dw = (bw / side) * ds, dh = (bh / side) * ds;
           x2.clearRect(0, 0, S, S);
@@ -754,22 +758,45 @@ async function buildIcons(b, items, wikiImgByName) {
           const px = x2.getImageData(0, 0, S, S).data;
           let bin = '';
           for (let i = 0; i < px.length; i++) bin += String.fromCharCode(px[i]);
-          res[name] = btoa(bin);
+          return { b64: btoa(bin), px: Array.from(px) };
+        };
+
+        const res = {};
+        for (const { name, d1, d2 } of list) {
+          const e1 = await encodeOne(d1);
+          const e2 = await encodeOne(d2);
+          if (!e1) continue;
+          let altB64 = '';
+          if (e2) {
+            let diff = 0, cnt = 0;
+            for (let i = 0; i < e1.px.length; i += 4) {
+              if (e1.px[i + 3] > 48 || e2.px[i + 3] > 48) {
+                diff += (Math.abs(e1.px[i] - e2.px[i]) + Math.abs(e1.px[i + 1] - e2.px[i + 1]) + Math.abs(e1.px[i + 2] - e2.px[i + 2]) + Math.abs(e1.px[i + 3] - e2.px[i + 3])) / 4;
+                cnt++;
+              }
+            }
+            if (cnt && diff / cnt > 7) altB64 = e2.b64;
+          }
+          res[name] = { main: e1.b64, alt: altB64 };
         }
         return res;
       }, { list: loaded, S: ICON_SIZE });
 
       for (const it of batch) {
-        if (encoded[it.name]) { out[it.name] = encoded[it.name]; ok++; }
-        else if (oldSize === ICON_SIZE && oldIcons[it.name]) { out[it.name] = oldIcons[it.name]; ok++; }
-        else failed.push(it.name);
+        if (encoded[it.name]?.main) {
+          out[it.name] = encoded[it.name].main; ok++;
+          if (encoded[it.name].alt) { outAlt[it.name] = encoded[it.name].alt; altOk++; }
+        } else if (oldSize === ICON_SIZE && oldIcons[it.name]) {
+          out[it.name] = oldIcons[it.name]; ok++;
+          if (oldAlt[it.name]) { outAlt[it.name] = oldAlt[it.name]; altOk++; }
+        } else failed.push(it.name);
       }
       await sleep(120);
     }
 
     fs.mkdirSync('data', { recursive: true });
-    fs.writeFileSync(FI, JSON.stringify({ version: 2, size: ICON_SIZE, updated: new Date().toISOString(), items: out }));
-    console.log(`icons.json (${ICON_SIZE}x${ICON_SIZE}): ${ok} / ${targetItems.length}`);
+    fs.writeFileSync(FI, JSON.stringify({ version: 3, size: ICON_SIZE, updated: new Date().toISOString(), items: out, alt: outAlt }));
+    console.log(`icons.json (${ICON_SIZE}x${ICON_SIZE}): ${ok} / ${targetItems.length} (+${altOk} alt с game.guide)`);
     if (failed.length) console.warn('icons missing:', failed.join(', '));
   } finally {
     await p.close().catch(() => {});
