@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T08:34:07.390Z",
+ "updated": "2026-11-24T08:46:26.341Z",
  "version": 9,
  "sources": {
   "values": 82,
@@ -865,7 +865,7 @@
     "median": 4500,
     "min": 3000,
     "max": 8300,
-    "buyers": 210,
+    "buyers": 209,
     "sellers": 220,
     "trades7d": 19,
     "topTrades": [
@@ -1360,7 +1360,7 @@
     "median": 2300,
     "min": 1300,
     "max": 3400,
-    "buyers": 28,
+    "buyers": 27,
     "sellers": 6
    },
    "priceHistory": [
@@ -2171,7 +2171,7 @@
     "median": 946,
     "min": 450,
     "max": 2500,
-    "buyers": 79,
+    "buyers": 78,
     "sellers": 62,
     "trades7d": 5,
     "topTrades": [
@@ -3022,7 +3022,7 @@
     "min": 200,
     "max": 800,
     "buyers": 101,
-    "sellers": 110,
+    "sellers": 109,
     "trades7d": 8,
     "topTrades": [
      {
@@ -4701,7 +4701,7 @@
     "min": 100,
     "max": 385,
     "buyers": 28,
-    "sellers": 183,
+    "sellers": 181,
     "trades7d": 17,
     "topTrades": [
      {
@@ -5059,8 +5059,8 @@
     "median": 122,
     "min": 50,
     "max": 210,
-    "buyers": 81,
-    "sellers": 215,
+    "buyers": 80,
+    "sellers": 214,
     "trades7d": 19,
     "topTrades": [
      {
@@ -8523,6 +8523,12 @@
   }
  ],
  "changelog": [
+  {
+   "name": "Chocolate Tv Man",
+   "old": 0,
+   "new": 65,
+   "date": "2026-11-24"
+  },
   {
    "name": "Chocolate Tv Man",
    "old": 0,
