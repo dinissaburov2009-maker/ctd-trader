@@ -367,7 +367,7 @@ const burst=(x,y,n=60)=>{if(S.lite)return;const c=window.RC||'#00ff9c';for(let i
 const toast=m=>{const e=document.createElement('div');e.className='ts';e.textContent='> '+m;$('ts').append(e);setTimeout(()=>e.remove(),2600)};
 (()=>{const cv=$('rain'),x=cv.getContext('2d'),ch='01アイウエオカキクケコ$#<>/{}';let W,H,dr;const rs=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight;dr=Array.from({length:Math.ceil(W/16)},()=>Math.random()*H/16)};rs();addEventListener('resize',rs);
   setInterval(()=>{if(document.hidden||S.lite)return;x.fillStyle='rgba(4,7,11,.12)';x.fillRect(0,0,W,H);x.fillStyle=window.RC||'#00ff9c';x.font='14px monospace';dr.forEach((y,i)=>{x.fillText(ch[Math.random()*ch.length|0],i*16,y*16);dr[i]=y*16>H&&Math.random()>.975?0:y+1})},55)})();
-(()=>{const b=$('boot'),L=['> CTD//TRADER v7.1','> establishing secure link ...... OK','> pulling prices & game icons ... OK','> ring+gem scanner & share ...... READY','> ACCESS GRANTED'];let k=0;b.onclick=()=>b.classList.add('x');(function tp(){if(k<L.length){b.textContent+=L[k++]+'\n';setTimeout(tp,180)}else setTimeout(()=>b.classList.add('x'),300)})()})();
+(()=>{const b=$('boot'),L=['> CTD//TRADER v7.3','> establishing secure link ...... OK','> pulling prices & game icons ... OK','> ring+gem scanner & share ...... READY','> ACCESS GRANTED'];let k=0;b.onclick=()=>b.classList.add('x');(function tp(){if(k<L.length){b.textContent+=L[k++]+'\n';setTimeout(tp,180)}else setTimeout(()=>b.classList.add('x'),300)})()})();
 const scr=e=>{if(S.lite)return;const t=e.dataset.o||(e.dataset.o=e.textContent);let i=0;clearInterval(e._t);e._t=setInterval(()=>{e.textContent=[...t].map((c,j)=>j<i||c==' '?c:'#$%&*@01'[Math.random()*8|0]).join('');if((i+=.6)>=t.length){clearInterval(e._t);e.textContent=t}},30)};
 const cup=e=>{if(S.lite)return;const n=+e.textContent.replace(/\D/g,''),t0=performance.now();(function f(t){const p=Math.max(0,Math.min(1,(t-t0)/500));e.textContent=fmt(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)};
 
@@ -852,16 +852,21 @@ function splitTradeCircles(all,d,W,H,invP){
 }
 
 function circleBgColor(d,W,H,c){
+  /* v7.2: фон берём по всей дуге выше зоны цены, пропуская белую обводку и ТЁМНЫЕ пиксели
+     (корпус/тень юнита). Раньше тёмный юнит на красном фоне давал «фон» почти чёрный,
+     и юнит вычитался как фон. */
   const bins=new Map();
-  for(let a=-195;a<=15;a+=7){
+  for(let a=-215;a<=35;a+=5){
     const rad=a*Math.PI/180,ca=Math.cos(rad),sa=Math.sin(rad);
-    for(const rf of[.75,.83]){
+    if(sa>.38)continue;
+    for(const rf of[.80,.88,.93]){
       const x=Math.round(c.cx+ca*c.R*rf),y=Math.round(c.cy+sa*c.R*rf);
       if(x<0||x>=W||y<0||y>=H)continue;
       const i=(y*W+x)*4,r=d[i],g=d[i+1],b=d[i+2];
-      const mn=r<g?(r<b?r:b):(g<b?g:b),mx=r>g?(r>b?r:b):(g>b?g:b);
+      const mn=Math.min(r,g,b),mx=Math.max(r,g,b),lum=r*.299+g*.587+b*.114;
       if(mn>222&&(mx-mn)<24)continue;
-      const key=((r>>4)<<8)|((g>>4)<<4)|(b>>4);
+      if(lum<55)continue;
+      const key=((r>>5)<<6)|((g>>5)<<3)|(b>>5);
       let arr=bins.get(key);if(!arr)bins.set(key,arr=[]);
       arr.push([r,g,b]);
     }
@@ -880,7 +885,8 @@ function readOutlinedText(d,W,H,x0,y0,x1,y1,circleCheck=null){
   const mask=new Uint8Array(w*h);let cnt=0,minX=w,maxX=-1;
   for(let y=0;y<h;y++)for(let x=0;x<w;x++){
     const gx=x0+x,gy=y0+y;
-    if(circleCheck&&Math.hypot(gx-circleCheck.cx,gy-circleCheck.cy)>circleCheck.R*.87)continue;
+    /* v7.3: цена торчит за нижний край кружка, поэтому маску кружка применяем только к верхней части области */
+    if(circleCheck&&gy<circleCheck.cy+circleCheck.R*.5&&Math.hypot(gx-circleCheck.cx,gy-circleCheck.cy)>circleCheck.R*.87)continue;
     const i=(gy*W+gx)*4,r=d[i],g=d[i+1],b=d[i+2];
     const mn=r<g?(r<b?r:b):(g<b?g:b),mx=r>g?(r>b?r:b):(g>b?g:b),lum=r*.299+g*.587+b*.114;
     if(lum>194&&(mx-mn)<56){
@@ -888,7 +894,8 @@ function readOutlinedText(d,W,H,x0,y0,x1,y1,circleCheck=null){
       for(const[dx,dy]of[[-2,0],[2,0],[0,-2],[0,2],[-1,-1],[1,1]]){
         const nx=gx+dx,ny=gy+dy;if(nx<0||nx>=W||ny<0||ny>=H)continue;
         const j=(ny*W+nx)*4,dl=d[j]*.299+d[j+1]*.587+d[j+2]*.114;
-        if(dl<82){darkEdge=1;break}
+        /* v7.3: обводка цены бывает ТЁМНОЙ (Index) или ЗЕЛЁНОЙ (окно трейда) */
+        if(dl<82||(d[j+1]-d[j]>30&&d[j+1]-d[j+2]>30&&dl<170)){darkEdge=1;break}
       }
       if(darkEdge){mask[y*w+x]=1;cnt++;if(x<minX)minX=x;if(x>maxX)maxX=x}
     }
@@ -906,16 +913,31 @@ function readOutlinedText(d,W,H,x0,y0,x1,y1,circleCheck=null){
   }
   if(bx0>=0&&w-bx0>=2)boxes.push([bx0,w-1]);
 
-  let txt='';
-  if(FONT_REFS&&boxes.length>=1&&boxes.length<=8){
+  /* v7.3: на малом масштабе соседние цифры склеиваются в один сегмент — режем широкие сегменты по минимумам столбцов */
+  const segBoxes=[];
+  for(const[a,b]of boxes){
+    let ya=h,yb=-1;for(let y=0;y<h;y++)for(let x=a;x<=b;x++)if(mask[y*w+x]){if(y<ya)ya=y;if(y>yb)yb=y}
+    const cw0=b-a+1,ch0=yb-ya+1;
+    if(ch0>=6&&cw0>ch0*1.12){
+      const k=Math.max(2,Math.round(cw0/(ch0*.68)));let prev=a;
+      for(let q=1;q<k;q++){
+        const ideal=a+Math.round(cw0*q/k),lo=Math.max(prev+2,ideal-2),hi=Math.min(b-2,ideal+2);
+        let bx=ideal,bv=1e9;for(let x=lo;x<=hi;x++)if(colSum[x]<bv){bv=colSum[x];bx=x}
+        segBoxes.push([prev,bx-1]);prev=bx;
+      }
+      segBoxes.push([prev,b]);
+    }else segBoxes.push([a,b]);
+  }
+  let txt='';const segs=[];
+  if(FONT_REFS&&segBoxes.length>=1&&segBoxes.length<=8){
     const TW=12,TH=16;
-    for(const[cx0,cx1]of boxes){
+    for(const[cx0,cx1]of segBoxes){
       let cy0=h,cy1=-1;
       for(let y=0;y<h;y++)for(let x=cx0;x<=cx1;x++)if(mask[y*w+x]){if(y<cy0)cy0=y;if(y>cy1)cy1=y}
       if(cy1-cy0<3)continue;
       const cw=cx1-cx0+1,ch=cy1-cy0+1;
       if(ch<h*.25||cw>ch*1.6)continue;
-      let bestCh='',bestSc=-1;
+      let bestCh='',bestSc=-1;const segC=[];
       for(const[k,tmpl]of Object.entries(FONT_REFS)){
         let inter=0,uni=0;
         for(let y=0;y<TH;y++){
@@ -928,13 +950,36 @@ function readOutlinedText(d,W,H,x0,y0,x1,y1,circleCheck=null){
           }
         }
         const iou=uni?inter/uni:0;
+        segC.push([k,iou]);
         if(iou>bestSc){bestSc=iou;bestCh=k}
       }
+      segC.sort((a,b)=>b[1]-a[1]);segs.push(segC.slice(0,3));
       if(bestSc>=0.36)txt+=bestCh;
     }
   }
   const numM=txt.replace(/[^0-9]/g,'');
-  return{text:txt,val:numM?parseInt(numM,10):0,cnt,span};
+  return{text:txt,val:numM?parseInt(numM,10):0,cnt,span,segs};
+}
+
+/* v7.3: допустимые цены установки (из таблицы и из данных юнитов) — по ним проверяем и исправляем прочитанную цену */
+function knownCosts(){
+  const st=new Set(Object.values(PLACE_COST_FALLBACK).map(Number).filter(Boolean));
+  try{for(const u of ALL){const c=u?.levels?.[0]?.cost;if(c)st.add(Math.round(c))}}catch{}
+  return st;
+}
+function decodeCost(segs,known){
+  if(!segs||!segs.length||segs.length>7)return null;
+  let best=null;
+  const rec=(i,str,sc)=>{
+    if(i===segs.length){
+      const t=str.replace(/^\$/,'');
+      if(/^\d{2,4}$/.test(t)&&known.has(+t)){const a=sc/segs.length;if(!best||a>best.score)best={cost:+t,score:a}}
+      return;
+    }
+    for(const[ch,v]of segs[i])rec(i+1,str+ch,sc+v);
+  };
+  rec(0,'',0);
+  return best&&best.score>=.62?best:null;
 }
 
 function readTradeGems(d,W,H,boxes){
@@ -953,13 +998,19 @@ function readTradeGems(d,W,H,boxes){
    Exclusive: светло-сиреневый/лавандовый, Godly: тёмный сиренево-синий градиент (НЕ красный!),
    Mythic: ярко-красный, Legendary: жёлтый, Epic: насыщенно-фиолетовый, Rare: голубой, Uncommon: зелёный, Common: серый */
 function analyzeSlotMeta(d,W,H,c,bR,bG,bB){
-  const y0=Math.max(2,Math.round(c.cy+c.R*.36)),y1=Math.min(H-3,Math.round(c.cy+c.R*.88));
-  const x0=Math.max(2,Math.round(c.cx-c.R*.85)),x1=Math.min(W-3,Math.round(c.cx+c.R*.85));
+  /* v7.3: цена торчит за нижний край кружка — область чтения шире и ниже */
+  const y0=Math.max(2,Math.round(c.cy+c.R*.36)),y1=Math.min(H-3,Math.round(c.cy+c.R*1.3));
+  const x0=Math.max(2,Math.round(c.cx-c.R*1.05)),x1=Math.min(W-3,Math.round(c.cx+c.R*1.05));
   const ocr=readOutlinedText(d,W,H,x0,y0,x1,y1,c);
   const hasPrice=ocr.cnt>=Math.max(5,Math.round(c.R*.10));
   const priceSpan=hasPrice&&ocr.span?(ocr.span/(2*c.R)):0;
-  let parsedCost=ocr.val;
-  if(parsedCost&&(parsedCost<50||parsedCost>5000))parsedCost=0;
+  let parsedCost=ocr.val,costFuzzy=false;
+  const known=knownCosts();
+  if(!(parsedCost&&known.has(parsedCost))){
+    /* прочитано мусором или не из таблицы цен: пробуем исправить по вариантам символов, иначе не доверяем */
+    const dc=decodeCost(ocr.segs,known);
+    if(dc){parsedCost=dc.cost;costFuzzy=true}else parsedCost=0;
+  }
 
   let bgCat='';
   const mx=Math.max(bR,bG,bB),mn=Math.min(bR,bG,bB),sat=mx-mn,lum=bR*.299+bG*.587+bB*.114;
@@ -976,7 +1027,7 @@ function analyzeSlotMeta(d,W,H,c,bR,bG,bB){
       else bgCat='Epic';
     }
   }
-  return{hasPrice,priceSpan,parsedCost,bgCat};
+  return{hasPrice,priceSpan,parsedCost,costFuzzy,bgCat};
 }
 
 function buildPatch(srcCv,rx,ry,rSide,c,bR,bG,bB,sz,noBgSub=0){
@@ -1142,7 +1193,7 @@ function matchCircle(srcCv,d,W,H,c){
         if(meta.hasPrice&&ref.kind!=='unit')sc+=9;
         else if(!meta.hasPrice&&ref.kind!=='unit')sc-=7;
         if(meta.hasPrice&&meta.parsedCost&&ref.placeCost){
-          if(meta.parsedCost===ref.placeCost)sc-=11;
+          if(meta.parsedCost===ref.placeCost)sc-=(meta.costFuzzy?7:11);
           else if(String(meta.parsedCost).length===String(ref.placeCost).length)sc+=4;
           else sc+=8;
         }else if(meta.hasPrice&&ref.costLen){
@@ -1160,7 +1211,10 @@ function matchCircle(srcCv,d,W,H,c){
     if(prev==null||best<prev)bestByName.set(ref.name,best);
   }
   const scored=[...bestByName.entries()].map(([name,score])=>({name,score})).sort((a,b)=>a.score-b.score);
-  const lowConf=!scored[0]||scored[0].score>62||(scored[1]&&scored[1].score-scored[0].score<2.5);
+  /* v7.3: уверенность по ОТРЫВУ от второго кандидата, а не только по абсолютному баллу.
+     «?» ставим, если: нет ответа; отрыв <2.5 (почти ничья); балл плохой (>62) и отрыв небольшой (<14); балл очень плохой (>105) */
+  const _gap=scored[1]&&scored[0]?scored[1].score-scored[0].score:99;
+  const lowConf=!scored[0]||_gap<2.5||(scored[0].score>62&&_gap<14)||scored[0].score>105;
   return{crop,cands:scored.slice(0,4).map(x=>x.name),name:scored[0]?.name||'',lowConf,learnB64,cx:c.cx,cy:c.cy,R:c.R,parsedCost:meta.parsedCost};
 }
 
@@ -1343,6 +1397,8 @@ function renderScan(){
     const acceptBan=SC.partnerAccept?'<div class="acc-ban">✓ [Партнёр нажал Accept]</div>':'';
     const hasBoth=(T.G.pcs>0||T.G.gems>0)&&(T.R.pcs>0||T.R.gems>0);
     const verdict=hasBoth?`<div class="rec ${T.rec[0]}"><div class="rt"><span>${T.rec[1]}</span><span class="m" style="color:inherit">реал ${T.adjPct>0?'+':''}${T.adjPct.toFixed(0)}%</span></div><div class="rs">${esc(T.rec[2])}</div>${quickRepliesHtml(T,gv,gt)}</div>`:'';
+    const shaky=[...SC.give.map((r,i)=>['Я отдаю',i,r]),...SC.get.map((r,i)=>['Я получаю',i,r])].filter(([,,r])=>!r.name||(r.lowConf&&!r.edited)).map(([sd,i])=>sd+' #'+(i+1));
+    if(shaky.length)return `${acceptBan}<div class="warn" style="margin-top:8px;font-size:14px"><b>⚠ СКАН НЕНАДЁЖЕН — НЕ ВЕРЬ ВЕРДИКТУ</b><br>Не уверен: ${shaky.join(', ')}. Тапни нужного юнита в строке — вердикт появится.</div>`;
     return `${acceptBan}<div class="note" style="margin-top:8px">Отдаю: <b>${fmt(gv)}</b> · Получаю: <b>${fmt(gt)}</b> → <b class="${w[0]}">${w[1]} ${df>0?'+':''}${fmt(df)} (${p>0?'+':''}${p.toFixed(1)}%)</b></div>${verdict}`;
   };
 
@@ -1384,7 +1440,9 @@ function scLearnSlots(slots){
   let learned=0;
   for(const r of slots){
     if(!r.name||!r.learnB64||isSigned(IDX.get(r.name)))continue;
-    if(r.edited||!r.lowConf||!USR_IC.items[r.name]){
+    /* v7.2: учимся ТОЛЬКО на слотах, которые пользователь сам выбрал/подтвердил.
+       Раньше запоминалась и неуверенная догадка сканера, и ошибка закреплялась (бонус -5 за «выученный» слот). */
+    if(r.edited){
       USR_IC.items[r.name]={b:r.learnB64,t:Date.now()};learned++;
     }
   }
