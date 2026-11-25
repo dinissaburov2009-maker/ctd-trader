@@ -1711,7 +1711,7 @@ function inv(){
 function invReport(){
   const el=$('irpt');if(!el)return;IDEAS=[];
   const ent=Object.entries(S.inv).map(([n,q])=>{const u=IDX.get(n),a=AN.get(n);return u&&a?{n,q,u,a,v:val(n)||(a.est*(sgOn(n)?1+(S.mk??15)/100:1))}:null}).filter(Boolean);
-  if(!ent.length){el.innerHTML='<h3>Отчёт и стратегия обмена</h3><div class="m">Добавь юнитов в инвентарь — появится сводка, арбитраж и готовые идеи обмена.</div>';return}
+  if(!ent.length){keepDetails(el,'<details class="ofr-d"><summary>📊 Отчёт и стратегия</summary><div class="m">Добавь юнитов в инвентарь — появится сводка, арбитраж и идеи обмена.</div></details>');return}
   let tot=0,liq=0,wq=0,wv=0,prob=0,rise=0;
   for(const x of ent){const l=x.v*x.q,w=Math.max(10,l);tot+=l;liq+=l*x.a.mult;wq+=x.a.q*w;wv+=w;if(x.a.trend==='down'||x.a.q<30)prob+=l;if(x.a.trend==='up')rise+=l}
   const avgQ=Math.round(wq/(wv||1)),line=l=>l.map(x=>`<div class="row"><span class="n" data-a="det" data-n="${esc(x.n)}" style="cursor:pointer">${x.q>1?x.q+'× ':''}${esc(x.n)} <span class="qb ${x.a.grade[2]}">${x.a.grade[1]}</span><div class="m">${fmt(x.v*x.q)}${Math.abs(x.a.trPct)>=10?` · <span class="${x.a.trPct>0?'win':'lose'}">${x.a.trPct>0?'+':''}${x.a.trPct}%</span>`:''} · спрос ${x.u.demand}/10</div></span></div>`).join('')||'<div class="m">—</div>';
@@ -1736,7 +1736,7 @@ function invReport(){
   for(const c of cands){if(IDEAS.length>=5)break;const vT=val(c.u.name),r=combo(c.u.name,vT);if(r)IDEAS.push({t:c.u.name,u:c.u,a:c.a,vT,give:r.give,sum:r.sum,pc:r.pc,goal:c.u.name===S.goal})}
   const ideas=IDEAS.map((it,k)=>{const gs=Object.entries(it.give).map(([n,q])=>(q>1?q+'× ':'')+esc(n)).join(', '),ov=Math.round((it.sum-it.vT)/it.vT*100);
     return `<div class="idea">${imgTag(it.u,'u')}<div class="ib"><b>${it.goal?'[ЦЕЛЬ] ':''}${esc(it.t)}</b> <span class="qb ${it.a.grade[2]}">${it.a.grade[1]}</span> <span class="m">${fmt(it.vT)}${it.a.trend==='up'?' 📈':''}</span><div class="m">Отдать (${it.pc} шт, ${fmt(it.sum)}${ov>0?`, +${ov}%`:''}): ${gs}</div></div><button class="sm p" data-a="invTrade" data-k="${k}">В трейд →</button></div>`}).join('')||'<div class="m">Под текущий инвентарь связок не нашлось (попробуй снять защиту последней копии или докинуть юнитов).</div>';
-  el.innerHTML=`<h3>Отчёт и стратегия обмена</h3><div class="rg">${sbox('Цена портфеля',fmt(tot))}${sbox('Реально ликвидно',fmt(liq))}${sbox('Среднее качество',avgQ+'/100')}${sbox('Проблемные / растущие',Math.round(prob/(tot||1)*100)+'% / '+Math.round(rise/(tot||1)*100)+'%')}</div><label class="sw"><input type="checkbox" data-c="keep1" ${S.keep1?'checked':''}> Не предлагать отдавать последнюю копию ИМБЫ / Фермы / Саппорта</label><div class="cmp"><div class="cmp-b"><b class="h">Срочно сливать</b>${line(sell)}</div><div class="cmp-b"><b class="h">Лучше придержать</b>${line(hold)}</div></div>${flips.length?`<div class="note"><b class="tg">[ФЛИП / АРБИТРАЖ]</b> Сильный разброс между листами: ${flips.join(' · ')}</div>`:''}<b class="m">ГОТОВЫЕ СВЯЗКИ ОБМЕНА</b>${ideas}`;
+  keepDetails(el,`<details class="ofr-d"><summary>📊 Отчёт, «срочно сливать» и связки под цель</summary><div class="rg">${sbox('Цена портфеля',fmt(tot))}${sbox('Реально ликвидно',fmt(liq))}${sbox('Среднее качество',avgQ+'/100')}${sbox('Проблемные / растущие',Math.round(prob/(tot||1)*100)+'% / '+Math.round(rise/(tot||1)*100)+'%')}</div><label class="sw"><input type="checkbox" data-c="keep1" ${S.keep1?'checked':''}> Не предлагать отдавать последнюю копию ИМБЫ / Фермы / Саппорта</label><div class="cmp"><div class="cmp-b"><b class="h">Срочно сливать</b>${line(sell)}</div><div class="cmp-b"><b class="h">Лучше придержать</b>${line(hold)}</div></div>${flips.length?`<div class="note"><b class="tg">[ФЛИП / АРБИТРАЖ]</b> Сильный разброс между листами: ${flips.join(' · ')}</div>`:''}<b class="m">🎯 СВЯЗКИ ПОД ЦЕЛЬ</b>${ideas}</details>`);
 }
 function invTrade(k){const it=IDEAS[k];if(!it)return;S.give={...it.give};S.get={[it.t]:1};S.gems={give:0,get:0};save();if($('dl').open)$('dl').close();calc();tab(0);toast('Связка загружена в трейд');sfx('add')}
 /* ================= ПОДСКАЗКИ ОБМЕНА v3: выгода, алерты, контр-оффер, PNG ================= */
@@ -1798,6 +1798,21 @@ function ofAlerts(ent){
   ent.forEach(x=>{if(seen.has(x.n)||x.v<15||Math.abs(x.a.trPct)<15)return;seen.add(x.n);const p=x.a.trPct;out.push({n:x.n,k:p<0?'bad':'ok',t:`${x.n}: ${p>0?'+':''}${p}% за 14 дней. ${p<0?'Падает, подумай о сливе.':'Растёт, не торопись сливать.'}`})});
   return out.sort((a,b)=>(a.k==='bad'?0:1)-(b.k==='bad'?0:1)).slice(0,5);
 }
+function ofEvalParts(parts,cnt,T,topN=1,allow11=0){
+  const s0=parts.reduce((a,p)=>a+p.x.v*p.k,0),eS=parts.reduce((a,p)=>a+p.x.v*p.k*p.x.a.mult,0);
+  if(!(s0>0))return[];
+  const bad=parts.reduce((a,p)=>a+(ofBad(p.x.a)?p.x.v*p.k:0),0)>=s0*.5;
+  const gQ=parts.reduce((a,p)=>a+p.x.a.q*p.x.v*p.k,0)/s0,excl=new Set(parts.map(p=>p.x.n));
+  const give={};parts.forEach(p=>give[p.x.n]=p.k);
+  const gD=parts.reduce((a,p)=>a+(p.x.u.demand||0)*p.x.v*p.k,0)/s0;
+  return ofFind(T,s0,eS,bad,cnt,excl,Math.min(3,Math.max(2,cnt)),gQ,topN,allow11).map(r=>{
+    const tD=r.t.c.reduce((a,c)=>a+(c.u.demand||0)*c.v,0)/r.t.v,why=[];
+    if(r.t.c.length<cnt)why.push(cnt+' шт → '+r.t.c.length+': меньше слотов, сильнее юниты');
+    if(Math.abs(tD-gD)>=1)why.push('спрос '+gD.toFixed(1)+'→'+tD.toFixed(1));
+    if(r.tq-gQ>=6)why.push('качество '+Math.round(gQ)+'→'+Math.round(r.tq));
+    return{give,giveN:cnt,get:r.t.c.map(c=>({n:c.u.name,v:c.v,tr:c.a.trend})),s:s0,tv:r.t.v,nom:Math.round(r.nom*100),g:Math.round(r.real*100),lvl:r.l,why:why.join(' · '),sc:r.sc};
+  });
+}
 function ofModel(){
   const row=u=>{const a=AN.get(u.name),v=val(u.name);return a?{u,a,v,e:v*a.mult}:null};
   const allT=ALL.filter(u=>u.kind==='unit'&&u.category!=='Signed').map(row).filter(Boolean);
@@ -1813,18 +1828,7 @@ function ofModel(){
   });
   /* Связки из инвентаря: от 1 до 6 штук (с учётом количества копий) → 1, 2 или 3 юнита */
   const un=ent.filter(x=>x.u.kind==='unit'&&x.v>=15).slice(0,10),T=ofTargets(pool),found=[];
-  const evalCombo=(parts,cnt)=>{
-    const s0=parts.reduce((a,p)=>a+p.x.v*p.k,0),eS=parts.reduce((a,p)=>a+p.x.v*p.k*p.x.a.mult,0);
-    const bad=parts.reduce((a,p)=>a+(ofBad(p.x.a)?p.x.v*p.k:0),0)>=s0*.5;
-    const gQ=parts.reduce((a,p)=>a+p.x.a.q*p.x.v*p.k,0)/s0,excl=new Set(parts.map(p=>p.x.n));
-    const r=ofFind(T,s0,eS,bad,cnt,excl,Math.min(3,Math.max(2,cnt)),gQ)[0];if(!r)return;
-    const give={};parts.forEach(p=>give[p.x.n]=p.k);
-    const gD=parts.reduce((a,p)=>a+(p.x.u.demand||0)*p.x.v*p.k,0)/s0,tD=r.t.c.reduce((a,c)=>a+(c.u.demand||0)*c.v,0)/r.t.v,why=[];
-    if(r.t.c.length<cnt)why.push(cnt+' шт → '+r.t.c.length+': меньше слотов, сильнее юниты');
-    if(Math.abs(tD-gD)>=1)why.push('спрос '+gD.toFixed(1)+'→'+tD.toFixed(1));
-    if(r.tq-gQ>=6)why.push('качество '+Math.round(gQ)+'→'+Math.round(r.tq));
-    found.push({give,giveN:cnt,get:r.t.c.map(c=>({n:c.u.name,v:c.v,tr:c.a.trend})),s:s0,tv:r.t.v,nom:Math.round(r.nom*100),g:Math.round(r.real*100),lvl:r.l,why:why.join(' · '),sc:r.sc});
-  };
+  const evalCombo=(parts,cnt)=>found.push(...ofEvalParts(parts,cnt,T));
   const rec=(i,parts,cnt)=>{
     if(i===un.length){if(cnt>=1)evalCombo(parts,cnt);return}
     rec(i+1,parts,cnt);
@@ -1849,21 +1853,45 @@ function ofModel(){
     ['💎 Выгодно брать сейчас',rk(c=>ofGood(c.u),(a,b)=>b.a.q-a.a.q||b.v-a.v,6)],
     ['📈 Ходовые в трейде',rk(c=>c.v>0&&(c.a.trend==='up'||c.a.q>=70),(a,b)=>b.a.q-a.a.q||b.v-a.v,6)]
   ];
-  return{upd:D.updated||'',items,combos,gems,gemBuy,top,alerts:ofAlerts(ent)};
+  return{upd:D.updated||'',items,combos,gems,gemBuy,top,alerts:ofAlerts(ent),ent,T};
 }
-const ofTopRow=r=>`<div class="row"><span class="n" data-a="det" data-n="${esc(r.n)}" style="cursor:pointer">${esc(r.n)} ${r.t?`<span class="qb">TIER ${r.t}</span>`:''}<div class="m">${r.dps?'DPS '+fmt(r.dps)+' · ':''}${r.v?fmt(r.v)+' · ':''}спрос ${r.d}/10 ${ofTr[r.tr]}</div></span></div>`;
+const ofTopRow=r=>`<div class="row">${imgTag(IDX.get(r.n),'u')}<span class="n" data-a="det" data-n="${esc(r.n)}" style="cursor:pointer">${esc(r.n)} ${r.t?`<span class="qb">TIER ${r.t}</span>`:''}<div class="m">${r.dps?'DPS '+fmt(r.dps)+' · ':''}${r.v?fmt(r.v)+' · ':''}спрос ${r.d}/10 ${ofTr[r.tr]}</div></span></div>`;
 const ofAlHtml=a=>`<div class="${a.k==='bad'?'bad':'note'}"><b class="${a.k==='bad'?'lose':'win'}">${a.k==='bad'?'[✕]':'[+]'}</b> ${esc(a.t)}</div>`;
+const ofIm=(u,c='of-im')=>u&&u.img?`<img class="${c}" src="${esc(u.img)}" loading="lazy" onerror="this.outerHTML='<div class=\\'${c} ph\\'>?</div>'">`:`<div class="${c} ph">?</div>`;
+const ofTile=(n,q,v)=>{const u=IDX.get(n);return`<div class="of-u r-${esc(u?.category||'')}" data-a="det" data-n="${esc(n)}">${ofIm(u)}${q>1?`<b class="of-q">×${q}</b>`:''}<span class="of-n">${esc(n)}</span><i>${fmt(v)}</i></div>`};
+function ofCard(o,k){
+  const gt=o.gems?`<div class="of-u"><div class="of-im ph">💎</div><span class="of-n">Гемы</span><i>${fmt(o.gems)}</i></div>`:Object.entries(o.give).map(([n,q])=>ofTile(n,q,val(n)||AN.get(n)?.est||0)).join('');
+  const rt=o.get.map(x=>ofTile(x.n,1,x.v)).join('');
+  return`<div class="of-card ${/ОЧЕНЬ/.test(o.lvl)?'hot':''}"><div class="of-top"><b class="of-lvl">${o.lvl}</b>${o.g!=null?`<span class="of-pct">+${o.g}% реально</span>`:''}</div><div class="of-flow"><div class="of-side">${gt}</div><div class="of-arr">➜</div><div class="of-side">${rt}</div></div><div class="of-sum">${fmt(o.s)} → <b>${fmt(o.tv)}</b> <span class="m">(${o.nom>=0?'+':''}${o.nom}% по цене)</span></div>${o.why?`<div class="m">${esc(o.why)}</div>`:''}<button class="p of-go" data-a="ofTrade" data-k="${k}">В трейд →</button></div>`;
+}
+function keepDetails(el,html){
+  const key=d=>(d.querySelector('summary')?.textContent||'').replace(/[\d()]/g,'').trim(),st=new Set([...el.querySelectorAll('details')].filter(d=>d.open).map(key));
+  el.innerHTML=html;el.querySelectorAll('details').forEach(d=>{if(st.has(key(d)))d.open=true});
+}
+function ofSelObj(ent){const o={},src=S.ofSel||{};ent.forEach(x=>{const k=Math.min(x.q,Math.max(0,src[x.n]|0));if(k)o[x.n]=k});return o}
 function ofr(){
   const el=$('ofr');if(!el)return;OFS=[];const m=OFM=ofModel();
-  const btn=(t,o,x='')=>{OFS.push(o);return`<button class="sm" data-a="ofTrade" data-k="${OFS.length-1}">${esc(t.n)} <span class="m">${fmt(t.v)}</span>${x}</button>`};
-  const items=m.items.slice(0,8).map(r=>{
-    const st=r.bad?'<b class="lose">СЛИВАЙ</b>':r.hold?'<b class="win">ДЕРЖИ</b>':'',tg=(r.sg?`<span class="tag">SG +${S.mk??15}%</span> `:'')+(r.est?'<span class="tag" title="Цены нет: оценка = база + Signed%">~оценка</span> ':'');
-    const body=r.tiny?'<div class="m">Мелочь: не стоит возни.</div>':r.opts.length?r.opts.map(o=>`<div class="ofr-o">${btn(o,{give:{[r.n]:1},t:o.n})} <b>${o.lvl}</b><div class="m">${o.nom>=0?'+':''}${o.nom}% по цене${o.why?' · '+o.why:''}</div></div>`).join(''):'<div class="m">Выгодных замен нет: '+(r.hold?'держи.':'торгуйся по цене.')+'</div>';
-    return`<div class="ofr-i ${r.bad?'bad':''}"><b data-a="det" data-n="${esc(r.n)}" style="cursor:pointer">${r.q>1?r.q+'× ':''}${esc(r.n)}</b> <span class="m">${r.est?'~':''}${fmt(r.v)}</span> <span class="qb ${r.gc}">${r.grade}</span> ${tg}${st}${body}</div>`}).join('')||'<div class="m">Добавь юнитов в инвентарь.</div>';
-  const gTxt=g=>Object.entries(g).map(([n,q])=>(q>1?q+'× ':'')+esc(n)).join(' + ');
-  const combos=m.combos.map(p=>{const gt={};p.get.forEach(x=>gt[x.n]=(gt[x.n]||0)+1);return`<div class="ofr-i"><div>${gTxt(p.give)} <span class="m">${fmt(p.s)}</span></div><div>→ <b>${p.get.map(x=>esc(x.n)).join(' + ')}</b> <span class="m">${fmt(p.tv)}</span> <b class="win">${p.lvl}</b></div><div class="m">${p.nom>=0?'+':''}${p.nom}% по цене · +${p.g}% реальной ценности${p.why?' · '+esc(p.why):''}</div><div class="bar" style="margin:4px 0 0">${btn({n:'В трейд →',v:0},{give:p.give,get:gt}).replace(' <span class="m">0</span>','')}</div></div>`}).join('');
-  const gemsB=`<div class="ofr-c"><span class="lb">💎 Гемы на руках</span><input type="number" min="0" inputmode="numeric" data-c="ofg" value="${m.gems||''}" placeholder="сколько гемов" style="width:130px"></div>${m.gemBuy.map(t=>`<div class="ofr-o">${btn(t,{give:{},gemsGive:Math.round(t.v),t:t.n})} <b class="win">реально дороже цены на ${t.g}%</b></div>`).join('')}`;
-  el.innerHTML=`<h3>Что менять</h3>${m.alerts.map(ofAlHtml).join('')}<div class="m">Только выгодные обмены. «Реальная» ценность учитывает спрос, тренд и флаги, а не только цену. Сила в игре влияет лишь как плюс при прочих равных.</div>${items}${combos?`<h3 style="margin-top:10px">🤝 Связки: несколько юнитов вместе</h3><div class="m">Перебор всех комбинаций из инвентаря (1–6 шт, с учётом копий) → 1–3 юнита.</div>${combos}`:''}${gemsB}<details class="ofr-d"><summary>🏆 Топ юнитов по классам</summary>${m.top.map(([t,l])=>`<div class="ofr-c"><span class="lb">${t}</span></div>${l.map(ofTopRow).join('')||'<div class="m">—</div>'}`).join('')}</details><div class="bar"><button class="p" data-a="ofDl">⬇ Заметка</button><button data-a="ofPng">🖼 PNG</button><button data-a="ofCp">📋 Текст</button></div>`;
+  const card=o=>{const g={};o.get.forEach(x=>g[x.n]=(g[x.n]||0)+1);OFS.push({give:o.gems?{}:o.give,gemsGive:o.gems||0,get:g});return ofCard(o,OFS.length-1)};
+  const sel=ofSelObj(m.ent),selN=Object.values(sel).reduce((a,b)=>a+b,0);
+  const picks=m.ent.map(x=>{const k=sel[x.n]||0;return`<div class="of-pt r-${esc(x.u.category)} ${k?'sel':''}" data-a="ofSel" data-n="${esc(x.n)}">${ofIm(x.u)}<b class="of-pq">${k?k+'/'+x.q:'×'+x.q}</b><span class="of-n">${esc(x.n)}</span><i>${fmt(x.v)}</i><em class="qb ${x.a.grade[2]}">${x.a.grade[1]}</em></div>`}).join('')||'<div class="m">Добавь юнитов в инвентарь.</div>';
+  let res='';
+  if(selN){
+    const parts=m.ent.filter(x=>sel[x.n]).map(x=>({x,k:sel[x.n]})),sv=parts.reduce((a,p)=>a+p.x.v*p.k,0);
+    const full=ofEvalParts(parts,selN,m.T,4,1),subs=[];
+    if(selN>1){const rec=(i,cur,c)=>{if(i===parts.length){if(c>=1&&c<selN)subs.push(...ofEvalParts(cur,c,m.T,1,1));return}rec(i+1,cur,c);for(let k=1;k<=parts[i].k;k++)rec(i+1,[...cur,{x:parts[i].x,k}],c+k)};rec(0,[],0)}
+    subs.sort((a,b)=>b.sc-a.sc);const seen=new Set(),subTop=subs.filter(f=>{const gk=f.get.map(g=>g.n).sort().join('|');return seen.has(gk)?0:seen.add(gk)}).slice(0,4);
+    res=`<div class="of-h">Выбрано: ${selN} шт · ${fmt(sv)}</div>`
+      +(full.length?`<div class="of-h">Что взять за всю связку</div>${full.map(card).join('')}`:'<div class="warn">За всю связку целиком выгодного обмена не нашёл.</div>')
+      +(subTop.length?`<div class="of-h">Можно выгоднее: разбить связку</div>${subTop.map(card).join('')}`:'');
+  }else{
+    res=m.combos.length?`<div class="of-h">Лучшие обмены из твоего инвентаря</div>${m.combos.slice(0,5).map(card).join('')}`:'<div class="warn">Сейчас выгодных обменов нет. Выбери юнитов выше — проверю любую связку.</div>';
+  }
+  const al=m.alerts.length?`<details class="ofr-d"><summary>🔔 Изменения цен у тебя (${m.alerts.length})</summary>${m.alerts.map(ofAlHtml).join('')}</details>`:'';
+  const sg=m.items.filter(r=>!r.tiny&&r.opts.length).slice(0,10),sgN=sg.reduce((a,r)=>a+r.opts.length,0);
+  const singles=`<details class="ofr-d"><summary>🔁 Замены по одному юниту (${sgN})</summary>${sg.map(r=>r.opts.map(o=>card({give:{[r.n]:1},get:[{n:o.n,v:o.v}],s:r.v,tv:o.v,nom:o.nom,lvl:o.lvl,why:o.why})).join('')).join('')||'<div class="m">Выгодных замен по одному нет.</div>'}</details>`;
+  const gems=`<details class="ofr-d"><summary>💎 Что взять за гемы</summary><div class="ofr-c"><span class="lb">Гемы на руках</span><input type="number" min="0" inputmode="numeric" data-c="ofg" value="${m.gems||''}" placeholder="сколько гемов" style="width:130px"></div>${m.gemBuy.map(t=>card({gems:Math.round(t.v),give:{},get:[{n:t.n,v:t.v}],s:Math.round(t.v),tv:t.v,nom:0,g:t.g,lvl:'💎 ЗА ГЕМЫ',why:''})).join('')}</details>`;
+  const top=`<details class="ofr-d"><summary>🏆 Топ юнитов по классам</summary>${m.top.map(([t,l])=>`<div class="ofr-c"><span class="lb">${t}</span></div>${l.map(ofTopRow).join('')||'<div class="m">—</div>'}`).join('')}</details>`;
+  keepDetails(el,`<h3>Что менять</h3><div class="m">Нажимай на юнитов, которых готов отдать (ещё тап — ещё копия). Ниже покажу, на что их выгодно менять.</div><div class="of-pick">${picks}</div><div class="bar"><button data-a="ofClr">Сбросить выбор</button><button data-a="ofWeak">Выбрать слабых</button></div>${res}${al}${singles}${gems}${top}<div class="bar"><button class="p" data-a="ofDl">⬇ Заметка</button><button data-a="ofPng">🖼 PNG</button><button data-a="ofCp">📋 Текст</button></div>`);
 }
 function ofReplHtml(GR){
   OFR=[];if(!GR||!GR.list)return'';const pool=ofPool().filter(c=>!S.give[c.u.name]&&!S.get[c.u.name]),rows=[];
@@ -2008,6 +2036,9 @@ const ACT={
   scSg:el=>{const a=SC[el.dataset.s],i=+el.dataset.i;if(!a?.[i])return;a[i].signed=!a[i].signed;renderScan();sfx('tap')},
   scAdd:el=>{const s=el.dataset.s,nm=$('sc-sel-'+s)?.value;if(!nm||!SC[s])return;SC[s].push({name:nm,qty:1,signed:false,cands:[nm],lowConf:false,edited:true,...(SC.kind==='inv'?{shotIdx:SC.shotIdx}:{})});renderScan();sfx('add')},
   scClearUsr:()=>{USR_IC={size:IC.size||48,items:{}};try{localStorage.removeItem(KUSR)}catch{}buildRefs();renderScan();toast('Память сканера очищена')},
+  ofSel:el=>{const m=OFM,n=el.dataset.n,x=m?.ent.find(e=>e.n===n);if(!x)return;const sel=ofSelObj(m.ent),tot=Object.values(sel).reduce((a,b)=>a+b,0);let k=sel[n]||0;if(k>=x.q)k=0;else if(tot>=8){toast('Максимум 8 штук в связке');return}else k++;if(k)sel[n]=k;else delete sel[n];S.ofSel=sel;save();ofr();sfx('tap')},
+  ofClr:()=>{S.ofSel={};save();ofr();sfx('tap')},
+  ofWeak:()=>{const m=OFM;if(!m)return;const sel={};let t=0;for(const x of m.ent){if(!ofBad(x.a)||x.v<15)continue;const k=Math.min(x.q,8-t);if(k>0){sel[x.n]=k;t+=k}}S.ofSel=sel;save();ofr();sfx('tap')},
   ofTrade:el=>ofTrade(+el.dataset.k),ofRepl:el=>ofRepl(+el.dataset.k),ofBun:el=>ofBun(+el.dataset.k),ofDl:()=>ofDl(),ofPng:()=>ofPng(),ofCp:()=>ofCp()
 };
 document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(el&&ACT[el.dataset.a])ACT[el.dataset.a](el,e)});
