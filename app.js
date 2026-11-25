@@ -1745,13 +1745,14 @@ const ofBad=a=>a.trend==='down'||a.grade[0]==='trash'||a.grade[0]==='drop';
 const ofTier={S:4,A:3,B:2,C:1,D:0},ofTr={up:'📈',down:'📉',stable:'➖'};
 function ofGood(i){const a=AN.get(i.name);return!!a&&i.kind==='unit'&&!isSigned(i)&&i.value>0&&(i.demand||0)>=6&&a.trend!=='down'&&(a.mRatio>=1.15||a.mult>=1.12)}
 const ofMk=c=>({n:c.u.name,v:c.v,q:c.a.q,t:c.u.tier||'',dps:c.u.maxDps||0,d:c.u.demand||0,tr:c.a.trend});
-const ofLvl=(nom,real,bad)=>{if(nom<(bad?-.12:-.05)||nom>.15)return'';if(real>=.3)return'🔥 ОЧЕНЬ ВЫГОДНО';if(real>=.12)return'✅ ВЫГОДНО';if(Math.abs(nom)<=.08&&real>=.06)return'🔁 РАВНО, НО ЛУЧШЕ';return''};
+const ofLvl=(nom,real,bad)=>{if(nom<(bad?-.12:-.05)||nom>.15)return'';if(real>=.3)return'🔥 ОЧЕНЬ ВЫГОДНО';if(real>=.12)return'✅ ВЫГОДНО';if(Math.abs(nom)<=.08&&real>=.06)return'🔁 РАВНО, НО ЛУЧШЕ';if(Math.abs(nom)<=.1&&real>=.04)return'🙂 ЧУТЬ ЛУЧШЕ';return''};
 /* Все варианты «получаемой стороны»: 1, 2 или 3 юнита из пула, отсортированы по цене (для бинарного поиска) */
 function ofTargets(pool){
-  const T=[],byQ=[...pool].sort((a,b)=>b.a.q-a.a.q||b.v-a.v),P2=byQ.slice(0,40),P3=byQ.slice(0,22);
+  const T=[],byQ=[...pool].sort((a,b)=>b.a.q-a.a.q||b.v-a.v),P2=byQ.slice(0,70),P3=byQ.slice(0,38),P4=byQ.slice(0,20);
   pool.forEach(c=>T.push({c:[c],v:c.v,e:c.e}));
   for(let i=0;i<P2.length;i++)for(let j=i+1;j<P2.length;j++)T.push({c:[P2[i],P2[j]],v:P2[i].v+P2[j].v,e:P2[i].e+P2[j].e});
   for(let i=0;i<P3.length;i++)for(let j=i+1;j<P3.length;j++)for(let k=j+1;k<P3.length;k++)T.push({c:[P3[i],P3[j],P3[k]],v:P3[i].v+P3[j].v+P3[k].v,e:P3[i].e+P3[j].e+P3[k].e});
+  for(let i=0;i<P4.length;i++)for(let j=i+1;j<P4.length;j++)for(let k=j+1;k<P4.length;k++)for(let l=k+1;l<P4.length;l++)T.push({c:[P4[i],P4[j],P4[k],P4[l]],v:P4[i].v+P4[j].v+P4[k].v+P4[l].v,e:P4[i].e+P4[j].e+P4[k].e+P4[l].e});
   return T.sort((a,b)=>a.v-b.v);
 }
 /* Лучший вариант «что взять» за сумму s (реальная ценность eS). giveN — сколько штук отдаём, excl — имена, которые брать нельзя */
@@ -1762,8 +1763,8 @@ function ofFind(T,s,eS,bad,giveN,excl,maxN,gQ,topN=1,allow11=0){
   for(let i=a;i<T.length&&T[i].v<=hi;i++){
     const t=T[i],n=t.c.length;
     if(n>maxN||(n===1&&giveN===1&&!allow11))continue;
-    if(t.c.some(c=>excl.has(c.u.name)))continue;
     const nom=(t.v-s)/s,real=(t.e-eS)/eS,l=ofLvl(nom,real,bad);if(!l)continue;
+    if(t.c.some(c=>excl.has(c.u.name)))continue;
     const tq=t.c.reduce((x,c)=>x+c.a.q*c.v,0)/t.v;
     const sc=real*100+(n<giveN?3*(giveN-n):0)+(tq-gQ)/6;
     out.push({t,nom,real,l,sc,tq});
@@ -1777,7 +1778,7 @@ function ofPool(){
 function ofOpts(x,pool,n=2){
   if(x.v<15)return[];
   const xe=x.v*x.a.mult,bad=ofBad(x.a);
-  const lvl=(nom,real)=>{if(nom<(bad?-.12:-.05)||nom>.15)return'';if(real>=.3)return'🔥 ОЧЕНЬ ВЫГОДНО';if(real>=.12)return'✅ ВЫГОДНО';if(Math.abs(nom)<=.08&&real>=.06)return'🔁 РАВНО, НО ЛУЧШЕ';return''};
+  const lvl=(nom,real)=>ofLvl(nom,real,bad);
   return pool.filter(c=>c.u.name!==x.n).map(c=>{
     const nom=(c.v-x.v)/x.v,real=(c.e-xe)/xe,l=lvl(nom,real);if(!l)return null;
     const why=[],dd=(c.u.demand||0)-(x.u.demand||0),pw=c.u.tier&&x.u.tier?ofTier[c.u.tier]-ofTier[x.u.tier]:0;
@@ -1798,6 +1799,15 @@ function ofAlerts(ent){
   ent.forEach(x=>{if(seen.has(x.n)||x.v<15||Math.abs(x.a.trPct)<15)return;seen.add(x.n);const p=x.a.trPct;out.push({n:x.n,k:p<0?'bad':'ok',t:`${x.n}: ${p>0?'+':''}${p}% за 14 дней. ${p<0?'Падает, подумай о сливе.':'Растёт, не торопись сливать.'}`})});
   return out.sort((a,b)=>(a.k==='bad'?0:1)-(b.k==='bad'?0:1)).slice(0,5);
 }
+function ofDiv(list,max,per=2){
+  const used={},seen=new Set(),out=[];
+  for(const f of list){
+    const names=f.get.map(g=>g.n),k=[...names].sort().join('|');
+    if(seen.has(k)||names.some(n=>(used[n]||0)>=per))continue;
+    seen.add(k);names.forEach(n=>used[n]=(used[n]||0)+1);out.push(f);if(out.length>=max)break;
+  }
+  return out;
+}
 function ofEvalParts(parts,cnt,T,topN=1,allow11=0){
   const s0=parts.reduce((a,p)=>a+p.x.v*p.k,0),eS=parts.reduce((a,p)=>a+p.x.v*p.k*p.x.a.mult,0);
   if(!(s0>0))return[];
@@ -1805,7 +1815,7 @@ function ofEvalParts(parts,cnt,T,topN=1,allow11=0){
   const gQ=parts.reduce((a,p)=>a+p.x.a.q*p.x.v*p.k,0)/s0,excl=new Set(parts.map(p=>p.x.n));
   const give={};parts.forEach(p=>give[p.x.n]=p.k);
   const gD=parts.reduce((a,p)=>a+(p.x.u.demand||0)*p.x.v*p.k,0)/s0;
-  return ofFind(T,s0,eS,bad,cnt,excl,Math.min(3,Math.max(2,cnt)),gQ,topN,allow11).map(r=>{
+  return ofFind(T,s0,eS,bad,cnt,excl,cnt>=5?4:Math.min(3,Math.max(2,cnt)),gQ,topN,allow11).map(r=>{
     const tD=r.t.c.reduce((a,c)=>a+(c.u.demand||0)*c.v,0)/r.t.v,why=[];
     if(r.t.c.length<cnt)why.push(cnt+' шт → '+r.t.c.length+': меньше слотов, сильнее юниты');
     if(Math.abs(tD-gD)>=1)why.push('спрос '+gD.toFixed(1)+'→'+tD.toFixed(1));
@@ -1836,11 +1846,10 @@ function ofModel(){
   };
   rec(0,[],0);
   found.sort((x,y)=>y.sc-x.sc);
-  const combos=[],usedGet=new Set(),usedGive={};
-  for(const f of found){
-    const gk=f.get.map(g=>g.n).sort().join('|');if(usedGet.has(gk))continue;
+  const combos=[],usedGive={};
+  for(const f of ofDiv(found,40,2)){
     const names=Object.keys(f.give);if(names.some(n=>(usedGive[n]||0)>=3))continue;
-    usedGet.add(gk);names.forEach(n=>usedGive[n]=(usedGive[n]||0)+1);combos.push(f);if(combos.length>=8)break;
+    names.forEach(n=>usedGive[n]=(usedGive[n]||0)+1);combos.push(f);if(combos.length>=10)break;
   }
   const gems=Math.max(0,Math.round(+S.ofg||0));
   const gemBuy=gems>0?pool.filter(c=>c.v<=gems&&c.v>=gems*.5&&c.a.mult>=1.05).sort((x,y)=>y.a.mult-x.a.mult||y.a.q-x.a.q).slice(0,3).map(c=>({...ofMk(c),g:Math.round((c.a.mult-1)*100)})):[];
@@ -1877,14 +1886,14 @@ function ofr(){
   let res='';
   if(selN){
     const parts=m.ent.filter(x=>sel[x.n]).map(x=>({x,k:sel[x.n]})),sv=parts.reduce((a,p)=>a+p.x.v*p.k,0);
-    const full=ofEvalParts(parts,selN,m.T,4,1),subs=[];
-    if(selN>1){const rec=(i,cur,c)=>{if(i===parts.length){if(c>=1&&c<selN)subs.push(...ofEvalParts(cur,c,m.T,1,1));return}rec(i+1,cur,c);for(let k=1;k<=parts[i].k;k++)rec(i+1,[...cur,{x:parts[i].x,k}],c+k)};rec(0,[],0)}
-    subs.sort((a,b)=>b.sc-a.sc);const seen=new Set(),subTop=subs.filter(f=>{const gk=f.get.map(g=>g.n).sort().join('|');return seen.has(gk)?0:seen.add(gk)}).slice(0,4);
+    const full=ofDiv(ofEvalParts(parts,selN,m.T,14,1),6,2),subs=[];
+    if(selN>1){const rec=(i,cur,c)=>{if(i===parts.length){if(c>=1&&c<selN)subs.push(...ofEvalParts(cur,c,m.T,2,1));return}rec(i+1,cur,c);for(let k=1;k<=parts[i].k&&c+k<=5;k++)rec(i+1,[...cur,{x:parts[i].x,k}],c+k)};rec(0,[],0)}
+    subs.sort((a,b)=>b.sc-a.sc);const subTop=ofDiv(subs,6,2);
     res=`<div class="of-h">Выбрано: ${selN} шт · ${fmt(sv)}</div>`
       +(full.length?`<div class="of-h">Что взять за всю связку</div>${full.map(card).join('')}`:'<div class="warn">За всю связку целиком выгодного обмена не нашёл.</div>')
       +(subTop.length?`<div class="of-h">Можно выгоднее: разбить связку</div>${subTop.map(card).join('')}`:'');
   }else{
-    res=m.combos.length?`<div class="of-h">Лучшие обмены из твоего инвентаря</div>${m.combos.slice(0,5).map(card).join('')}`:'<div class="warn">Сейчас выгодных обменов нет. Выбери юнитов выше — проверю любую связку.</div>';
+    res=m.combos.length?`<div class="of-h">Лучшие обмены из твоего инвентаря</div>${m.combos.slice(0,8).map(card).join('')}`:'<div class="warn">Сейчас выгодных обменов нет. Выбери юнитов выше — проверю любую связку.</div>';
   }
   const al=m.alerts.length?`<details class="ofr-d"><summary>🔔 Изменения цен у тебя (${m.alerts.length})</summary>${m.alerts.map(ofAlHtml).join('')}</details>`:'';
   const sg=m.items.filter(r=>!r.tiny&&r.opts.length).slice(0,10),sgN=sg.reduce((a,r)=>a+r.opts.length,0);
@@ -2036,9 +2045,9 @@ const ACT={
   scSg:el=>{const a=SC[el.dataset.s],i=+el.dataset.i;if(!a?.[i])return;a[i].signed=!a[i].signed;renderScan();sfx('tap')},
   scAdd:el=>{const s=el.dataset.s,nm=$('sc-sel-'+s)?.value;if(!nm||!SC[s])return;SC[s].push({name:nm,qty:1,signed:false,cands:[nm],lowConf:false,edited:true,...(SC.kind==='inv'?{shotIdx:SC.shotIdx}:{})});renderScan();sfx('add')},
   scClearUsr:()=>{USR_IC={size:IC.size||48,items:{}};try{localStorage.removeItem(KUSR)}catch{}buildRefs();renderScan();toast('Память сканера очищена')},
-  ofSel:el=>{const m=OFM,n=el.dataset.n,x=m?.ent.find(e=>e.n===n);if(!x)return;const sel=ofSelObj(m.ent),tot=Object.values(sel).reduce((a,b)=>a+b,0);let k=sel[n]||0;if(k>=x.q)k=0;else if(tot>=8){toast('Максимум 8 штук в связке');return}else k++;if(k)sel[n]=k;else delete sel[n];S.ofSel=sel;save();ofr();sfx('tap')},
+  ofSel:el=>{const m=OFM,n=el.dataset.n,x=m?.ent.find(e=>e.n===n);if(!x)return;const sel=ofSelObj(m.ent),tot=Object.values(sel).reduce((a,b)=>a+b,0);let k=sel[n]||0;if(k>=x.q)k=0;else if(tot>=12){toast('Максимум 12 штук в связке');return}else k++;if(k)sel[n]=k;else delete sel[n];S.ofSel=sel;save();ofr();sfx('tap')},
   ofClr:()=>{S.ofSel={};save();ofr();sfx('tap')},
-  ofWeak:()=>{const m=OFM;if(!m)return;const sel={};let t=0;for(const x of m.ent){if(!ofBad(x.a)||x.v<15)continue;const k=Math.min(x.q,8-t);if(k>0){sel[x.n]=k;t+=k}}S.ofSel=sel;save();ofr();sfx('tap')},
+  ofWeak:()=>{const m=OFM;if(!m)return;const sel={};let t=0;for(const x of m.ent){if(!ofBad(x.a)||x.v<15)continue;const k=Math.min(x.q,12-t);if(k>0){sel[x.n]=k;t+=k}}S.ofSel=sel;save();ofr();sfx('tap')},
   ofTrade:el=>ofTrade(+el.dataset.k),ofRepl:el=>ofRepl(+el.dataset.k),ofBun:el=>ofBun(+el.dataset.k),ofDl:()=>ofDl(),ofPng:()=>ofPng(),ofCp:()=>ofCp()
 };
 document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(el&&ACT[el.dataset.a])ACT[el.dataset.a](el,e)});
