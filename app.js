@@ -1,6 +1,6 @@
 'use strict';
 const $=id=>document.getElementById(id),K='ctd',KFB='ctd-ic-fb',KUSR='ctd-ic-usr';
-const S0={ov:{},cu:[],inv:{},hs:[],give:{},get:{},gems:{give:0,get:0},gist:{},sg:{},mk:15,pr:{},th:'matrix',snd:1,goal:'',view:'grid',cat:'all',fav:{},lite:0,keep1:1,adSt:'std',adCmp:1,learn:1};
+const S0={ov:{},cu:[],inv:{},hs:[],give:{},get:{},gems:{give:0,get:0},gist:{},sg:{},mk:15,dw:35,pr:{},th:'matrix',snd:1,goal:'',view:'grid',cat:'all',fav:{},lite:0,keep1:1,adSt:'std',adCmp:1,learn:1};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=n=>Math.round(n||0).toLocaleString('ru'),f2=x=>(Math.round(x*100)/100).toLocaleString('ru');
 const sfmt=n=>n>=1e6?f2(n/1e6)+'M':n>=1e4?f2(n/1e3)+'K':fmt(n);
@@ -120,6 +120,8 @@ function itemTrend(u){
   return{pct:Math.max(-95,Math.min(400,baseV>0?(lastV-baseV)/baseV*100:0)),pts:pts.length,lastV};
 }
 
+/* Баланс «цена ↔ спрос»: 0 — только цена, 1 — полный учёт спроса, тренда и качества (ползунок во вкладке «Ещё», S.dw 0–100) */
+function dwK(){const v=S.dw==null?35:+S.dw;return Math.max(0,Math.min(1,(isFinite(v)?v:35)/100))}
 function analyzeItem(u){
   const fl=flagsOf(u),m=u.market||{},tr=itemTrend(u),bu=m.buyers||0,se=m.sellers||0,bs=(bu+se)>=6?(bu+1)/(se+1):null;
   const est=u.value||(isSigned(u)?0:(m.median||tr.lastV||0)),mRatio=(u.value>0&&m.median>0)?m.median/u.value:1;
@@ -134,9 +136,12 @@ function analyzeItem(u){
   if(u.kind==='boost')q+=20;else if(u.kind==='crate')q+=(u.demand>=5?6:-4);else if(/Farm|Support|Spawner/i.test(u.role||'')&&u.tier!=='D')q+=9;
   if(/AOE/i.test(u.role||'')&&u.tier!=='D')q+=3;
   if(u.rarityRank&&u.rarityRank<=10&&u.demand>=4)q+=12;else if(u.exist&&u.exist<=20000&&u.demand>=4)q+=8;else if(u.exist&&u.exist>=1000000&&!/Farm/i.test(u.role||''))q-=12;
-  if(fl.includes('Overpaid'))q+=10;if(fl.includes('Rising'))q+=8;if(fl.includes('Underpaid'))q-=12;if(fl.includes('Dropping'))q-=16;if(fl.includes('Unwanted'))q-=14;if(fl.includes('Unstable')&&tr.pct<0)q-=5;
-  if(tr.pct>=20)q+=8;else if(tr.pct<=-20)q-=14;else if(tr.pct<=-10)q-=7;
-  if(bs!==null){if(bs>=1.5)q+=7;else if(bs<0.25)q-=12;else if(bs<0.5)q-=5}
+  /* «растёт / переплачивают / покупателей больше» — это один и тот же сигнал, поэтому плюсы за него ограничены (было до +25) */
+  let upM=0,dnM=0;
+  if(fl.includes('Overpaid'))upM+=10;if(fl.includes('Rising'))upM+=8;if(fl.includes('Underpaid'))dnM+=12;if(fl.includes('Dropping'))dnM+=16;if(fl.includes('Unwanted'))dnM+=14;if(fl.includes('Unstable')&&tr.pct<0)dnM+=5;
+  if(tr.pct>=20)upM+=8;else if(tr.pct<=-20)dnM+=14;else if(tr.pct<=-10)dnM+=7;
+  if(bs!==null){if(bs>=1.5)upM+=7;else if(bs<0.25)dnM+=12;else if(bs<0.5)dnM+=5}
+  q+=Math.min(upM,12)-dnM;
   if(est>0&&est<25&&u.kind==='unit'&&!/Farm/i.test(u.role||''))q-=10;
   if(isSigned(u))q=Math.max(q,45+(u.demand||0)*4);
   q=Math.max(0,Math.min(100,Math.round(q)));
@@ -148,7 +153,7 @@ function analyzeItem(u){
   if(tr.pct<=-20)mult-=0.15;else if(tr.pct<=-10)mult-=0.07;
   if(u.demand<=2)mult-=0.16;else if(u.demand<=4)mult-=0.07;else if(u.demand>=8)mult+=0.06;
   if(bs!==null&&bs<0.25)mult-=0.12;
-  return{q,grade,trend,trPct:Math.round(tr.pct),est,bs,mRatio,mult:Math.max(0.45,Math.min(1.25,mult))};
+  return{q,grade,trend,trPct:Math.round(tr.pct),est,bs,mRatio,mult:1+(Math.max(0.45,Math.min(1.25,mult))-1)*dwK()};
 }
 
 function rebuild(){
@@ -384,8 +389,10 @@ function cnt(){
   $('nc0').textContent=tp+'п/'+tq+'шт';$('nc1').textContent=N+'/'+tot;$('nc2').textContent=pos(S.inv)+'п/'+pcs(S.inv)+'шт';
 }
 function tab(i){tabNow=i;document.querySelectorAll('.tab').forEach((e,j)=>e.classList.toggle('on',i==j));[...$('nv').children].forEach((e,j)=>e.classList.toggle('on',i==j));$('nv').style.setProperty('--i',i);if(i==2)inv();if(i==3)ad();scrollTo(0,0);document.querySelectorAll('.tab.on h3').forEach(scr)}
+function dwSync(v){const r=$('dw'),l=$('dwv');if(!r||!l)return;if(v==null){v=S.dw==null?35:S.dw;r.value=v}
+  l.textContent=v+'% · '+(v<=5?'вердикт только по цене':v<=40?'в основном цена, спрос и тренд — поправка':v<=70?'цена и спрос примерно поровну':'спрос и тренд решают почти всё')}
 function init(){
-  rebuild();buildRefs();fillFilters();
+  rebuild();buildRefs();fillFilters();dwSync();
   const nonSg=ALL.filter(u=>!isSigned(u)&&u.img).length,uniqRef=new Set(REFS.map(r=>r.name)).size,giN=Object.keys(GI.items||GI.icons||{}).length;
   $('upd').textContent='Обновлено: '+(D.updated=='seed'?'стартовая база':D.updated?new Date(D.updated).toLocaleString('ru'):'—')+(D.sources?` · позиций: ${D.sources.values}/${D.sources.valuesTotal||'?'}`:'')+(REFS.length?` · эталонов: ${uniqRef}/${nonSg}${giN?` (игровых ${giN})`:''}`:'');
   $('gt').value=S.gist.t||'';$('gi').value=S.gist.i||'';
@@ -450,9 +457,13 @@ function analyzeTrade(giveObj=S.give,getObj=S.get,giveGems=S.gems.give,getGems=S
   if(R.gems>0&&R.gems>=R.estSum*0.25)notes.push(['ok',`Партнёр докидывает ${fmt(R.gems)} 💎 — чистая ликвидность.`]);
 
   const adjDiff=R.adjSum-G.adjSum,adjPct=G.adjSum?adjDiff/G.adjSum*100:(R.adjSum?100:0),clamp=(x,lo,hi)=>Math.max(lo,Math.min(hi,x));
-  let score=clamp(adjPct,-60,60)*0.85+(R.wQ-G.wQ)*0.55+(R.wDem-G.wDem)*3.0+clamp(R.wTr-G.wTr,-80,80)*0.15;
+  const dk=dwK();
+  let score=clamp(adjPct,-60,60)*1.0+dk*((R.wQ-G.wQ)*0.30+(R.wDem-G.wDem)*2.0+clamp(R.wTr-G.wTr,-60,60)*0.08);
   if(isTrashDump)score-=24;else if(isDowngrade)score-=12;if(isUpgrade)score+=14;
-  if(G.imbaShare>=0.6&&R.imbaShare<0.25)score-=10;if(R.imbaShare>=0.6&&G.imbaShare<0.25)score+=10;
+  if(G.imbaShare>=0.6&&R.imbaShare<0.25)score-=6*dk;if(R.imbaShare>=0.6&&G.imbaShare<0.25)score+=6*dk;
+  /* цена главная: при реальной выгоде от +20% не отказываем (максимум «СПОРНО»), при реальном минусе от −20% не соглашаемся */
+  if(adjPct>=20&&!isTrashDump)score=Math.max(score,-9);
+  if(adjPct<=-20&&!isUpgrade)score=Math.min(score,8);
 
   let rec;
   if(noEst.length)rec=score<-12?['no','[✕] ОТКАЗАТЬСЯ / ЛОВУШКА','Есть N/A-предмет, но по остальным позициям обмен уже в минус.']:['mid','[?] ПРОВЕРЬ N/A ВРУЧНУЮ','В трейде есть предмет без цены на обоих сайтах (например, DevSigned).'];
@@ -1485,7 +1496,7 @@ function scApply(m){
 let PKCH='';
 const openDl=(full=0,wide=0)=>{const d=$('dl');d.classList.toggle('full',!!full);d.classList.toggle('wide',!!wide&&!full);if(!d.open)d.showModal();d.querySelectorAll('h3').forEach(scr)};
 /* ================= ЕДИНЫЙ ПОДБОР v1: оценка «выгодности» юнита под конкретную сторону трейда ================= */
-let PKW=0,PKB=null,PKA=0,PKR=S.pkr||1500,RTM={},RT=null,IVQ='',IVS='v';
+let PKW=0,PKB=null,PKA=0,PKR=(S.pkr>0&&S.pkr<=20)?S.pkr:5,RTM={},RT=null,IVQ='',IVS='v';
 const clampN=(x,a,b)=>Math.max(a,Math.min(b,x));
 function budgetOf(side){const st=sideStats(side);return{nom:sum(side),real:st.adjSum,q:st.wQ,pcs:st.pcs}}
 /* B = {nom, real, q}: что отдаёшь. Возвращает номинал/реал-разницу, оправданный минус за ходовость и общий балл sc */
@@ -1508,8 +1519,10 @@ function fitCalc(u,B){
   return{v,e,nom,real,pc,bad,hot,allow,tag,cls,sc,delta:Math.round(v-B.nom)};
 }
 const pkFitHtml=f=>`<div class="pk-fit ${f.cls}"><b>${f.delta>0?'доплата '+fmt(f.delta):f.delta<0?'минус '+fmt(-f.delta):'ровно'}</b> · реал ${f.real>=0?'+':''}${Math.round(f.real*100)}%${f.tag?'<br>'+esc(f.tag):''}</div>`;
-const pkSmartBar=()=>!PKB?'':`<div class="row" style="flex-wrap:wrap;gap:4px"><span class="m" id="pkB" style="flex:1 1 100%"></span><div class="pk-tabs" id="pkr">${[1000,1500,3000,5000].map(x=>`<button class="${PKR==x&&!PKA?'on':''}" data-a="pkr" data-r="${x}">+${x}</button>`).join('')}<button class="${PKA?'on':''}" data-a="pkr" data-r="all">Все цены</button></div></div>`;
-const pkBarTxt=n=>!PKB?'':`Отдаёшь ${fmt(PKB.nom)} 💎 → ${PKA?'все юниты':PKW===1?'в твоём диапазоне пусто, расширил до '+fmt(Math.round(PKB.nom*.2))+'–'+fmt(Math.round(PKB.nom*3+PKR)):PKW===2?'рядом по цене никого нет, показываю всех':'показаны '+fmt(Math.round(PKB.nom*.5))+'–'+fmt(PKB.nom+PKR)}: ${n} шт. Поиск ищет по всем ценам.`;
+const pkSmartBar=()=>!PKB?'':`<div class="row" style="flex-wrap:wrap;gap:4px"><span class="m" id="pkB" style="flex:1 1 100%"></span><div class="pk-tabs" id="pkr">${[2,3,5,8].map(x=>`<button class="${PKR==x&&!PKA?'on':''}" data-a="pkr" data-r="${x}">до ×${x}</button>`).join('')}<button class="${PKA?'on':''}" data-a="pkr" data-r="all">Все цены</button></div></div>`;
+/* верхняя граница подбора: ×PKR от того, что отдаёшь, но не меньше +150 (для дешёвых юнитов) */
+const pkHi=nom=>Math.round(Math.max(nom*PKR,nom+150));
+const pkBarTxt=n=>!PKB?'':`Отдаёшь ${fmt(PKB.nom)} 💎 → ${PKA?'все юниты':PKW===1?'в твоём диапазоне пусто, расширил до '+fmt(Math.round(PKB.nom*.2))+'–'+fmt(pkHi(PKB.nom)*2):PKW===2?'рядом по цене никого нет, показываю всех':'показаны '+fmt(Math.round(PKB.nom*.5))+'–'+fmt(pkHi(PKB.nom))+' (до ×'+PKR+')'}: ${n} шт. Поиск ищет по всем ценам.`;
 
 /* ================= ОТ БОМЖА ДО МИЛЛИОНЕРА: дерево обменов вверх, несколько веток на шаг ================= */
 const RTT=()=>Math.max(1000,...ALL.filter(i=>i.kind==='unit').map(i=>val(i.name)));
@@ -1639,7 +1652,7 @@ function pl(){
   PKQ=$('pq')?.value||'';const q=PKQ.toLowerCase(),el=$('pls'),st=el.scrollTop;
   const list=ALL.filter(i=>{
     if(!i.name.toLowerCase().includes(q))return 0;if(PKC&&i.category!==PKC)return 0;
-    if(PKB&&!PKA&&!q){const v=val(i.name);if(!(v>=PKB.nom*[.5,.2,0][PKW]&&v<=[PKB.nom+PKR,PKB.nom*3+PKR,Infinity][PKW]))return 0}
+    if(PKB&&!PKA&&!q){const v=val(i.name);if(!(v>=PKB.nom*[.5,.2,0][PKW]&&v<=[pkHi(PKB.nom),pkHi(PKB.nom)*2,Infinity][PKW]))return 0}
     if(PKF==='inv'&&(S.inv[i.name]||0)<=0)return 0;if(PKF!=='all'&&PKF!=='inv'&&tabOf(i)!==PKF)return 0;
     const a=AN.get(i.name);
     if(PKCH==='imba'&&(!a||a.q<70))return 0;
@@ -1932,8 +1945,11 @@ function ofPool(){
   /* Кандидаты «что получить»: сильные юниты + нормальные середняки (спрос от 2.5, цена не обвалена).
      Резкий взлёт (+100% и больше за 14 дней) считаем рискованным: реальную ценность режем. */
   return ALL.filter(u=>u.kind==='unit'&&u.category!=='Signed').map(u=>{const a=AN.get(u.name),v=val(u.name);return a&&v>=15?{u,a,v,e:v*(a.trPct>=100?a.mult-.12:a.mult)}:null})
-    .filter(c=>c&&!c.u.flags.some(f=>/Dropping|Unwanted/.test(f))&&(((c.u.demand||0)>=4.5&&c.a.trend!=='down')||((c.u.demand||0)>=2.5&&c.a.mult>=.8)));
+    .filter(c=>c&&!c.u.flags.some(f=>/Dropping|Unwanted/.test(f))&&c.a.trend!=='down'&&(((c.u.demand||0)>=4.5)||((c.u.demand||0)>=2.5&&c.a.mult>=.8)));
 }
+/* Общий судья: подбор показывает только то, что «Проверка трейда» не бракует. give/get — объекты {имя: кол-во} */
+function ofSane(give,get){try{return analyzeTrade(give,get,0,0).rec[0]!=='no'}catch(e){return true}}
+const ofObjOf=a=>{const o={};a.forEach(x=>o[x.n]=(o[x.n]||0)+1);return o};
 function ofOpts(x,pool,n=2){
   if(x.v<15)return[];
   const xe=x.v*x.a.mult,bad=ofBad(x.a);
@@ -1945,7 +1961,7 @@ function ofOpts(x,pool,n=2){
     if(c.a.trend!==x.a.trend)why.push(ofTr[x.a.trend]+'→'+ofTr[c.a.trend]);
     if(pw>0)why.push('сильнее в игре ('+c.u.tier+')');
     return{...ofMk(c),lvl:l,why:why.join(' · '),nom:Math.round(nom*100),s:real*100+pw*2};
-  }).filter(Boolean).sort((p,q)=>q.s-p.s).slice(0,n);
+  }).filter(Boolean).sort((p,q)=>q.s-p.s).filter(o=>ofSane({[x.n]:1},{[o.n]:1})).slice(0,n);
 }
 function ofAlerts(ent){
   const out=[],seen=new Set(),names=new Set([...Object.keys(S.inv),S.goal].filter(Boolean)),t0=Date.parse(D.updated||'')||Date.now();
@@ -1974,13 +1990,16 @@ function ofEvalParts(parts,cnt,T,topN=1,allow11=0){
   const gQ=parts.reduce((a,p)=>a+p.x.a.q*p.x.v*p.k,0)/s0,excl=new Set(parts.map(p=>p.x.n));
   const give={};parts.forEach(p=>give[p.x.n]=p.k);
   const gD=parts.reduce((a,p)=>a+(p.x.u.demand||0)*p.x.v*p.k,0)/s0;
-  return ofFind(T,s0,eS,bad,cnt,excl,S.ofBun!==0?Math.min(4,Math.max(2,cnt+1)):(cnt>=5?4:Math.min(3,Math.max(2,cnt))),gQ,topN,allow11).map(r=>{
+  const cand=ofFind(T,s0,eS,bad,cnt,excl,S.ofBun!==0?Math.min(4,Math.max(2,cnt+1)):(cnt>=5?4:Math.min(3,Math.max(2,cnt))),gQ,Math.max(topN,8),allow11).map(r=>{
     const tD=r.t.c.reduce((a,c)=>a+(c.u.demand||0)*c.v,0)/r.t.v,why=[];
     if(r.t.c.length<cnt)why.push(cnt+' шт → '+r.t.c.length+': меньше слотов, сильнее юниты');
     if(Math.abs(tD-gD)>=1)why.push('спрос '+gD.toFixed(1)+'→'+tD.toFixed(1));
     if(r.tq-gQ>=6)why.push('качество '+Math.round(gQ)+'→'+Math.round(r.tq));
     return{give,giveN:cnt,get:r.t.c.map(c=>({n:c.u.name,v:c.v,tr:c.a.trend})),s:s0,tv:r.t.v,nom:Math.round(r.nom*100),g:Math.round(r.real*100),lvl:r.l,why:why.join(' · '),sc:r.sc};
   });
+  const res=[];
+  for(const f of cand){if(ofSane(give,ofObjOf(f.get)))res.push(f);if(res.length>=topN)break}
+  return res;
 }
 function ofModel(){
   const row=u=>{const a=AN.get(u.name),v=val(u.name);return a?{u,a,v,e:v*a.mult}:null};
@@ -2118,7 +2137,7 @@ function ofBundleHtml(){
   if(v<15)return'';
   const bad=bv>=v*.5,pool=ofPool().filter(c=>!S.give[c.u.name]);
   const gQ=ge.reduce((a,[n,q])=>a+AN.get(n).q*val(n)*q,0)/v,excl=new Set(ge.map(([n])=>n));
-  const best=ofFind(ofTargets(pool),v,e,bad,pc,excl,3,gQ,5,1).map(r=>({names:r.t.c.map(c=>c.u.name),sum:r.t.v,nom:r.nom,l:r.l}));
+  const best=ofFind(ofTargets(pool),v,e,bad,pc,excl,3,gQ,14,1).map(r=>({names:r.t.c.map(c=>c.u.name),sum:r.t.v,nom:r.nom,l:r.l})).filter(o=>ofSane(S.give,ofObjOf(o.names.map(n=>({n}))))).slice(0,5);
   const list=ge.map(([n,q])=>(q>1?q+'× ':'')+esc(n)).join(' + ');
   return`<div class="adv" style="border-color:var(--g)"><b>Что взять за связку (${pc} шт, ${fmt(v)} 💎)</b><div class="m">${list}</div>${best.map(o=>{OFB.push(o.names);return`<div class="row"><span class="n">${o.names.map(esc).join(' + ')}<div class="m">${o.l} · ${fmt(o.sum)} (${o.nom>=0?'+':''}${Math.round(o.nom*100)}% по цене)</div></span><button class="sm" data-a="ofBun" data-k="${OFB.length-1}">+ Получу</button></div>`}).join('')||'<div class="m">Выгодных вариантов под эту связку нет: торгуйся по цене или держи.</div>'}</div>`;
 }
@@ -2262,6 +2281,7 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(e
 const CHG={
   sg:el=>{S.sg[CU]=el.checked;save();calc();cat();det(CU,1)},
   mk:el=>{S.mk=+el.value||0;save();calc();cat();det(CU,1)},
+  dw:el=>{S.dw=Math.max(0,Math.min(100,+el.value||0));save();rebuild();calc();cat();dwSync();if($('ofr'))ofr();sfx('tap')},
   ofgg:el=>{S.ofgg=Math.max(0,Math.round(+el.value||0));save();ofr()},
   ofg:el=>{S.ofg=Math.max(0,Math.round(+el.value||0));save();ofr()},
   ofBun:el=>{S.ofBun=el.checked?1:0;save();ofr()},
@@ -2278,6 +2298,7 @@ document.addEventListener('change',e=>{
   const c=e.target.dataset?.c;if(c&&CHG[c])CHG[c](e.target);
 });
 document.addEventListener('input',e=>{
+  if(e.target.id==='dw'){dwSync(+e.target.value);return}
   if(e.target.id==='ofq'){ofqRender(e.target.value);return}
   const gSide=e.target.dataset?.g;
   if(gSide){S.gems[gSide]=Math.max(0,Math.round(+e.target.value||0));save();calc();return}
