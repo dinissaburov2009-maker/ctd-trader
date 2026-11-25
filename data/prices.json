@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T07:37:05.963Z",
+ "updated": "2026-11-25T07:59:48.806Z",
  "version": 11,
  "sources": {
   "values": 81,
@@ -223,7 +223,7 @@
     "min": 12000,
     "max": 40000,
     "buyers": 24,
-    "sellers": 50,
+    "sellers": 51,
     "trades7d": 2,
     "topTrades": [
      {
@@ -576,7 +576,7 @@
     "min": 3900,
     "max": 14500,
     "buyers": 103,
-    "sellers": 78,
+    "sellers": 77,
     "trades7d": 10,
     "topTrades": [
      {
@@ -787,7 +787,7 @@
     "median": 6500,
     "min": 3400,
     "max": 12000,
-    "buyers": 107,
+    "buyers": 108,
     "sellers": 126,
     "trades7d": 13,
     "topTrades": [
@@ -1011,8 +1011,8 @@
     "median": 4500,
     "min": 3000,
     "max": 8300,
-    "buyers": 217,
-    "sellers": 220,
+    "buyers": 214,
+    "sellers": 218,
     "trades7d": 21,
     "topTrades": [
      {
@@ -1163,7 +1163,7 @@
     "median": 2300,
     "min": 1400,
     "max": 4700,
-    "buyers": 133,
+    "buyers": 135,
     "sellers": 52,
     "trades7d": 8,
     "topTrades": [
@@ -1499,8 +1499,8 @@
     "median": 3100,
     "min": 2000,
     "max": 6000,
-    "buyers": 204,
-    "sellers": 237,
+    "buyers": 203,
+    "sellers": 236,
     "trades7d": 29,
     "topTrades": [
      {
@@ -1659,8 +1659,8 @@
     "median": 1400,
     "min": 800,
     "max": 3500,
-    "buyers": 152,
-    "sellers": 80,
+    "buyers": 153,
+    "sellers": 81,
     "trades7d": 9,
     "topTrades": [
      {
@@ -2170,8 +2170,8 @@
     "median": 1900,
     "min": 1000,
     "max": 3000,
-    "buyers": 318,
-    "sellers": 281,
+    "buyers": 314,
+    "sellers": 282,
     "trades7d": 28,
     "topTrades": [
      {
@@ -3081,7 +3081,7 @@
     "median": 485,
     "min": 200,
     "max": 800,
-    "buyers": 61,
+    "buyers": 60,
     "sellers": 80,
     "trades7d": 5,
     "topTrades": [
@@ -4035,8 +4035,8 @@
     "median": 250,
     "min": 100,
     "max": 500,
-    "buyers": 115,
-    "sellers": 378,
+    "buyers": 113,
+    "sellers": 377,
     "trades7d": 41,
     "topTrades": [
      {
@@ -4234,7 +4234,7 @@
     "min": 100,
     "max": 450,
     "buyers": 43,
-    "sellers": 228,
+    "sellers": 225,
     "trades7d": 22,
     "topTrades": [
      {
@@ -4576,7 +4576,7 @@
     "min": 80,
     "max": 310,
     "buyers": 35,
-    "sellers": 238,
+    "sellers": 237,
     "trades7d": 19,
     "topTrades": [
      {
@@ -5140,8 +5140,8 @@
     "median": 140,
     "min": 70,
     "max": 300,
-    "buyers": 49,
-    "sellers": 224,
+    "buyers": 47,
+    "sellers": 221,
     "trades7d": 26,
     "topTrades": [
      {
@@ -5327,8 +5327,8 @@
     "median": 126,
     "min": 50,
     "max": 210,
-    "buyers": 71,
-    "sellers": 224,
+    "buyers": 70,
+    "sellers": 222,
     "trades7d": 21,
     "topTrades": [
      {
@@ -5690,9 +5690,9 @@
     "median": 60,
     "min": 30,
     "max": 150,
-    "buyers": 13,
+    "buyers": 14,
     "sellers": 163,
-    "trades7d": 8
+    "trades7d": 9
    },
    "priceHistory": [
     {
@@ -6455,7 +6455,7 @@
     "min": 7,
     "max": 15,
     "buyers": 50,
-    "sellers": 102,
+    "sellers": 101,
     "trades7d": 15,
     "topTrades": [
      {
@@ -6582,7 +6582,7 @@
     "min": 3,
     "max": 10,
     "buyers": 4,
-    "sellers": 27,
+    "sellers": 28,
     "trades7d": 3
    },
    "priceHistory": [
