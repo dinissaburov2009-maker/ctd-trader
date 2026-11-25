@@ -1,10 +1,10 @@
-/* CTD Trader — service worker v8.0.0
-   Network-first (по чистому URL, без ?t=): HTML, manifest, data/prices|history|icons|game-icons.json
+/* CTD Trader — service worker v8.1.0
+   Network-first (по чистому URL, без ?t=): HTML, style.css, app.js, manifest, data/prices|history|icons|game-icons.json
    Остальное (иконки, картинки юнитов): stale-while-revalidate
    Web Share Target: POST ./share-target -> файлы кладутся в кэш 'ctd-share', редирект на ./?share=1 */
-const VERSION = 'ctd-v8.0.0';
+const VERSION = 'ctd-v8.1.0';
 const SHARE_CACHE = 'ctd-share';
-const CORE = ['./', './index.html', './manifest.json', './icon.svg'];
+const CORE = ['./', './index.html', './style.css', './app.js', './manifest.json', './icon.svg'];
 const DATA_FILES = ['prices.json', 'history.json', 'icons.json', 'game-icons.json'];
 
 self.addEventListener('install', (e) => {
@@ -36,6 +36,8 @@ function isFresh(req, url) {
     || (req.headers.get('accept') || '').includes('text/html')
     || url.pathname.endsWith('/')
     || url.pathname.endsWith('.html')
+    || url.pathname.endsWith('/style.css')
+    || url.pathname.endsWith('/app.js')
     || url.pathname.endsWith('/manifest.json')
     || isDataFile(url);
 }
