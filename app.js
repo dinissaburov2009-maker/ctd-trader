@@ -1896,6 +1896,34 @@ function ofCard(o,k){
   const rt=o.get.map(x=>ofTile(x.n,1,x.v)).join('');
   return`<div class="of-card ${/ОЧЕНЬ/.test(o.lvl)?'hot':''}"><div class="of-top"><b class="of-lvl">${o.lvl}</b>${o.g!=null?`<span class="of-pct">${o.g>=0?'+':''}${o.g}% реально</span>`:''}</div><div class="of-flow"><div class="of-side">${gt}</div><div class="of-arr">➜</div><div class="of-side">${rt}</div></div><div class="of-sum">${fmt(o.s)} → <b>${fmt(o.tv)}</b> <span class="m">(${o.nom>=0?'+':''}${o.nom}% по цене)</span></div>${o.why?`<div class="m">${esc(o.why)}</div>`:''}${o.nom>60&&!o.gems?`<div class="m">Шанс небольшой: партнёр отдаёт на ${o.nom}% больше по цене. Попробуй, но не рассчитывай. Если согласится, ты сильно выигрываешь.</div>`:o.nom>15&&!o.gems?`<div class="m">Партнёр теряет около ${o.nom}% по цене: проси, но будь готов сбавить.</div>`:''}<button class="p of-go" data-a="ofTrade" data-k="${k}">В трейд →</button></div>`;
 }
+/* ===== Проверка обмена: я выбираю, кого отдаю, и отдельно, кого мне предлагают ===== */
+function ofqRows(q){
+  const k=nrm(q||''),off=S.ofGet||{};
+  const list=ALL.filter(u=>u.kind==='unit'&&u.value>0&&(!k||nrm(u.name).includes(k))).sort((a,b)=>(k?(nrm(a.name).startsWith(k)?0:1)-(nrm(b.name).startsWith(k)?0:1):0)||b.value-a.value).slice(0,12);
+  return list.map(u=>{const a=AN.get(u.name);return`<div class="row">${imgTag(u,'u')}<span class="n">${esc(u.name)}${off[u.name]?` <span class="qb">×${off[u.name]}</span>`:''}<div class="m">${fmt(val(u.name))} · спрос ${u.demand||0}/10${a?' '+ofTr[a.trend]:''}</div></span><button class="sm" data-a="ofGAdd" data-n="${esc(u.name)}">+</button></div>`}).join('')||'<div class="m">Ничего не найдено.</div>';
+}
+function ofqRender(v){S.ofq=v;const b=$('ofq-res');if(b)b.innerHTML=ofqRows(v)}
+function ofOffObj(){const o={};Object.entries(S.ofGet||{}).forEach(([n,q])=>{if(IDX.has(n)&&q>0)o[n]=q});return o}
+function ofCheckHtml(m,sel){
+  const off=ofOffObj(),offN=Object.values(off).reduce((a,b)=>a+b,0),gg=Math.max(0,Math.round(+S.ofgg||0)),selN=Object.values(sel).reduce((a,b)=>a+b,0);
+  const rows=Object.entries(off).map(([n,q])=>`<div class="row">${imgTag(IDX.get(n),'u')}<span class="n">${esc(n)} <span class="qb">×${q}</span><div class="m">${fmt(val(n))}</div></span><button class="sm" data-a="ofGDec" data-n="${esc(n)}">−</button><button class="sm" data-a="ofGAdd" data-n="${esc(n)}">+</button></div>`).join('');
+  let verdict='';
+  if(offN||gg){
+    if(!selN)verdict='<div class="warn">Выбери выше, кого ты отдаёшь, и я сравню.</div>';
+    else{
+      const T=analyzeTrade(sel,off,0,gg),G=T.G,R=T.R,nom=G.estSum?(R.estSum-G.estSum)/G.estSum*100:0,gap=Math.round(G.adjSum-R.adjSum);
+      const cls=T.rec[0]==='go'?'note':T.rec[0]==='no'?'bad':'warn';
+      const pl=nom>=3?`Партнёр отдаёт на ${Math.round(nom)}% больше по цене: он в минусе, это твой шанс.`:nom<=-3?`Партнёр получает на ${Math.round(-nom)}% больше по цене, чем отдаёт.`:'По цене примерно поровну.';
+      const adv=gap>0?`Чтобы было честно по реальной ценности, проси доплату около ${fmt(gap)} 💎.`:`Запас по реальной ценности: около ${fmt(-gap)} 💎.`;
+      verdict=`<div class="${cls}"><b>${esc(T.rec[1])}</b><div class="m">${esc(T.rec[2])}</div></div>`
+        +`<div class="of-sum">Отдаёшь ${fmt(G.estSum)} → получаешь <b>${fmt(R.estSum)}</b> <span class="m">(${nom>=0?'+':''}${Math.round(nom)}% по цене)</span></div>`
+        +`<div class="m">${pl}</div><div class="m">Реально (спрос, тренд, метки): ${fmt(G.adjSum)} → ${fmt(R.adjSum)} (${T.adjPct>=0?'+':''}${Math.round(T.adjPct)}%) · качество ${G.wQ}→${R.wQ} · спрос ${G.wDem.toFixed(1)}→${R.wDem.toFixed(1)}</div><div class="m">${adv}</div>`
+        +T.notes.map(([k,t])=>`<div class="${k==='bad'?'bad':k==='w'?'warn':'note'}">${esc(t)}</div>`).join('')
+        +`<button class="p of-go" data-a="ofCheckGo">В трейд →</button>`;
+    }
+  }
+  return`<div class="of-h">🧪 Проверка обмена: что мне предлагают</div><div class="m">Выше выбери, кого отдаёшь. Здесь найди и добавь тех, кого предлагает партнёр.</div><div class="ofr-c"><input id="ofq" type="search" placeholder="Найти юнита по названию" value="${esc(S.ofq||'')}" autocomplete="off" style="flex:1"></div><div id="ofq-res">${ofqRows(S.ofq)}</div>${offN?`<div class="of-h">Предлагают (${offN} шт)</div>${rows}`:''}<div class="ofr-c"><span class="lb">Гемы от партнёра</span><input type="number" min="0" inputmode="numeric" data-c="ofgg" value="${gg||''}" placeholder="0" style="width:110px"><button class="sm" data-a="ofGClr">Очистить</button></div>${verdict}`;
+}
 function keepDetails(el,html){
   const key=d=>(d.querySelector('summary')?.textContent||'').replace(/[\d()]/g,'').trim(),st=new Set([...el.querySelectorAll('details')].filter(d=>d.open).map(key));
   el.innerHTML=html;el.querySelectorAll('details').forEach(d=>{if(st.has(key(d)))d.open=true});
@@ -1928,7 +1956,7 @@ function ofr(){
   const singles=`<details class="ofr-d"><summary>🔁 Замены по одному юниту (${sgN})</summary>${sg.map(r=>r.opts.map(o=>card({give:{[r.n]:1},get:[{n:o.n,v:o.v}],s:r.v,tv:o.v,nom:o.nom,lvl:o.lvl,why:o.why})).join('')).join('')||'<div class="m">Выгодных замен по одному нет.</div>'}</details>`;
   const gems=`<details class="ofr-d"><summary>💎 Что взять за гемы</summary><div class="ofr-c"><span class="lb">Гемы на руках</span><input type="number" min="0" inputmode="numeric" data-c="ofg" value="${m.gems||''}" placeholder="сколько гемов" style="width:130px"></div>${m.gemBuy.map(t=>card({gems:Math.round(t.v),give:{},get:[{n:t.n,v:t.v}],s:Math.round(t.v),tv:t.v,nom:0,g:t.g,lvl:'💎 ЗА ГЕМЫ',why:''})).join('')}</details>`;
   const top=`<details class="ofr-d"><summary>🏆 Топ юнитов по классам</summary>${m.top.map(([t,l])=>`<div class="ofr-c"><span class="lb">${t}</span></div>${l.map(ofTopRow).join('')||'<div class="m">—</div>'}`).join('')}</details>`;
-  keepDetails(el,`<h3>Что менять</h3><div class="m">Нажимай на юнитов, которых готов отдать (ещё тап — ещё копия). Ниже покажу, на что их выгодно менять.</div><div class="of-pick">${picks}</div><div class="bar"><button data-a="ofClr">Сбросить выбор</button><button data-a="ofWeak">Выбрать слабых</button></div><label class="sw"><input type="checkbox" data-c="ofBun" ${S.ofBun!==0?'checked':''}> Отдельно показывать связки: столько же юнитов или больше</label>${res}${al}${singles}${gems}${top}<div class="bar"><button class="p" data-a="ofDl">⬇ Заметка</button><button data-a="ofPng">🖼 PNG</button><button data-a="ofCp">📋 Текст</button></div>`);
+  keepDetails(el,`<h3>Что менять</h3><div class="m">Нажимай на юнитов, которых готов отдать (ещё тап — ещё копия). Ниже покажу, на что их выгодно менять.</div><div class="of-pick">${picks}</div><div class="bar"><button data-a="ofClr">Сбросить выбор</button><button data-a="ofWeak">Выбрать слабых</button></div><label class="sw"><input type="checkbox" data-c="ofBun" ${S.ofBun!==0?'checked':''}> Отдельно показывать связки: столько же юнитов или больше</label>${ofCheckHtml(m,sel)}${res}${al}${singles}${gems}${top}<div class="bar"><button class="p" data-a="ofDl">⬇ Заметка</button><button data-a="ofPng">🖼 PNG</button><button data-a="ofCp">📋 Текст</button></div>`);
 }
 function ofReplHtml(GR){
   OFR=[];if(!GR||!GR.list)return'';const pool=ofPool().filter(c=>!S.give[c.u.name]&&!S.get[c.u.name]),rows=[];
@@ -2074,6 +2102,10 @@ const ACT={
   scAdd:el=>{const s=el.dataset.s,nm=$('sc-sel-'+s)?.value;if(!nm||!SC[s])return;SC[s].push({name:nm,qty:1,signed:false,cands:[nm],lowConf:false,edited:true,...(SC.kind==='inv'?{shotIdx:SC.shotIdx}:{})});renderScan();sfx('add')},
   scClearUsr:()=>{USR_IC={size:IC.size||48,items:{}};try{localStorage.removeItem(KUSR)}catch{}buildRefs();renderScan();toast('Память сканера очищена')},
   ofSel:el=>{const m=OFM,n=el.dataset.n,x=m?.ent.find(e=>e.n===n);if(!x)return;const sel=ofSelObj(m.ent),tot=Object.values(sel).reduce((a,b)=>a+b,0);let k=sel[n]||0;if(k>=x.q)k=0;else if(tot>=12){toast('Максимум 12 штук в связке');return}else k++;if(k)sel[n]=k;else delete sel[n];S.ofSel=sel;save();ofr();sfx('tap')},
+  ofGAdd:el=>{const n=el.dataset.n,o=S.ofGet||(S.ofGet={}),tot=Object.values(o).reduce((a,b)=>a+b,0);if(!IDX.has(n))return;if(tot>=12){toast('Максимум 12 штук');return}o[n]=(o[n]||0)+1;save();ofr();sfx('tap')},
+  ofGDec:el=>{const n=el.dataset.n,o=S.ofGet||(S.ofGet={});if(o[n]>1)o[n]--;else delete o[n];save();ofr();sfx('tap')},
+  ofGClr:()=>{S.ofGet={};S.ofgg=0;save();ofr();sfx('tap')},
+  ofCheckGo:()=>{const m=OFM;if(!m)return;const sel=ofSelObj(m.ent),off=ofOffObj();if(!Object.keys(sel).length&&!Object.keys(off).length)return;S.give={...sel};S.get={...off};S.gems={give:0,get:Math.max(0,Math.round(+S.ofgg||0))};save();if($('dl').open)$('dl').close();calc();tab(0);toast('Обмен загружен в трейд');sfx('add')},
   ofClr:()=>{S.ofSel={};save();ofr();sfx('tap')},
   ofWeak:()=>{const m=OFM;if(!m)return;const sel={};let t=0;for(const x of m.ent){if(!ofBad(x.a)||x.v<15)continue;const k=Math.min(x.q,12-t);if(k>0){sel[x.n]=k;t+=k}}S.ofSel=sel;save();ofr();sfx('tap')},
   ofTrade:el=>ofTrade(+el.dataset.k),ofRepl:el=>ofRepl(+el.dataset.k),ofBun:el=>ofBun(+el.dataset.k),ofDl:()=>ofDl(),ofPng:()=>ofPng(),ofCp:()=>ofCp()
@@ -2082,6 +2114,7 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(e
 const CHG={
   sg:el=>{S.sg[CU]=el.checked;save();calc();cat();det(CU,1)},
   mk:el=>{S.mk=+el.value||0;save();calc();cat();det(CU,1)},
+  ofgg:el=>{S.ofgg=Math.max(0,Math.round(+el.value||0));save();ofr()},
   ofg:el=>{S.ofg=Math.max(0,Math.round(+el.value||0));save();ofr()},
   ofBun:el=>{S.ofBun=el.checked?1:0;save();ofr()},
   keep1:el=>{S.keep1=el.checked?1:0;save();invReport()},
@@ -2096,6 +2129,7 @@ document.addEventListener('change',e=>{
   const c=e.target.dataset?.c;if(c&&CHG[c])CHG[c](e.target);
 });
 document.addEventListener('input',e=>{
+  if(e.target.id==='ofq'){ofqRender(e.target.value);return}
   const gSide=e.target.dataset?.g;
   if(gSide){S.gems[gSide]=Math.max(0,Math.round(+e.target.value||0));save();calc();return}
   const scg=e.target.dataset?.scg;
