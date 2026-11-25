@@ -255,3 +255,8 @@ nav button.on{color:var(--g);text-shadow:var(--glow)}nav .ic{width:20px;height:2
   .cmp,.rg,.sgrid,.pk-grid{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important}}
+
+/* подсказки обмена */
+.ofr-i{padding:7px 9px;margin:6px 0;background:rgba(var(--gr),.04);border:1px solid rgba(var(--gr),.22);border-left:3px solid var(--g);border-radius:3px;font-size:12px;line-height:1.5}.ofr-i.bad{border-left-color:var(--r)}
+.ofr-c{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 0;align-items:center}.ofr-c .lb{width:100%;font-size:10px;color:var(--m);text-transform:uppercase;letter-spacing:.06em}.ofr-c .sm{font-size:11px}
+.ofr-o{margin:6px 0 0}.ofr-o>b{font-size:11px}.ofr-d summary{cursor:pointer;padding:8px 0;color:var(--g);font-weight:700}.ofr-d{margin-top:8px}

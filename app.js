@@ -514,11 +514,11 @@ function calc(){
     const rarLine=hasBoth&&(G.bestRank||GR.bestRank||G.maxDps||GR.maxDps)?`<div class="m" style="margin:4px 0">${(G.bestRank||GR.bestRank)?`Редкость: <b>${G.bestRank?'#'+G.bestRank:'—'}</b> (${G.bestExist?sfmt(G.bestExist):'—'}) → <b>${GR.bestRank?'#'+GR.bestRank:'—'}</b> (${GR.bestExist?sfmt(GR.bestExist):'—'})`:''}${(G.maxDps||GR.maxDps)?` · Max DPS: <b>${sfmt(G.maxDps)}</b> → <b>${sfmt(GR.maxDps)}</b>`:''}</div>`:'';
     const balBar=hasBoth?`<div class="bal" title="Белая точка — номинал, голубая — реал. баланс"><i class="bal-c"></i><i class="bal-m bal-raw" style="left:${rawPos.toFixed(1)}%"></i><i class="bal-m bal-adj" style="left:${adjPos.toFixed(1)}%"></i></div><div class="m" style="display:flex;justify-content:space-between;font-size:10px"><span>LOSE</span><span>● номинал · <b style="color:var(--b)">● реал (${adjPct>0?'+':''}${adjPct.toFixed(0)}%)</b></span><span>WIN</span></div>`:'';
 
-    const needAsk=hasBoth&&!un.length&&((g>r*1.05)?(g-r):(isDowngrade&&rec[0]!=='go'?Math.max(0,Math.round(G.adjSum*1.15-GR.adjSum)):0));
+    const needAsk0=hasBoth&&!un.length&&((g>r*1.05)?(g-r):(isDowngrade&&rec[0]!=='go'?Math.max(0,Math.round(G.adjSum*1.15-GR.adjSum)):0)),needAsk=needAsk0||(hasBoth&&!un.length&&rec[0]!=='go'?Math.max(0,Math.round(G.adjSum*1.08-GR.adjSum)):0);
     body=(hasBoth?`<div class="rec ${rec[0]}"><div class="rt"><span>${rec[1]}</span><span class="m" style="color:inherit">баланс ${adjPct>0?'+':''}${adjPct.toFixed(0)}%</span></div><div class="rs">${esc(rec[2])}</div>${quickRepliesHtml(T,g,r)}</div>`:`<div class="note"><b class="tg">[i]</b> Добавь юнитов или гемов на вторую сторону для полной рекомендации.</div>`)
       +balBar+rarLine+`<div class="cmp">${sideBox('Отдаёшь',G)}${sideBox('Получаешь',GR)}</div>`
       +notes.map(x=>`<div class="${x[0]=='ok'?'note':x[0]=='bad'?'bad':'warn'}"><b class="${x[0]=='ok'?'win':x[0]=='bad'?'lose':'tg'}">${x[0]=='ok'?'[+]':x[0]=='bad'?'[✕]':'[!]'}</b> ${esc(x[1])}</div>`).join('')
-      +(needAsk?counterOffer(needAsk,G,GR):'');
+      +(needAsk?counterOffer(needAsk,G,GR):'')+(hasBoth&&rec[0]!=='go'?ofReplHtml(GR):'')+ofBundleHtml();
 
     if(rec[0]==='go'&&lv0!=='go'&&hasBoth){const b=R.getBoundingClientRect();burst(b.left+b.width/2,b.top+30,40);sfx('win')}
     else if(rec[0]==='no'&&lv0!=='no'&&hasBoth)sfx('err');
@@ -1548,8 +1548,8 @@ function pkDec(n){
 
 /* ================= КАТАЛОГ + СРАВНЕНИЕ A vs B + ИЗБРАННОЕ ================= */
 const CT=[['all','Все'],['unit','Юниты'],['bc','Бусты и Кейсы'],['signed','DevSigned']];
-const TGL_=[['','Все'],['fav','★ Избранное'],['hot','Топ спрос'],['up','Растут / Overpaid'],['down','Падают / Неликвид']],
-  TGF={'':()=>1,fav:i=>!!S.fav[i.name],hot:i=>i.demand>=8,up:i=>i.flags.some(f=>/Rising|Overpaid/.test(f)),down:i=>i.flags.some(f=>/Dropping|Unwanted/.test(f))};
+const TGL_=[['','Все'],['fav','★ Избранное'],['hot','Топ спрос'],['up','Растут / Overpaid'],['down','Падают / Неликвид'],['ttn','🗿 Титаны'],['frm','💰 Фарм/саппорт'],['erl','🌱 Ранние'],['gd','💎 Выгодно брать']],
+  TGF={'':()=>1,fav:i=>!!S.fav[i.name],hot:i=>i.demand>=8,up:i=>i.flags.some(f=>/Rising|Overpaid/.test(f)),down:i=>i.flags.some(f=>/Dropping|Unwanted/.test(f)),ttn:i=>i.kind==='unit'&&!isSigned(i)&&/titan/i.test(i.name),frm:i=>/Farm|Spawner|Support/.test(i.role||'')&&!isSigned(i),erl:i=>/^(Common|Uncommon|Rare|Epic|Legendary)$/.test(i.category)&&i.maxDps>0,gd:i=>ofGood(i)};
 $('tg').innerHTML=TGL_.map((t,i)=>`<button data-a="tg" data-g="${t[0]}" class="${i?'':'on'}">${t[1]}</button>`).join('');
 function fillFilters(){
   const inTab=ALL.filter(i=>S.cat=='all'||tabOf(i)==S.cat),cs=[...new Set(inTab.map(i=>i.category))],ss=[...new Set(inTab.flatMap(i=>i.flags))],c0=$('fc').value,s0=$('fs').value;
@@ -1563,11 +1563,11 @@ function fillFilters(){
 const tile=i=>{
   const a=AN.get(i.name),tr=a&&Math.abs(a.trPct)>=12?` <b class="${a.trPct>0?'win':'lose'}">${a.trPct>0?'▲+':'▼'}${a.trPct}%</b>`:'';
   const sel=CMP_MODE&&CMP_LIST.includes(i.name)?'cmps':'';
-  return `<div class="tile r-${esc(i.category)} ${sel}" data-a="catTap" data-n="${esc(i.name)}">${rbadge(i)?`<span class="bdg">${rbadge(i)}</span>`:''}<div class="trp">${a?`<span class="qb ${a.grade[2]}">${a.grade[1]}</span>`:''}${sgOn(i.name)?'<span class="tag">SG</span>':''}<button class="fav ${S.fav[i.name]?'on':''}" data-a="fav" data-n="${esc(i.name)}">${S.fav[i.name]?'★':'☆'}</button></div>${i.img?`<img class="ti" src="${esc(i.img)}" loading="lazy" onerror="this.outerHTML='<div class=\\'ti ph\\'>?</div>'">`:'<div class="ti ph">?</div>'}<b class="tn">${esc(i.name)}</b><div class="tp ${i.value?'':'z'}">${pLbl(i)}</div><i class="db"><i style="width:${i.demand*10}%"></i></i><div class="tf">спрос ${i.demand}/10${tr}<br>${flagHtml(i)}</div></div>`;
+  return `<div class="tile r-${esc(i.category)} ${sel}" data-a="catTap" data-n="${esc(i.name)}">${rbadge(i)?`<span class="bdg">${rbadge(i)}</span>`:''}<div class="trp">${a?`<span class="qb ${a.grade[2]}">${a.grade[1]}</span>`:''}${sgOn(i.name)?'<span class="tag">SG</span>':''}${ofGood(i)?'<span class="tag" title="Спрос высокий, рынок выше списка или растёт">💎</span>':''}<button class="fav ${S.fav[i.name]?'on':''}" data-a="fav" data-n="${esc(i.name)}">${S.fav[i.name]?'★':'☆'}</button></div>${i.img?`<img class="ti" src="${esc(i.img)}" loading="lazy" onerror="this.outerHTML='<div class=\\'ti ph\\'>?</div>'">`:'<div class="ti ph">?</div>'}<b class="tn">${esc(i.name)}</b><div class="tp ${i.value?'':'z'}">${pLbl(i)}</div><i class="db"><i style="width:${i.demand*10}%"></i></i><div class="tf">спрос ${i.demand}/10${tr}<br>${flagHtml(i)}</div></div>`;
 };
 const listRow=i=>{
   const a=AN.get(i.name),sel=CMP_MODE&&CMP_LIST.includes(i.name)?'style="border-color:#fff"':'';
-  return `<div class="li r-${esc(i.category)}" ${sel} data-a="catTap" data-n="${esc(i.name)}">${imgTag(i,'u')}<span class="n"><b>${esc(i.name)}</b> ${a?`<span class="qb ${a.grade[2]}">${a.grade[1]}</span>`:''}${rbadge(i)?` <span class="tag">${rbadge(i)}</span>`:''}<div class="m"><span class="rb">${esc(i.category)}</span> · ${i.demand}/10 · ${flagHtml(i)}${i.maxDps?` · DPS ${fmt(i.maxDps)}`:''}</div></span><button class="fav ${S.fav[i.name]?'on':''}" data-a="fav" data-n="${esc(i.name)}">${S.fav[i.name]?'★':'☆'}</button><b class="v ${i.value?'':'z'}">${pLbl(i)}</b></div>`;
+  return `<div class="li r-${esc(i.category)}" ${sel} data-a="catTap" data-n="${esc(i.name)}">${imgTag(i,'u')}<span class="n"><b>${esc(i.name)}</b> ${a?`<span class="qb ${a.grade[2]}">${a.grade[1]}</span>`:''}${rbadge(i)?` <span class="tag">${rbadge(i)}</span>`:''}${ofGood(i)?' <span class="tag">💎 БРАТЬ</span>':''}<div class="m"><span class="rb">${esc(i.category)}</span> · ${i.demand}/10 · ${flagHtml(i)}${i.maxDps?` · DPS ${fmt(i.maxDps)}`:''}</div></span><button class="fav ${S.fav[i.name]?'on':''}" data-a="fav" data-n="${esc(i.name)}">${S.fav[i.name]?'★':'☆'}</button><b class="v ${i.value?'':'z'}">${pLbl(i)}</b></div>`;
 };
 function cat(){
   const q=$('q').value.toLowerCase(),c=$('fc').value,s=$('fs').value,o=$('so').value,TR=['S','A','B','C','D'],ti=t=>{const k=TR.indexOf(t);return k<0?9:k},cm=x=>x.cashToMax||1e12;
@@ -1705,7 +1705,7 @@ function inv(){
     const rSide=[...Object.entries(h.get||{}).map(e=>e[1]+'× '+e[0]),...(h.getGems?[fmt(h.getGems)+'💎']:[])].join(', ')||'—';
     return `<div class="row" data-a="repHs" data-k="${i}" style="cursor:pointer" title="Загрузить в калькулятор"><span class="n"><div class="m">${new Date(h.d).toLocaleDateString('ru')}</div>${esc(gSide)} → ${esc(rSide)}</span><b class="${h.profit>=0?'win':'lose'}">${h.profit>=0?'+':''}${fmt(h.profit)}</b></div>`;
   }).join('')||'<div class="m">Пусто</div>';
-  invReport();wl();an();cnt();
+  invReport();ofr();wl();an();cnt();
 }
 
 function invReport(){
@@ -1739,6 +1739,198 @@ function invReport(){
   el.innerHTML=`<h3>Отчёт и стратегия обмена</h3><div class="rg">${sbox('Цена портфеля',fmt(tot))}${sbox('Реально ликвидно',fmt(liq))}${sbox('Среднее качество',avgQ+'/100')}${sbox('Проблемные / растущие',Math.round(prob/(tot||1)*100)+'% / '+Math.round(rise/(tot||1)*100)+'%')}</div><label class="sw"><input type="checkbox" data-c="keep1" ${S.keep1?'checked':''}> Не предлагать отдавать последнюю копию ИМБЫ / Фермы / Саппорта</label><div class="cmp"><div class="cmp-b"><b class="h">Срочно сливать</b>${line(sell)}</div><div class="cmp-b"><b class="h">Лучше придержать</b>${line(hold)}</div></div>${flips.length?`<div class="note"><b class="tg">[ФЛИП / АРБИТРАЖ]</b> Сильный разброс между листами: ${flips.join(' · ')}</div>`:''}<b class="m">ГОТОВЫЕ СВЯЗКИ ОБМЕНА</b>${ideas}`;
 }
 function invTrade(k){const it=IDEAS[k];if(!it)return;S.give={...it.give};S.get={[it.t]:1};S.gems={give:0,get:0};save();if($('dl').open)$('dl').close();calc();tab(0);toast('Связка загружена в трейд');sfx('add')}
+/* ================= ПОДСКАЗКИ ОБМЕНА v3: выгода, алерты, контр-оффер, PNG ================= */
+let OFS=[],OFM=null,OFR=[];
+const ofBad=a=>a.trend==='down'||a.grade[0]==='trash'||a.grade[0]==='drop';
+const ofTier={S:4,A:3,B:2,C:1,D:0},ofTr={up:'📈',down:'📉',stable:'➖'};
+function ofGood(i){const a=AN.get(i.name);return!!a&&i.kind==='unit'&&!isSigned(i)&&i.value>0&&(i.demand||0)>=6&&a.trend!=='down'&&(a.mRatio>=1.15||a.mult>=1.12)}
+const ofMk=c=>({n:c.u.name,v:c.v,q:c.a.q,t:c.u.tier||'',dps:c.u.maxDps||0,d:c.u.demand||0,tr:c.a.trend});
+const ofLvl=(nom,real,bad)=>{if(nom<(bad?-.12:-.05)||nom>.15)return'';if(real>=.3)return'🔥 ОЧЕНЬ ВЫГОДНО';if(real>=.12)return'✅ ВЫГОДНО';if(Math.abs(nom)<=.08&&real>=.06)return'🔁 РАВНО, НО ЛУЧШЕ';return''};
+/* Все варианты «получаемой стороны»: 1, 2 или 3 юнита из пула, отсортированы по цене (для бинарного поиска) */
+function ofTargets(pool){
+  const T=[],byQ=[...pool].sort((a,b)=>b.a.q-a.a.q||b.v-a.v),P2=byQ.slice(0,40),P3=byQ.slice(0,22);
+  pool.forEach(c=>T.push({c:[c],v:c.v,e:c.e}));
+  for(let i=0;i<P2.length;i++)for(let j=i+1;j<P2.length;j++)T.push({c:[P2[i],P2[j]],v:P2[i].v+P2[j].v,e:P2[i].e+P2[j].e});
+  for(let i=0;i<P3.length;i++)for(let j=i+1;j<P3.length;j++)for(let k=j+1;k<P3.length;k++)T.push({c:[P3[i],P3[j],P3[k]],v:P3[i].v+P3[j].v+P3[k].v,e:P3[i].e+P3[j].e+P3[k].e});
+  return T.sort((a,b)=>a.v-b.v);
+}
+/* Лучший вариант «что взять» за сумму s (реальная ценность eS). giveN — сколько штук отдаём, excl — имена, которые брать нельзя */
+function ofFind(T,s,eS,bad,giveN,excl,maxN,gQ,topN=1,allow11=0){
+  const lo=s*(bad?.88:.95),hi=s*1.15;let a=0,b=T.length;
+  while(a<b){const m=(a+b)>>1;if(T[m].v<lo)a=m+1;else b=m}
+  const out=[];
+  for(let i=a;i<T.length&&T[i].v<=hi;i++){
+    const t=T[i],n=t.c.length;
+    if(n>maxN||(n===1&&giveN===1&&!allow11))continue;
+    if(t.c.some(c=>excl.has(c.u.name)))continue;
+    const nom=(t.v-s)/s,real=(t.e-eS)/eS,l=ofLvl(nom,real,bad);if(!l)continue;
+    const tq=t.c.reduce((x,c)=>x+c.a.q*c.v,0)/t.v;
+    const sc=real*100+(n<giveN?3*(giveN-n):0)+(tq-gQ)/6;
+    out.push({t,nom,real,l,sc,tq});
+  }
+  return out.sort((x,y)=>y.sc-x.sc).slice(0,topN);
+}
+function ofPool(){
+  return ALL.filter(u=>u.kind==='unit'&&u.category!=='Signed').map(u=>{const a=AN.get(u.name),v=val(u.name);return a&&v>=15?{u,a,v,e:v*a.mult}:null})
+    .filter(c=>c&&(c.u.demand||0)>=4.5&&c.a.trend!=='down'&&!c.u.flags.some(f=>/Dropping|Unwanted/.test(f)));
+}
+function ofOpts(x,pool,n=2){
+  if(x.v<15)return[];
+  const xe=x.v*x.a.mult,bad=ofBad(x.a);
+  const lvl=(nom,real)=>{if(nom<(bad?-.12:-.05)||nom>.15)return'';if(real>=.3)return'🔥 ОЧЕНЬ ВЫГОДНО';if(real>=.12)return'✅ ВЫГОДНО';if(Math.abs(nom)<=.08&&real>=.06)return'🔁 РАВНО, НО ЛУЧШЕ';return''};
+  return pool.filter(c=>c.u.name!==x.n).map(c=>{
+    const nom=(c.v-x.v)/x.v,real=(c.e-xe)/xe,l=lvl(nom,real);if(!l)return null;
+    const why=[],dd=(c.u.demand||0)-(x.u.demand||0),pw=c.u.tier&&x.u.tier?ofTier[c.u.tier]-ofTier[x.u.tier]:0;
+    if(Math.abs(dd)>=1.5)why.push('спрос '+x.u.demand+'→'+c.u.demand);
+    if(c.a.trend!==x.a.trend)why.push(ofTr[x.a.trend]+'→'+ofTr[c.a.trend]);
+    if(pw>0)why.push('сильнее в игре ('+c.u.tier+')');
+    return{...ofMk(c),lvl:l,why:why.join(' · '),nom:Math.round(nom*100),s:real*100+pw*2};
+  }).filter(Boolean).sort((p,q)=>q.s-p.s).slice(0,n);
+}
+function ofAlerts(ent){
+  const out=[],seen=new Set(),names=new Set([...Object.keys(S.inv),S.goal].filter(Boolean)),t0=Date.parse(D.updated||'')||Date.now();
+  [...(D.changelog||[])].sort((x,y)=>String(y.date).localeCompare(String(x.date))).forEach(c=>{
+    if(!names.has(c.name)||seen.has(c.name)||!(c.old>0)||!(c.new>0)||t0-Date.parse(c.date)>3*864e5)return;
+    const p=Math.round((c.new-c.old)/c.old*100);if(Math.abs(p)<7)return;seen.add(c.name);
+    const x=ent.find(e=>e.n===c.name),soft=p<0&&p>-20&&x&&!x.bad&&x.a.grade[0]==='imba';
+    out.push({n:c.name,k:p<0&&!soft?'bad':'ok',t:`${c.name}: ${fmt(c.old)} → ${fmt(c.new)} (${p>0?'+':''}${p}%). ${soft?'Просел, но юнит сильный: следи за ценой.':p<0?'Пора сливать, пока не упал ещё.':'Держи или продавай дороже.'}`});
+  });
+  ent.forEach(x=>{if(seen.has(x.n)||x.v<15||Math.abs(x.a.trPct)<15)return;seen.add(x.n);const p=x.a.trPct;out.push({n:x.n,k:p<0?'bad':'ok',t:`${x.n}: ${p>0?'+':''}${p}% за 14 дней. ${p<0?'Падает, подумай о сливе.':'Растёт, не торопись сливать.'}`})});
+  return out.sort((a,b)=>(a.k==='bad'?0:1)-(b.k==='bad'?0:1)).slice(0,5);
+}
+function ofModel(){
+  const row=u=>{const a=AN.get(u.name),v=val(u.name);return a?{u,a,v,e:v*a.mult}:null};
+  const allT=ALL.filter(u=>u.kind==='unit'&&u.category!=='Signed').map(row).filter(Boolean);
+  const pool=ofPool();
+  const ent=Object.entries(S.inv).map(([n,q])=>{
+    const u=IDX.get(n),a=AN.get(n);if(!u||!a)return null;
+    let v=val(n)||a.est,est=false;
+    if(!v&&isSigned(u)){const b=baseOf(u);if(b&&b.value>0){v=b.value*(1+(S.mk??15)/100);est=true}}
+    return v>0?{n,q,u,a,v,est}:null}).filter(Boolean).sort((x,y)=>y.v*y.q-x.v*x.q).slice(0,30);
+  const items=ent.map(x=>{
+    const bad=ofBad(x.a),tiny=x.v<15;
+    return{n:x.n,q:x.q,v:x.v,est:x.est,sg:sgOn(x.n),grade:x.a.grade[1],gc:x.a.grade[2],tr:x.a.trPct,bad,hold:x.a.grade[0]==='imba'||x.a.trend==='up',tiny,opts:ofOpts(x,pool,2)};
+  });
+  /* Связки из инвентаря: от 1 до 6 штук (с учётом количества копий) → 1, 2 или 3 юнита */
+  const un=ent.filter(x=>x.u.kind==='unit'&&x.v>=15).slice(0,10),T=ofTargets(pool),found=[];
+  const evalCombo=(parts,cnt)=>{
+    const s0=parts.reduce((a,p)=>a+p.x.v*p.k,0),eS=parts.reduce((a,p)=>a+p.x.v*p.k*p.x.a.mult,0);
+    const bad=parts.reduce((a,p)=>a+(ofBad(p.x.a)?p.x.v*p.k:0),0)>=s0*.5;
+    const gQ=parts.reduce((a,p)=>a+p.x.a.q*p.x.v*p.k,0)/s0,excl=new Set(parts.map(p=>p.x.n));
+    const r=ofFind(T,s0,eS,bad,cnt,excl,Math.min(3,Math.max(2,cnt)),gQ)[0];if(!r)return;
+    const give={};parts.forEach(p=>give[p.x.n]=p.k);
+    const gD=parts.reduce((a,p)=>a+(p.x.u.demand||0)*p.x.v*p.k,0)/s0,tD=r.t.c.reduce((a,c)=>a+(c.u.demand||0)*c.v,0)/r.t.v,why=[];
+    if(r.t.c.length<cnt)why.push(cnt+' шт → '+r.t.c.length+': меньше слотов, сильнее юниты');
+    if(Math.abs(tD-gD)>=1)why.push('спрос '+gD.toFixed(1)+'→'+tD.toFixed(1));
+    if(r.tq-gQ>=6)why.push('качество '+Math.round(gQ)+'→'+Math.round(r.tq));
+    found.push({give,giveN:cnt,get:r.t.c.map(c=>({n:c.u.name,v:c.v,tr:c.a.trend})),s:s0,tv:r.t.v,nom:Math.round(r.nom*100),g:Math.round(r.real*100),lvl:r.l,why:why.join(' · '),sc:r.sc});
+  };
+  const rec=(i,parts,cnt)=>{
+    if(i===un.length){if(cnt>=1)evalCombo(parts,cnt);return}
+    rec(i+1,parts,cnt);
+    for(let k=1;k<=un[i].q&&cnt+k<=6;k++)rec(i+1,[...parts,{x:un[i],k}],cnt+k);
+  };
+  rec(0,[],0);
+  found.sort((x,y)=>y.sc-x.sc);
+  const combos=[],usedGet=new Set(),usedGive={};
+  for(const f of found){
+    const gk=f.get.map(g=>g.n).sort().join('|');if(usedGet.has(gk))continue;
+    const names=Object.keys(f.give);if(names.some(n=>(usedGive[n]||0)>=3))continue;
+    usedGet.add(gk);names.forEach(n=>usedGive[n]=(usedGive[n]||0)+1);combos.push(f);if(combos.length>=8)break;
+  }
+  const gems=Math.max(0,Math.round(+S.ofg||0));
+  const gemBuy=gems>0?pool.filter(c=>c.v<=gems&&c.v>=gems*.5&&c.a.mult>=1.05).sort((x,y)=>y.a.mult-x.a.mult||y.a.q-x.a.q).slice(0,3).map(c=>({...ofMk(c),g:Math.round((c.a.mult-1)*100)})):[];
+  const rk=(f,s,n)=>allT.filter(f).sort(s).slice(0,n).map(ofMk),dps=(a,b)=>(b.u.maxDps||0)-(a.u.maxDps||0);
+  const top=[
+    ['⚔ Лучший урон',rk(c=>c.u.maxDps>0&&/Damage/.test(c.u.role||''),dps,6)],
+    ['🗿 Титаны',rk(c=>/titan/i.test(c.u.name)&&c.u.maxDps>0,dps,5)],
+    ['💰 Фарм и саппорт',rk(c=>/Farm|Spawner|Support/.test(c.u.role||'')&&c.v>0,(a,b)=>b.v-a.v,5)],
+    ['🌱 Ранние и дешёвые',rk(c=>/^(Common|Uncommon|Rare|Epic|Legendary)$/.test(c.u.category)&&c.u.maxDps>0,dps,5)],
+    ['💎 Выгодно брать сейчас',rk(c=>ofGood(c.u),(a,b)=>b.a.q-a.a.q||b.v-a.v,6)],
+    ['📈 Ходовые в трейде',rk(c=>c.v>0&&(c.a.trend==='up'||c.a.q>=70),(a,b)=>b.a.q-a.a.q||b.v-a.v,6)]
+  ];
+  return{upd:D.updated||'',items,combos,gems,gemBuy,top,alerts:ofAlerts(ent)};
+}
+const ofTopRow=r=>`<div class="row"><span class="n" data-a="det" data-n="${esc(r.n)}" style="cursor:pointer">${esc(r.n)} ${r.t?`<span class="qb">TIER ${r.t}</span>`:''}<div class="m">${r.dps?'DPS '+fmt(r.dps)+' · ':''}${r.v?fmt(r.v)+' · ':''}спрос ${r.d}/10 ${ofTr[r.tr]}</div></span></div>`;
+const ofAlHtml=a=>`<div class="${a.k==='bad'?'bad':'note'}"><b class="${a.k==='bad'?'lose':'win'}">${a.k==='bad'?'[✕]':'[+]'}</b> ${esc(a.t)}</div>`;
+function ofr(){
+  const el=$('ofr');if(!el)return;OFS=[];const m=OFM=ofModel();
+  const btn=(t,o,x='')=>{OFS.push(o);return`<button class="sm" data-a="ofTrade" data-k="${OFS.length-1}">${esc(t.n)} <span class="m">${fmt(t.v)}</span>${x}</button>`};
+  const items=m.items.slice(0,8).map(r=>{
+    const st=r.bad?'<b class="lose">СЛИВАЙ</b>':r.hold?'<b class="win">ДЕРЖИ</b>':'',tg=(r.sg?`<span class="tag">SG +${S.mk??15}%</span> `:'')+(r.est?'<span class="tag" title="Цены нет: оценка = база + Signed%">~оценка</span> ':'');
+    const body=r.tiny?'<div class="m">Мелочь: не стоит возни.</div>':r.opts.length?r.opts.map(o=>`<div class="ofr-o">${btn(o,{give:{[r.n]:1},t:o.n})} <b>${o.lvl}</b><div class="m">${o.nom>=0?'+':''}${o.nom}% по цене${o.why?' · '+o.why:''}</div></div>`).join(''):'<div class="m">Выгодных замен нет: '+(r.hold?'держи.':'торгуйся по цене.')+'</div>';
+    return`<div class="ofr-i ${r.bad?'bad':''}"><b data-a="det" data-n="${esc(r.n)}" style="cursor:pointer">${r.q>1?r.q+'× ':''}${esc(r.n)}</b> <span class="m">${r.est?'~':''}${fmt(r.v)}</span> <span class="qb ${r.gc}">${r.grade}</span> ${tg}${st}${body}</div>`}).join('')||'<div class="m">Добавь юнитов в инвентарь.</div>';
+  const gTxt=g=>Object.entries(g).map(([n,q])=>(q>1?q+'× ':'')+esc(n)).join(' + ');
+  const combos=m.combos.map(p=>{const gt={};p.get.forEach(x=>gt[x.n]=(gt[x.n]||0)+1);return`<div class="ofr-i"><div>${gTxt(p.give)} <span class="m">${fmt(p.s)}</span></div><div>→ <b>${p.get.map(x=>esc(x.n)).join(' + ')}</b> <span class="m">${fmt(p.tv)}</span> <b class="win">${p.lvl}</b></div><div class="m">${p.nom>=0?'+':''}${p.nom}% по цене · +${p.g}% реальной ценности${p.why?' · '+esc(p.why):''}</div><div class="bar" style="margin:4px 0 0">${btn({n:'В трейд →',v:0},{give:p.give,get:gt}).replace(' <span class="m">0</span>','')}</div></div>`}).join('');
+  const gemsB=`<div class="ofr-c"><span class="lb">💎 Гемы на руках</span><input type="number" min="0" inputmode="numeric" data-c="ofg" value="${m.gems||''}" placeholder="сколько гемов" style="width:130px"></div>${m.gemBuy.map(t=>`<div class="ofr-o">${btn(t,{give:{},gemsGive:Math.round(t.v),t:t.n})} <b class="win">реально дороже цены на ${t.g}%</b></div>`).join('')}`;
+  el.innerHTML=`<h3>Что менять</h3>${m.alerts.map(ofAlHtml).join('')}<div class="m">Только выгодные обмены. «Реальная» ценность учитывает спрос, тренд и флаги, а не только цену. Сила в игре влияет лишь как плюс при прочих равных.</div>${items}${combos?`<h3 style="margin-top:10px">🤝 Связки: несколько юнитов вместе</h3><div class="m">Перебор всех комбинаций из инвентаря (1–6 шт, с учётом копий) → 1–3 юнита.</div>${combos}`:''}${gemsB}<details class="ofr-d"><summary>🏆 Топ юнитов по классам</summary>${m.top.map(([t,l])=>`<div class="ofr-c"><span class="lb">${t}</span></div>${l.map(ofTopRow).join('')||'<div class="m">—</div>'}`).join('')}</details><div class="bar"><button class="p" data-a="ofDl">⬇ Заметка</button><button data-a="ofPng">🖼 PNG</button><button data-a="ofCp">📋 Текст</button></div>`;
+}
+function ofReplHtml(GR){
+  OFR=[];if(!GR||!GR.list)return'';const pool=ofPool().filter(c=>!S.give[c.u.name]&&!S.get[c.u.name]),rows=[];
+  for(const x of GR.list){
+    if(!x.a||!ofBad(x.a)||!(S.get[x.n]>0))continue;const v=val(x.n);if(v<15)continue;
+    const o=ofOpts({n:x.n,u:x.u,a:x.a,v},pool,1)[0];if(!o)continue;
+    OFR.push({from:x.n,to:o.n});
+    rows.push(`<div class="row"><span class="n">Вместо <b>${esc(x.n)}</b> ${ofTr[x.a.trend]} проси <b>${esc(o.n)}</b> <span class="m">${fmt(o.v)}</span><div class="m">${o.lvl}${o.why?' · '+esc(o.why):''}</div></span><button class="sm" data-a="ofRepl" data-k="${OFR.length-1}">Заменить</button></div>`);
+  }
+  return rows.length?`<div class="adv" style="border-color:var(--y)"><b>Замени слабое у партнёра</b>${rows.join('')}</div>`:'';
+}
+let OFB=[];
+function ofBundleHtml(){
+  OFB=[];if(pos(S.get))return'';
+  const ge=Object.entries(S.give).filter(([n,q])=>q>0&&IDX.get(n)&&AN.get(n)&&val(n)>0);
+  if(!ge.length)return'';
+  let v=0,e=0,bv=0,pc=0;ge.forEach(([n,q])=>{const x=val(n)*q;v+=x;e+=x*AN.get(n).mult;pc+=q;if(ofBad(AN.get(n)))bv+=x});
+  if(v<15)return'';
+  const bad=bv>=v*.5,pool=ofPool().filter(c=>!S.give[c.u.name]);
+  const gQ=ge.reduce((a,[n,q])=>a+AN.get(n).q*val(n)*q,0)/v,excl=new Set(ge.map(([n])=>n));
+  const best=ofFind(ofTargets(pool),v,e,bad,pc,excl,3,gQ,5,1).map(r=>({names:r.t.c.map(c=>c.u.name),sum:r.t.v,nom:r.nom,l:r.l}));
+  const list=ge.map(([n,q])=>(q>1?q+'× ':'')+esc(n)).join(' + ');
+  return`<div class="adv" style="border-color:var(--g)"><b>Что взять за связку (${pc} шт, ${fmt(v)} 💎)</b><div class="m">${list}</div>${best.map(o=>{OFB.push(o.names);return`<div class="row"><span class="n">${o.names.map(esc).join(' + ')}<div class="m">${o.l} · ${fmt(o.sum)} (${o.nom>=0?'+':''}${Math.round(o.nom*100)}% по цене)</div></span><button class="sm" data-a="ofBun" data-k="${OFB.length-1}">+ Получу</button></div>`}).join('')||'<div class="m">Выгодных вариантов под эту связку нет: торгуйся по цене или держи.</div>'}</div>`;
+}
+function ofBun(k){const o=OFB[k];if(!o)return;S.get={};o.forEach(n=>S.get[n]=(S.get[n]||0)+1);save();calc();sfx('add')}
+function ofRepl(k){const o=OFR[k];if(!o)return;S.get[o.from]=(S.get[o.from]||1)-1;if(S.get[o.from]<=0)delete S.get[o.from];S.get[o.to]=(S.get[o.to]||0)+1;save();calc();sfx('add')}
+function ofTrade(k){const o=OFS[k];if(!o)return;S.give={...(o.give||{})};S.get=o.get?{...o.get}:o.t?{[o.t]:1}:{};S.gems={give:o.gemsGive||0,get:0};save();if($('dl').open)$('dl').close();calc();tab(0);toast('Предложение загружено в трейд');sfx('add')}
+function ofTxt(m){
+  const L=['CTD TRADER: ЧТО МЕНЯТЬ ('+String(m.upd).slice(0,10)+')',''];
+  m.alerts.forEach(a=>L.push((a.k==='bad'?'[!] ':'[+] ')+a.t));if(m.alerts.length)L.push('');
+  m.items.forEach(r=>{L.push((r.q>1?r.q+'x ':'')+r.n+' ('+(r.est?'~':'')+fmt(r.v)+') '+r.grade+(r.bad?' [СЛИВАЙ]':r.hold?' [ДЕРЖИ]':''));r.opts.forEach(o=>L.push('  '+o.lvl+': '+o.n+' ('+fmt(o.v)+', '+(o.nom>=0?'+':'')+o.nom+'% по цене'+(o.why?'; '+o.why:'')+')'));if(!r.opts.length&&!r.tiny)L.push('  выгодных замен нет')});
+  if(m.combos.length){L.push('','Связки:');m.combos.forEach(p=>L.push('  '+Object.entries(p.give).map(([n,q])=>(q>1?q+'x ':'')+n).join(' + ')+' → '+p.get.map(x=>x.n).join(' + ')+' ('+p.lvl+', +'+p.g+'% реально)'))}
+  if(m.gems)L.push('','Гемы '+fmt(m.gems)+': '+(m.gemBuy.length?m.gemBuy.map(t=>t.n+' ('+fmt(t.v)+')').join(', '):'ничего выгодного'));
+  L.push('');m.top.forEach(([t,l])=>L.push(t+': '+l.map(r=>r.n+(r.dps?' '+fmt(r.dps):'')).join(', ')));
+  return L.join('\n');
+}
+function ofSave(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+function ofDl(){
+  const m=OFM;if(!m)return;
+  const trow=r=>`<div class="t"><b>${esc(r.n)}</b> <small>${r.t?'TIER '+r.t+' · ':''}${r.dps?'DPS '+fmt(r.dps)+' · ':''}${r.v?fmt(r.v)+' · ':''}спрос ${r.d} ${ofTr[r.tr]}</small></div>`;
+  const al=m.alerts.map(a=>`<div class="c ${a.k==='bad'?'b':''}">${a.k==='bad'?'🔔':'📈'} ${esc(a.t)}</div>`).join('');
+  const body=m.items.map(r=>`<div class="c ${r.bad?'b':''}"><b>${r.q>1?r.q+'× ':''}${esc(r.n)}</b> <small>${r.est?'~':''}${fmt(r.v)} · ${r.grade}${r.tr?' · '+(r.tr>0?'+':'')+r.tr+'%':''}</small> ${r.bad?'<em class="r">СЛИВАЙ</em>':r.hold?'<em>ДЕРЖИ</em>':''}${r.opts.map(o=>`<div class="o"><span>${o.lvl}</span><b>${esc(o.n)}</b> <small>${fmt(o.v)} · ${o.nom>=0?'+':''}${o.nom}% по цене${o.why?' · '+esc(o.why):''}</small></div>`).join('')||(r.tiny?'<div class="o"><small>Мелочь</small></div>':'<div class="o"><small>Выгодных замен нет</small></div>')}</div>`).join('');
+  const pr=m.combos.length?'<h2>🤝 Связки</h2>'+m.combos.map(p=>`<div class="c">${Object.entries(p.give).map(([n,q])=>(q>1?q+'× ':'')+esc(n)).join(' + ')} <small>${fmt(p.s)}</small> → <b>${p.get.map(x=>esc(x.n)).join(' + ')}</b> <small>${fmt(p.tv)} · ${p.lvl} · +${p.g}% реальной ценности</small></div>`).join(''):'';
+  const gm=m.gems?`<h2>💎 ${fmt(m.gems)} гемов</h2><div class="c">${m.gemBuy.length?m.gemBuy.map(t=>`<div class="o"><b>${esc(t.n)}</b> <small>${fmt(t.v)} · реально дороже на ${t.g}%</small></div>`).join(''):'<small>Ничего выгодного.</small>'}</div>`:'';
+  const tp='<h2>🏆 Топ юнитов</h2>'+m.top.map(([t,l])=>`<div class="c"><span>${t}</span>${l.map(trow).join('')||'—'}</div>`).join('');
+  const h=`<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CTD: что менять</title><style>body{margin:0;background:#020a05;color:#b6ffd0;font:14px/1.5 ui-monospace,Menlo,monospace}main{max-width:720px;margin:auto;padding:14px}h1{font-size:19px;color:#3dff8a;margin:0}h2{font-size:14px;color:#3dff8a;margin:16px 0 4px}p{color:#6fae86;font-size:12px;margin:2px 0 10px}.c{border:1px solid #1f6b3e;border-left:3px solid #3dff8a;background:#07140d;border-radius:6px;padding:8px 10px;margin:7px 0}.c.b{border-left-color:#ff2e63}.c b{color:#fff}small{color:#6fae86}em{font-style:normal;font-size:11px;padding:1px 6px;border-radius:5px;background:#0f5a2f;color:#8dffbb}em.r{background:#6b1d1d;color:#ffb0b0}.o,.t{margin-top:4px}.o span,.c>span{display:block;font-size:10.5px;color:#6fae86;text-transform:uppercase;letter-spacing:.06em}</style><main><h1>💡 Что менять · CTD Trader</h1><p>Цены от ${esc(String(m.upd).slice(0,10))}. Ориентир, не гарантия: спрос и цены меняются. Реальная ценность = цена с поправкой на спрос, тренд и флаги.</p>${al}${body}${pr}${gm}${tp}</main></html>`;
+  ofSave(new Blob([h],{type:'text/html'}),'ctd-note-'+new Date().toISOString().slice(0,10)+'.html');toast('Заметка скачана');
+}
+function ofPng(){
+  const m=OFM;if(!m)return;
+  const W=1000,P=30,cv=document.createElement('canvas'),cx=cv.getContext('2d'),L=[];
+  const add=(t,c='#b6ffd0',s=24,b=0)=>{cx.font=(b?'700 ':'')+s+'px ui-monospace,Menlo,monospace';let line='';for(const w of String(t).split(' ')){const tt=line?line+' '+w:w;if(cx.measureText(tt).width>W-P*2&&line){L.push({t:line,c,s,b});line='   '+w}else line=tt}L.push({t:line,c,s,b})};
+  add('💡 Что менять · CTD Trader','#3dff8a',36,1);add('Цены от '+String(m.upd).slice(0,10)+' · ориентир, не гарантия','#6fae86',20);L.push({t:'',s:10});
+  m.alerts.forEach(a=>add((a.k==='bad'?'🔔 ':'📈 ')+a.t,a.k==='bad'?'#ff9aa9':'#8dffbb',22));if(m.alerts.length)L.push({t:'',s:10});
+  m.items.slice(0,10).forEach(r=>{add((r.q>1?r.q+'× ':'')+r.n+'  '+(r.est?'~':'')+fmt(r.v)+'  '+r.grade+(r.bad?'  СЛИВАЙ':r.hold?'  ДЕРЖИ':''),r.bad?'#ff9aa9':'#ffffff',26,1);
+    if(r.opts.length)r.opts.forEach(o=>add('   '+o.lvl+': '+o.n+' ('+fmt(o.v)+', '+(o.nom>=0?'+':'')+o.nom+'%'+(o.why?', '+o.why:'')+')','#b6ffd0',21));else add('   выгодных замен нет','#6fae86',20)});
+  if(m.combos.length){L.push({t:'',s:10});add('🤝 Связки','#3dff8a',26,1);m.combos.forEach(p=>add('   '+Object.entries(p.give).map(([n,q])=>(q>1?q+'× ':'')+n).join(' + ')+' → '+p.get.map(x=>x.n).join(' + ')+' (+'+p.g+'%)','#b6ffd0',21))}
+  if(m.gems){L.push({t:'',s:10});add('💎 Гемы '+fmt(m.gems)+': '+(m.gemBuy.length?m.gemBuy.map(t=>t.n+' ('+fmt(t.v)+')').join(', '):'ничего выгодного'),'#b6ffd0',22)}
+  const H=P*2+L.reduce((a,l)=>a+l.s*1.45,0);cv.width=W;cv.height=Math.min(9000,Math.ceil(H));
+  cx.fillStyle='#020a05';cx.fillRect(0,0,W,cv.height);cx.strokeStyle='#1f6b3e';cx.lineWidth=3;cx.strokeRect(6,6,W-12,cv.height-12);cx.textBaseline='top';
+  let y=P;L.forEach(l=>{if(l.t){cx.font=(l.b?'700 ':'')+l.s+'px ui-monospace,Menlo,monospace';cx.fillStyle=l.c;cx.fillText(l.t,P,y)}y+=l.s*1.45});
+  const name='ctd-note-'+new Date().toISOString().slice(0,10)+'.png';
+  cv.toBlob(b=>{if(!b)return toast('Не удалось создать PNG');const f=new File([b],name,{type:'image/png'});
+    if(navigator.canShare?.({files:[f]}))navigator.share({files:[f],title:'CTD: что менять'}).catch(()=>ofSave(b,name));else{ofSave(b,name);toast('PNG скачан')}},'image/png');
+}
+const ofCp=()=>{if(!OFM)return;const t=ofTxt(OFM);(navigator.clipboard?.writeText(t)||Promise.reject()).then(()=>toast('Скопировано'),()=>toast('Не удалось скопировать'))};
+
 const iq=(n,d)=>{S.inv[n]=(S.inv[n]||0)+d;if(S.inv[n]<=0)delete S.inv[n];save();inv()};
 function wl(){
   const g=S.goal&&IDX.get(S.goal),have=Object.entries(S.inv).reduce((a,[n,q])=>a+val(n)*q,0);let h='<h3>Цель</h3>';
@@ -1815,12 +2007,14 @@ const ACT={
   scDel:el=>{const a=SC[el.dataset.s],i=+el.dataset.i;if(!a?.[i])return;const si=a[i].shotIdx??0;a.splice(i,1);SC.hlSide='';SC.hlIdx=-1;scDrawAnn(si);renderScan();sfx('tap')},
   scSg:el=>{const a=SC[el.dataset.s],i=+el.dataset.i;if(!a?.[i])return;a[i].signed=!a[i].signed;renderScan();sfx('tap')},
   scAdd:el=>{const s=el.dataset.s,nm=$('sc-sel-'+s)?.value;if(!nm||!SC[s])return;SC[s].push({name:nm,qty:1,signed:false,cands:[nm],lowConf:false,edited:true,...(SC.kind==='inv'?{shotIdx:SC.shotIdx}:{})});renderScan();sfx('add')},
-  scClearUsr:()=>{USR_IC={size:IC.size||48,items:{}};try{localStorage.removeItem(KUSR)}catch{}buildRefs();renderScan();toast('Память сканера очищена')}
+  scClearUsr:()=>{USR_IC={size:IC.size||48,items:{}};try{localStorage.removeItem(KUSR)}catch{}buildRefs();renderScan();toast('Память сканера очищена')},
+  ofTrade:el=>ofTrade(+el.dataset.k),ofRepl:el=>ofRepl(+el.dataset.k),ofBun:el=>ofBun(+el.dataset.k),ofDl:()=>ofDl(),ofPng:()=>ofPng(),ofCp:()=>ofCp()
 };
 document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(el&&ACT[el.dataset.a])ACT[el.dataset.a](el,e)});
 const CHG={
   sg:el=>{S.sg[CU]=el.checked;save();calc();cat();det(CU,1)},
   mk:el=>{S.mk=+el.value||0;save();calc();cat();det(CU,1)},
+  ofg:el=>{S.ofg=Math.max(0,Math.round(+el.value||0));save();ofr()},
   keep1:el=>{S.keep1=el.checked?1:0;save();invReport()},
   adCmp:el=>{S.adCmp=el.checked?1:0;save();ad()},
   learn:el=>{S.learn=el.checked?1:0;save();toast(S.learn?'Самообучение ВКЛ':'Самообучение ВЫКЛ')}
