@@ -1601,6 +1601,7 @@ async function scPickFiles(fileList,autoDetect=false){
         const sp=splitTradeCircles(all,img.data,img.w,img.h,invP);
         cL=sp.give;cR=sp.get;SC.splitX=sp.splitX;
         modeInfo='Резервный поиск кружков по всему экрану';
+        SC.err='⚠ Панели трейда не найдены, сработал запасной поиск по всему экрану. Результат может быть неверным: проверь каждый слот и тапни по пропущенным юнитам.';
       }
       SC.partnerAccept=detectPartnerAccept(img.data,img.w,img.h,boxes,SC.splitX);
       const[gg,rg]=readTradeGems(img.data,img.w,img.h,boxes);
