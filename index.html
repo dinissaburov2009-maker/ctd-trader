@@ -97,6 +97,8 @@
     <textarea id="io" rows="5" placeholder="JSON профиля"></textarea></div>
   <div class="card"><h3>GitHub Gist</h3><input id="gt" placeholder="Токен (scope: gist)" type="password"><br><br><input id="gi" placeholder="Gist ID">
     <div class="bar"><button data-a="gsave">Сохранить в Gist</button><button data-a="gload">Загрузить из Gist</button></div><div class="m" id="gm"></div></div>
+  <div class="card"><h3>Баланс вердикта</h3><div class="m">Цена ↔ спрос и тренд. 0% — вердикт только по цене (как смотрят большинство игроков). 100% — полный учёт спроса, тренда и качества юнитов.</div>
+    <input type="range" id="dw" data-c="dw" min="0" max="100" step="5" style="width:100%"><div class="m" id="dwv"></div></div>
   <div class="card m"><b>Статусы:</b> Rising — растёт; Stable — стабилен; Dropping — падает; Unwanted — никому не нужен; Underpaid — за него недоплачивают; Overpaid — за него переплачивают; Unstable — скачет. Пометка <b>(gg)</b> — цена подтянута с game.guide; <b>N/A</b> — цены нет ни на одном сайте.<br><br>
   <b>Lite-режим (⚡ в шапке):</b> отключает матричный дождь и тяжёлый blur, чтобы не грузить телефон/планшет при открытом Roblox.<br><br>
   <b>Скан скриншотов v7.1:</b> работает полностью локально в браузере (без VPN) по верхне-боковым 230° колец, родным эталонам <code>game-icons.json</code> + <code>icons.json</code>, 5 кропам с акцентом <code>1.6x</code> на голове, гистограмме <code>3x3</code>, чтению цены <code>$...</code> и гемов <code>💎</code>, статусу <code>Accept</code>, мульти-загрузке инвентаря и самообучению.</div>
