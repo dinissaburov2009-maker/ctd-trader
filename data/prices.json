@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T06:03:19.911Z",
+ "updated": "2026-11-25T06:36:36.421Z",
  "version": 11,
  "sources": {
   "values": 81,
@@ -73,7 +73,7 @@
     "median": 24500,
     "min": 16000,
     "max": 46000,
-    "buyers": 51,
+    "buyers": 52,
     "sellers": 20,
     "trades7d": 2,
     "topTrades": [
@@ -137,6 +137,7 @@
    "maxOnMap": 3,
    "exist": 166,
    "role": "Damage · AOE",
+   "rarityRank": 2,
    "name": "Furnace Large TV Man",
    "category": "Godly",
    "kind": "unit",
@@ -148,8 +149,7 @@
    ],
    "rawStability": "",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/14dd5b61-0e86-4f8b-988f-ab6b021d197f/4f8e8275613691b87b3e921591efe46779693cc995f4836f50b13ae70174a320.webp?w=128",
-   "valueSource": "vaulted",
-   "rarityRank": 2
+   "valueSource": "vaulted"
   },
   {
    "role": "Spawner",
@@ -223,7 +223,7 @@
     "min": 12000,
     "max": 40000,
     "buyers": 24,
-    "sellers": 49,
+    "sellers": 50,
     "trades7d": 2,
     "topTrades": [
      {
@@ -376,8 +376,8 @@
     "median": 16500,
     "min": 7500,
     "max": 25000,
-    "buyers": 104,
-    "sellers": 67,
+    "buyers": 106,
+    "sellers": 68,
     "trades7d": 4,
     "topTrades": [
      {
@@ -788,7 +788,7 @@
     "min": 3400,
     "max": 12000,
     "buyers": 110,
-    "sellers": 124,
+    "sellers": 126,
     "trades7d": 13,
     "topTrades": [
      {
@@ -1011,7 +1011,7 @@
     "median": 4500,
     "min": 3000,
     "max": 8300,
-    "buyers": 220,
+    "buyers": 218,
     "sellers": 221,
     "trades7d": 21,
     "topTrades": [
@@ -1163,7 +1163,7 @@
     "median": 2300,
     "min": 1400,
     "max": 4700,
-    "buyers": 134,
+    "buyers": 132,
     "sellers": 52,
     "trades7d": 8,
     "topTrades": [
@@ -1397,6 +1397,7 @@
    "maxOnMap": 10,
    "exist": 957,
    "role": "Damage · AOE",
+   "rarityRank": 4,
    "name": "Scarecrow Tv Man",
    "category": "Mythic",
    "kind": "unit",
@@ -1408,8 +1409,7 @@
    ],
    "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/18bb5e96-29c9-4e46-8d50-afcf7649ccf0/764ab9b45477acd904c8e703a3c58e1cc66673837b9f40f51a9256b8a2d62536.webp?w=128",
-   "valueSource": "vaulted",
-   "rarityRank": 4
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -1499,8 +1499,8 @@
     "median": 3100,
     "min": 2000,
     "max": 6000,
-    "buyers": 204,
-    "sellers": 239,
+    "buyers": 203,
+    "sellers": 237,
     "trades7d": 29,
     "topTrades": [
      {
@@ -1638,6 +1638,7 @@
    "maxOnMap": 4,
    "exist": 20,
    "role": "Damage · AOE",
+   "rarityRank": 1,
    "name": "Pumkin Large Speakerman",
    "category": "Mythic",
    "kind": "unit",
@@ -1649,8 +1650,7 @@
    ],
    "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/75cfb6fb-5eba-4f4c-9858-21cb709e6afe/95cc79af5b66317cc85646afde1200b8021c37bc05db3b6b92e1d8d0d1b9949b.webp?w=128",
-   "valueSource": "vaulted",
-   "rarityRank": 1
+   "valueSource": "vaulted"
   },
   {
    "description": "Double Coins is a gamepass in Cameraman Tower Defense. It trades for about 1.8K gems, with offers usually between 800 and 3.5K gems. Demand is high and the price is stable.",
@@ -1660,7 +1660,7 @@
     "min": 800,
     "max": 3500,
     "buyers": 152,
-    "sellers": 79,
+    "sellers": 80,
     "trades7d": 9,
     "topTrades": [
      {
@@ -1889,7 +1889,7 @@
     "min": 800,
     "max": 3500,
     "buyers": 95,
-    "sellers": 20,
+    "sellers": 21,
     "trades7d": 2,
     "topTrades": [
      {
@@ -2170,7 +2170,7 @@
     "median": 1900,
     "min": 1000,
     "max": 3000,
-    "buyers": 317,
+    "buyers": 315,
     "sellers": 281,
     "trades7d": 28,
     "topTrades": [
@@ -2304,8 +2304,8 @@
     "median": 1200,
     "min": 650,
     "max": 2300,
-    "buyers": 70,
-    "sellers": 34,
+    "buyers": 71,
+    "sellers": 33,
     "trades7d": 4,
     "topTrades": [
      {
@@ -2849,7 +2849,7 @@
     "min": 200,
     "max": 1000,
     "buyers": 48,
-    "sellers": 264,
+    "sellers": 261,
     "trades7d": 24,
     "topTrades": [
      {
@@ -3081,7 +3081,7 @@
     "median": 485,
     "min": 200,
     "max": 800,
-    "buyers": 62,
+    "buyers": 61,
     "sellers": 79,
     "trades7d": 5,
     "topTrades": [
@@ -3241,7 +3241,7 @@
     "median": 418,
     "min": 200,
     "max": 800,
-    "buyers": 102,
+    "buyers": 103,
     "sellers": 110,
     "trades7d": 7,
     "topTrades": [
@@ -3448,7 +3448,7 @@
     "min": 150,
     "max": 650,
     "buyers": 29,
-    "sellers": 65,
+    "sellers": 64,
     "trades7d": 13,
     "topTrades": [
      {
@@ -3657,8 +3657,8 @@
     "median": 387,
     "min": 200,
     "max": 650,
-    "buyers": 63,
-    "sellers": 159,
+    "buyers": 64,
+    "sellers": 158,
     "trades7d": 18,
     "topTrades": [
      {
@@ -3864,7 +3864,7 @@
     "min": 80,
     "max": 500,
     "buyers": 9,
-    "sellers": 319,
+    "sellers": 321,
     "trades7d": 24,
     "topTrades": [
      {
@@ -4036,7 +4036,7 @@
     "min": 100,
     "max": 500,
     "buyers": 115,
-    "sellers": 374,
+    "sellers": 376,
     "trades7d": 40,
     "topTrades": [
      {
@@ -4234,7 +4234,7 @@
     "min": 100,
     "max": 450,
     "buyers": 43,
-    "sellers": 225,
+    "sellers": 226,
     "trades7d": 22,
     "topTrades": [
      {
@@ -4402,8 +4402,8 @@
     "min": 90,
     "max": 500,
     "buyers": 57,
-    "sellers": 280,
-    "trades7d": 19,
+    "sellers": 281,
+    "trades7d": 18,
     "topTrades": [
      {
       "name": "Glitch Cameraman",
@@ -4742,7 +4742,7 @@
     "median": 177,
     "min": 70,
     "max": 300,
-    "buyers": 284,
+    "buyers": 285,
     "sellers": 129,
     "trades7d": 15,
     "topTrades": [
@@ -4954,7 +4954,7 @@
     "min": 100,
     "max": 385,
     "buyers": 34,
-    "sellers": 181,
+    "sellers": 182,
     "trades7d": 16,
     "topTrades": [
      {
@@ -5142,7 +5142,7 @@
     "max": 300,
     "buyers": 47,
     "sellers": 226,
-    "trades7d": 27,
+    "trades7d": 26,
     "topTrades": [
      {
       "name": "Upgraded Titan Speakerman",
@@ -5251,6 +5251,7 @@
    "maxOnMap": "No cap",
    "exist": 269,
    "role": "Damage",
+   "rarityRank": 3,
    "name": "Musketeer Large Cameraman",
    "category": "Legendary",
    "kind": "unit",
@@ -5262,8 +5263,7 @@
    ],
    "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/ec268299-14e6-46c1-8a26-55476b19ce54/335a32cef0ae8120bb1d535be7d78784a59d3d71de787172c373c611e773a2d3.webp?w=128",
-   "valueSource": "vaulted",
-   "rarityRank": 3
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage · AOE",
@@ -5327,9 +5327,9 @@
     "median": 126,
     "min": 50,
     "max": 210,
-    "buyers": 72,
-    "sellers": 226,
-    "trades7d": 22,
+    "buyers": 71,
+    "sellers": 227,
+    "trades7d": 21,
     "topTrades": [
      {
       "name": "Upgraded Videotapper Prototype",
@@ -5434,6 +5434,7 @@
    "maxOnMap": "No cap",
    "exist": 222054,
    "role": "Damage",
+   "rarityRank": 32,
    "name": "MLG Cameraman",
    "category": "Mythic",
    "kind": "unit",
@@ -5445,8 +5446,7 @@
    ],
    "rawStability": "Dropping",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/66d8cfd1-7eb6-4387-88f7-122e3018674b/approved/0934e29b-3fc1-47fe-850d-ce48b0e2e8ce/16f5b72a798502d232cd44e7f8717d0ab907cb7c7036b786f749c7f19a985209.webp?w=128",
-   "valueSource": "vaulted",
-   "rarityRank": 32
+   "valueSource": "vaulted"
   },
   {
    "description": "Party Crate is a crate in Cameraman Tower Defense. It trades for about 71 gems, with offers usually between 35 and 105 gems. Demand is high and the price is stable.",
@@ -5690,7 +5690,7 @@
     "median": 54,
     "min": 30,
     "max": 150,
-    "buyers": 12,
+    "buyers": 13,
     "sellers": 162,
     "trades7d": 8
    },
@@ -5745,6 +5745,7 @@
    "maxOnMap": 9,
    "exist": 868000,
    "role": "Damage",
+   "rarityRank": 38,
    "name": "Cooker Cameraman",
    "category": "Legendary",
    "kind": "unit",
@@ -5756,8 +5757,7 @@
    ],
    "rawStability": "Unstable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/273d61b5-232e-4348-9503-8161caa392a3/46d6925efe87169dc68be78ad5df81af8f768fbca00b1c26d2cfb20b58605bec.webp?w=128",
-   "valueSource": "vaulted",
-   "rarityRank": 38
+   "valueSource": "vaulted"
   },
   {
    "description": "Halloween Crate is a crate in Cameraman Tower Defense. It trades for about 28 gems, with offers usually between 15 and 75 gems. Demand is low and the price is stable.",
@@ -6160,6 +6160,7 @@
    "maxOnMap": "No cap",
    "exist": 9004626,
    "role": "Damage · AOE",
+   "rarityRank": 55,
    "name": "Villager Speakerman",
    "category": "Epic",
    "kind": "unit",
@@ -6171,8 +6172,7 @@
    ],
    "rawStability": "Stable",
    "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/4524e5c7-118d-4d02-93f5-aa7f498c6856/d2a18a59c00e72c89d171e2951f4b760152283e58f62b22f9a113a0b529c88f4.webp?w=128",
-   "valueSource": "vaulted",
-   "rarityRank": 55
+   "valueSource": "vaulted"
   },
   {
    "role": "Damage",
@@ -6582,7 +6582,7 @@
     "min": 3,
     "max": 10,
     "buyers": 4,
-    "sellers": 28,
+    "sellers": 27,
     "trades7d": 3
    },
    "priceHistory": [
