@@ -685,3 +685,64 @@ table{font-size:13.5px}
 }
 .row{gap:6px}
 .row .sm{min-width:34px;min-height:36px;padding:4px 6px;font-size:14px}
+
+/* ===== v3.25 «Витрина»: глубина, подсветка редкости, график, инвентарь, рынок ===== */
+html{background:radial-gradient(900px 420px at 50% -90px,rgba(var(--gr),.16),transparent 70%) no-repeat fixed,var(--bg)}
+.card{background:linear-gradient(180deg,rgba(var(--gr),.06),transparent 46%),var(--c);box-shadow:0 8px 24px rgba(5,2,20,.35)}
+#hd{background:linear-gradient(180deg,rgba(26,17,64,.98),rgba(14,10,34,.98))}
+nav{background:linear-gradient(0deg,rgba(26,17,64,.98),rgba(14,10,34,.98))}
+h3{font-size:17px}
+
+/* плитки каталога и пикера: подсветка цветом редкости */
+.tile,.pk-tile,.of-pt{background:linear-gradient(180deg,rgba(var(--rr,var(--gr)),.17),rgba(var(--rr,var(--gr)),.03) 62%),var(--c);border-color:rgba(var(--rr,var(--gr)),.55)}
+.tile .ti,.pk-img{filter:drop-shadow(0 6px 12px rgba(var(--rr,var(--gr)),.5))}
+.tile:hover{transform:translateY(-2px)}
+.tile .tn{min-height:2.6em}
+
+/* инвентарь «Что менять»: витрина крупных карточек */
+.of-pick{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px;margin:12px 0}
+.of-pt{gap:6px;padding:16px 8px 12px;border-radius:16px;box-shadow:0 6px 16px rgba(5,2,20,.35);transition:transform .15s,border-color .15s}
+.of-pt:hover{transform:translateY(-2px)}
+.of-pt .of-im{width:76px;height:76px;border:0;border-radius:16px;background:rgba(0,0,0,.25);filter:drop-shadow(0 6px 12px rgba(var(--rr,var(--gr)),.55))}
+.of-pt .of-n{font-size:13.5px;font-weight:600;line-height:1.25;min-height:2.6em}
+.of-pt i{font-size:16px;font-weight:700;color:var(--t)}
+.of-pt .qb{font-size:11px;padding:1px 8px;border-radius:999px}
+.of-pq{top:8px;right:8px;padding:1px 8px;font-size:12px;font-weight:700;border-radius:999px;background:rgba(0,0,0,.6)}
+.of-pt.sel{border-color:#fff;background:linear-gradient(180deg,rgba(var(--rr,var(--gr)),.38),rgba(var(--rr,var(--gr)),.1) 70%),var(--c);box-shadow:0 0 0 2px rgba(255,255,255,.85),0 8px 22px rgba(var(--rr,var(--gr)),.4)}
+.of-h{font-size:15px;margin:20px 0 8px}
+.of-card{padding:16px;background:linear-gradient(180deg,rgba(var(--gr),.08),transparent 60%),var(--c);border-radius:16px}
+.of-side{padding:10px;border-radius:14px}
+.of-im{width:56px;height:56px;border-radius:14px}
+.of-u{width:92px}
+.of-arr{font-size:30px}
+.of-go{min-height:50px;font-size:15px}
+.of-pickbtn{min-height:52px;font-size:15px}
+
+/* график цен */
+.cbox{--b:#5eead4;padding:14px 14px 8px;background:rgba(0,0,0,.28);border-radius:16px}
+.chart{display:block;width:100%;max-width:780px;height:auto;margin:0 auto}
+.chart .ln{stroke-width:2.2;filter:none}
+.chart .gl{stroke:rgba(var(--gr),.1)}
+.chart .ax{font-size:11px;fill:var(--m)}
+.leg{gap:18px;margin:10px 0 4px;font-size:13px}
+.leg i{width:18px;height:4px;border-radius:2px}
+#ctip{min-height:2.2em;font-size:14px;color:var(--t)}
+
+/* рынок: витринные карточки объявлений */
+#mkl .card,.mk-card{padding:18px;border-radius:18px;background:linear-gradient(180deg,rgba(var(--gr),.08),transparent 50%),var(--c)}
+.mk-h{font-size:13.5px;color:var(--m)}
+.mk-col{background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:14px;padding:12px 14px 6px}
+.mk-col h4{display:block;overflow:hidden;font-size:13px;font-weight:600;color:var(--m);text-transform:lowercase}
+.mk-col h4::first-letter{text-transform:uppercase}
+.mk-col h4 b{float:right;font-size:18px;font-weight:700;color:var(--t)}
+.mk-u{min-height:68px;padding:8px 6px;margin:0 -6px;border-radius:12px}
+.mk-i{width:60px;height:60px;border-radius:14px;background:rgba(0,0,0,.28);filter:drop-shadow(0 4px 8px rgba(var(--gr),.35))}
+.mk-u span{font-size:15.5px}
+.mk-u em{font-size:15px;color:var(--t);font-weight:600}
+.mk-u b{padding:1px 7px;border-radius:999px;background:rgba(255,215,106,.14);font-size:13px}
+.mk-v{margin-top:14px;padding:14px 16px;border-radius:14px}
+.mk-v .rt{font-size:17px;font-weight:700}
+.mk-act{margin-top:14px}
+.mk-act>*,.mk-lnk{min-height:50px;font-size:15px}
+.mk-act>button:first-child{background:rgba(var(--gr),.22);border-color:var(--g)}
+@media(max-width:360px){.of-pick{grid-template-columns:repeat(2,1fr)}.of-pt .of-im{width:60px;height:60px}}
