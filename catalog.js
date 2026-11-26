@@ -135,12 +135,21 @@ async function cmpDetailDownload(){
     const X=i=>pad+i*(colW+gap);
     /* лучшие значения итогов (только среди тех, у кого они есть) */
     const bestOf=(f,dir)=>{const v=C.us.map(f),ok=v.filter(x=>x>0);if(ok.length<2)return v.map(()=>0);const b=dir>0?Math.max(...ok):Math.min(...ok);return v.map(x=>x>0&&x===b?1:0)};
-    const tot=[
-      {k:'Прокачка до макс.',v:C.us.map(u=>{const L=lvs[C.us.indexOf(u)];return u.cashToMax||(L?L.reduce((s,l)=>s+(l.cost||0),0):0)}),d:-1},
-      {k:'Max DPS',v:C.us.map(u=>u.maxDps||0),d:1},
-      {k:'DPS / 1K',v:C.us.map(u=>u.dpsPer1k||0),d:1}
-    ];
-    tot.forEach(t=>{t.w=bestOf((u,)=>0,1);const ok=t.v.filter(x=>x>0);t.w=t.v.map(x=>ok.length>1&&x===(t.d>0?Math.max(...ok):Math.min(...ok))?1:0)});
+    const mx=(L,f)=>L?Math.max(0,...L.map(l=>+f(l)||0)):0;
+    const met=(u,L)=>{const t=u.levelsType;
+      if(t==='spawner')return[{k:'Макс. HP',v:mx(L,l=>l.hp),f:fmt,d:1},{k:'DPS спавна',v:mx(L,l=>l.unitDps),f:fmt,d:1}];
+      if(t==='farm'){const m=mx(L,l=>l.income),c=u.cashToMax||(L?L.reduce((q,l)=>q+(l.cost||0),0):0);return[{k:'Макс. доход',v:m,f:fmt,d:1},{k:'Доход / 1K',v:c?m/c*1000:0,f:f2,d:1}]}
+      if(t==='support')return[{k:'Бонус урона',v:mx(L,l=>l.damage),f:v=>'+'+v+'%',d:1},{k:'Бонус КД',v:mx(L,l=>l.cooldown),f:v=>'−'+v+'%',d:1}];
+      return[{k:'Max DPS',v:u.maxDps||mx(L,l=>l.dps),f:fmt,d:1},{k:'DPS / 1K',v:u.dpsPer1k||0,f:f2,d:1}]};
+    const M=C.us.map((u,i)=>met(u,lvs[i]));
+    const tot=[0,1,2].map(r=>{
+      const t={ks:[],v:[],f:[],d:r?1:-1};
+      C.us.forEach((u,i)=>{
+        if(!r){t.ks.push('Прокачка до макс.');t.v.push(u.cashToMax||(lvs[i]?lvs[i].reduce((q,l)=>q+(l.cost||0),0):0));t.f.push(fmt)}
+        else{const m=M[i][r-1];t.ks.push(m.k);t.v.push(m.v);t.f.push(m.f)}
+      });
+      t.w=t.v.map((x,i)=>{const same=t.v.filter((y,j)=>y>0&&t.ks[j]===t.ks[i]);return x>0&&same.length>1&&x===(t.d>0?Math.max(...same):Math.min(...same))?1:0});
+      return t});
     for(let i=0;i<N;i++){
       const u=C.us[i],a=C.as[i],col=CMP_RC[u.category]||'#b983ff',x=X(i),cx=x+colW/2,L=lvs[i];
       /* карточка */
@@ -194,8 +203,8 @@ async function cmpDetailDownload(){
       tot.forEach((t,ri)=>{
         const ry=ty2+ri*52,win=t.w[i],v=t.v[i];
         cmpRR(c,x,ry,colW,46,14);c.fillStyle=win?'rgba(143,240,184,.12)':'rgba(255,255,255,.05)';c.fill();if(win){c.strokeStyle='rgba(143,240,184,.7)';c.lineWidth=1.2;c.stroke()}
-        c.fillStyle='#b7acdc';c.font=F(600,15);c.fillText(t.k,x+16,ry+29);
-        c.textAlign='right';c.fillStyle=win?'#8ff0b8':'#efeaff';c.font=F(800,20);c.fillText((win?'★ ':'')+(v>0?(t.k==='DPS / 1K'?f2(v):fmt(v)):'—'),x+colW-16,ry+30);c.textAlign='left';
+        c.fillStyle='#b7acdc';c.font=F(600,15);c.fillText(t.ks[i],x+16,ry+29);
+        c.textAlign='right';c.fillStyle=win?'#8ff0b8':'#efeaff';c.font=F(800,20);c.fillText((win?'★ ':'')+(v>0?t.f[i](v):'—'),x+colW-16,ry+30);c.textAlign='left';
       });
     }
     c.textAlign='center';c.fillStyle='#6f6597';c.font=F(500,13);c.fillText('CTD Trader  ·  уровни, статы и цены из приложения  ·  ★ — лучший показатель',W/2,H-pad+10);
