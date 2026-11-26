@@ -2306,10 +2306,11 @@ function mkFiltered(){
   else if(MK.sort==='sum')L=[...L].sort((x,y)=>Math.max(y.hv||0,y.wv||0)-Math.max(x.hv||0,x.wv||0));
   return L;
 }
-function mkSide(arr){
+function mkSide(arr,fl){
+  const lb=fl&&fl.length?`<div class="mk-lb" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">${fl.map(f=>`<span class="tag">${esc(f)}</span>`).join('')}</div>`:'';
   return arr.map(([x,q])=>{const n=MK.map[x],u=n&&IDX.get(n),qq=q>1?`<b>×${q}</b>`:'';
     return u?`<div class="mk-u" data-a="det" data-n="${esc(n)}">${imgTag(u,'mk-i')}<span>${esc(n)}</span>${qq}<em>${sfmt(u.value)}</em></div>`
-      :`<div class="mk-u unk" title="Юнит не опознан"><span>? ${esc(MK.names[x]?.n||'юнит #'+x)}</span>${qq}</div>`}).join('')||'<div class="m">— ничего —</div>';
+      :`<div class="mk-u unk" title="Юнит не опознан"><span>? ${esc(MK.names[x]?.n||'юнит #'+x)}</span>${qq}</div>`}).join('')+lb||'<div class="m">— ничего —</div>';
 }
 function mkCard(a){
   const vd=mkVd(a),ht=mkHit(a),fl=[...(a.f||'')].map(c=>MKF[c]).filter(Boolean),sm=v=>v==null?'O/C':sfmt(v);
@@ -2317,7 +2318,7 @@ function mkCard(a){
     :`<div class="m mk-v0">${!a.h.length?'Ничего не отдаёт':!a.w.length?'Ждёт предложений (цену не назвал)':'Вердикт недоступен (юниты не опознаны)'}</div>`;
   const hit=(ht.w.length?`<div class="mk-hit">🎒 Хотят то, что у тебя есть: ${ht.w.map(esc).join(', ')}</div>`:'')+(ht.h.length?`<div class="mk-hit">🎯 Отдают из твоих целей/избранного: ${ht.h.map(esc).join(', ')}</div>`:'');
   return`<div class="card mk-card${ht.any?' mk-mine':''}"><div class="mk-h"><span>${mkAgo(a.t)}</span>${fl.map(f=>`<span class="tag">${f}</span>`).join('')}</div>
-  <div class="mk-cols"><div class="mk-col"><h4><span>ОТДАЁТ</span><b>${sm(a.hv)}</b></h4>${mkSide(a.h)}</div><div class="mk-col"><h4><span>ХОЧЕТ</span><b>${sm(a.wv)}</b></h4>${mkSide(a.w)}</div></div>
+  <div class="mk-cols"><div class="mk-col"><h4><span>ОТДАЁТ</span><b>${sm(a.hv)}</b></h4>${mkSide(a.h)}</div><div class="mk-col"><h4><span>ХОЧЕТ</span><b>${sm(a.wv)}</b></h4>${mkSide(a.w,fl)}</div></div>
   ${vh}${hit}<div class="mk-act"><button class="sm" data-a="mkTake" data-i="${esc(a.i)}">⚖ В калькулятор</button><a class="mk-lnk" href="${MKS}${esc(a.i)}" target="_blank" rel="noopener noreferrer">На сайте ↗</a></div></div>`;
 }
 const mkCh=(act,list,cur)=>list.map(([v,l])=>`<button data-a="${act}" data-v="${v}" class="${cur(v)?'on':''}">${l}</button>`).join('');
