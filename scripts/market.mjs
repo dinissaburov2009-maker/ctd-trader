@@ -1,7 +1,7 @@
 // scripts/market.mjs — CTD Trader «Рынок трейдов», бот v1
 // Источник: https://cameraman-td.vaultedvaluesx.com/trade-ads (публичная страница, без входа).
-// Работает ИНКРЕМЕНТАЛЬНО: каждые ~45 с открывает страницу «Newest», берёт новые объявления сверху,
-// подгружает «Load older trade ads» только пока не упрётся в уже известные id.
+// Работает ИНКРЕМЕНТАЛЬНО: каждые ~30 с открывает страницу (по умолчанию «Newest»), берёт новые объявления с ПЕРВОЙ страницы (20 штук).
+// Подгрузка старых («Load older») идёт через /api/, закрытый в robots.txt, поэтому не используется; старые объявления задним числом не собираем.
 // Пишет в ВЕТКУ `market` (рабочая копия в ./market-data, её готовит workflow market.yml), main не трогает.
 // Не хранит ники, @handle, аватары и комментарии авторов. Только: id, юниты (номер+количество), суммы Value, метки.
 // Файлы в market-data/:
@@ -21,9 +21,11 @@ const env = process.env;
 const URL_ADS = env.MARKET_URL || 'https://cameraman-td.vaultedvaluesx.com/trade-ads';
 const DIR = env.MARKET_DIR || 'market-data';
 const RUN_MIN = +env.MARKET_RUN_MIN || 265; // сколько минут крутится цикл внутри одного запуска
-const INTERVAL_S = +env.MARKET_INTERVAL_S || 45; // пауза между сканами
+const INTERVAL_S = +env.MARKET_INTERVAL_S || 30; // пауза между сканами (первая страница = 20 объявлений, приток ~8/мин, запас большой)
 const FLUSH_MIN = +env.MARKET_FLUSH_MIN || 15; // как часто коммитить и пушить
-const MAX_CLICKS = +env.MARKET_MAX_CLICKS || 30; // максимум «Load older» за один скан (≈600 объявлений)
+// «Load older» и сортировка ходят на /api/trade-ads, а /api/ закрыт в robots.txt сайта -> по умолчанию НЕ нажимаем (0).
+// Бот читает только первую страницу (20 свежих объявлений, она приходит готовой в HTML). Значение >0 только для тестов на своей странице.
+const MAX_CLICKS = +(env.MARKET_MAX_CLICKS ?? 0);
 const INIT_ADS = +env.MARKET_INIT_ADS || 100; // на холодном старте берём только столько
 const STOP_KNOWN = 3; // сколько подряд известных id считаем «дошли до старого»
 const LATEST_KEEP = 2000;
@@ -222,7 +224,7 @@ function bufFor(day, hh) {
 { const n = hourFile(new Date()); bufFor(n.day, n.hh); }
 
 const meta = readJson(P('meta.json'), { started: new Date().toISOString(), scans: 0, added: 0 });
-const stats = { scans: 0, added: 0, errors: 0, empty: 0, noHv: 0, noWv: 0, noUnits: 0, unsided: 0 };
+const stats = { scans: 0, added: 0, errors: 0, empty: 0, noHv: 0, noWv: 0, noUnits: 0, unsided: 0, gaps: 0 };
 
 function toRecord(ad, t) {
   const pair = (u) => { const a = [unitNo(u), u.q]; if (u.t && u.t.length) a.push(u.t.sort().join('')); return a; };
@@ -295,10 +297,6 @@ async function scanOnce(page) {
   await page.waitForSelector('a[href*="/trade-ads/"]', { timeout: 20000 }).catch(() => {});
   await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
 
-  // сортировка «Newest»: если на странице есть такая кнопка — нажимаем (если уже выбрана, ничего не изменится)
-  const sortBtn = page.getByRole('button', { name: /^newest$/i }).first();
-  if (await sortBtn.isVisible().catch(() => false)) { await sortBtn.click({ timeout: 3000 }).catch(() => {}); await sleep(600); }
-
   let res = await page.evaluate(pageExtract);
   const cold = known.size === 0;
   for (let c = 0; c < MAX_CLICKS; c++) {
@@ -314,6 +312,11 @@ async function scanOnce(page) {
     if (!grew) break;
     await sleep(500 + Math.random() * 500);
     res = await page.evaluate(pageExtract);
+  }
+
+  if (known.size > 0 && res.ads.length >= 10 && res.ads.every((a) => !known.has(a.id))) {
+    stats.gaps++;
+    log(`ВНИМАНИЕ: все ${res.ads.length} объявлений на странице новые — возможно, часть пропущена между сканами`);
   }
 
   if (firstScan) {
@@ -395,7 +398,7 @@ async function main() {
     squashIfBig();
 
     const stopAt = Date.now() + RUN_MIN * 60e3;
-    let nextFlush = Date.now() + FLUSH_MIN * 60e3, fails = 0, lastOpen = 0;
+    let nextFlush = Date.now() + FLUSH_MIN * 60e3, fails = 0, lastOpen = 0, lastAdded = 0;
     const finish = (why) => { log('финиш:', why); try { fs.writeFileSync('debug-market-requests.txt', reqLog.join('\n')); } catch {} try { save(lastOpen); gitPush(`market ${new Date().toISOString().slice(0, 16)}Z (final)`); } catch (e) { log('ошибка финиша', e.message); } };
     for (const sig of ['SIGTERM', 'SIGINT']) process.on(sig, () => { finish(sig); process.exit(0); }); // Cancel в GitHub шлёт SIGINT, потом SIGTERM
 
@@ -403,7 +406,7 @@ async function main() {
       const t0 = Date.now();
       try {
         const r = await scanOnce(page);
-        lastOpen = r.open || lastOpen;
+        lastOpen = r.open || lastOpen; lastAdded = r.added;
         stats.scans++;
         if (r.total === 0) fails++; else fails = 0;
         log(`скан: в DOM ${r.total}, новых ${r.added}, открыто на сайте ${r.open || '?'}, всего в latest ${latest.length}` + (stats.noHv ? `, без Has-суммы ${stats.noHv}` : '') + (stats.unsided ? `, без стороны ${stats.unsided}` : ''));
@@ -413,7 +416,8 @@ async function main() {
       if (Date.now() >= nextFlush) { save(lastOpen); gitPush(`market ${new Date().toISOString().slice(0, 16)}Z`); nextFlush = Date.now() + FLUSH_MIN * 60e3; }
       if (fails >= 3 && fails % 3 === 0 && fs.existsSync('debug-market-fail.html')) log(`${fails} пустых/ошибочных сканов подряд — увеличиваю паузу (обход защиты не делаем)`);
       const backoff = Math.min(600, fails * 60);
-      const wait = Math.max(5, INTERVAL_S * (0.8 + Math.random() * 0.4) - (Date.now() - t0) / 1000) + backoff;
+      const busy = lastAdded >= 10 ? 0.67 : 1; // много новых за скан -> чуть чаще, но не быстрее ~20 с
+      const wait = Math.max(15, INTERVAL_S * busy * (0.8 + Math.random() * 0.4) - (Date.now() - t0) / 1000) + backoff;
       await sleep(Math.min(wait * 1000, Math.max(0, stopAt - Date.now())));
     }
     finish('время цикла вышло');
