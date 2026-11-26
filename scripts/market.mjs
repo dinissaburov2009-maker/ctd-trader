@@ -22,7 +22,7 @@ const URL_ADS = env.MARKET_URL || 'https://cameraman-td.vaultedvaluesx.com/trade
 const DIR = env.MARKET_DIR || 'market-data';
 const RUN_MIN = +env.MARKET_RUN_MIN || 265; // сколько минут крутится цикл внутри одного запуска
 const INTERVAL_S = +env.MARKET_INTERVAL_S || 30; // пауза между сканами (первая страница = 20 объявлений, приток ~8/мин, запас большой)
-const FLUSH_MIN = +env.MARKET_FLUSH_MIN || 15; // как часто коммитить и пушить
+const FLUSH_MIN = +env.MARKET_FLUSH_MIN || 2; // как часто коммитить и пушить
 // «Load older» и сортировка ходят на /api/trade-ads, а /api/ закрыт в robots.txt сайта -> по умолчанию НЕ нажимаем (0).
 // Бот читает только первую страницу (20 свежих объявлений, она приходит готовой в HTML). Значение >0 только для тестов на своей странице.
 const MAX_CLICKS = +(env.MARKET_MAX_CLICKS ?? 0);
