@@ -2258,7 +2258,7 @@ function mkPrep(names,ads){MK.names=Array.isArray(names)?names:[];MK.map=MK.name
 async function mkLoad(m){
   if(MK.busy||MK.src!=='live')return;MK.busy=1;MK.err='';if(m&&tabNow===4)mk();
   try{
-    const b='?t='+Math.floor(Date.now()/30000),o={cache:'no-store'},[rn,rl]=await Promise.all([fetch(MKU+'names.json'+b,o),fetch(MKU+'latest.json'+b,o)]);
+    const b='?t='+Math.floor(Date.now()/15000),o={cache:'no-store'},[rn,rl]=await Promise.all([fetch(MKU+'names.json'+b,o),fetch(MKU+'latest.json'+b,o)]);
     if(!rn.ok||!rl.ok)throw new Error('HTTP '+(rl.ok?rn.status:rl.status)+' (репозиторий должен быть публичным, ветка market — существовать)');
     const[nm,ls]=await Promise.all([rn.json(),rl.json()]);
     if(MK.src==='live'){mkPrep(nm,mkClean(ls));MK.at=Date.now()}
@@ -2346,10 +2346,10 @@ function mk(){
   <div class="fg-t">СОРТИРОВКА</div><div class="fchips">${mkCh('mkO',MKSORT,v=>MK.sort===v)}<button data-a="mkMine" class="${MK.mine?'on':''}">🎯 Для меня (${mn})</button></div>
   <div class="bar"><button data-a="mkRef">↻ Обновить</button><button data-a="mkSrc" data-v="live" class="${live?'p':''}">LIVE</button><button data-a="mkSrc" data-v="arch" class="${live?'':'p'}">📦 Архив</button></div>
   ${days?`<div class="fchips sc">${days.length?days.map(d=>`<button data-a="mkDay" data-v="${d}" class="${MK.src===d?'on':''}">${d.slice(5)} (${MK.days[d].length} ч)</button>`).join(''):'<span class="m">Архив пока пуст</span>'}</div>`:''}
-  <div class="m" style="margin-top:6px">Вердикт — если ты берёшь объявление: отдаёшь то, что хочет автор, получаешь то, что он отдаёт. Данные идут с задержкой в 1–5 мин (бот сканирует сайт раз в 30 с, пушит раз в 2 мин, вкладка опрашивает раз в минуту), закрытые объявления не отслеживаются.</div>`;
+  <div class="m" style="margin-top:6px">Вердикт — если ты берёшь объявление: отдаёшь то, что хочет автор, получаешь то, что он отдаёт. Данные идут с задержкой в 1–5 мин (бот сканирует сайт раз в 30 с, пушит раз в минуту, вкладка опрашивает раз в 15 с), закрытые объявления не отслеживаются.</div>`;
   R.innerHTML=L.slice(0,MK.lim).map(mkCard).join('')+(L.length>MK.lim?`<button style="width:100%" data-a="mkMore">Показать ещё (${L.length-MK.lim})</button>`:'')+(!L.length?`<div class="card m">${MK.ads.length?'По фильтрам ничего не найдено.':MK.busy?'Загрузка…':'Нет данных.'}</div>`:'');
 }
-setInterval(()=>{if(tabNow===4&&!document.hidden)mkLoad()},60000);
+setInterval(()=>{if(tabNow===4&&!document.hidden)mkLoad()},15000);
 
 const ACT={
   fcT:el=>{const v=el.dataset.v;if(!v)FCS.clear();else if(FCS.has(v))FCS.delete(v);else FCS.add(v);syncChips();cat();sfx('tap')},
