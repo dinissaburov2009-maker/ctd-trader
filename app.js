@@ -1559,15 +1559,29 @@ function rtmKids(hold,anc){
     up.push({h,key,pay,g,nom:Math.round((c.v-s0)/s0*100),tv:c.v,lvl:'',why:'спрос '+(c.u.demand||0)+'/10 '+ofTr[c.a.trend]+' · качество '+c.a.q});
   }
   const t2=(arr,kind)=>{const f=arr.find(x=>!used.has(x.key));if(f){used.add(f.key);out.push({...f,kind})}};
+  /* падающие юниты не выкидываем: после нерфа цена уже на дне, а подниматься по трейдам как-то надо. Показываем с пометкой «падает», ранжируем по спросу */
+  const dn=[];
+  for(const u of ALL){
+    if(u.kind!=='unit'||isSigned(u)||own.has(u.name))continue;
+    const v=val(u.name),a=AN.get(u.name);if(!a||!(v>s0*1.15)||v>s0*8+500)continue;
+    const fall=a.trend==='down'||u.flags.some(f=>/Dropping|Unwanted/.test(f));if(!fall)continue;
+    const dm=u.demand||0;if(dm<3)continue;
+    const h={[u.name]:1},key=holdKey(h);if(anc.has(key)||used.has(key))continue;
+    const pay=Math.round(v-s0),g=Math.round((v*(a.trPct>=100?a.mult-.12:a.mult)-(E0+pay))/(E0+pay)*100);if(g<-25)continue;
+    dn.push({h,key,pay,g,nom:Math.round((v-s0)/s0*100),tv:v,dm,lvl:'',why:'спрос '+dm+'/10 '+ofTr[a.trend]+' · качество '+a.q+' · падает'});
+  }
+  up.forEach(x=>{x.dm=IDX.get(Object.keys(x.h)[0]).demand||0});
+  t2([...up].sort((a,b)=>b.dm-a.dm||b.g-a.g||a.pay-b.pay),'🔥 Ходовая ступенька');
   t2([...up].sort((a,b)=>b.g-a.g||a.pay-b.pay),'⬆ С доплатой');
   t2([...up].sort((a,b)=>a.pay-b.pay||b.g-a.g),'🪜 Дешёвая ступенька');
+  t2([...dn].sort((a,b)=>b.dm-a.dm||b.g-a.g||a.pay-b.pay),'📉 Падает, но ходовой');
   /* ничего выгодного нет: честно показываем ближайшие слабые ступени вверх */
-  if(!out.length&&s0>=15){
+  if(out.length<2&&s0>=15){
     const wk=[];
     for(const u of ALL){
       if(u.kind!=='unit'||isSigned(u)||own.has(u.name))continue;
       const v=val(u.name),a=AN.get(u.name);if(!a||!(v>s0*1.05)||v>s0*8+500)continue;
-      const h={[u.name]:1},key=holdKey(h);if(anc.has(key))continue;
+      const h={[u.name]:1},key=holdKey(h);if(anc.has(key)||used.has(key))continue;
       const pay=Math.round(v-s0),g=Math.round((v*a.mult-(E0+pay))/(E0+pay)*100);
       wk.push({h,key,pay,g,nom:Math.round((v-s0)/s0*100),tv:v,lvl:'',why:'единственный путь вверх · спрос '+(u.demand||0)+'/10 '+ofTr[a.trend]+' · качество '+a.q+(a.trend==='down'?' · падает':'')});
     }
