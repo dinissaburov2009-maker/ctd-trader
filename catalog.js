@@ -67,32 +67,33 @@ function fillDaily(pts,endDay){if(!pts.length)return[];const out=[],lastT=Math.m
 function series(u){
   const botRaw=(HI.items[u.name]||[]).map(r=>[r[0],r[1]]),today=(D.updated||'').slice(0,10),todayT=today?Math.round(parseDate(today)/864e5)*864e5:0;
   const chg=(D.changelog||[]).filter(c=>nrm(c.name)===nrm(u.name)).sort((a,b)=>parseDate(a.date)-parseDate(b.date));
-  if(chg.length){const t0=parseDate(chg[0].date);if(isFinite(t0)&&chg[0].old>=0)botRaw.push([t0-864e5,chg[0].old]);chg.forEach(c=>botRaw.push([c.date,c.new]))}
+  if(chg.length){const t0=parseDate(chg[0].date);if(isFinite(t0)&&chg[0].old>0)botRaw.push([t0-864e5,chg[0].old]);chg.forEach(c=>botRaw.push([c.date,c.new]))}
   if(today&&u.official>0)botRaw.push([today,u.official]);
   const mkRaw=(u.priceHistory||[]).map(p=>Array.isArray(p)?[p[0],p[1]]:[p.date??p.d??p.t,p.value??p.v??p.price]);
-  return[{k:'vvx',name:'Value (Vaulted)',pts:fillDaily(normSeries(botRaw,chg.length>0),todayT),col:'#ffd76a'},{k:'mkt',name:'Рынок (game.guide)',pts:fillDaily(normSeries(mkRaw,0),todayT),col:'#5eead4'}].filter(s=>s.pts.length);
+  const _all=[{k:'vvx',name:'Value (Vaulted)',pts:fillDaily(normSeries(botRaw,0),todayT),col:'#ffd76a'},{k:'mkt',name:'Рынок (game.guide)',pts:fillDaily(normSeries(mkRaw,0),todayT),col:'#5eead4'}].filter(s=>s.pts.length),_m=_all.find(s=>s.k==='mkt'&&s.pts.length>1);return _m?[_m]:_all.slice(0,1);
 }
 function chart(u){
   const ss=series(u);CHD=null;if(!ss.length)return '<div class="cbox m">Истории цен пока нет.</div>';
-  const host=$('dl'),W=Math.round(Math.max(300,Math.min(900,Math.min(innerWidth,host&&host.clientWidth||innerWidth)-56))),H=W<520?250:310,L=W<520?46:54,R=W-16,T=22,B=H-32,PW=R-L,PH=B-T;
+  const host=$('dl'),W=Math.round(Math.max(300,Math.min(900,Math.min(innerWidth,host&&host.clientWidth||innerWidth)-56))),H=W<520?250:310,R=W-16,T=22,B=H-32,PH=B-T;
   const ts=ss.flatMap(s=>s.pts.map(p=>p[0])),vs=ss.flatMap(s=>s.pts.map(p=>p[1]));
   let t0=Math.min(...ts),t1=Math.max(...ts);const singleT=t0===t1;if(singleT){t0-=864e5;t1+=864e5}
   let v0=Math.min(...vs),v1=Math.max(...vs);const pd=(v1-v0)*.18||v1*.15||10;v0=Math.max(0,v0-pd);v1+=pd;
+  const kf=v=>v>=1000?(+(v/1000).toFixed(v>=100000?0:1)+'K').replace('.',','):String(Math.round(v)),L=Math.max(44,Math.max(...[0,.33,.66,1].map(k=>kf(v0+(v1-v0)*k).length))*7.6+18),PW=R-L;
   const X=t=>singleT?L+PW/2:L+(t-t0)/(t1-t0)*PW,Y=v=>B-(v-v0)/(v1-v0)*PH;CHD={ss,t0,t1,v0,v1,X,Y,L,R,T,B,W,H};
-  const yTicks=[0,.33,.66,1].map(k=>{const v=v0+(v1-v0)*k,y=Y(v).toFixed(1);return `<line class="gl" x1="${L}" x2="${R}" y1="${y}" y2="${y}"/><text class="ax" x="${L-8}" y="${+y+4}" text-anchor="end">${sfmt(v)}</text>`}).join('');
+  const yTicks=[0,.33,.66,1].map(k=>{const v=v0+(v1-v0)*k,y=Y(v).toFixed(1);return `<line class="gl" x1="${L}" x2="${R}" y1="${y}" y2="${y}"/><text class="ax" x="${L-8}" y="${+y+4}" text-anchor="end">${kf(v)}</text>`}).join('');
   const dFmt=t=>new Date(t).toLocaleDateString('ru',{day:'2-digit',month:'2-digit'}),ty=B+22;
   const xTicks=singleT?`<text class="ax" x="${L+PW/2}" y="${ty}" text-anchor="middle">${dFmt(ts[0])}</text>`:`<text class="ax" x="${L}" y="${ty}">${dFmt(t0)}</text><text class="ax" x="${L+PW/2}" y="${ty}" text-anchor="middle">${dFmt((t0+t1)/2)}</text><text class="ax" x="${R}" y="${ty}" text-anchor="end">${dFmt(t1)}</text>`;
   const defs=`<defs>${ss.map(s=>`<linearGradient id="cg-${s.k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${s.col}" stop-opacity=".3"/><stop offset="100%" stop-color="${s.col}" stop-opacity="0"/></linearGradient>`).join('')}</defs>`;
   const body=ss.map(s=>{
     if(s.pts.length===1){const px=+X(s.pts[0][0]).toFixed(1),py=+Y(s.pts[0][1]).toFixed(1),dash=singleT?`<line x1="${L}" x2="${R}" y1="${py}" y2="${py}" stroke="${s.col}" stroke-width="1.5" stroke-dasharray="5 5" opacity=".55"/>`:'',right=px>R-46,tx=right?px-12:px,anc=right?'end':'middle',tyy=right?py+4:Math.max(14,py-12);
-      return `<g style="color:${s.col}">${dash}<circle cx="${px}" cy="${py}" r="11" fill="${s.col}" opacity=".2"/><circle cx="${px}" cy="${py}" r="5" fill="${s.col}"/><text class="ax" x="${tx}" y="${tyy}" fill="${s.col}" text-anchor="${anc}">${sfmt(s.pts[0][1])}</text></g>`}
+      return `<g style="color:${s.col}">${dash}<circle cx="${px}" cy="${py}" r="11" fill="${s.col}" opacity=".2"/><circle cx="${px}" cy="${py}" r="5" fill="${s.col}"/><text class="ax" x="${tx}" y="${tyy}" fill="${s.col}" text-anchor="${anc}">${kf(s.pts[0][1])}</text></g>`}
     const xy=s.pts.map(p=>[X(p[0]).toFixed(1),Y(p[1]).toFixed(1)]),area=`M${xy[0][0]},${B} L${xy.map(p=>p.join(',')).join(' L')} L${xy[xy.length-1][0]},${B} Z`,dots=s.pts.filter(p=>p[2]).map(p=>`<circle cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="3" fill="${s.col}"/>`).join('');
     const mn=s.pts.reduce((a,b)=>b[1]<a[1]?b:a),mx=s.pts.reduce((a,b)=>b[1]>a[1]?b:a);
-    const lbl=(p,below)=>{const px=+X(p[0]),py=+Y(p[1]),e=40,anc=px<L+e?'start':px>R-e?'end':'middle',tx=px<L+e?Math.max(L+2,px):px>R-e?Math.min(R-2,px):px,tyy=below?Math.min(B-5,py+17):Math.max(14,py-10);return `<text class="ax" x="${tx.toFixed(1)}" y="${tyy.toFixed(1)}" fill="${s.col}" text-anchor="${anc}">${sfmt(p[1])}</text>`};
+    const lbl=(p,below)=>{const px=+X(p[0]),py=+Y(p[1]),e=40,anc=px<L+e?'start':px>R-e?'end':'middle',tx=px<L+e?Math.max(L+2,px):px>R-e?Math.min(R-2,px):px,tyy=below?Math.min(B-5,py+17):Math.max(14,py-10);return `<text class="ax" x="${tx.toFixed(1)}" y="${tyy.toFixed(1)}" fill="${s.col}" text-anchor="${anc}">${kf(p[1])}</text>`};
     return `<g style="color:${s.col}"><path d="${area}" fill="url(#cg-${s.k})"/><polyline class="ln" stroke="${s.col}" points="${xy.map(p=>p.join(',')).join(' ')}"/>${dots}${lbl(mx,0)}${mn[0]!==mx[0]?lbl(mn,1):''}</g>`;
   }).join('');
   const stat=ss.map(s=>{const f=s.pts[0][1],l=s.pts[s.pts.length-1][1],pc=f>0?(l-f)/f*100:0,mn=Math.min(...s.pts.map(p=>p[1])),mx=Math.max(...s.pts.map(p=>p[1]));
-    return `<div class="cs" style="--sc:${s.col}"><span class="cs-n"><i></i>${s.name}</span><div class="cs-v"><b>${fmt(l)}</b><em class="${pc>=0?'win':'lose'}">${pc>0?'+':''}${pc.toFixed(0)}%</em></div><small>${sfmt(mn)} – ${sfmt(mx)} · ${s.pts.filter(p=>p[2]).length} изм. / ${s.pts.length} дн.</small></div>`}).join('');
+    return `<div class="cs" style="--sc:${s.col}"><span class="cs-n"><i></i>${s.name}</span><div class="cs-v"><b>${fmt(l)}</b><em class="${pc>=0?'win':'lose'}">${pc>0?'+':''}${pc.toFixed(0)}%</em></div><small>${kf(mn)} – ${kf(mx)} · ${s.pts.filter(p=>p[2]).length} изм. / ${s.pts.length} дн.</small>${s.k==='mkt'&&u.official>0?`<small class="cs-ref">Value на Vaulted сейчас: <b>${fmt(u.official)}</b></small>`:''}</div>`}).join('');
   const dots2=ss.map(s=>`<circle id="cd-${s.k}" r="5.5" fill="${s.col}" stroke="#0d0722" stroke-width="2" opacity="0" cx="0" cy="0"/>`).join('');
   return `<div class="cbox"><div class="cst">${stat}</div><svg class="chart" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${defs}${yTicks}${xTicks}${body}<line id="cur" x1="0" x2="0" y1="${T}" y2="${B}" stroke="#fff" stroke-width="1" stroke-dasharray="3 3" opacity="0"/>${dots2}</svg><div id="ctip" class="m">Проведи или коснись графика — увидишь цену за каждый день</div></div>`;
 }
