@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T18:56:25.277Z",
+ "updated": "2026-11-26T03:20:14.304Z",
  "version": 11,
  "sources": {
   "values": 81,
@@ -68,13 +68,13 @@
    "howToGet": "Exclusive Party Crate",
    "description": "Alliance Cake doesn't attack. At max level it gives units within 20 studs +15% damage, -15% cooldown and +10% range. Placing it and buying all 4 upgrades costs 7,500 cash, and you can have 1 on the map.",
    "levelsType": "support",
-   "about": "Alliance Cake is an Exclusive unit in Cameraman Tower Defense. There are only 4,408 in the game, the 6th rarest of 63 units. It trades for about 24.5K gems, with offers usually between 16K and 46K gems. Demand is very high.",
+   "about": "Alliance Cake is an Exclusive unit in Cameraman Tower Defense. There are only 4,408 in the game, the 6th rarest of 63 units. It trades for about 25.5K gems, with offers usually between 16K and 46K gems. Demand is very high.",
    "market": {
-    "median": 24500,
+    "median": 25500,
     "min": 16000,
     "max": 46000,
-    "buyers": 54,
-    "sellers": 22,
+    "buyers": 56,
+    "sellers": 21,
     "trades7d": 2,
     "topTrades": [
      {
@@ -114,6 +114,10 @@
     {
      "date": "2026-11-24",
      "value": 24500
+    },
+    {
+     "date": "2026-11-25",
+     "value": 25500
     }
    ],
    "name": "Alliance Cake",
@@ -217,7 +221,7 @@
    "howToGet": "Sand Coffin Crate",
    "description": "Pharaoh Cameraman doesn't attack. Every 20s it sends out a Mummy Cameraman with 250,000 health at max level, which has no attack of its own. Placing it and buying all 6 upgrades costs 44,500 cash, and you can have 2 on the map.",
    "levelsType": "spawner",
-   "about": "Pharaoh Cameraman is a Mythic unit in Cameraman Tower Defense. There are only 4,783 in the game, the 7th rarest of 63 units. It trades for about 24.5K gems, with offers usually between 12K and 40K gems. Demand is high.",
+   "about": "Pharaoh Cameraman is a Mythic unit in Cameraman Tower Defense. There are only 4,783 in the game, the 7th rarest of 63 units. It trades for about 24.5K gems, with offers usually between 12K and 40K gems. Demand is medium.",
    "market": {
     "median": 24500,
     "min": 12000,
@@ -296,8 +300,8 @@
    "name": "Pharaoh Cameraman",
    "category": "Mythic",
    "kind": "unit",
-   "value": 22500,
-   "demand": 7.5,
+   "value": 21000,
+   "demand": 5,
    "stability": "Underpaid",
    "flags": [
     "Underpaid"
@@ -385,10 +389,10 @@
    "levelsType": "damage",
    "about": "TV Spider is an Exclusive unit in Cameraman Tower Defense. There are 9,042 in the game. It trades for about 16K gems, with offers usually between 7.5K and 25K gems. Demand is high and the price is stable.",
    "market": {
-    "median": 16500,
+    "median": 16600,
     "min": 7500,
     "max": 25000,
-    "buyers": 94,
+    "buyers": 96,
     "sellers": 67,
     "trades7d": 4,
     "topTrades": [
@@ -582,18 +586,18 @@
    "howToGet": "Exclusive Scientist Crate",
    "description": "Engineer Cameraman doesn't attack. Every 20s it sends out a Laser Car Camera with 100,000 health and 5,000 DPS at max level. Placing it and buying all 5 upgrades costs 29,000 cash, and you can have 3 on the map.",
    "levelsType": "spawner",
-   "about": "Engineer Cameraman is an Exclusive unit in Cameraman Tower Defense. There are only 7,772 in the game, the 9th rarest of 63 units. It trades for about 8.1K gems, with offers usually between 3.9K and 14.5K gems. Demand is very high and the price is stable.",
+   "about": "Engineer Cameraman is an Exclusive unit in Cameraman Tower Defense. There are only 7,772 in the game, the 9th rarest of 63 units. It trades for about 8.2K gems, with offers usually between 3.9K and 14.5K gems. Demand is very high and the price is stable.",
    "market": {
     "median": 8500,
     "min": 3900,
     "max": 14500,
-    "buyers": 102,
-    "sellers": 74,
-    "trades7d": 11,
+    "buyers": 100,
+    "sellers": 76,
+    "trades7d": 12,
     "topTrades": [
      {
       "name": "Hacked Cameraman",
-      "count": 16
+      "count": 17
      },
      {
       "name": "Upgraded Titan TV Man",
@@ -601,7 +605,7 @@
      },
      {
       "name": "Chaos Cameraman",
-      "count": 13
+      "count": 14
      },
      {
       "name": "Titan Cinemaman",
@@ -716,6 +720,10 @@
     {
      "date": "2026-11-24",
      "value": 8100
+    },
+    {
+     "date": "2026-11-25",
+     "value": 8150
     }
    ],
    "name": "Engineer Cameraman",
@@ -794,14 +802,14 @@
    "howToGet": "Exclusive Halloween Crate",
    "description": "Fully upgraded, Chaos Cameraman does 20,000 DPS. Placing it and buying all 5 upgrades costs 31,000 cash, and you can have 5 on the map.",
    "levelsType": "damage",
-   "about": "Chaos Cameraman is a Mythic unit in Cameraman Tower Defense. There are 8,228 in the game. It trades for about 6.8K gems, with offers usually between 3.4K and 12K gems. Demand is high and the price is stable.",
+   "about": "Chaos Cameraman is a Mythic unit in Cameraman Tower Defense. There are 8,228 in the game. It trades for about 6.8K gems, with offers usually between 3.3K and 12K gems. Demand is high and the price is stable.",
    "market": {
     "median": 6600,
-    "min": 3400,
+    "min": 3300,
     "max": 12000,
-    "buyers": 114,
-    "sellers": 125,
-    "trades7d": 14,
+    "buyers": 115,
+    "sellers": 130,
+    "trades7d": 15,
     "topTrades": [
      {
       "name": "Upgraded Titan Cameraman",
@@ -941,7 +949,7 @@
    "name": "Chaos cameraman",
    "category": "Mythic",
    "kind": "unit",
-   "value": 7700,
+   "value": 7500,
    "demand": 8,
    "stability": "Stable",
    "flags": [
@@ -1020,11 +1028,11 @@
    "levelsType": "damage",
    "about": "Upgraded Titan TV Man is a Godly unit in Cameraman Tower Defense. There are 44,468 in the game. It trades for about 4.5K gems, with offers usually between 3K and 8.3K gems. Demand is high.",
    "market": {
-    "median": 4500,
+    "median": 4400,
     "min": 3000,
     "max": 8300,
-    "buyers": 214,
-    "sellers": 222,
+    "buyers": 217,
+    "sellers": 223,
     "trades7d": 24,
     "topTrades": [
      {
@@ -1175,8 +1183,8 @@
     "median": 2300,
     "min": 1400,
     "max": 4700,
-    "buyers": 139,
-    "sellers": 55,
+    "buyers": 135,
+    "sellers": 57,
     "trades7d": 8,
     "topTrades": [
      {
@@ -1284,7 +1292,7 @@
    "name": "executioner tv man",
    "category": "Exclusive",
    "kind": "unit",
-   "value": 3500,
+   "value": 3550,
    "demand": 8.5,
    "stability": "Stable",
    "flags": [
@@ -1298,8 +1306,8 @@
    "name": "2x Turkey Leg",
    "category": "Gamepasses",
    "kind": "boost",
-   "value": 2500,
-   "demand": 7.5,
+   "value": 2600,
+   "demand": 8.5,
    "stability": "Overpaid",
    "flags": [
     "Overpaid"
@@ -1309,118 +1317,25 @@
    "valueSource": "vaulted"
   },
   {
-   "description": "Premium Pass is a gamepass in Cameraman Tower Defense. It trades for about 2.0K gems, with offers usually between 1.3K and 3.4K gems. Demand is high and the price is overpaid.",
-   "about": "Premium Pass is a gamepass in Cameraman Tower Defense. It trades for about 2.0K gems, with offers usually between 1.3K and 3.4K gems. Demand is high and the price is overpaid.",
-   "market": {
-    "median": 2300,
-    "min": 1300,
-    "max": 3400,
-    "buyers": 20,
-    "sellers": 8
-   },
-   "priceHistory": [
-    {
-     "date": "2026-10-25",
-     "value": 2600
-    },
-    {
-     "date": "2026-10-27",
-     "value": 2500
-    },
-    {
-     "date": "2026-10-28",
-     "value": 2400
-    },
-    {
-     "date": "2026-10-29",
-     "value": 2150
-    },
-    {
-     "date": "2026-10-30",
-     "value": 2050
-    },
-    {
-     "date": "2026-10-31",
-     "value": 2000
-    },
-    {
-     "date": "2026-11-01",
-     "value": 1900
-    },
-    {
-     "date": "2026-11-02",
-     "value": 2000
-    },
-    {
-     "date": "2026-11-03",
-     "value": 1650
-    },
-    {
-     "date": "2026-11-05",
-     "value": 1550
-    },
-    {
-     "date": "2026-11-06",
-     "value": 1600
-    },
-    {
-     "date": "2026-11-07",
-     "value": 1550
-    },
-    {
-     "date": "2026-11-08",
-     "value": 1650
-    },
-    {
-     "date": "2026-11-14",
-     "value": 1750
-    },
-    {
-     "date": "2026-11-15",
-     "value": 1750
-    },
-    {
-     "date": "2026-11-16",
-     "value": 1850
-    },
-    {
-     "date": "2026-11-20",
-     "value": 2050
-    }
-   ],
-   "name": "Premium Pass",
-   "category": "Gamepasses",
-   "kind": "boost",
-   "value": 2500,
-   "demand": 8,
-   "stability": "Overpaid",
-   "flags": [
-    "Overpaid"
-   ],
-   "rawStability": "overpaid",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/268f7160-9d16-43a6-a87a-620d11651443/0dfedd52ec00c343861f78ac658297ce13fc5fcfcc8939d8530aa358130a2887.webp?w=128",
-   "valueSource": "vaulted"
-  },
-  {
-   "tier": "A",
-   "maxDps": 3500,
-   "dpsPer1k": 174,
-   "cashToMax": 20100,
-   "maxOnMap": 10,
-   "exist": 957,
+   "tier": "S",
+   "maxDps": 17000,
+   "dpsPer1k": 309,
+   "cashToMax": 55000,
+   "maxOnMap": 4,
+   "exist": 20,
    "role": "Damage · AOE",
-   "rarityRank": 4,
-   "name": "Scarecrow Tv Man",
+   "rarityRank": 1,
+   "name": "Pumkin Large Speakerman",
    "category": "Mythic",
    "kind": "unit",
    "value": 2500,
-   "demand": 4,
+   "demand": 5,
    "stability": "Unstable",
    "flags": [
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/18bb5e96-29c9-4e46-8d50-afcf7649ccf0/764ab9b45477acd904c8e703a3c58e1cc66673837b9f40f51a9256b8a2d62536.webp?w=128",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/75cfb6fb-5eba-4f4c-9858-21cb709e6afe/95cc79af5b66317cc85646afde1200b8021c37bc05db3b6b92e1d8d0d1b9949b.webp?w=128",
    "valueSource": "vaulted"
   },
   {
@@ -1511,9 +1426,9 @@
     "median": 3100,
     "min": 2000,
     "max": 6000,
-    "buyers": 204,
-    "sellers": 245,
-    "trades7d": 27,
+    "buyers": 197,
+    "sellers": 247,
+    "trades7d": 28,
     "topTrades": [
      {
       "name": "Hacked Cameraman",
@@ -1521,7 +1436,7 @@
      },
      {
       "name": "Titan Cinemaman",
-      "count": 10
+      "count": 11
      },
      {
       "name": "Upgraded Brute Prototype",
@@ -1632,7 +1547,7 @@
    "name": "upgraded Titan Cameraman",
    "category": "Godly",
    "kind": "unit",
-   "value": 2400,
+   "value": 2500,
    "demand": 4,
    "stability": "Unstable",
    "flags": [
@@ -1643,25 +1558,25 @@
    "valueSource": "vaulted"
   },
   {
-   "tier": "S",
-   "maxDps": 17000,
-   "dpsPer1k": 309,
-   "cashToMax": 55000,
-   "maxOnMap": 4,
-   "exist": 20,
+   "tier": "A",
+   "maxDps": 3500,
+   "dpsPer1k": 174,
+   "cashToMax": 20100,
+   "maxOnMap": 10,
+   "exist": 957,
    "role": "Damage · AOE",
-   "rarityRank": 1,
-   "name": "Pumkin Large Speakerman",
+   "rarityRank": 4,
+   "name": "Scarecrow Tv Man",
    "category": "Mythic",
    "kind": "unit",
-   "value": 2200,
-   "demand": 2,
+   "value": 2300,
+   "demand": 4,
    "stability": "Unstable",
    "flags": [
     "Unstable"
    ],
    "rawStability": "Unstable",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/75cfb6fb-5eba-4f4c-9858-21cb709e6afe/95cc79af5b66317cc85646afde1200b8021c37bc05db3b6b92e1d8d0d1b9949b.webp?w=128",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/a425777b-a78c-435c-ac5a-21f222a484b2/approved/18bb5e96-29c9-4e46-8d50-afcf7649ccf0/764ab9b45477acd904c8e703a3c58e1cc66673837b9f40f51a9256b8a2d62536.webp?w=128",
    "valueSource": "vaulted"
   },
   {
@@ -1671,8 +1586,8 @@
     "median": 1400,
     "min": 800,
     "max": 3500,
-    "buyers": 147,
-    "sellers": 79,
+    "buyers": 146,
+    "sellers": 81,
     "trades7d": 10,
     "topTrades": [
      {
@@ -1797,6 +1712,104 @@
    "valueSource": "vaulted"
   },
   {
+   "description": "Premium Pass is a gamepass in Cameraman Tower Defense. It trades for about 1.9K gems, with offers usually between 925 and 3.4K gems. Demand is low and the price is unstable.",
+   "about": "Premium Pass is a gamepass in Cameraman Tower Defense. It trades for about 1.9K gems, with offers usually between 925 and 3.4K gems. Demand is low and the price is unstable.",
+   "market": {
+    "median": 2200,
+    "min": 925,
+    "max": 3400,
+    "buyers": 18,
+    "sellers": 8
+   },
+   "priceHistory": [
+    {
+     "date": "2026-10-25",
+     "value": 2600
+    },
+    {
+     "date": "2026-10-27",
+     "value": 2500
+    },
+    {
+     "date": "2026-10-28",
+     "value": 2400
+    },
+    {
+     "date": "2026-10-29",
+     "value": 2150
+    },
+    {
+     "date": "2026-10-30",
+     "value": 2050
+    },
+    {
+     "date": "2026-10-31",
+     "value": 2000
+    },
+    {
+     "date": "2026-11-01",
+     "value": 1900
+    },
+    {
+     "date": "2026-11-02",
+     "value": 2000
+    },
+    {
+     "date": "2026-11-03",
+     "value": 1650
+    },
+    {
+     "date": "2026-11-05",
+     "value": 1550
+    },
+    {
+     "date": "2026-11-06",
+     "value": 1600
+    },
+    {
+     "date": "2026-11-07",
+     "value": 1550
+    },
+    {
+     "date": "2026-11-08",
+     "value": 1650
+    },
+    {
+     "date": "2026-11-14",
+     "value": 1750
+    },
+    {
+     "date": "2026-11-15",
+     "value": 1750
+    },
+    {
+     "date": "2026-11-16",
+     "value": 1850
+    },
+    {
+     "date": "2026-11-20",
+     "value": 2050
+    },
+    {
+     "date": "2026-11-25",
+     "value": 1950
+    }
+   ],
+   "name": "Premium Pass",
+   "category": "Gamepasses",
+   "kind": "boost",
+   "value": 2000,
+   "demand": 2,
+   "stability": "Unstable",
+   "flags": [
+    "Unstable",
+    "Stable"
+   ],
+   "rawStability": "Stable/Fluctuating",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/268f7160-9d16-43a6-a87a-620d11651443/0dfedd52ec00c343861f78ac658297ce13fc5fcfcc8939d8530aa358130a2887.webp?w=128",
+   "valueSource": "vaulted"
+  },
+  {
    "description": "Double Candy is a gamepass in Cameraman Tower Defense. It trades for about 1.7K gems, with offers usually between 800 and 3K gems. Demand is medium and the price is dropping.",
    "about": "Double Candy is a gamepass in Cameraman Tower Defense. It trades for about 1.7K gems, with offers usually between 800 and 3K gems. Demand is medium and the price is dropping.",
    "market": {
@@ -1804,7 +1817,7 @@
     "min": 800,
     "max": 3000,
     "buyers": 1,
-    "sellers": 15
+    "sellers": 13
    },
    "priceHistory": [
     {
@@ -1900,8 +1913,8 @@
     "median": 1600,
     "min": 800,
     "max": 3500,
-    "buyers": 98,
-    "sellers": 23,
+    "buyers": 97,
+    "sellers": 25,
     "trades7d": 2,
     "topTrades": [
      {
@@ -2053,11 +2066,11 @@
    "levelsType": "damage",
    "about": "Baker Titan Speakerman is an Exclusive unit in Cameraman Tower Defense. There are 15,557 in the game. It trades for about 1.4K gems, with offers usually between 1K and 2.4K gems. Demand is low and the price is dropping.",
    "market": {
-    "median": 1800,
+    "median": 1700,
     "min": 1000,
     "max": 2400,
-    "buyers": 48,
-    "sellers": 105,
+    "buyers": 50,
+    "sellers": 98,
     "trades7d": 7,
     "topTrades": [
      {
@@ -2182,9 +2195,9 @@
     "median": 1900,
     "min": 1000,
     "max": 3000,
-    "buyers": 312,
-    "sellers": 286,
-    "trades7d": 27,
+    "buyers": 318,
+    "sellers": 290,
+    "trades7d": 28,
     "topTrades": [
      {
       "name": "Titan Cinemaman",
@@ -2242,6 +2255,10 @@
     {
      "date": "2026-11-24",
      "value": 1900
+    },
+    {
+     "date": "2026-11-25",
+     "value": 1850
     }
    ],
    "name": "Hacked Cameraman",
@@ -2311,14 +2328,14 @@
    "maxRange": 30,
    "description": "Fully upgraded, Reinforced Titan Cameraman does 10,000 DPS. Placing it and buying all 4 upgrades costs 29,000 cash, and you can have 6 on the map.",
    "levelsType": "damage",
-   "about": "Reinforced Titan Cameraman is an Exclusive unit in Cameraman Tower Defense. There are only 3,394 in the game, the 5th rarest of 63 units. It trades for about 1.1K gems, with offers usually between 650 and 2.3K gems. Demand is medium and the price is stable.",
+   "about": "Reinforced Titan Cameraman is an Exclusive unit in Cameraman Tower Defense. There are only 3,394 in the game, the 5th rarest of 63 units. It trades for about 1.1K gems, with offers usually between 500 and 2.3K gems. Demand is medium and the price is stable.",
    "market": {
-    "median": 1200,
-    "min": 650,
+    "median": 1100,
+    "min": 500,
     "max": 2300,
-    "buyers": 77,
-    "sellers": 32,
-    "trades7d": 4,
+    "buyers": 79,
+    "sellers": 34,
+    "trades7d": 5,
     "topTrades": [
      {
       "name": "Reinforced Titan Speakerman",
@@ -2380,14 +2397,14 @@
    "valueSource": "vaulted"
   },
   {
-   "description": "X2 Speed is a gamepass in Cameraman Tower Defense. It trades for about 945 gems, with offers usually between 450 and 2.5K gems. Demand is medium and the price is stable.",
-   "about": "X2 Speed is a gamepass in Cameraman Tower Defense. It trades for about 945 gems, with offers usually between 450 and 2.5K gems. Demand is medium and the price is stable.",
+   "description": "X2 Speed is a gamepass in Cameraman Tower Defense. It trades for about 890 gems, with offers usually between 400 and 1.8K gems. Demand is medium and the price is stable.",
+   "about": "X2 Speed is a gamepass in Cameraman Tower Defense. It trades for about 890 gems, with offers usually between 400 and 1.8K gems. Demand is medium and the price is stable.",
    "market": {
-    "median": 968,
-    "min": 450,
-    "max": 2500,
+    "median": 917,
+    "min": 400,
+    "max": 1800,
     "buyers": 81,
-    "sellers": 54,
+    "sellers": 58,
     "trades7d": 5,
     "topTrades": [
      {
@@ -2520,12 +2537,16 @@
     {
      "date": "2026-11-24",
      "value": 945
+    },
+    {
+     "date": "2026-11-25",
+     "value": 890
     }
    ],
    "name": "2X speed",
    "category": "Gamepasses",
    "kind": "boost",
-   "value": 1050,
+   "value": 900,
    "demand": 5.5,
    "stability": "Stable",
    "flags": [
@@ -2589,14 +2610,14 @@
    "maxRange": 24,
    "description": "Fully upgraded, Reinforced Titan Speakerman does 7,500 DPS. Placing it and buying all 4 upgrades costs 29,000 cash, and you can have 5 on the map.",
    "levelsType": "damage",
-   "about": "Reinforced Titan Speakerman is an Exclusive unit in Cameraman Tower Defense. There are only 5,627 in the game, the 8th rarest of 63 units. It trades for about 695 gems, with offers usually between 300 and 1.4K gems. Demand is low.",
+   "about": "Reinforced Titan Speakerman is an Exclusive unit in Cameraman Tower Defense. There are only 5,627 in the game, the 8th rarest of 63 units. It trades for about 685 gems, with offers usually between 300 and 1.4K gems. Demand is low.",
    "market": {
-    "median": 702,
+    "median": 608,
     "min": 300,
     "max": 1400,
-    "buyers": 70,
-    "sellers": 62,
-    "trades7d": 6,
+    "buyers": 68,
+    "sellers": 59,
+    "trades7d": 7,
     "topTrades": [
      {
       "name": "Glitch Cameraman",
@@ -2670,6 +2691,10 @@
     {
      "date": "2026-11-24",
      "value": 695
+    },
+    {
+     "date": "2026-11-25",
+     "value": 685
     }
    ],
    "name": "Reinforced Titan Speakerman",
@@ -2692,7 +2717,7 @@
     "median": 445,
     "min": 200,
     "max": 900,
-    "buyers": 13,
+    "buyers": 14,
     "sellers": 9
    },
    "priceHistory": [
@@ -2855,13 +2880,13 @@
    "maxRange": 25,
    "description": "Fully upgraded, Prototypes Duo does 5,000 DPS. Placing it and buying all 3 upgrades costs 18,000 cash, and you can have 5 on the map.",
    "levelsType": "damage",
-   "about": "Prototypes Duo is an Exclusive unit in Cameraman Tower Defense. There are 36,156 in the game. It trades for about 515 gems, with offers usually between 200 and 1K gems. Demand is low and the price is dropping.",
+   "about": "Prototypes Duo is an Exclusive unit in Cameraman Tower Defense. There are 36,156 in the game. It trades for about 475 gems, with offers usually between 150 and 850 gems. Demand is low and the price is dropping.",
    "market": {
-    "median": 507,
-    "min": 200,
-    "max": 1000,
+    "median": 479,
+    "min": 150,
+    "max": 850,
     "buyers": 47,
-    "sellers": 271,
+    "sellers": 270,
     "trades7d": 25,
     "topTrades": [
      {
@@ -2948,12 +2973,16 @@
     {
      "date": "2026-11-23",
      "value": 515
+    },
+    {
+     "date": "2026-11-25",
+     "value": 475
     }
    ],
    "name": "Prototype Duo",
    "category": "Exclusive",
    "kind": "unit",
-   "value": 450,
+   "value": 350,
    "demand": 3,
    "stability": "Dropping",
    "flags": [
@@ -2967,12 +2996,12 @@
    "description": "Sand Coffin Crate is a crate in Cameraman Tower Defense. It trades for about 265 gems, with offers usually between 140 and 550 gems. Demand is low and the price is unstable.",
    "about": "Sand Coffin Crate is a crate in Cameraman Tower Defense. It trades for about 265 gems, with offers usually between 140 and 550 gems. Demand is low and the price is unstable.",
    "market": {
-    "median": 235,
+    "median": 225,
     "min": 140,
     "max": 550,
-    "buyers": 17,
-    "sellers": 108,
-    "trades7d": 11,
+    "buyers": 18,
+    "sellers": 109,
+    "trades7d": 12,
     "topTrades": [
      {
       "name": "Titan Cinemaman",
@@ -3044,155 +3073,6 @@
    "valueSource": "vaulted"
   },
   {
-   "role": "Damage",
-   "cashToMax": 10500,
-   "maxOnMap": "No cap",
-   "exist": 22639,
-   "tier": "B",
-   "maxDps": 3000,
-   "dpsPer1k": 286,
-   "levels": [
-    {
-     "level": "Place",
-     "cost": 1000,
-     "damage": 250,
-     "cooldown": 1,
-     "range": 10,
-     "dps": 250
-    },
-    {
-     "level": "Lv 2",
-     "cost": 2000,
-     "damage": 700,
-     "cooldown": 1,
-     "range": 13,
-     "dps": 700
-    },
-    {
-     "level": "Lv 3",
-     "cost": 3000,
-     "damage": 1500,
-     "cooldown": 1,
-     "range": 16,
-     "dps": 1500
-    },
-    {
-     "level": "Lv 4",
-     "cost": 4500,
-     "damage": 3000,
-     "cooldown": 1,
-     "range": 20,
-     "dps": 3000
-    }
-   ],
-   "maxRange": 20,
-   "description": "Fully upgraded, Vampire Cameraman does 3,000 DPS. Placing it and buying all 3 upgrades costs 10,500 cash.",
-   "levelsType": "damage",
-   "about": "Vampire Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 22,639 in the game. It trades for about 465 gems, with offers usually between 200 and 800 gems. Demand is very low and the price is dropping.",
-   "market": {
-    "median": 485,
-    "min": 200,
-    "max": 800,
-    "buyers": 65,
-    "sellers": 75,
-    "trades7d": 4,
-    "topTrades": [
-     {
-      "name": "Headless TV Man",
-      "count": 4
-     },
-     {
-      "name": "Glitch Cameraman",
-      "count": 3
-     },
-     {
-      "name": "Large Scientist Cameraman",
-      "count": 3
-     },
-     {
-      "name": "Upgraded Videotapper Prototype",
-      "count": 3
-     },
-     {
-      "name": "Prototypes Duo",
-      "count": 2
-     }
-    ]
-   },
-   "added": "Update 5 (Nov 4, 2026)",
-   "rarityRank": 10,
-   "priceHistory": [
-    {
-     "date": "2026-11-07",
-     "value": 1950
-    },
-    {
-     "date": "2026-11-08",
-     "value": 1150
-    },
-    {
-     "date": "2026-11-09",
-     "value": 940
-    },
-    {
-     "date": "2026-11-10",
-     "value": 830
-    },
-    {
-     "date": "2026-11-11",
-     "value": 820
-    },
-    {
-     "date": "2026-11-12",
-     "value": 795
-    },
-    {
-     "date": "2026-11-13",
-     "value": 830
-    },
-    {
-     "date": "2026-11-14",
-     "value": 780
-    },
-    {
-     "date": "2026-11-15",
-     "value": 590
-    },
-    {
-     "date": "2026-11-16",
-     "value": 535
-    },
-    {
-     "date": "2026-11-17",
-     "value": 510
-    },
-    {
-     "date": "2026-11-20",
-     "value": 485
-    },
-    {
-     "date": "2026-11-21",
-     "value": 455
-    },
-    {
-     "date": "2026-11-22",
-     "value": 465
-    }
-   ],
-   "name": "Vampire Camera Man",
-   "category": "Exclusive",
-   "kind": "unit",
-   "value": 350,
-   "demand": 1,
-   "stability": "Dropping",
-   "flags": [
-    "Dropping"
-   ],
-   "rawStability": "Dropping",
-   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a9208d25-b17f-42ca-8f3d-3dca80f216c9/d62e23483eb2dfa49c3b4c85c0e73ef7f4d5fb6c6156328a5f75c0bc30f3e310.webp?w=128",
-   "valueSource": "vaulted"
-  },
-  {
    "role": "Damage · AOE",
    "cashToMax": 40000,
    "maxOnMap": 4,
@@ -3250,11 +3130,11 @@
    "levelsType": "damage",
    "about": "Headless TV Man is a Mythic unit in Cameraman Tower Defense. There are 23,344 in the game. It trades for about 405 gems, with offers usually between 200 and 800 gems. Demand is very low.",
    "market": {
-    "median": 423,
+    "median": 414,
     "min": 200,
     "max": 800,
-    "buyers": 107,
-    "sellers": 115,
+    "buyers": 110,
+    "sellers": 110,
     "trades7d": 7,
     "topTrades": [
      {
@@ -3386,6 +3266,159 @@
   },
   {
    "role": "Damage",
+   "cashToMax": 10500,
+   "maxOnMap": "No cap",
+   "exist": 22639,
+   "tier": "B",
+   "maxDps": 3000,
+   "dpsPer1k": 286,
+   "levels": [
+    {
+     "level": "Place",
+     "cost": 1000,
+     "damage": 250,
+     "cooldown": 1,
+     "range": 10,
+     "dps": 250
+    },
+    {
+     "level": "Lv 2",
+     "cost": 2000,
+     "damage": 700,
+     "cooldown": 1,
+     "range": 13,
+     "dps": 700
+    },
+    {
+     "level": "Lv 3",
+     "cost": 3000,
+     "damage": 1500,
+     "cooldown": 1,
+     "range": 16,
+     "dps": 1500
+    },
+    {
+     "level": "Lv 4",
+     "cost": 4500,
+     "damage": 3000,
+     "cooldown": 1,
+     "range": 20,
+     "dps": 3000
+    }
+   ],
+   "maxRange": 20,
+   "description": "Fully upgraded, Vampire Cameraman does 3,000 DPS. Placing it and buying all 3 upgrades costs 10,500 cash.",
+   "levelsType": "damage",
+   "about": "Vampire Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 22,639 in the game. It trades for about 455 gems, with offers usually between 200 and 750 gems. Demand is very low and the price is dropping.",
+   "market": {
+    "median": 470,
+    "min": 200,
+    "max": 750,
+    "buyers": 67,
+    "sellers": 74,
+    "trades7d": 4,
+    "topTrades": [
+     {
+      "name": "Headless TV Man",
+      "count": 4
+     },
+     {
+      "name": "Glitch Cameraman",
+      "count": 3
+     },
+     {
+      "name": "Large Scientist Cameraman",
+      "count": 3
+     },
+     {
+      "name": "Upgraded Videotapper Prototype",
+      "count": 3
+     },
+     {
+      "name": "Prototypes Duo",
+      "count": 2
+     }
+    ]
+   },
+   "added": "Update 5 (Nov 4, 2026)",
+   "rarityRank": 10,
+   "priceHistory": [
+    {
+     "date": "2026-11-07",
+     "value": 1950
+    },
+    {
+     "date": "2026-11-08",
+     "value": 1150
+    },
+    {
+     "date": "2026-11-09",
+     "value": 940
+    },
+    {
+     "date": "2026-11-10",
+     "value": 830
+    },
+    {
+     "date": "2026-11-11",
+     "value": 820
+    },
+    {
+     "date": "2026-11-12",
+     "value": 795
+    },
+    {
+     "date": "2026-11-13",
+     "value": 830
+    },
+    {
+     "date": "2026-11-14",
+     "value": 780
+    },
+    {
+     "date": "2026-11-15",
+     "value": 590
+    },
+    {
+     "date": "2026-11-16",
+     "value": 535
+    },
+    {
+     "date": "2026-11-17",
+     "value": 510
+    },
+    {
+     "date": "2026-11-20",
+     "value": 485
+    },
+    {
+     "date": "2026-11-21",
+     "value": 455
+    },
+    {
+     "date": "2026-11-22",
+     "value": 465
+    },
+    {
+     "date": "2026-11-25",
+     "value": 455
+    }
+   ],
+   "name": "Vampire Camera Man",
+   "category": "Exclusive",
+   "kind": "unit",
+   "value": 300,
+   "demand": 1,
+   "stability": "Dropping",
+   "flags": [
+    "Dropping"
+   ],
+   "rawStability": "Dropping",
+   "img": "https://www.vaultedvaluesx.com/api/media/public/approved/71eba3d7-c384-4549-aa56-1f6b25cc574a/approved/a9208d25-b17f-42ca-8f3d-3dca80f216c9/d62e23483eb2dfa49c3b4c85c0e73ef7f4d5fb6c6156328a5f75c0bc30f3e310.webp?w=128",
+   "valueSource": "vaulted"
+  },
+  {
+   "role": "Damage",
    "cashToMax": 11000,
    "maxOnMap": 8,
    "exist": 34013,
@@ -3456,11 +3489,11 @@
    "levelsType": "damage",
    "about": "Jetpack Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 34,013 in the game. It trades for about 405 gems, with offers usually between 150 and 650 gems. Demand is low and the price is stable.",
    "market": {
-    "median": 401,
+    "median": 396,
     "min": 150,
     "max": 650,
-    "buyers": 32,
-    "sellers": 64,
+    "buyers": 34,
+    "sellers": 62,
     "trades7d": 11,
     "topTrades": [
      {
@@ -3664,14 +3697,14 @@
    "howToGet": "Exclusive Scientist Crate",
    "description": "Fully upgraded, Large Scientist Cameraman does 1,250 DPS. Placing it and buying all 4 upgrades costs 7,200 cash, and you can have 9 on the map. At max level it hits everything in a 120° cone.",
    "levelsType": "damage",
-   "about": "Large Scientist Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 33,870 in the game. It trades for about 410 gems, with offers usually between 200 and 650 gems. Demand is low and the price is unstable.",
+   "about": "Large Scientist Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 33,870 in the game. It trades for about 405 gems, with offers usually between 150 and 650 gems. Demand is low and the price is unstable.",
    "market": {
-    "median": 399,
-    "min": 200,
+    "median": 380,
+    "min": 150,
     "max": 650,
-    "buyers": 64,
+    "buyers": 63,
     "sellers": 154,
-    "trades7d": 18,
+    "trades7d": 19,
     "topTrades": [
      {
       "name": "Glitch Cameraman",
@@ -3810,6 +3843,10 @@
     {
      "date": "2026-11-24",
      "value": 410
+    },
+    {
+     "date": "2026-11-25",
+     "value": 405
     }
    ],
    "name": "Large Scientist Cameraman",
@@ -3872,10 +3909,10 @@
    "levelsType": "damage",
    "about": "Camera Attack Helicopter is a Mythic unit in Cameraman Tower Defense. There are 103,305 in the game. It trades for about 235 gems, with offers usually between 80 and 500 gems. Demand is low and the price is unstable.",
    "market": {
-    "median": 176,
+    "median": 170,
     "min": 80,
     "max": 500,
-    "buyers": 11,
+    "buyers": 10,
     "sellers": 321,
     "trades7d": 25,
     "topTrades": [
@@ -4048,10 +4085,10 @@
    "levelsType": "damage",
    "about": "Titan Cinemaman is a Mythic unit in Cameraman Tower Defense. There are 152,207 in the game. It trades for about 270 gems, with offers usually between 100 and 500 gems. Demand is medium.",
    "market": {
-    "median": 247,
+    "median": 243,
     "min": 100,
     "max": 500,
-    "buyers": 109,
+    "buyers": 113,
     "sellers": 384,
     "trades7d": 47,
     "topTrades": [
@@ -4246,11 +4283,11 @@
    "levelsType": "damage",
    "about": "Large Laser Cameraman is a Mythic unit in Cameraman Tower Defense. There are 94,434 in the game. It trades for about 240 gems, with offers usually between 100 and 450 gems. Demand is medium.",
    "market": {
-    "median": 211,
+    "median": 210,
     "min": 100,
     "max": 450,
-    "buyers": 45,
-    "sellers": 222,
+    "buyers": 46,
+    "sellers": 233,
     "trades7d": 25,
     "topTrades": [
      {
@@ -4414,11 +4451,11 @@
    "levelsType": "damage",
    "about": "Upgraded Brute Prototype is a Mythic unit in Cameraman Tower Defense. There are 78,174 in the game. It trades for about 220 gems, with offers usually between 90 and 500 gems. Demand is low.",
    "market": {
-    "median": 204,
+    "median": 200,
     "min": 90,
     "max": 500,
-    "buyers": 55,
-    "sellers": 295,
+    "buyers": 59,
+    "sellers": 292,
     "trades7d": 21,
     "topTrades": [
      {
@@ -4586,14 +4623,14 @@
    "howToGet": "Summon board",
    "description": "Fully upgraded, Glitch Cameraman does 5,000 DPS. Placing it and buying all 3 upgrades costs 12,500 cash, and you can have 7 on the map.",
    "levelsType": "damage",
-   "about": "Glitch Cameraman is a Mythic unit in Cameraman Tower Defense. There are 73,758 in the game. It trades for about 185 gems, with offers usually between 80 and 310 gems. Demand is medium.",
+   "about": "Glitch Cameraman is a Mythic unit in Cameraman Tower Defense. There are 73,758 in the game. It trades for about 185 gems, with offers usually between 80 and 325 gems. Demand is medium.",
    "market": {
     "median": 155,
     "min": 80,
-    "max": 310,
-    "buyers": 35,
-    "sellers": 242,
-    "trades7d": 17,
+    "max": 325,
+    "buyers": 36,
+    "sellers": 237,
+    "trades7d": 16,
     "topTrades": [
      {
       "name": "Scientist Cameraman",
@@ -4755,11 +4792,11 @@
    "levelsType": "farm",
    "about": "Scientist Cameraman is an Exclusive unit in Cameraman Tower Defense. There are 279,570 in the game. It trades for about 140 gems, with offers usually between 70 and 300 gems. Demand is high and the price is overpaid.",
    "market": {
-    "median": 206,
+    "median": 194,
     "min": 70,
     "max": 300,
-    "buyers": 294,
-    "sellers": 137,
+    "buyers": 295,
+    "sellers": 138,
     "trades7d": 20,
     "topTrades": [
      {
@@ -4964,12 +5001,12 @@
    "howToGet": "Woman Crate",
    "description": "Fully upgraded, TV Woman does 3,000 DPS. Placing it and buying all 4 upgrades costs 18,000 cash, and you can have 10 on the map. At max level it hits everything in a 110° cone and sets toilets burning for 200 over 5s.",
    "levelsType": "damage",
-   "about": "TV Woman is a Mythic unit in Cameraman Tower Defense. There are 41,048 in the game. It trades for about 210 gems, with offers usually between 100 and 385 gems. Demand is low.",
+   "about": "TV Woman is a Mythic unit in Cameraman Tower Defense. There are 41,048 in the game. It trades for about 210 gems, with offers usually between 75 and 385 gems. Demand is low.",
    "market": {
-    "median": 189,
-    "min": 100,
+    "median": 188,
+    "min": 75,
     "max": 385,
-    "buyers": 34,
+    "buyers": 35,
     "sellers": 181,
     "trades7d": 17,
     "topTrades": [
@@ -5153,11 +5190,11 @@
    "levelsType": "damage",
    "about": "Upgraded Videotapper Prototype is a Mythic unit in Cameraman Tower Defense. There are 102,770 in the game. It trades for about 155 gems, with offers usually between 70 and 300 gems. Demand is low.",
    "market": {
-    "median": 138,
+    "median": 140,
     "min": 70,
     "max": 300,
-    "buyers": 52,
-    "sellers": 214,
+    "buyers": 55,
+    "sellers": 213,
     "trades7d": 28,
     "topTrades": [
      {
@@ -5340,11 +5377,11 @@
    "levelsType": "damage",
    "about": "Upgraded Titan Speakerman is a Mythic unit in Cameraman Tower Defense. There are 72,984 in the game. It trades for about 125 gems, with offers usually between 50 and 210 gems. Demand is low and the price is unstable.",
    "market": {
-    "median": 126,
+    "median": 129,
     "min": 50,
     "max": 210,
-    "buyers": 71,
-    "sellers": 224,
+    "buyers": 69,
+    "sellers": 222,
     "trades7d": 20,
     "topTrades": [
      {
@@ -5471,9 +5508,9 @@
     "median": 67,
     "min": 35,
     "max": 105,
-    "buyers": 24,
-    "sellers": 166,
-    "trades7d": 18,
+    "buyers": 25,
+    "sellers": 158,
+    "trades7d": 17,
     "topTrades": [
      {
       "name": "Scientist Cameraman",
@@ -5517,15 +5554,15 @@
    "valueSource": "vaulted"
   },
   {
-   "description": "Spider Crate is a crate in Cameraman Tower Defense. It trades for about 76 gems, with offers usually between 30 and 125 gems. Demand is medium and the price is stable.",
-   "about": "Spider Crate is a crate in Cameraman Tower Defense. It trades for about 76 gems, with offers usually between 30 and 125 gems. Demand is medium and the price is stable.",
+   "description": "Spider Crate is a crate in Cameraman Tower Defense. It trades for about 74 gems, with offers usually between 30 and 125 gems. Demand is medium and the price is stable.",
+   "about": "Spider Crate is a crate in Cameraman Tower Defense. It trades for about 74 gems, with offers usually between 30 and 125 gems. Demand is medium and the price is stable.",
    "market": {
-    "median": 58,
+    "median": 56,
     "min": 30,
     "max": 125,
     "buyers": 9,
-    "sellers": 29,
-    "trades7d": 3
+    "sellers": 30,
+    "trades7d": 2
    },
    "priceHistory": [
     {
@@ -5603,6 +5640,10 @@
     {
      "date": "2026-11-21",
      "value": 76
+    },
+    {
+     "date": "2026-11-25",
+     "value": 74
     }
    ],
    "name": "Spider Crate",
@@ -5707,7 +5748,7 @@
     "min": 30,
     "max": 150,
     "buyers": 15,
-    "sellers": 157,
+    "sellers": 156,
     "trades7d": 11
    },
    "priceHistory": [
@@ -5779,12 +5820,12 @@
    "description": "Halloween Crate is a crate in Cameraman Tower Defense. It trades for about 28 gems, with offers usually between 15 and 75 gems. Demand is low and the price is stable.",
    "about": "Halloween Crate is a crate in Cameraman Tower Defense. It trades for about 28 gems, with offers usually between 15 and 75 gems. Demand is low and the price is stable.",
    "market": {
-    "median": 28,
+    "median": 26,
     "min": 15,
     "max": 75,
     "buyers": 17,
-    "sellers": 73,
-    "trades7d": 5,
+    "sellers": 69,
+    "trades7d": 6,
     "topTrades": [
      {
       "name": "Pumpkin Farmer",
@@ -5919,8 +5960,8 @@
     "median": 17,
     "min": 10,
     "max": 50,
-    "buyers": 48,
-    "sellers": 73,
+    "buyers": 47,
+    "sellers": 75,
     "trades7d": 16,
     "topTrades": [
      {
@@ -6248,8 +6289,8 @@
     "median": 10,
     "min": 4,
     "max": 20,
-    "buyers": 9,
-    "sellers": 51,
+    "buyers": 8,
+    "sellers": 52,
     "trades7d": 3,
     "topTrades": [
      {
@@ -6591,15 +6632,15 @@
    "valueSource": "vaulted"
   },
   {
-   "description": "Woman Crate is a crate in Cameraman Tower Defense. It trades for about 8 gems, with offers usually between 3 and 10 gems. Demand is very low and the price is stable.",
-   "about": "Woman Crate is a crate in Cameraman Tower Defense. It trades for about 8 gems, with offers usually between 3 and 10 gems. Demand is very low and the price is stable.",
+   "description": "Woman Crate is a crate in Cameraman Tower Defense. It trades for about 7 gems, with offers usually between 3 and 10 gems. Demand is very low and the price is stable.",
+   "about": "Woman Crate is a crate in Cameraman Tower Defense. It trades for about 7 gems, with offers usually between 3 and 10 gems. Demand is very low and the price is stable.",
    "market": {
-    "median": 6,
+    "median": 5,
     "min": 3,
     "max": 10,
     "buyers": 4,
-    "sellers": 28,
-    "trades7d": 3
+    "sellers": 27,
+    "trades7d": 4
    },
    "priceHistory": [
     {
@@ -6661,6 +6702,10 @@
     {
      "date": "2026-11-24",
      "value": 8
+    },
+    {
+     "date": "2026-11-25",
+     "value": 7
     }
    ],
    "name": "Woman Crate",
@@ -7163,15 +7208,15 @@
    "howToGet": "Summon board",
    "description": "Fully upgraded, Titan Cameraman does 3,000 DPS. Placing it and buying all 4 upgrades costs 9,000 cash, and you can have 8 on the map.",
    "levelsType": "damage",
-   "about": "Titan Cameraman is a Legendary unit in Cameraman Tower Defense. There are 886,775 in the game. It trades for about 3 gems, with offers usually between 1 and 5 gems. Demand is very low and the price is stable.",
+   "about": "Titan Cameraman is a Legendary unit in Cameraman Tower Defense. There are 886,775 in the game. It trades for about 2 gems, with offers usually between 1 and 5 gems. Demand is very low and the price is stable.",
    "added": "Update 1 (Sep 24, 2026)",
    "rarityRank": 35,
    "market": {
-    "median": 3,
+    "median": 2,
     "min": 1,
     "max": 5,
-    "buyers": 3,
-    "sellers": 26,
+    "buyers": 4,
+    "sellers": 28,
     "trades7d": 2
    },
    "priceHistory": [
@@ -7194,6 +7239,10 @@
     {
      "date": "2026-11-04",
      "value": 3
+    },
+    {
+     "date": "2026-11-25",
+     "value": 2
     }
    ],
    "name": "Titan Cameraman",
@@ -7297,7 +7346,7 @@
     "min": 1,
     "max": 5,
     "buyers": 6,
-    "sellers": 35,
+    "sellers": 36,
     "trades7d": 4
    },
    "priceHistory": [
@@ -7482,10 +7531,6 @@
    },
    "priceHistory": [
     {
-     "date": "2026-10-27",
-     "value": 2
-    },
-    {
      "date": "2026-10-28",
      "value": 2
     },
@@ -7599,6 +7644,10 @@
     },
     {
      "date": "2026-11-25",
+     "value": 2
+    },
+    {
+     "date": "2026-11-26",
      "value": 2
     }
    ],
@@ -7655,10 +7704,6 @@
    "rarityRank": 48,
    "priceHistory": [
     {
-     "date": "2026-10-27",
-     "value": 2
-    },
-    {
      "date": "2026-10-28",
      "value": 2
     },
@@ -7772,6 +7817,10 @@
     },
     {
      "date": "2026-11-25",
+     "value": 2
+    },
+    {
+     "date": "2026-11-26",
      "value": 2
     }
    ],
@@ -7876,7 +7925,7 @@
    "rarityRank": 40,
    "market": {
     "buyers": 0,
-    "sellers": 22,
+    "sellers": 21,
     "trades7d": 4
    },
    "name": "Balloon Speakerman",
@@ -8002,7 +8051,7 @@
    "added": "Release (Sep 19, 2026)",
    "rarityRank": 52,
    "market": {
-    "buyers": 8,
+    "buyers": 12,
     "sellers": 10
    },
    "name": "Cameraman",
@@ -8875,15 +8924,11 @@
     "min": 1,
     "max": 5,
     "buyers": 0,
-    "sellers": 14
+    "sellers": 15
    },
    "dropChance": 90,
    "added": "Update 3 (Oct 10, 2026)",
    "priceHistory": [
-    {
-     "date": "2026-10-27",
-     "value": 3
-    },
     {
      "date": "2026-10-28",
      "value": 3
@@ -8999,6 +9044,10 @@
     {
      "date": "2026-11-25",
      "value": 3
+    },
+    {
+     "date": "2026-11-26",
+     "value": 3
     }
    ],
    "rarityRank": 41,
@@ -9081,6 +9130,72 @@
   }
  ],
  "changelog": [
+  {
+   "name": "Pharaoh Cameraman",
+   "old": 22500,
+   "new": 21000,
+   "date": "2026-11-26"
+  },
+  {
+   "name": "Chaos cameraman",
+   "old": 7700,
+   "new": 7500,
+   "date": "2026-11-26"
+  },
+  {
+   "name": "executioner tv man",
+   "old": 3500,
+   "new": 3550,
+   "date": "2026-11-26"
+  },
+  {
+   "name": "2x Turkey Leg",
+   "old": 2500,
+   "new": 2600,
+   "date": "2026-11-26"
+  },
+  {
+   "name": "Pumkin Large Speakerman",
+   "old": 2200,
+   "new": 2500,
+   "date": "2026-11-26"
+  },
+  {
+   "name": "upgraded Titan Cameraman",
+   "old": 2400,
+   "new": 2500,
+   "date": "2026-11-26"
+  },
+  {
+   "name": "Scarecrow Tv Man",
+   "old": 2500,
+   "new": 2300,
+   "date": "2026-11-26"
+  },
+  {
+   "name": "Premium Pass",
+   "old": 2500,
+   "new": 2000,
+   "date": "2026-11-26"
+  },
+  {
+   "name": "2X speed",
+   "old": 1050,
+   "new": 900,
+   "date": "2026-11-26"
+  },
+  {
+   "name": "Prototype Duo",
+   "old": 450,
+   "new": 350,
+   "date": "2026-11-26"
+  },
+  {
+   "name": "Vampire Camera Man",
+   "old": 350,
+   "new": 300,
+   "date": "2026-11-26"
+  },
   {
    "name": "Brown Cameraman",
    "old": 0,
