@@ -2251,7 +2251,7 @@ async function gload(){
 const MKU='https://raw.githubusercontent.com/dinissaburov2009-maker/ctd-trader/market/',MKS='https://cameraman-td.vaultedvaluesx.com/trade-ads/';
 const MKF={o:'Offers',u:'Upgrade',d:'Downgrade',a:'Adds'},MKAGE=[[0,'Все'],[900,'15 мин'],[3600,'1 час'],[21600,'6 часов']],MKSORT=[['new','Новые'],['pct','Выгодные мне'],['sum','Крупные']],MKSIDE=[['all','Везде'],['has','Отдают'],['want','Ищут']];
 const MKFIX={'item-2b19d9cc':'2x Turkey Leg'}; /* юниты, у которых бот записал имя «x3»: определено по цене (14 объявлений, везде ровно 2600) */
-let MK={ads:[],names:[],map:[],nk:[],src:'live',days:null,q:'',side:'all',fl:new Set(),age:900,sort:'new',mine:0,lim:30,at:0,err:'',busy:0,vc:new Map(),vsig:''};
+let MK={ads:[],names:[],map:[],nk:[],src:'live',days:null,q:'',side:'all',fl:new Set(),rar:new Set(),only:0,age:900,sort:'new',mine:0,lim:30,at:0,err:'',busy:0,vc:new Map(),vsig:''};
 const mkAgo=t=>{const s=Math.max(0,Date.now()/1e3-t),d=new Date(t*1e3);return s<45?'только что':s<3600?Math.round(s/60)+' мин назад':s<86400?Math.round(s/3600)+' ч назад':d.toLocaleDateString('ru')+' '+d.toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'})};
 const mkClean=ls=>(Array.isArray(ls)?ls:ls?.ads||[]).filter(a=>a&&a.i&&Array.isArray(a.h)&&Array.isArray(a.w));
 function mkPrep(names,ads){MK.names=Array.isArray(names)?names:[];MK.map=MK.names.map(x=>{const f=Object.keys(MKFIX).find(k=>(x?.s||'').startsWith(k));return resolveName(f?MKFIX[f]:x?.n)});MK.nk=MK.names.map((x,i)=>nrm(x?.n)+'|'+nrm(MK.map[i]));MK.ads=ads;MK.vc.clear();MK.lim=30;const c=$('nc4');if(c)c.textContent=ads.length>999?Math.round(ads.length/100)/10+'K':ads.length}
@@ -2293,12 +2293,20 @@ function mkHit(a){
   const w=[...new Set(a.w.map(([x])=>MK.map[x]).filter(n=>n&&S.inv[n]>0))],h=[...new Set(a.h.map(([x])=>MK.map[x]).filter(n=>n&&(n===S.goal||S.fav[n])))];
   return{w,h,any:!!(w.length||h.length)};
 }
+const mkRarOrder=['Godly','Exclusive','Mythic','Legendary','Epic','Rare','Uncommon','Common','Signed'];
+function mkRar(){const cs=[...new Set(ALL.filter(i=>i.kind==='unit').map(i=>i.category).filter(Boolean))];return cs.sort((a,b)=>{const x=mkRarOrder.indexOf(a),y=mkRarOrder.indexOf(b);return(x<0?99:x)-(y<0?99:y)||(a<b?-1:1)})}
 function mkFiltered(){
   const q=nrm(MK.q),now=Date.now()/1e3;
   let L=MK.ads.filter(a=>{
     if(MK.age&&MK.src==='live'&&now-a.t>MK.age)return 0;
     if(MK.fl.size&&![...MK.fl].some(c=>(a.f||'').includes(c)))return 0;
-    if(q){const m=side=>side.some(([x])=>(MK.nk[x]||'').includes(q));if(MK.side==='has'?!m(a.h):MK.side==='want'?!m(a.w):!(m(a.h)||m(a.w)))return 0}
+    if(q||MK.rar.size){
+      /* юнит подходит: имя содержит запрос И (если выбраны редкости) его редкость среди выбранных */
+      const um=x=>(!q||(MK.nk[x]||'').includes(q))&&(!MK.rar.size||MK.rar.has(IDX.get(MK.map[x])?.category));
+      const sides=MK.side==='has'?[a.h]:MK.side==='want'?[a.w]:[a.h,a.w];
+      /* «Только он»: на стороне нет других юнитов, все подходят (×N одного юнита — нормально) */
+      if(!sides.some(sd=>MK.only?sd.length&&sd.every(([x])=>um(x)):sd.some(([x])=>um(x))))return 0;
+    }
     if(MK.mine&&!mkHit(a).any)return 0;
     return 1;
   });
@@ -2329,11 +2337,13 @@ function mk(){
   C.innerHTML=`<div class="mk-st"><b class="${MK.err?'lose':'win'}">${live?'LIVE':'АРХИВ '+MK.src}</b> · ${MK.ads.length} объявл. · показано ${L.length}${MK.busy?' · загрузка…':''}<br><span class="m">${MK.at?'обновлено '+new Date(MK.at).toLocaleTimeString('ru'):'ещё не загружено'}${newest?' · самое свежее: '+mkAgo(newest):''}</span>${MK.err?`<br><span class="lose">⚠ ${esc(MK.err)}</span>`:''}</div>
   <div class="fg-t">ГДЕ ИСКАТЬ ЮНИТА</div><div class="fchips">${mkCh('mkS',MKSIDE,v=>MK.side===v)}</div>
   <div class="fg-t">МЕТКИ <span class="m">(можно несколько)</span></div><div class="fchips">${mkCh('mkF',[['','Все'],...Object.entries(MKF)],v=>v?MK.fl.has(v):!MK.fl.size)}</div>
+  <div class="fg-t">РЕДКОСТЬ ЮНИТА <span class="m">(можно несколько)</span></div><div class="fchips">${mkCh('mkR',[['','Все'],...mkRar().map(c=>[c,c])],v=>v?MK.rar.has(v):!MK.rar.size)}</div>
+  <div class="fg-t">СТРОГОСТЬ ПОИСКА</div><div class="fchips"><button data-a="mkOnly" class="${MK.only?'on':''}">☝ Только он: без других юнитов на стороне</button></div>
   <div class="fg-t">СВЕЖЕСТЬ</div><div class="fchips">${mkCh('mkA',MKAGE,v=>MK.age===+v)}</div>
   <div class="fg-t">СОРТИРОВКА</div><div class="fchips">${mkCh('mkO',MKSORT,v=>MK.sort===v)}<button data-a="mkMine" class="${MK.mine?'on':''}">🎯 Для меня (${mn})</button></div>
   <div class="bar"><button data-a="mkRef">↻ Обновить</button><button data-a="mkSrc" data-v="live" class="${live?'p':''}">LIVE</button><button data-a="mkSrc" data-v="arch" class="${live?'':'p'}">📦 Архив</button></div>
   ${days?`<div class="fchips sc">${days.length?days.map(d=>`<button data-a="mkDay" data-v="${d}" class="${MK.src===d?'on':''}">${d.slice(5)} (${MK.days[d].length} ч)</button>`).join(''):'<span class="m">Архив пока пуст</span>'}</div>`:''}
-  <div class="m" style="margin-top:6px">Вердикт — если ты берёшь объявление: отдаёшь то, что хочет автор, получаешь то, что он отдаёт. Данные идут с задержкой 5–20 мин, закрытые объявления не отслеживаются.</div>`;
+  <div class="m" style="margin-top:6px">Вердикт — если ты берёшь объявление: отдаёшь то, что хочет автор, получаешь то, что он отдаёт. Данные идут с задержкой в 1–5 мин (бот сканирует сайт раз в 30 с, пушит раз в 2 мин, вкладка опрашивает раз в минуту), закрытые объявления не отслеживаются.</div>`;
   R.innerHTML=L.slice(0,MK.lim).map(mkCard).join('')+(L.length>MK.lim?`<button style="width:100%" data-a="mkMore">Показать ещё (${L.length-MK.lim})</button>`:'')+(!L.length?`<div class="card m">${MK.ads.length?'По фильтрам ничего не найдено.':MK.busy?'Загрузка…':'Нет данных.'}</div>`:'');
 }
 setInterval(()=>{if(tabNow===4&&!document.hidden)mkLoad()},60000);
@@ -2393,6 +2403,7 @@ const ACT={
   ofTrade:el=>ofTrade(+el.dataset.k),ofRepl:el=>ofRepl(+el.dataset.k),ofBun:el=>ofBun(+el.dataset.k),ofDl:()=>ofDl(),ofPng:()=>ofPng(),ofCp:()=>ofCp(),
   mkS:el=>{MK.side=el.dataset.v;MK.lim=30;mk()},mkA:el=>{MK.age=+el.dataset.v;MK.lim=30;mk()},mkO:el=>{MK.sort=el.dataset.v;MK.lim=30;mk()},
   mkF:el=>{const v=el.dataset.v;if(!v)MK.fl.clear();else if(MK.fl.has(v))MK.fl.delete(v);else MK.fl.add(v);MK.lim=30;mk()},
+  mkR:el=>{const v=el.dataset.v;if(!v)MK.rar.clear();else if(MK.rar.has(v))MK.rar.delete(v);else MK.rar.add(v);MK.lim=30;mk()},mkOnly:()=>{MK.only=MK.only?0:1;MK.lim=30;mk()},
   mkMine:()=>{MK.mine=MK.mine?0:1;MK.lim=30;mk()},mkMore:()=>{MK.lim+=30;mk()},
   mkRef:()=>{if(MK.src==='live')mkLoad(1);else mkArchDay(MK.src)},
   mkSrc:el=>{if(el.dataset.v==='live'){if(MK.src!=='live'){MK.src='live';MK.ads=[];mk();mkLoad(1)}else mkLoad(1)}else if(!MK.days)mkDays();else{MK.days=null;mk()}},
