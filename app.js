@@ -2251,18 +2251,32 @@ async function gload(){
 const MKU='https://raw.githubusercontent.com/dinissaburov2009-maker/ctd-trader/market/',MKS='https://cameraman-td.vaultedvaluesx.com/trade-ads/';
 const MKF={o:'Offers',u:'Upgrade',d:'Downgrade',a:'Adds'},MKAGE=[[0,'Все'],[900,'15 мин'],[3600,'1 час'],[21600,'6 часов']],MKSORT=[['new','Новые'],['pct','Выгодные мне'],['sum','Крупные']],MKSIDE=[['all','Везде'],['has','Отдают'],['want','Ищут']];
 const MKFIX={'item-2b19d9cc':'2x Turkey Leg'}; /* юниты, у которых бот записал имя «x3»: определено по цене (14 объявлений, везде ровно 2600) */
-let MK={ads:[],names:[],map:[],nk:[],src:'live',days:null,q:'',side:'all',fl:new Set(),rar:new Set(),only:0,gem:0,age:900,sort:'new',mine:0,lim:30,at:0,err:'',busy:0,vc:new Map(),vsig:'',bot:''};
+let MK={ads:[],names:[],map:[],nk:[],src:'live',days:null,q:'',side:'all',fl:new Set(),rar:new Set(),only:0,gem:0,age:900,sort:'new',mine:0,lim:30,at:0,err:'',busy:0,vc:new Map(),vsig:'',bot:'',via:''};
 const mkAgo=t=>{const s=Math.max(0,Date.now()/1e3-t),d=new Date(t*1e3);return s<45?'только что':s<3600?Math.round(s/60)+' мин назад':s<86400?Math.round(s/3600)+' ч назад':d.toLocaleDateString('ru')+' '+d.toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'})};
 const mkClean=ls=>(Array.isArray(ls)?ls:ls?.ads||[]).filter(a=>a&&a.i&&Array.isArray(a.h)&&Array.isArray(a.w));
 function mkPrep(names,ads){MK.names=Array.isArray(names)?names:[];MK.map=MK.names.map(x=>{const f=Object.keys(MKFIX).find(k=>(x?.s||'').startsWith(k));return resolveName(f?MKFIX[f]:x?.n)});MK.nk=MK.names.map((x,i)=>nrm(x?.n)+'|'+nrm(MK.map[i]));MK.ads=ads;MK.vc.clear();MK.lim=30;const c=$('nc4');if(c)c.textContent=ads.length>999?Math.round(ads.length/100)/10+'K':ads.length}
+/* Канал данных: сначала GitHub API (свежее, кэш ~60 с, повторные запросы с ETag не тратят лимит), при любой ошибке (лимит 60/час, сеть) запасной raw.githubusercontent (кэш до нескольких минут). */
+const MKAPI='https://api.github.com/repos/dinissaburov2009-maker/ctd-trader/contents/';
+async function mkGet(name,m){
+  try{
+    const r=await fetch(MKAPI+name+'?ref=market',{headers:{Accept:'application/vnd.github.raw+json'},cache:m?'no-cache':'default'});
+    if(r.ok){
+      let j=await r.json();
+      if(j&&!Array.isArray(j)&&j.encoding==='base64'&&j.content)j=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(j.content.replace(/\n/g,'')),c=>c.charCodeAt(0))));
+      return{j,via:'API'};
+    }
+  }catch{}
+  const r=await fetch(MKU+name+'?t='+Math.floor(Date.now()/15000),{cache:'no-store'});
+  if(!r.ok)throw new Error('HTTP '+r.status+' (репозиторий должен быть публичным, ветка market — существовать)');
+  return{j:await r.json(),via:'raw'};
+}
 async function mkLoad(m){
   if(MK.busy||MK.src!=='live')return;MK.busy=1;MK.err='';if(m&&tabNow===4)mk();
   try{
-    const b='?t='+Math.floor(Date.now()/15000),o={cache:'no-store'},[rn,rl,rm]=await Promise.all([fetch(MKU+'names.json'+b,o),fetch(MKU+'latest.json'+b,o),fetch(MKU+'meta.json'+b,o).catch(()=>null)]);
-    if(!rn.ok||!rl.ok)throw new Error('HTTP '+(rl.ok?rn.status:rl.status)+' (репозиторий должен быть публичным, ветка market — существовать)');
-    const[nm,ls]=await Promise.all([rn.json(),rl.json()]);
-    let bu='';try{if(rm&&rm.ok)bu=(await rm.json()).updated||''}catch{}
-    if(MK.src==='live'){mkPrep(nm,mkClean(ls));MK.at=Date.now();MK.bot=bu}
+    const[rn,rl]=await Promise.all([mkGet('names.json',m),mkGet('latest.json',m)]);
+    let bu='';
+    if(rl.via==='raw'){try{const rm=await fetch(MKU+'meta.json?t='+Math.floor(Date.now()/15000),{cache:'no-store'});if(rm.ok)bu=(await rm.json()).updated||''}catch{}}
+    if(MK.src==='live'){mkPrep(rn.j,mkClean(rl.j));MK.at=Date.now();MK.bot=bu;MK.via=rl.via}
   }catch(e){MK.err=String(e?.message||e)}
   MK.busy=0;if(tabNow===4)mk();
 }
@@ -2338,7 +2352,7 @@ function mk(){
   const R=$('mkl'),C=$('mkc');if(!R||!C)return;
   const L=mkFiltered(),live=MK.src==='live',newest=MK.ads.reduce((m,a)=>Math.max(m,a.t),0),mn=MK.ads.filter(a=>mkHit(a).any).length;
   const days=MK.days?Object.keys(MK.days).sort().reverse().slice(0,30):null;
-  C.innerHTML=`<div class="mk-st"><b class="${MK.err?'lose':'win'}">${live?'LIVE':'АРХИВ '+MK.src}</b> · ${MK.ads.length} объявл. · показано ${L.length}${MK.busy?' · загрузка…':''}<br><span class="m">${MK.at?'обновлено '+new Date(MK.at).toLocaleTimeString('ru'):'ещё не загружено'}${newest?' · самое свежее: '+mkAgo(newest):''}${live&&MK.bot?' · бот записал: '+mkAgo(Date.parse(MK.bot)/1e3):''}</span>${MK.err?`<br><span class="lose">⚠ ${esc(MK.err)}</span>`:''}</div>
+  C.innerHTML=`<div class="mk-st"><b class="${MK.err?'lose':'win'}">${live?'LIVE':'АРХИВ '+MK.src}</b> · ${MK.ads.length} объявл. · показано ${L.length}${MK.busy?' · загрузка…':''}<br><span class="m">${MK.at?'обновлено '+new Date(MK.at).toLocaleTimeString('ru'):'ещё не загружено'}${newest?' · самое свежее: '+mkAgo(newest):''}${live&&MK.via?' · канал: '+MK.via:''}${live&&MK.bot?' · бот записал (raw): '+mkAgo(Date.parse(MK.bot)/1e3):''}</span>${MK.err?`<br><span class="lose">⚠ ${esc(MK.err)}</span>`:''}</div>
   <div class="fg-t">ГДЕ ИСКАТЬ ЮНИТА</div><div class="fchips">${mkCh('mkS',MKSIDE,v=>MK.side===v)}</div>
   <div class="fg-t">МЕТКИ <span class="m">(можно несколько)</span></div><div class="fchips">${mkCh('mkF',[['','Все'],...Object.entries(MKF)],v=>v?MK.fl.has(v):!MK.fl.size)}</div>
   <div class="fg-t">РЕДКОСТЬ ЮНИТА <span class="m">(можно несколько)</span></div><div class="fchips">${mkCh('mkR',[['','Все'],...mkRar().map(c=>[c,c])],v=>v?MK.rar.has(v):!MK.rar.size)}</div>
