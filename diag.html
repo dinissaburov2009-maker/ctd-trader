@@ -1,0 +1,43 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CTD диагностика</title>
+<style>body{background:#04070b;color:#cfe;font:14px/1.45 monospace;margin:0;padding:12px}h2{font-size:15px;color:#0f9;margin:14px 0 6px}.ok{color:#0f9}.bad{color:#f55;font-weight:bold}.w{color:#fc3}
+div.r{padding:5px 0;border-bottom:1px solid #123;word-break:break-all}iframe{width:100%;height:260px;border:1px solid #0f9;background:#000}pre{white-space:pre-wrap;color:#fc3}</style></head><body>
+<h2>1. Файлы на сайте</h2><div id="f">проверяю…</div>
+<h2>2. Запуск приложения (ошибки)</h2><pre id="e">жду…</pre><iframe id="fr"></iframe>
+<h2>3. Итог</h2><pre id="s">…</pre>
+<script>
+const EXP={'core.js':11639,'shell.js':25507,'scanner.js':61675,'inventory.js':22161,'catalog.js':33264,'offers.js':36867,'market.js':12623,'main.js':13530,'index.html':11135,'style.css':36603,'sw.js':4645};
+const f=document.getElementById('f'),e=document.getElementById('e'),s=document.getElementById('s'),bad=[];
+(async()=>{
+ f.textContent='';
+ for(const [n,exp] of Object.entries(EXP)){
+  const d=document.createElement('div');d.className='r';
+  try{
+   const r=await fetch(n+'?t='+Date.now(),{cache:'no-store'});
+   if(!r.ok){d.innerHTML='<span class="bad">✗ '+n+': ошибка '+r.status+' (файла нет или назван иначе)</span>';bad.push(n+' — '+r.status)}
+   else{
+    const t=await r.text(),b=new TextEncoder().encode(t).length;let syn='';
+    if(n.endsWith('.js')){try{new Function(t);syn='синтаксис ок'}catch(x){syn='ОШИБКА СИНТАКСИСА: '+x.message;bad.push(n+' — '+x.message)}}
+    const sz=b===exp?'размер ок':'размер '+b+' (ожидался '+exp+')';
+    if(b!==exp)bad.push(n+' — размер '+b+' вместо '+exp);
+    const good=b===exp&&!syn.startsWith('ОШ');
+    d.innerHTML='<span class="'+(good?'ok':'bad')+'">'+(good?'✓ ':'✗ ')+n+'</span> · '+sz+(syn?' · '+syn:'')+'<br><span class="w">конец: …'+t.slice(-40).replace(/</g,'&lt;')+'</span>';
+   }
+  }catch(x){d.innerHTML='<span class="bad">✗ '+n+': '+x.message+'</span>';bad.push(n+' — '+x.message)}
+  f.appendChild(d);
+ }
+ // запуск приложения в рамке с перехватом ошибок
+ const errs=[];
+ window.addEventListener('message',m=>{if(m.data&&m.data.ctd){errs.push(m.data.ctd);e.textContent=errs.join('\n\n')}});
+ try{
+  let h=await (await fetch('index.html?t='+Date.now(),{cache:'no-store'})).text();
+  const cap='<base href="'+location.href.replace(/[^\/]*$/,'')+'"><script>(function(){const P=m=>parent.postMessage({ctd:m},"*");addEventListener("error",ev=>{const t=ev.target;if(t&&t.tagName==="SCRIPT")P("Не загрузился скрипт: "+(t.src||""));else P("ОШИБКА: "+ev.message+" ("+String(ev.filename||"").split("/").pop()+":"+ev.lineno+")")},true);addEventListener("unhandledrejection",ev=>P("PROMISE: "+(ev.reason&&ev.reason.stack||ev.reason)));})();<\/script>';
+  h=h.replace('<head>','<head>'+cap);
+  document.getElementById('fr').srcdoc=h;
+ }catch(x){e.textContent='Не смог запустить: '+x.message}
+ setTimeout(()=>{
+  const ae=errs.length;
+  s.textContent=(bad.length?'ПРОБЛЕМЫ С ФАЙЛАМИ:\n- '+bad.join('\n- ')+'\n\n':'Файлы в порядке.\n\n')+(ae?'ОШИБКИ ПРИ ЗАПУСКЕ: '+ae+' (см. пункт 2)':'Ошибок при запуске нет.');
+  if(!ae)e.textContent='ошибок нет';
+ },6000);
+})();
+</script></body></html>
