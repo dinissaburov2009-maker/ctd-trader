@@ -243,6 +243,7 @@ function gitPush(msg) {
 function squashIfBig() {
   if (DRY) return;
   try {
+    try { sh('git rev-parse --verify -q HEAD'); } catch { return; } // в новой пустой ветке коммитов ещё нет
     const n = +sh('git rev-list --count HEAD').trim();
     if (n <= SQUASH_OVER) return;
     sh('git checkout -q --orphan squash-tmp');
@@ -351,7 +352,7 @@ async function main() {
     const stopAt = Date.now() + RUN_MIN * 60e3;
     let nextFlush = Date.now() + FLUSH_MIN * 60e3, fails = 0, lastOpen = 0;
     const finish = (why) => { log('финиш:', why); try { save(lastOpen); gitPush(`market ${new Date().toISOString().slice(0, 16)}Z (final)`); } catch (e) { log('ошибка финиша', e.message); } };
-    process.on('SIGTERM', () => { finish('SIGTERM'); process.exit(0); });
+    for (const sig of ['SIGTERM', 'SIGINT']) process.on(sig, () => { finish(sig); process.exit(0); }); // Cancel в GitHub шлёт SIGINT, потом SIGTERM
 
     while (Date.now() < stopAt) {
       const t0 = Date.now();
