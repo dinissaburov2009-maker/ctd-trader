@@ -123,6 +123,15 @@ function pageExtract() {
       let name = nameLines[0];
       if (!name) { const im = el.querySelector('img'); name = (im && im.alt || '').replace(/\s*artwork\s*$/i, '').trim(); }
       name = (name || '').replace(/\s*artwork\s*$/i, '').trim();
+      // имя вроде «x3» / «S» — это бейдж количества или обрывок: ищем в блоке нормальный текст (с буквами, не метка/сумма/возраст)
+      if (!name || isQty(name) || name.length <= 2) {
+        const SKIP = /^(has|wants|offers?|upgrade|downgrade|adds|value|o\/c|nothing listed|just now|new trader)\b|artwork|ago$/i;
+        const cand = leaves(el).map((t) => t.replace(/\s*artwork\s*$/i, '').trim()).filter((t) => t.length > 2 && /[a-z]{3}/i.test(t) && !isQty(t) && !SKIP.test(t) && !/^[\d.,]+\s*[kmb]?$/i.test(t));
+        const links2 = links.map((x) => (x.getAttribute('title') || x.getAttribute('aria-label') || '').trim()).filter((t) => t.length > 2 && !isQty(t));
+        const alt2 = [...el.querySelectorAll('img')].map((i) => (i.alt || '').replace(/\s*artwork\s*$/i, '').trim()).filter((t) => t.length > 2 && !isQty(t));
+        const better = links2[0] || alt2[0] || cand[0];
+        if (better) name = better;
+      }
       const txt = (el.innerText || el.textContent || '');
       const lv = leaves(el);
       const rest = name ? txt.split(name).join(' ') : txt; // имя вроде «2x Money» / «x2 candy» не должно сойти за количество
@@ -135,7 +144,7 @@ function pageExtract() {
       // сторона: последняя метка, стоящая в документе до блока
       let side = '';
       for (const l of labels) if (l.el.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) side = l.side;
-      units.push({ el, side, slug, name, q, v: vm ? pv(vm[1]) : null, tags });
+      units.push({ el, side, slug, name, q, v: vm ? pv(vm[1]) : null, tags, html: (isQty(name) || name.length <= 2) ? el.outerHTML.slice(0, 1500) : '' });
     }
 
     // суммы: текст между меткой стороны и первым её юнитом
@@ -171,7 +180,7 @@ function pageExtract() {
     }
     const lineTags = [...leaves(card), ...cardText.split('\n')].map(tagOf).filter(Boolean);
     const allTags = [...new Set([...lineTags, ...units.flatMap((u) => u.tags)])];
-    const pick = (side) => units.filter((u) => u.side === side).map((u) => ({ s: u.slug, n: u.name, q: u.q, t: u.tags }));
+    const pick = (side) => units.filter((u) => u.side === side).map((u) => ({ s: u.slug, n: u.name, q: u.q, t: u.tags, html: u.html }));
 
     out.push({
       id,
@@ -203,7 +212,12 @@ function unitNo(u) {
     namesDirty = true;
     if (u.s) bySlug.set(u.s, i);
     byName.set(norm(u.n), i);
-  } else if (u.s && !names[i].s) { names[i].s = u.s; bySlug.set(u.s, i); namesDirty = true; }
+  } else {
+    if (u.s && !names[i].s) { names[i].s = u.s; bySlug.set(u.s, i); namesDirty = true; }
+    // самолечение: раньше записали «x3»/«S», а теперь имя нормальное — заменяем (индекс не меняется)
+    const bad = (t) => /^[x×]?\s?\d+$/i.test(t || '') || String(t || '').length <= 2;
+    if (bad(names[i].n) && u.n && !bad(u.n) && u.s && names[i].s === u.s) { names[i].n = u.n; byName.set(norm(u.n), i); namesDirty = true; }
+  }
   return i;
 }
 
@@ -298,6 +312,11 @@ async function scanOnce(page) {
   await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
 
   let res = await page.evaluate(pageExtract);
+  { // диагностика: HTML блоков, где имя юнита не удалось прочитать (x3, S ...)
+    const seenB = new Set(), out = [];
+    for (const a of res.ads) for (const u of [...a.has, ...a.wants]) if (u.html && !seenB.has(u.s)) { seenB.add(u.s); out.push(`### ${u.n} | ${u.s}\n${u.html}\n`); }
+    if (out.length) fs.writeFileSync('debug-market-badnames.txt', out.slice(0, 8).join('\n'));
+  }
   const cold = known.size === 0;
   for (let c = 0; c < MAX_CLICKS; c++) {
     const ids = res.ads.map((a) => a.id);
