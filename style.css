@@ -325,3 +325,4 @@ html[data-lite="1"] .fchips button{transition:none}
 .mk-lnk{display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--t);border:1px solid rgba(var(--gr),.28);border-radius:3px;padding:4px 8px;background:rgba(var(--gr),.06);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
 .mk-lnk:hover{border-color:var(--g);box-shadow:var(--glow)}
 .bar button.p{border-color:var(--g);background:rgba(var(--gr),.22);color:#fff;text-shadow:0 0 6px var(--g)}
+.of-pickbtn{width:100%;margin:8px 0 4px;padding:11px 10px;font-size:13px}
