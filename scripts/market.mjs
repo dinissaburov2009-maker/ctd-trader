@@ -12,6 +12,7 @@
 //   meta.json                      — время последнего скана, сколько открытых объявлений на сайте, статистика
 // Запись объявления: {i:id, t:firstSeen(unix сек), h:[[юнит,кол-во,метки?]], w:[...], hv:сумма_Has|null, wv:сумма_Wants|null, f:'oadu'}
 //   метки: o=Offers u=Upgrade d=Downgrade a=Adds
+//   n: описание автора (Note), если есть (до 300 символов); берётся из карточки списка /trade-ads, страницы /trade-ads/<id> бот не открывает (запрещено robots.txt)
 import { chromium } from 'playwright';
 import fs from 'fs';
 import path from 'path';
@@ -178,6 +179,15 @@ function pageExtract() {
       if (/just now/.test(head)) ageSec = 0;
       else if (am && UNIT[am[2]] !== undefined) ageSec = +am[1] * UNIT[am[2]];
     }
+    // описание автора (Note): строки между автозаголовком и меткой «Has». Шапка карточки: ник / возраст / «Offer» / заголовок / [описание]
+    const note = (() => {
+      const ls = cardText.split('\n').map((x) => x.trim());
+      const hi = ls.findIndex((x) => /^has\s*:?$/i.test(x));
+      if (hi < 0) return '';
+      const oi = ls.findIndex((x, k) => k < hi && /^offer$/i.test(x));
+      if (oi < 0) return '';
+      return ls.slice(oi + 1, hi).filter(Boolean).slice(1).join(' ').slice(0, 300);
+    })();
     const lineTags = [...leaves(card), ...cardText.split('\n')].map(tagOf).filter(Boolean);
     const allTags = [...new Set([...lineTags, ...units.flatMap((u) => u.tags)])];
     const pick = (side) => units.filter((u) => u.side === side).map((u) => ({ s: u.slug, n: u.name, q: u.q, t: u.tags, html: u.html }));
@@ -190,6 +200,7 @@ function pageExtract() {
       hv: total.h !== undefined ? total.h : sum('h'),
       wv: total.w !== undefined ? total.w : sum('w'),
       f: allTags.sort().join(''),
+      note,
       age: ageSec,
       raw: cardText.slice(0, 600),
     });
@@ -242,7 +253,7 @@ const stats = { scans: 0, added: 0, errors: 0, empty: 0, noHv: 0, noWv: 0, noUni
 
 function toRecord(ad, t) {
   const pair = (u) => { const a = [unitNo(u), u.q]; if (u.t && u.t.length) a.push(u.t.sort().join('')); return a; };
-  return { i: ad.id, t: ad.age !== null && ad.age !== undefined ? t - ad.age : t, h: ad.has.map(pair), w: ad.wants.map(pair), hv: ad.hv, wv: ad.wv, f: ad.f };
+  return { i: ad.id, t: ad.age !== null && ad.age !== undefined ? t - ad.age : t, h: ad.has.map(pair), w: ad.wants.map(pair), hv: ad.hv, wv: ad.wv, f: ad.f, ...(ad.note ? { n: ad.note } : {}) };
 }
 
 function save(openNow) {
