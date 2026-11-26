@@ -39,19 +39,25 @@ const readJson = (f, def) => { try { return JSON.parse(fs.readFileSync(f, 'utf8'
 const writeJson = (f, o) => { fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, JSON.stringify(o)); };
 const sh = (cmd, opt = {}) => execSync(cmd, { cwd: DIR, stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8', ...opt });
 
-/* ---------- robots.txt (простая проверка: Disallow для User-agent: * по префиксу пути) ---------- */
-function robotsAllows(txt, pathname) {
-  let applies = false, best = { len: -1, allow: true };
+/* ---------- robots.txt (User-agent: *, поддержка * и $, побеждает самое длинное правило, при равенстве Allow) ---------- */
+function parseRobots(txt) {
+  const rules = [];
+  let applies = false;
   for (const raw of String(txt || '').split(/\r?\n/)) {
     const line = raw.replace(/#.*/, '').trim();
-    if (!line) continue;
     const m = line.match(/^([a-z-]+)\s*:\s*(.*)$/i);
     if (!m) continue;
     const k = m[1].toLowerCase(), v = m[2].trim();
     if (k === 'user-agent') { applies = v === '*'; continue; }
-    if (!applies || !v) continue;
-    if ((k === 'disallow' || k === 'allow') && pathname.startsWith(v) && v.length > best.len) best = { len: v.length, allow: k === 'allow' };
+    if (!applies || !v || (k !== 'allow' && k !== 'disallow')) continue;
+    const re = new RegExp('^' + v.replace(/[.+?^{}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/\$$/, '$'));
+    rules.push({ allow: k === 'allow', len: v.length, re });
   }
+  return rules;
+}
+function robotsAllows(rules, pathname) {
+  let best = { len: -1, allow: true };
+  for (const r of rules) if (r.re.test(pathname) && (r.len > best.len || (r.len === best.len && r.allow))) best = r;
   return best.allow;
 }
 
@@ -108,9 +114,13 @@ function pageExtract() {
 
     const units = [];
     for (const { el, slug, links } of blocks.values()) {
-      let name = links.map((x) => (x.innerText || x.textContent || '').trim()).find((t) => t && !/artwork/i.test(t) && !/^x\s?\d+$/i.test(t));
+      const isQty = (t) => /^[x×]\s?\d+$/i.test(t) || /^\d+\s?[x×]$/i.test(t);
+      const okName = (t) => t && !/artwork/i.test(t) && !isQty(t);
+      let nameLines = links.flatMap((x) => { const lv = leaves(x); return lv.length ? lv : [(x.textContent || '').trim()]; }).filter(okName);
+      if (!nameLines.length) nameLines = links.flatMap((x) => (x.innerText || x.textContent || '').split('\n').map((t) => t.trim())).filter(okName);
+      let name = nameLines[0];
       if (!name) { const im = el.querySelector('img'); name = (im && im.alt || '').replace(/\s*artwork\s*$/i, '').trim(); }
-      name = (name || '').split('\n')[0].replace(/\s*artwork\s*$/i, '').trim();
+      name = (name || '').replace(/\s*artwork\s*$/i, '').trim();
       const txt = (el.innerText || el.textContent || '');
       const lv = leaves(el);
       const rest = name ? txt.split(name).join(' ') : txt; // имя вроде «2x Money» / «x2 candy» не должно сойти за количество
@@ -143,6 +153,20 @@ function pageExtract() {
     const sum = (side) => { const us = units.filter((u) => u.side === side); return us.length && us.every((u) => u.v !== null) ? us.reduce((s, u) => s + u.v, 0) : null; };
 
     const cardText = card.innerText || card.textContent || '';
+    let ageSec = null;
+    const UNIT = { s: 1, sec: 1, second: 1, m: 60, min: 60, minute: 60, h: 3600, hr: 3600, hour: 3600, d: 86400, day: 86400, w: 604800, week: 604800, mo: 2592000, month: 2592000, y: 31536000, year: 31536000 };
+    for (const ln of [...leaves(card).slice(0, 14), ...cardText.split('\n').slice(0, 10)]) {
+      const t = ln.trim().toLowerCase();
+      if (t === 'just now') { ageSec = 0; break; }
+      const am = t.match(/^(\d{1,3})\s*([a-z]+?)s?\s+ago$/);
+      if (am && UNIT[am[2]] !== undefined) { ageSec = +am[1] * UNIT[am[2]]; break; }
+    }
+    if (ageSec === null) { // запасной вариант: возраст мог слипнуться с ником, ищем в начале текста карточки
+      const head = cardText.slice(0, 160).toLowerCase();
+      const am = head.match(/(?:^|[^\d])(\d{1,2})\s*([a-z]+?)s?\s+ago/);
+      if (/just now/.test(head)) ageSec = 0;
+      else if (am && UNIT[am[2]] !== undefined) ageSec = +am[1] * UNIT[am[2]];
+    }
     const lineTags = [...leaves(card), ...cardText.split('\n')].map(tagOf).filter(Boolean);
     const allTags = [...new Set([...lineTags, ...units.flatMap((u) => u.tags)])];
     const pick = (side) => units.filter((u) => u.side === side).map((u) => ({ s: u.slug, n: u.name, q: u.q, t: u.tags }));
@@ -155,6 +179,7 @@ function pageExtract() {
       hv: total.h !== undefined ? total.h : sum('h'),
       wv: total.w !== undefined ? total.w : sum('w'),
       f: allTags.sort().join(''),
+      age: ageSec,
       raw: cardText.slice(0, 600),
     });
   }
@@ -201,7 +226,7 @@ const stats = { scans: 0, added: 0, errors: 0, empty: 0, noHv: 0, noWv: 0, noUni
 
 function toRecord(ad, t) {
   const pair = (u) => { const a = [unitNo(u), u.q]; if (u.t && u.t.length) a.push(u.t.sort().join('')); return a; };
-  return { i: ad.id, t, h: ad.has.map(pair), w: ad.wants.map(pair), hv: ad.hv, wv: ad.wv, f: ad.f };
+  return { i: ad.id, t: ad.age !== null && ad.age !== undefined ? t - ad.age : t, h: ad.has.map(pair), w: ad.wants.map(pair), hv: ad.hv, wv: ad.wv, f: ad.f };
 }
 
 function save(openNow) {
@@ -336,22 +361,42 @@ async function main() {
   const ctx = await b.newContext({ userAgent: UA, viewport: { width: 1100, height: 900 } });
   const page = await ctx.newPage();
   try {
+    let rules = [];
+    const u = new globalThis.URL(URL_ADS);
     if (env.MARKET_SKIP_ROBOTS !== '1') {
-      const u = new globalThis.URL(URL_ADS);
       let txt = '';
       try {
         const r = await ctx.request.get(u.origin + '/robots.txt', { timeout: 20000 });
         txt = r.ok() ? await r.text() : '';
         fs.writeFileSync('debug-market-robots.txt', `status ${r.status()}\n${txt}`);
       } catch (e) { fs.writeFileSync('debug-market-robots.txt', 'не удалось получить: ' + e.message); }
-      if (!robotsAllows(txt, u.pathname)) { console.error('robots.txt запрещает', u.pathname, '— бот остановлен, ничего не делаем.'); process.exitCode = 3; return; }
-      log('robots.txt: можно');
+      rules = parseRobots(txt);
+      if (!robotsAllows(rules, u.pathname)) { console.error('robots.txt запрещает', u.pathname, '— бот остановлен, ничего не делаем.'); process.exitCode = 3; return; }
+      log(`robots.txt: ${u.pathname} можно (правил для *: ${rules.length})`);
     }
+    // Все запросы браузера на этом сайте тоже проверяем по robots.txt: запрещённое (например /api/ кроме media, /trade-ads/<id>) не отправляем.
+    // Картинки, шрифты и медиа не грузим вообще (боту они не нужны, меньше нагрузка на сайт).
+    const reqLog = [], blocked = new Set();
+    await page.route('**/*', (route) => {
+      const rq = route.request(), rt = rq.resourceType();
+      let pu; try { pu = new globalThis.URL(rq.url()); } catch { return route.continue(); }
+      if (rt === 'image' || rt === 'font' || rt === 'media') return route.abort();
+      if (pu.origin === u.origin && rules.length && !robotsAllows(rules, pu.pathname)) {
+        const k = `${rq.method()} ${pu.pathname}`;
+        if (!blocked.has(k) && blocked.size < 100) { blocked.add(k); fs.writeFileSync('debug-market-blocked.txt', [...blocked].join('\n')); }
+        return route.abort();
+      }
+      if (pu.origin === u.origin && reqLog.length < 300 && rt !== 'script' && rt !== 'stylesheet') {
+        reqLog.push(`${rq.method()} ${rt} ${pu.pathname}${rq.headers()['next-action'] ? ' [server action]' : ''}`);
+        if (reqLog.length % 20 === 1) fs.writeFileSync('debug-market-requests.txt', reqLog.join('\n'));
+      }
+      return route.continue();
+    });
     squashIfBig();
 
     const stopAt = Date.now() + RUN_MIN * 60e3;
     let nextFlush = Date.now() + FLUSH_MIN * 60e3, fails = 0, lastOpen = 0;
-    const finish = (why) => { log('финиш:', why); try { save(lastOpen); gitPush(`market ${new Date().toISOString().slice(0, 16)}Z (final)`); } catch (e) { log('ошибка финиша', e.message); } };
+    const finish = (why) => { log('финиш:', why); try { fs.writeFileSync('debug-market-requests.txt', reqLog.join('\n')); } catch {} try { save(lastOpen); gitPush(`market ${new Date().toISOString().slice(0, 16)}Z (final)`); } catch (e) { log('ошибка финиша', e.message); } };
     for (const sig of ['SIGTERM', 'SIGINT']) process.on(sig, () => { finish(sig); process.exit(0); }); // Cancel в GitHub шлёт SIGINT, потом SIGTERM
 
     while (Date.now() < stopAt) {
