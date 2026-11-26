@@ -2251,7 +2251,7 @@ async function gload(){
 const MKU='https://raw.githubusercontent.com/dinissaburov2009-maker/ctd-trader/market/',MKS='https://cameraman-td.vaultedvaluesx.com/trade-ads/';
 const MKF={o:'Offers',u:'Upgrade',d:'Downgrade',a:'Adds'},MKAGE=[[0,'Все'],[900,'15 мин'],[3600,'1 час'],[21600,'6 часов']],MKSORT=[['new','Новые'],['pct','Выгодные мне'],['sum','Крупные']],MKSIDE=[['all','Везде'],['has','Отдают'],['want','Ищут']];
 const MKFIX={'item-2b19d9cc':'2x Turkey Leg'}; /* юниты, у которых бот записал имя «x3»: определено по цене (14 объявлений, везде ровно 2600) */
-let MK={ads:[],names:[],map:[],nk:[],src:'live',days:null,q:'',side:'all',fl:new Set(),rar:new Set(),only:0,age:900,sort:'new',mine:0,lim:30,at:0,err:'',busy:0,vc:new Map(),vsig:''};
+let MK={ads:[],names:[],map:[],nk:[],src:'live',days:null,q:'',side:'all',fl:new Set(),rar:new Set(),only:0,gem:0,age:900,sort:'new',mine:0,lim:30,at:0,err:'',busy:0,vc:new Map(),vsig:''};
 const mkAgo=t=>{const s=Math.max(0,Date.now()/1e3-t),d=new Date(t*1e3);return s<45?'только что':s<3600?Math.round(s/60)+' мин назад':s<86400?Math.round(s/3600)+' ч назад':d.toLocaleDateString('ru')+' '+d.toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'})};
 const mkClean=ls=>(Array.isArray(ls)?ls:ls?.ads||[]).filter(a=>a&&a.i&&Array.isArray(a.h)&&Array.isArray(a.w));
 function mkPrep(names,ads){MK.names=Array.isArray(names)?names:[];MK.map=MK.names.map(x=>{const f=Object.keys(MKFIX).find(k=>(x?.s||'').startsWith(k));return resolveName(f?MKFIX[f]:x?.n)});MK.nk=MK.names.map((x,i)=>nrm(x?.n)+'|'+nrm(MK.map[i]));MK.ads=ads;MK.vc.clear();MK.lim=30;const c=$('nc4');if(c)c.textContent=ads.length>999?Math.round(ads.length/100)/10+'K':ads.length}
@@ -2293,6 +2293,8 @@ function mkHit(a){
   const w=[...new Set(a.w.map(([x])=>MK.map[x]).filter(n=>n&&S.inv[n]>0))],h=[...new Set(a.h.map(([x])=>MK.map[x]).filter(n=>n&&(n===S.goal||S.fav[n])))];
   return{w,h,any:!!(w.length||h.length)};
 }
+const MKGEM=/(\d[\d.,]*\s*[kKкК]?\s*(?:💎|gems?\b|гем\w*)|(?:💎|gems?\b|гем\w*)\s*\d[\d.,]*\s*[kKкК]?)/gi;
+const mkNote=n=>esc(n).replace(MKGEM,'<b class="win">$1</b>');
 const mkRarOrder=['Godly','Exclusive','Mythic','Legendary','Epic','Rare','Uncommon','Common','Signed'];
 function mkRar(){const cs=[...new Set(ALL.filter(i=>i.kind==='unit').map(i=>i.category).filter(Boolean))];return cs.sort((a,b)=>{const x=mkRarOrder.indexOf(a),y=mkRarOrder.indexOf(b);return(x<0?99:x)-(y<0?99:y)||(a<b?-1:1)})}
 function mkFiltered(){
@@ -2307,6 +2309,7 @@ function mkFiltered(){
       /* «Только он»: на стороне нет других юнитов, все подходят (×N одного юнита — нормально) */
       if(!sides.some(sd=>MK.only?sd.length&&sd.every(([x])=>um(x)):sd.some(([x])=>um(x))))return 0;
     }
+    if(MK.gem&&!(a.n&&/💎|gems?\b|гем/i.test(a.n)))return 0;
     if(MK.mine&&!mkHit(a).any)return 0;
     return 1;
   });
@@ -2327,7 +2330,7 @@ function mkCard(a){
   const hit=(ht.w.length?`<div class="mk-hit">🎒 Хотят то, что у тебя есть: ${ht.w.map(esc).join(', ')}</div>`:'')+(ht.h.length?`<div class="mk-hit">🎯 Отдают из твоих целей/избранного: ${ht.h.map(esc).join(', ')}</div>`:'');
   return`<div class="card mk-card${ht.any?' mk-mine':''}"><div class="mk-h"><span>${mkAgo(a.t)}</span>${fl.map(f=>`<span class="tag">${f}</span>`).join('')}</div>
   <div class="mk-cols"><div class="mk-col"><h4><span>ОТДАЁТ</span><b>${sm(a.hv)}</b></h4>${mkSide(a.h)}</div><div class="mk-col"><h4><span>ХОЧЕТ</span><b>${sm(a.wv)}</b></h4>${mkSide(a.w,fl)}</div></div>
-  ${vh}${hit}<div class="mk-act"><button class="sm" data-a="mkTake" data-i="${esc(a.i)}">⚖ В калькулятор</button><a class="mk-lnk" href="${MKS}${esc(a.i)}" target="_blank" rel="noopener noreferrer">На сайте ↗</a></div></div>`;
+  ${a.n?`<div class="mk-note m" style="margin-top:6px">📝 ${mkNote(a.n)}</div>`:''}${vh}${hit}<div class="mk-act"><button class="sm" data-a="mkTake" data-i="${esc(a.i)}">⚖ В калькулятор</button><a class="mk-lnk" href="${MKS}${esc(a.i)}" target="_blank" rel="noopener noreferrer">На сайте ↗</a></div></div>`;
 }
 const mkCh=(act,list,cur)=>list.map(([v,l])=>`<button data-a="${act}" data-v="${v}" class="${cur(v)?'on':''}">${l}</button>`).join('');
 function mk(){
@@ -2338,7 +2341,7 @@ function mk(){
   <div class="fg-t">ГДЕ ИСКАТЬ ЮНИТА</div><div class="fchips">${mkCh('mkS',MKSIDE,v=>MK.side===v)}</div>
   <div class="fg-t">МЕТКИ <span class="m">(можно несколько)</span></div><div class="fchips">${mkCh('mkF',[['','Все'],...Object.entries(MKF)],v=>v?MK.fl.has(v):!MK.fl.size)}</div>
   <div class="fg-t">РЕДКОСТЬ ЮНИТА <span class="m">(можно несколько)</span></div><div class="fchips">${mkCh('mkR',[['','Все'],...mkRar().map(c=>[c,c])],v=>v?MK.rar.has(v):!MK.rar.size)}</div>
-  <div class="fg-t">СТРОГОСТЬ ПОИСКА</div><div class="fchips"><button data-a="mkOnly" class="${MK.only?'on':''}">☝ Только он: без других юнитов на стороне</button></div>
+  <div class="fg-t">СТРОГОСТЬ ПОИСКА</div><div class="fchips"><button data-a="mkOnly" class="${MK.only?'on':''}">☝ Только он: без других юнитов на стороне</button><button data-a="mkGem" class="${MK.gem?'on':''}">💎 Гемы в описании</button></div>
   <div class="fg-t">СВЕЖЕСТЬ</div><div class="fchips">${mkCh('mkA',MKAGE,v=>MK.age===+v)}</div>
   <div class="fg-t">СОРТИРОВКА</div><div class="fchips">${mkCh('mkO',MKSORT,v=>MK.sort===v)}<button data-a="mkMine" class="${MK.mine?'on':''}">🎯 Для меня (${mn})</button></div>
   <div class="bar"><button data-a="mkRef">↻ Обновить</button><button data-a="mkSrc" data-v="live" class="${live?'p':''}">LIVE</button><button data-a="mkSrc" data-v="arch" class="${live?'':'p'}">📦 Архив</button></div>
@@ -2403,7 +2406,7 @@ const ACT={
   ofTrade:el=>ofTrade(+el.dataset.k),ofRepl:el=>ofRepl(+el.dataset.k),ofBun:el=>ofBun(+el.dataset.k),ofDl:()=>ofDl(),ofPng:()=>ofPng(),ofCp:()=>ofCp(),
   mkS:el=>{MK.side=el.dataset.v;MK.lim=30;mk()},mkA:el=>{MK.age=+el.dataset.v;MK.lim=30;mk()},mkO:el=>{MK.sort=el.dataset.v;MK.lim=30;mk()},
   mkF:el=>{const v=el.dataset.v;if(!v)MK.fl.clear();else if(MK.fl.has(v))MK.fl.delete(v);else MK.fl.add(v);MK.lim=30;mk()},
-  mkR:el=>{const v=el.dataset.v;if(!v)MK.rar.clear();else if(MK.rar.has(v))MK.rar.delete(v);else MK.rar.add(v);MK.lim=30;mk()},mkOnly:()=>{MK.only=MK.only?0:1;MK.lim=30;mk()},
+  mkR:el=>{const v=el.dataset.v;if(!v)MK.rar.clear();else if(MK.rar.has(v))MK.rar.delete(v);else MK.rar.add(v);MK.lim=30;mk()},mkOnly:()=>{MK.only=MK.only?0:1;MK.lim=30;mk()},mkGem:()=>{MK.gem=MK.gem?0:1;MK.lim=30;mk()},
   mkMine:()=>{MK.mine=MK.mine?0:1;MK.lim=30;mk()},mkMore:()=>{MK.lim+=30;mk()},
   mkRef:()=>{if(MK.src==='live')mkLoad(1);else mkArchDay(MK.src)},
   mkSrc:el=>{if(el.dataset.v==='live'){if(MK.src!=='live'){MK.src='live';MK.ads=[];mk();mkLoad(1)}else mkLoad(1)}else if(!MK.days)mkDays();else{MK.days=null;mk()}},
