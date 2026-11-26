@@ -381,14 +381,14 @@ const setTh=(t,q)=>{S.th=t;save();document.documentElement.dataset.th=t;window.R
 const applyLite=()=>{document.documentElement.dataset.lite=S.lite?'1':'0';$('ltb')?.classList.toggle('on',!!S.lite)};
 const sndI=()=>{$('snd').innerHTML=I(S.snd?'snd':'mute')};
 $('ctl').innerHTML=Object.keys(TH).map(t=>`<button class="thb" data-a="th" data-t="${t}" title="${t.toUpperCase()}" style="--c:${TH[t]}"></button>`).join('')+'<button id="ltb" class="sb" data-a="lite" title="Lite-режим (без лагов)">⚡</button><button id="snd" class="sb" data-a="snd"></button>';
-const NV=[['scale','Трейд'],['grid','Каталог'],['box','Инвентарь'],['mega','Объявл.'],['gear','Ещё']];
+const NV=[['scale','Трейд'],['grid','Каталог'],['box','Инвентарь'],['mega','Объявл.'],['chart','Рынок'],['gear','Ещё']];
 $('nv').innerHTML=NV.map((n,i)=>`<button data-a="tab" data-i="${i}">${I(n[0])}<span>${n[1]}</span><small id="nc${i}"></small></button>`).join('');
 function cnt(){
   const tot=ALL.length,live=D.updated&&D.updated!='seed',N=FN??tot,tp=pos(S.give)+pos(S.get),tq=pcs(S.give)+pcs(S.get);
   $('cn').innerHTML=`<span class="${live?'ok':'wn'}">БАЗА ${live?'LIVE':'SEED'}: ${(D.items||[]).length}</span><span>ВСЕГО: ${tot}</span><span>ФИЛЬТР: ${N}</span><span>ИНВ: ${pos(S.inv)}п/${pcs(S.inv)}шт</span><span>ТРЕЙД: ${tp}п/${tq}шт</span>`;
   $('nc0').textContent=tp+'п/'+tq+'шт';$('nc1').textContent=N+'/'+tot;$('nc2').textContent=pos(S.inv)+'п/'+pcs(S.inv)+'шт';
 }
-function tab(i){tabNow=i;document.querySelectorAll('.tab').forEach((e,j)=>e.classList.toggle('on',i==j));[...$('nv').children].forEach((e,j)=>e.classList.toggle('on',i==j));$('nv').style.setProperty('--i',i);if(i==2)inv();if(i==3)ad();scrollTo(0,0);document.querySelectorAll('.tab.on h3').forEach(scr)}
+function tab(i){tabNow=i;document.querySelectorAll('.tab').forEach((e,j)=>e.classList.toggle('on',i==j));[...$('nv').children].forEach((e,j)=>e.classList.toggle('on',i==j));$('nv').style.setProperty('--i',i);if(i==2)inv();if(i==3)ad();if(i==4){mk();mkLoad(1)}scrollTo(0,0);document.querySelectorAll('.tab.on h3').forEach(scr)}
 function dwSync(v){const r=$('dw'),l=$('dwv');if(!r||!l)return;if(v==null){v=S.dw==null?35:S.dw;r.value=v}
   l.textContent=v+'% · '+(v<=5?'вердикт только по цене':v<=40?'в основном цена, спрос и тренд — поправка':v<=70?'цена и спрос примерно поровну':'спрос и тренд решают почти всё')}
 function init(){
@@ -2233,6 +2233,96 @@ async function gload(){
   try{const r=await fetch('https://api.github.com/gists/'+S.gist.i,{headers:gh()}),j=await r.json();if(!r.ok)throw j.message;const g=S.gist;S=Object.assign({},S0,JSON.parse(j.files['ctd-profile.json'].content),{gist:g});S.gems=Object.assign({give:0,get:0},S.gems);save();init();$('gm').textContent='Загружено ✓'}catch(e){$('gm').textContent='Ошибка: '+e}
 }
 
+/* ================= РЫНОК ТРЕЙДОВ (данные бота, ветка market) ================= */
+const MKU='https://raw.githubusercontent.com/dinissaburov2009-maker/ctd-trader/market/',MKS='https://cameraman-td.vaultedvaluesx.com/trade-ads/';
+const MKF={o:'Offers',u:'Upgrade',d:'Downgrade',a:'Adds'},MKAGE=[[0,'Все'],[900,'15 мин'],[3600,'1 час'],[21600,'6 часов']],MKSORT=[['new','Новые'],['pct','Выгодные мне'],['sum','Крупные']],MKSIDE=[['all','Везде'],['has','Отдают'],['want','Ищут']];
+const MKFIX={'item-2b19d9cc':'2x Turkey Leg'}; /* юниты, у которых бот записал имя «x3»: определено по цене (14 объявлений, везде ровно 2600) */
+let MK={ads:[],names:[],map:[],nk:[],src:'live',days:null,q:'',side:'all',fl:new Set(),age:0,sort:'new',mine:0,lim:30,at:0,err:'',busy:0,vc:new Map(),vsig:''};
+const mkAgo=t=>{const s=Math.max(0,Date.now()/1e3-t),d=new Date(t*1e3);return s<45?'только что':s<3600?Math.round(s/60)+' мин назад':s<86400?Math.round(s/3600)+' ч назад':d.toLocaleDateString('ru')+' '+d.toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'})};
+const mkClean=ls=>(Array.isArray(ls)?ls:ls?.ads||[]).filter(a=>a&&a.i&&Array.isArray(a.h)&&Array.isArray(a.w));
+function mkPrep(names,ads){MK.names=Array.isArray(names)?names:[];MK.map=MK.names.map(x=>{const f=Object.keys(MKFIX).find(k=>(x?.s||'').startsWith(k));return resolveName(f?MKFIX[f]:x?.n)});MK.nk=MK.names.map((x,i)=>nrm(x?.n)+'|'+nrm(MK.map[i]));MK.ads=ads;MK.vc.clear();MK.lim=30;const c=$('nc4');if(c)c.textContent=ads.length>999?Math.round(ads.length/100)/10+'K':ads.length}
+async function mkLoad(m){
+  if(MK.busy||MK.src!=='live')return;MK.busy=1;MK.err='';if(m&&tabNow===4)mk();
+  try{
+    const b='?t='+Math.floor(Date.now()/30000),o={cache:'no-store'},[rn,rl]=await Promise.all([fetch(MKU+'names.json'+b,o),fetch(MKU+'latest.json'+b,o)]);
+    if(!rn.ok||!rl.ok)throw new Error('HTTP '+(rl.ok?rn.status:rl.status)+' (репозиторий должен быть публичным, ветка market — существовать)');
+    const[nm,ls]=await Promise.all([rn.json(),rl.json()]);
+    if(MK.src==='live'){mkPrep(nm,mkClean(ls));MK.at=Date.now()}
+  }catch(e){MK.err=String(e?.message||e)}
+  MK.busy=0;if(tabNow===4)mk();
+}
+async function mkDays(){
+  try{const r=await fetch(MKU+'archive/index.json?t='+Math.floor(Date.now()/30000),{cache:'no-store'});if(!r.ok)throw 0;const j=await r.json();MK.days=j.days||{}}catch{MK.days={};MK.err='Архив недоступен'}
+  mk();
+}
+async function mkArchDay(day){
+  const hs=MK.days?.[day];if(!hs?.length||MK.busy)return;MK.busy=1;MK.err='';MK.src=day;mk();
+  try{
+    const o={cache:'no-store'},[rn,...rs]=await Promise.all([fetch(MKU+'names.json?t='+Math.floor(Date.now()/30000),o),...hs.map(h=>fetch(`${MKU}archive/${day}/${h}.json`,o))]);
+    if(!rn.ok)throw new Error('HTTP '+rn.status);
+    const parts=await Promise.all(rs.map(r=>r.ok?r.json().catch(()=>[]):[])),seen=new Set(),ads=mkClean(parts.flatMap(p=>mkClean(p))).filter(a=>seen.has(a.i)?0:seen.add(a.i)).sort((a,b)=>b.t-a.t);
+    mkPrep(await rn.json(),ads);MK.at=Date.now();
+  }catch(e){MK.err=String(e?.message||e)}
+  MK.busy=0;mk();
+}
+function mkVd(a){
+  const sig=S.dw+'|'+S.mk+'|'+D.updated+'|'+MK.map.length+'|'+ALL.length;if(sig!==MK.vsig){MK.vc.clear();MK.vsig=sig}
+  if(MK.vc.has(a.i))return MK.vc.get(a.i);
+  const hv={},wv={};let bad=0;
+  for(const[x,q]of a.h){const n=MK.map[x];if(n)hv[n]=(hv[n]||0)+q;else bad++}
+  for(const[x,q]of a.w){const n=MK.map[x];if(n)wv[n]=(wv[n]||0)+q;else bad++}
+  let r=null;
+  if(Object.keys(hv).length&&Object.keys(wv).length){try{const T=analyzeTrade(wv,hv,0,0);r={rec:T.rec,pct:T.adjPct,bad}}catch{}}
+  MK.vc.set(a.i,r);return r;
+}
+function mkHit(a){
+  const w=[...new Set(a.w.map(([x])=>MK.map[x]).filter(n=>n&&S.inv[n]>0))],h=[...new Set(a.h.map(([x])=>MK.map[x]).filter(n=>n&&(n===S.goal||S.fav[n])))];
+  return{w,h,any:!!(w.length||h.length)};
+}
+function mkFiltered(){
+  const q=nrm(MK.q),now=Date.now()/1e3;
+  let L=MK.ads.filter(a=>{
+    if(MK.age&&now-a.t>MK.age)return 0;
+    if(MK.fl.size&&![...MK.fl].some(c=>(a.f||'').includes(c)))return 0;
+    if(q){const m=side=>side.some(([x])=>(MK.nk[x]||'').includes(q));if(MK.side==='has'?!m(a.h):MK.side==='want'?!m(a.w):!(m(a.h)||m(a.w)))return 0}
+    if(MK.mine&&!mkHit(a).any)return 0;
+    return 1;
+  });
+  if(MK.sort==='pct')L=L.map(a=>[a,mkVd(a)]).sort((x,y)=>(y[1]?y[1].pct:-1e9)-(x[1]?x[1].pct:-1e9)).map(x=>x[0]);
+  else if(MK.sort==='sum')L=[...L].sort((x,y)=>Math.max(y.hv||0,y.wv||0)-Math.max(x.hv||0,x.wv||0));
+  return L;
+}
+function mkSide(arr){
+  return arr.map(([x,q])=>{const n=MK.map[x],u=n&&IDX.get(n),qq=q>1?`<b>×${q}</b>`:'';
+    return u?`<div class="mk-u" data-a="det" data-n="${esc(n)}">${imgTag(u,'mk-i')}<span>${esc(n)}</span>${qq}<em>${sfmt(u.value)}</em></div>`
+      :`<div class="mk-u unk" title="Юнит не опознан"><span>? ${esc(MK.names[x]?.n||'юнит #'+x)}</span>${qq}</div>`}).join('')||'<div class="m">— ничего —</div>';
+}
+function mkCard(a){
+  const vd=mkVd(a),ht=mkHit(a),fl=[...(a.f||'')].map(c=>MKF[c]).filter(Boolean),sm=v=>v==null?'O/C':sfmt(v);
+  const vh=vd?`<div class="rec ${vd.rec[0]} mk-v"><div class="rt"><span>${vd.rec[1]}</span><span class="m" style="color:inherit">${vd.pct>0?'+':''}${vd.pct.toFixed(0)}%${vd.bad?' · не опознано: '+vd.bad:''}</span></div></div>`
+    :`<div class="m mk-v0">${!a.h.length?'Ничего не отдаёт':!a.w.length?'Ждёт предложений (цену не назвал)':'Вердикт недоступен (юниты не опознаны)'}</div>`;
+  const hit=(ht.w.length?`<div class="mk-hit">🎒 Хотят то, что у тебя есть: ${ht.w.map(esc).join(', ')}</div>`:'')+(ht.h.length?`<div class="mk-hit">🎯 Отдают из твоих целей/избранного: ${ht.h.map(esc).join(', ')}</div>`:'');
+  return`<div class="card mk-card${ht.any?' mk-mine':''}"><div class="mk-h"><span>${mkAgo(a.t)}</span>${fl.map(f=>`<span class="tag">${f}</span>`).join('')}</div>
+  <div class="mk-cols"><div class="mk-col"><h4><span>ОТДАЁТ</span><b>${sm(a.hv)}</b></h4>${mkSide(a.h)}</div><div class="mk-col"><h4><span>ХОЧЕТ</span><b>${sm(a.wv)}</b></h4>${mkSide(a.w)}</div></div>
+  ${vh}${hit}<div class="mk-act"><button class="sm" data-a="mkTake" data-i="${esc(a.i)}">⚖ В калькулятор</button><a class="mk-lnk" href="${MKS}${esc(a.i)}" target="_blank" rel="noopener noreferrer">На сайте ↗</a></div></div>`;
+}
+const mkCh=(act,list,cur)=>list.map(([v,l])=>`<button data-a="${act}" data-v="${v}" class="${cur(v)?'on':''}">${l}</button>`).join('');
+function mk(){
+  const R=$('mkl'),C=$('mkc');if(!R||!C)return;
+  const L=mkFiltered(),live=MK.src==='live',newest=MK.ads.reduce((m,a)=>Math.max(m,a.t),0),mn=MK.ads.filter(a=>mkHit(a).any).length;
+  const days=MK.days?Object.keys(MK.days).sort().reverse().slice(0,30):null;
+  C.innerHTML=`<div class="mk-st"><b class="${MK.err?'lose':'win'}">${live?'LIVE':'АРХИВ '+MK.src}</b> · ${MK.ads.length} объявл. · показано ${L.length}${MK.busy?' · загрузка…':''}<br><span class="m">${MK.at?'обновлено '+new Date(MK.at).toLocaleTimeString('ru'):'ещё не загружено'}${newest?' · самое свежее: '+mkAgo(newest):''}</span>${MK.err?`<br><span class="lose">⚠ ${esc(MK.err)}</span>`:''}</div>
+  <div class="fg-t">ГДЕ ИСКАТЬ ЮНИТА</div><div class="fchips">${mkCh('mkS',MKSIDE,v=>MK.side===v)}</div>
+  <div class="fg-t">МЕТКИ <span class="m">(можно несколько)</span></div><div class="fchips">${mkCh('mkF',[['','Все'],...Object.entries(MKF)],v=>v?MK.fl.has(v):!MK.fl.size)}</div>
+  <div class="fg-t">СВЕЖЕСТЬ</div><div class="fchips">${mkCh('mkA',MKAGE,v=>MK.age===+v)}</div>
+  <div class="fg-t">СОРТИРОВКА</div><div class="fchips">${mkCh('mkO',MKSORT,v=>MK.sort===v)}<button data-a="mkMine" class="${MK.mine?'on':''}">🎯 Для меня (${mn})</button></div>
+  <div class="bar"><button data-a="mkRef">↻ Обновить</button><button data-a="mkSrc" data-v="live" class="${live?'p':''}">LIVE</button><button data-a="mkSrc" data-v="arch" class="${live?'':'p'}">📦 Архив</button></div>
+  ${days?`<div class="fchips sc">${days.length?days.map(d=>`<button data-a="mkDay" data-v="${d}" class="${MK.src===d?'on':''}">${d.slice(5)} (${MK.days[d].length} ч)</button>`).join(''):'<span class="m">Архив пока пуст</span>'}</div>`:''}
+  <div class="m" style="margin-top:6px">Вердикт — если ты берёшь объявление: отдаёшь то, что хочет автор, получаешь то, что он отдаёт. Данные идут с задержкой 5–20 мин, закрытые объявления не отслеживаются.</div>`;
+  R.innerHTML=L.slice(0,MK.lim).map(mkCard).join('')+(L.length>MK.lim?`<button style="width:100%" data-a="mkMore">Показать ещё (${L.length-MK.lim})</button>`:'')+(!L.length?`<div class="card m">${MK.ads.length?'По фильтрам ничего не найдено.':MK.busy?'Загрузка…':'Нет данных.'}</div>`:'');
+}
+setInterval(()=>{if(tabNow===4&&!document.hidden)mkLoad()},60000);
+
 const ACT={
   fcT:el=>{const v=el.dataset.v;if(!v)FCS.clear();else if(FCS.has(v))FCS.delete(v);else FCS.add(v);syncChips();cat();sfx('tap')},
   fsT:el=>{const v=el.dataset.v;if(!v)FSS.clear();else if(FSS.has(v))FSS.delete(v);else FSS.add(v);syncChips();cat();sfx('tap')},
@@ -2285,7 +2375,17 @@ const ACT={
   ofCheckGo:()=>{const m=OFM;if(!m)return;const sel=ofSelObj(m.ent),off=ofOffObj();if(!Object.keys(sel).length&&!Object.keys(off).length)return;S.give={...sel};S.get={...off};S.gems={give:0,get:Math.max(0,Math.round(+S.ofgg||0))};save();if($('dl').open)$('dl').close();calc();tab(0);toast('Обмен загружен в трейд');sfx('add')},
   ofClr:()=>{S.ofSel={};save();ofr();sfx('tap')},
   ofWeak:()=>{const m=OFM;if(!m)return;const sel={};let t=0;for(const x of m.ent){if(!ofBad(x.a)||x.v<15)continue;const k=Math.min(x.q,12-t);if(k>0){sel[x.n]=k;t+=k}}S.ofSel=sel;save();ofr();sfx('tap')},
-  ofTrade:el=>ofTrade(+el.dataset.k),ofRepl:el=>ofRepl(+el.dataset.k),ofBun:el=>ofBun(+el.dataset.k),ofDl:()=>ofDl(),ofPng:()=>ofPng(),ofCp:()=>ofCp()
+  ofTrade:el=>ofTrade(+el.dataset.k),ofRepl:el=>ofRepl(+el.dataset.k),ofBun:el=>ofBun(+el.dataset.k),ofDl:()=>ofDl(),ofPng:()=>ofPng(),ofCp:()=>ofCp(),
+  mkS:el=>{MK.side=el.dataset.v;MK.lim=30;mk()},mkA:el=>{MK.age=+el.dataset.v;MK.lim=30;mk()},mkO:el=>{MK.sort=el.dataset.v;MK.lim=30;mk()},
+  mkF:el=>{const v=el.dataset.v;if(!v)MK.fl.clear();else if(MK.fl.has(v))MK.fl.delete(v);else MK.fl.add(v);MK.lim=30;mk()},
+  mkMine:()=>{MK.mine=MK.mine?0:1;MK.lim=30;mk()},mkMore:()=>{MK.lim+=30;mk()},
+  mkRef:()=>{if(MK.src==='live')mkLoad(1);else mkArchDay(MK.src)},
+  mkSrc:el=>{if(el.dataset.v==='live'){if(MK.src!=='live'){MK.src='live';MK.ads=[];mk();mkLoad(1)}else mkLoad(1)}else if(!MK.days)mkDays();else{MK.days=null;mk()}},
+  mkDay:el=>mkArchDay(el.dataset.v),
+  mkTake:el=>{const a=MK.ads.find(x=>x.i===el.dataset.i);if(!a)return;const g={},r={};let sk=0;
+    for(const[x,q]of a.w){const n=MK.map[x];if(n)g[n]=(g[n]||0)+q;else sk++}
+    for(const[x,q]of a.h){const n=MK.map[x];if(n)r[n]=(r[n]||0)+q;else sk++}
+    S.give=g;S.get=r;S.gems={give:0,get:0};save();calc();tab(0);toast('Загружено в трейд'+(sk?' · не опознано: '+sk:''));sfx('add')}
 };
 document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(el&&ACT[el.dataset.a])ACT[el.dataset.a](el,e)});
 const CHG={
@@ -2322,6 +2422,7 @@ document.addEventListener('paste',e=>{
   if(files.length){e.preventDefault();scPickFiles(files)}
 });
 let _cq;$('q').addEventListener('input',()=>{clearTimeout(_cq);_cq=setTimeout(cat,120)});
+let _mq;$('mq').addEventListener('input',e=>{clearTimeout(_mq);_mq=setTimeout(()=>{MK.q=e.target.value;MK.lim=30;mk()},150)});
 $('dl').addEventListener('input',e=>{if(e.target.id=='pq')pl();if(e.target.id=='ivq')ivl()});
 ['pointermove','pointerdown'].forEach(t=>$('dl').addEventListener(t,e=>{const s=e.target.closest?.('svg.chart');if(s&&CHD)chartAt(e,s)}));
 document.addEventListener('pointerdown',e=>{const b=e.target.closest('button');if(!b)return;navigator.vibrate?.(8);sfx('tap');if(S.lite)return;const r=b.getBoundingClientRect(),d=Math.max(r.width,r.height),s=document.createElement('i');s.className='rp';s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;b.append(s);setTimeout(()=>s.remove(),600)});
