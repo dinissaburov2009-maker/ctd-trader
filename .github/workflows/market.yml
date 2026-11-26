@@ -50,6 +50,7 @@ jobs:
       - name: Market bot
         env:
           MARKET_RUN_MIN: '265'
+          MARKET_FLUSH_MIN: '1'
         run: node scripts/market.mjs
 
       - name: Save debug files
