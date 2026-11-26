@@ -1015,3 +1015,41 @@ nav button{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap
   .dh-bar .xb svg{width:22px;height:22px}
   .dh-bar button:not(.xb){min-height:40px;padding:6px 10px}
 }
+
+/* ===== v4.4: компактная вкладка «Рынок» (меньше скроллить) ===== */
+#mkl .mk-card{padding:9px 10px;margin-bottom:8px;border-radius:14px}
+#mkl .mk-h{gap:5px;margin-bottom:7px;font-size:11.5px}
+#mkl .mk-ago{font-size:11.5px}
+#mkl .mk-h .tag,#mkl .mk-star{font-size:10.5px;padding:1px 7px}
+/* две колонки «Отдаёт / Хочет» рядом всегда, а не друг под другом */
+#mkl .mk-cols{grid-template-columns:1fr 1fr;gap:6px}
+#mkl .mk-sw{display:none}
+#mkl .mk-col{padding:6px 8px 4px;border-radius:11px;gap:0}
+#mkl .mk-col h4{margin:0 0 3px;padding:0 0 4px;font-size:11.5px;font-weight:600}
+#mkl .mk-col h4 b{font-size:13px;font-weight:700}
+#mkl .mk-col h4>span::before{width:7px;height:7px;margin-right:6px}
+/* юнит: маленькая иконка слева, имя сверху, цена под ним */
+#mkl .mk-u{display:grid;grid-template-columns:28px 1fr;grid-template-areas:"i n" "i e";column-gap:7px;align-items:center;min-height:0;margin:0 -4px;padding:3px 4px;border-radius:9px}
+#mkl .mk-u>:first-child{grid-area:i}
+#mkl .mk-i{grid-area:i;width:28px;height:28px;border-radius:8px;filter:none}
+#mkl .mk-n{grid-area:n;font-size:12px;font-weight:600;line-height:1.15}
+#mkl .mk-u em{grid-area:e;font-size:10.5px;font-weight:500;color:var(--m);line-height:1.1}
+#mkl .mk-u.unk{display:block}
+#mkl .mk-q{margin-left:4px;padding:0 5px;font-size:10.5px}
+#mkl .mk-empty{padding:6px 2px;font-size:11.5px}
+#mkl .mk-note{margin-top:7px;padding:5px 8px;font-size:11.5px;line-height:1.3;border-radius:9px}
+/* вердикт в одну строку */
+#mkl .mk-v{margin:7px 0 0;padding:5px 10px;border-radius:10px;gap:2px 8px}
+#mkl .mk-vl{font-size:12.5px}
+#mkl .mk-vp{padding:1px 8px;font-size:12px}
+#mkl .mk-v small{font-size:10.5px}
+#mkl .mk-v0{margin-top:7px;padding:5px 10px;font-size:11.5px;border-radius:10px}
+#mkl .mk-hit{margin-top:5px;font-size:11px;line-height:1.3}
+/* кнопки пониже */
+#mkl .mk-act{gap:6px;margin-top:7px}
+#mkl .mk-act>*,#mkl .mk-lnk{min-height:34px;padding:4px 8px;font-size:12px;font-weight:600;border-radius:10px}
+/* телефон: чуть меньше боковые отступы у списка */
+@media(max-width:420px){
+  #mkl .mk-n{font-size:11.5px}
+  #mkl .mk-col h4 b{font-size:12px}
+}
