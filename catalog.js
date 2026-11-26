@@ -74,12 +74,12 @@ function openCompare(...args){
     <tr><td>Побед</td>${wins.map(w=>`<td class="${w===Math.max(...wins)&&wins.some(x=>x<w)?'win':''}">${w}/${rows.length}</td>`).join('')}</tr>
   </table></div>
   <div class="bar">${names.map((n,i)=>`<button data-a="det" data-n="${esc(n)}">Досье ${L[i]}</button>`).join('')}</div>
-  <div class="bar"><button class="p" data-a="cmpDl">⬇ Скачать картинкой</button><button data-a="close">Закрыть</button></div>`;
+  <div class="bar"><button class="p" data-a="cmpDl">⬇ Скачать картинкой</button><button class="p" data-a="cmpDl2">⬇ Подробная</button><button data-a="close">Закрыть</button></div>`;
   openDl(0,1);
 }
 
 /* ---------- красивая картинка сравнения (PNG) ---------- */
-async function cmpPic(i){ /* картинка юнита из уже нарисованного окна; null — если взять нельзя (чужой домен без CORS) */
+async function cmpPic0(i){ /* картинка юнита из уже нарисованного окна; null — если взять нельзя (чужой домен без CORS) */
   const h=document.querySelectorAll('#dl .cmp-b')[i],el=h&&h.querySelector('img,canvas');if(!el)return null;
   if(el.tagName==='CANVAS')return el;
   try{if(!el.complete||!el.naturalWidth)await el.decode()}catch{}
@@ -89,6 +89,123 @@ async function cmpPic(i){ /* картинка юнита из уже нарис�
   try{const r=await fetch(s,{mode:'cors'});return await createImageBitmap(await r.blob())}catch{}
   return null;
 }
+/* ---------- иконка из icons.json / game-icons.json (если картинка по ссылке не читается) ---------- */
+function icPic(name){
+  try{
+    const src=(IC.items&&(IC.items[name]||IC.items[IC.alt&&IC.alt[name]]))||(GI.items&&(GI.items[name]||GI.items[GI.alt&&GI.alt[name]]));
+    if(!src||typeof src!=='string')return null;
+    const bin=atob(src),n=bin.length,sz=Math.round(Math.sqrt(n/4));if(!sz||sz*sz*4!==n)return null;
+    const px=new Uint8ClampedArray(n);for(let i=0;i<n;i++)px[i]=bin.charCodeAt(i);
+    const a=document.createElement('canvas');a.width=a.height=sz;a.getContext('2d').putImageData(new ImageData(px,sz,sz),0,0);
+    const b=document.createElement('canvas');b.width=b.height=sz*4;const x=b.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';x.drawImage(a,0,0,sz*4,sz*4);
+    return b;
+  }catch{return null}
+}
+async function cmpPic(i){return (await cmpPic0(i))||icPic(CMP_LAST&&CMP_LAST.names[i])}
+
+/* ---------- ПОДРОБНАЯ картинка: уровни, статы, цены, график, итоги ---------- */
+const CMP_LV={ /* что показывать по типу юнита: колонки таблицы и метрика для графика */
+  damage:{h:['Цена','Урон','КД','DPS'],r:l=>[fmt(l.cost),l.damage?fmt(l.damage):'—',l.cooldown!=null?l.cooldown+'с':'—',l.dps!=null?fmt(l.dps):'—'],m:l=>l.dps||0,g:'DPS',best:[null,1,-1,1]},
+  spawner:{h:['Цена','HP','КД','DPS'],r:l=>[fmt(l.cost),l.hp!=null?fmt(l.hp):'—',l.cooldown!=null?l.cooldown+'с':'—',l.unitDps?fmt(l.unitDps):'—'],m:l=>l.hp||0,g:'HP',best:[null,1,-1,1]},
+  farm:{h:['Цена','Доход','Σ цена'],r:(l,s)=>[fmt(l.cost),l.income!=null?fmt(l.income):'—',fmt(s)],m:l=>l.income||0,g:'Доход',best:[null,1,null]},
+  support:{h:['Цена','Урон','КД','Дальн.'],r:l=>[fmt(l.cost),'+'+l.damage+'%','−'+l.cooldown+'%','+'+l.range+'%'],m:l=>l.damage||0,g:'Бонус урона',best:[null,1,1,1]}
+};
+function cmpPickLv(L,max){if(L.length<=max)return L.map((l,i)=>i);const o=[];for(let k=0;k<max;k++)o.push(Math.round(k*(L.length-1)/(max-1)));return[...new Set(o)]}
+async function cmpDetailDownload(){
+  const C=CMP_LAST;if(!C)return;
+  try{
+    if(document.fonts&&document.fonts.ready)await document.fonts.ready;
+    const imgs=await Promise.all(C.names.map((_,i)=>cmpPic(i))),N=C.names.length;
+    const PX=2,pad=40,gap=18,colW=[0,0,430,380,340,310][N],W=pad*2+N*colW+(N-1)*gap;
+    const MAXR=12,lvs=C.us.map(u=>CMP_LV[u.levelsType]&&u.levels&&u.levels.length?u.levels:null);
+    const rowsN=Math.max(0,...lvs.map(l=>l?cmpPickLv(l,MAXR).length:0)),rowH=34,thH=34;
+    const hdrH=104,cardH=190,gH=170,totH=3*52+20,ftH=60;
+    const tabH=thH+Math.max(rowsN,2)*rowH+10;
+    const H=hdrH+cardH+tabH+gH+totH+ftH;
+    const cv=document.createElement('canvas');cv.width=W*PX;cv.height=H*PX;
+    const c=cv.getContext('2d');c.scale(PX,PX);
+    const F=(w,sz)=>`${w} ${sz}px Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif`;
+    let g=c.createLinearGradient(0,0,W*.4,H);g.addColorStop(0,'#0d0722');g.addColorStop(.5,'#1a0c42');g.addColorStop(1,'#0b0620');c.fillStyle=g;c.fillRect(0,0,W,H);
+    g=c.createRadialGradient(W*.12,0,0,W*.12,0,W*.7);g.addColorStop(0,'rgba(150,90,255,.30)');g.addColorStop(1,'rgba(150,90,255,0)');c.fillStyle=g;c.fillRect(0,0,W,H);
+    c.textBaseline='alphabetic';c.textAlign='left';
+    c.fillStyle='#fff';c.font=F(800,32);c.fillText('ПОДРОБНОЕ СРАВНЕНИЕ',pad,pad+26);
+    c.fillStyle='#a99fd0';c.font=F(500,16);c.fillText(cmpFit(c,C.names.join('  ·  '),W-pad*2-190),pad,pad+54);
+    c.textAlign='right';c.fillStyle='#c9b6ff';c.font=F(800,19);c.fillText('CTD TRADER',W-pad,pad+24);
+    c.fillStyle='#7d72a8';c.font=F(500,13);c.fillText(new Date().toLocaleDateString('ru'),W-pad,pad+46);c.textAlign='left';
+    const X=i=>pad+i*(colW+gap);
+    /* лучшие значения итогов (только среди тех, у кого они есть) */
+    const bestOf=(f,dir)=>{const v=C.us.map(f),ok=v.filter(x=>x>0);if(ok.length<2)return v.map(()=>0);const b=dir>0?Math.max(...ok):Math.min(...ok);return v.map(x=>x>0&&x===b?1:0)};
+    const tot=[
+      {k:'Прокачка до макс.',v:C.us.map(u=>{const L=lvs[C.us.indexOf(u)];return u.cashToMax||(L?L.reduce((s,l)=>s+(l.cost||0),0):0)}),d:-1},
+      {k:'Max DPS',v:C.us.map(u=>u.maxDps||0),d:1},
+      {k:'DPS / 1K',v:C.us.map(u=>u.dpsPer1k||0),d:1}
+    ];
+    tot.forEach(t=>{t.w=bestOf((u,)=>0,1);const ok=t.v.filter(x=>x>0);t.w=t.v.map(x=>ok.length>1&&x===(t.d>0?Math.max(...ok):Math.min(...ok))?1:0)});
+    for(let i=0;i<N;i++){
+      const u=C.us[i],a=C.as[i],col=CMP_RC[u.category]||'#b983ff',x=X(i),cx=x+colW/2,L=lvs[i];
+      /* карточка */
+      let y=hdrH;
+      c.save();c.shadowColor=cmpRgba(col,.35);c.shadowBlur=20;cmpRR(c,x,y,colW,cardH-14,20);
+      g=c.createLinearGradient(0,y,0,y+cardH);g.addColorStop(0,cmpRgba(col,.26));g.addColorStop(.7,'rgba(20,10,50,.92)');g.addColorStop(1,'rgba(14,7,36,.96)');c.fillStyle=g;c.fill();c.restore();
+      cmpRR(c,x,y,colW,cardH-14,20);c.lineWidth=1.6;c.strokeStyle=cmpRgba(col,.7);c.stroke();
+      const im=92,ix=x+18,iy=y+18,pic=imgs[i];
+      if(pic){const nw=pic.naturalWidth||pic.width||64,nh=pic.naturalHeight||pic.height||64,k=Math.min(im/nw,im/nh);c.drawImage(pic,ix+(im-nw*k)/2,iy+(im-nh*k)/2,nw*k,nh*k)}
+      else{cmpRR(c,ix,iy,im,im,18);c.fillStyle='rgba(255,255,255,.06)';c.fill();c.fillStyle=cmpRgba(col,.9);c.font=F(800,46);c.textAlign='center';c.fillText(C.names[i][0].toUpperCase(),ix+im/2,iy+im*.68);c.textAlign='left'}
+      c.fillStyle='#fff';c.font=F(800,22);const ls=cmpWrap(c,C.names[i],colW-ix+x-36-im+18,2);let ty=iy+26;ls.forEach(t=>{c.fillText(t,ix+im+16,ty);ty+=26});
+      c.font=F(700,13);const rt=String(u.category||'').toUpperCase(),rw=c.measureText(rt).width+20,by=y+cardH-14-48;
+      cmpRR(c,ix+im+16,by,rw,26,13);c.fillStyle=cmpRgba(col,.22);c.fill();c.strokeStyle=cmpRgba(col,.8);c.lineWidth=1;c.stroke();c.fillStyle=col;c.fillText(rt,ix+im+26,by+18);
+      const qt=`${a.grade[1]} ${a.q}`,qc=a.q>=70?'#8ff0b8':a.q>=45?'#ffd76a':'#ff7a90',qw=c.measureText(qt).width+20;
+      cmpRR(c,ix+im+16+rw+6,by,qw,26,13);c.fillStyle=cmpRgba(qc,.16);c.fill();c.strokeStyle=cmpRgba(qc,.8);c.stroke();c.fillStyle=qc;c.fillText(qt,ix+im+16+rw+16,by+18);
+      c.fillStyle='#8b81b5';c.font=F(600,13);c.fillText(cmpFit(c,[u.role,u.levelsType?null:null].filter(Boolean).join(' · ')||'',colW-36),ix,y+cardH-14-10);
+      /* таблица уровней */
+      y=hdrH+cardH;const T=CMP_LV[u.levelsType];
+      cmpRR(c,x,y,colW,tabH-6,16);c.fillStyle='rgba(255,255,255,.04)';c.fill();
+      if(!L){c.fillStyle='#8b81b5';c.font=F(600,15);c.textAlign='center';c.fillText('Таблицы уровней нет в данных',cx,y+60);c.textAlign='left'}
+      else{
+        const nc=T.h.length,lw=62,cw=(colW-lw-16)/nc,idx=cmpPickLv(L,MAXR);let run=0;const cum=L.map(l=>run+=(l.cost||0));
+        c.fillStyle='#a99fd0';c.font=F(700,13);c.fillText('Ур.',x+14,y+23);c.textAlign='right';T.h.forEach((h,k)=>c.fillText(h,x+lw+cw*(k+1),y+23));
+        /* лучшие в каждой колонке (только если один тип у всех) */
+        const same=C.us.every(q=>q.levelsType===u.levelsType);
+        idx.forEach((li,ri)=>{
+          const l=L[li],ry=y+thH+ri*rowH,last=li===L.length-1,vals=T.r(l,cum[li]);
+          if(ri%2){cmpRR(c,x+6,ry,colW-12,rowH-2,8);c.fillStyle='rgba(255,255,255,.035)';c.fill()}
+          if(last){cmpRR(c,x+6,ry,colW-12,rowH-2,8);c.fillStyle=cmpRgba(col,.14);c.fill()}
+          c.textAlign='left';c.fillStyle=last?col:'#b7acdc';c.font=F(700,14);c.fillText(String(l.level).replace('Place','Пост.').replace('Lv ',''),x+14,ry+22);
+          c.textAlign='right';vals.forEach((v,k)=>{c.fillStyle=last?'#fff':'#efeaff';c.font=F(last?800:600,14);c.fillText(cmpFit(c,v,cw-4),x+lw+cw*(k+1),ry+22)});
+        });
+        c.textAlign='left';
+        if(idx.length<L.length){c.fillStyle='#6f6597';c.font=F(500,11);c.fillText(`показано ${idx.length} из ${L.length} уровней`,x+14,y+tabH-12)}
+      }
+      /* график роста */
+      const gy=hdrH+cardH+tabH+6,gh=gH-14;
+      cmpRR(c,x,gy,colW,gh,16);c.fillStyle='rgba(255,255,255,.04)';c.fill();
+      c.fillStyle='#a99fd0';c.font=F(700,13);c.fillText(L?`Рост: ${CMP_LV[u.levelsType].g} по уровням`:'Рост по уровням',x+14,gy+24);
+      if(L&&L.length>1){
+        const mm=L.map(CMP_LV[u.levelsType].m),mx=Math.max(...mm,1),px0=x+18,pw=colW-36,py0=gy+gh-22,ph=gh-64;
+        const P=mm.map((v,k)=>[px0+pw*k/(mm.length-1),py0-ph*v/mx]);
+        c.beginPath();P.forEach((p,k)=>k?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]));c.lineTo(P[P.length-1][0],py0);c.lineTo(P[0][0],py0);c.closePath();
+        g=c.createLinearGradient(0,py0-ph,0,py0);g.addColorStop(0,cmpRgba(col,.45));g.addColorStop(1,cmpRgba(col,0));c.fillStyle=g;c.fill();
+        c.beginPath();P.forEach((p,k)=>k?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]));c.strokeStyle=col;c.lineWidth=2.4;c.lineJoin='round';c.stroke();
+        c.fillStyle=col;P.forEach(p=>{c.beginPath();c.arc(p[0],p[1],3,0,7);c.fill()});
+        c.textAlign='right';c.fillStyle='#fff';c.font=F(800,15);c.fillText(fmt(mx),x+colW-14,gy+24);c.textAlign='left';
+      }else{c.fillStyle='#6f6597';c.font=F(500,13);c.fillText('нет данных по уровням',x+14,gy+60)}
+      /* итоги */
+      let ty2=hdrH+cardH+tabH+gH+8;
+      tot.forEach((t,ri)=>{
+        const ry=ty2+ri*52,win=t.w[i],v=t.v[i];
+        cmpRR(c,x,ry,colW,46,14);c.fillStyle=win?'rgba(143,240,184,.12)':'rgba(255,255,255,.05)';c.fill();if(win){c.strokeStyle='rgba(143,240,184,.7)';c.lineWidth=1.2;c.stroke()}
+        c.fillStyle='#b7acdc';c.font=F(600,15);c.fillText(t.k,x+16,ry+29);
+        c.textAlign='right';c.fillStyle=win?'#8ff0b8':'#efeaff';c.font=F(800,20);c.fillText((win?'★ ':'')+(v>0?(t.k==='DPS / 1K'?f2(v):fmt(v)):'—'),x+colW-16,ry+30);c.textAlign='left';
+      });
+    }
+    c.textAlign='center';c.fillStyle='#6f6597';c.font=F(500,13);c.fillText('CTD Trader  ·  уровни, статы и цены из приложения  ·  ★ — лучший показатель',W/2,H-pad+10);
+    const blob=await new Promise(r=>cv.toBlob(r,'image/png'));if(!blob)throw new Error('toBlob');
+    const url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='CTD-detail-'+C.names.map(n=>n.replace(/[^\w-]+/g,'-')).join('_').slice(0,70)+'.png';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),8000);toast('Подробная картинка сохранена');
+  }catch(e){console.error(e);toast('Не удалось сделать картинку')}
+}
+
 function cmpRR(c,x,y,w,h,r){r=Math.min(r,w/2,h/2);c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
 function cmpRgba(hex,a){const n=parseInt(hex.slice(1),16);return`rgba(${n>>16},${n>>8&255},${n&255},${a})`}
 function cmpFit(c,t,w){t=String(t);if(c.measureText(t).width<=w)return t;while(t.length>1&&c.measureText(t+'…').width>w)t=t.slice(0,-1);return t+'…'}

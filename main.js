@@ -25,7 +25,7 @@ const ACT={
   ctab:el=>{S.cat=el.dataset.c;save();fillFilters();cat();sfx('tap')},view:el=>{S.view=el.dataset.v;save();fillFilters();cat();sfx('tap')},
   tg:el=>{TGL=el.dataset.g;document.querySelectorAll('#tg button').forEach(x=>x.classList.toggle('on',x===el));cat();sfx('tap')},
   cmpToggle:()=>{if(CMP_MODE&&CMP_LIST.length>=2){sfx('tap');return cmpGo()}CMP_MODE=CMP_MODE?0:1;CMP_LIST=[];fillFilters();cat();if(CMP_MODE)toast('Выбери от 2 до '+CMP_MAX+' юнитов и нажми «Сравнить»');sfx('tap')},
-  cmpCancel:()=>{cmpCancel();sfx('tap')},cmpDl:()=>cmpDownload(),
+  cmpCancel:()=>{cmpCancel();sfx('tap')},cmpDl:()=>cmpDownload(),cmpDl2:()=>cmpDetailDownload(),
   cmpStart:el=>{CMP_LIST=[el.dataset.n];CMP_MODE=1;$('dl').close();tab(1);fillFilters();cat();toast('Выбери ещё юнитов (до '+CMP_MAX+') и нажми «Сравнить»')},
   fav:(el,e)=>{e.stopPropagation();const n=el.dataset.n;if(S.fav[n])delete S.fav[n];else S.fav[n]=1;save();cat();if(CU===n&&$('dl').open&&$('dl').classList.contains('full'))det(n,1,RET);sfx('tap')},
   catTap:el=>{const n=el.dataset.n;if(!CMP_MODE)return det(n,0,null);const idx=CMP_LIST.indexOf(n);if(idx>=0)CMP_LIST.splice(idx,1);else if(CMP_LIST.length<CMP_MAX)CMP_LIST.push(n);if(CMP_LIST.length>=CMP_MAX){sfx('tap');return cmpGo()}fillFilters();cat();sfx('tap')},
