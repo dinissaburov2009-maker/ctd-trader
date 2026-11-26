@@ -2237,7 +2237,7 @@ async function gload(){
 const MKU='https://raw.githubusercontent.com/dinissaburov2009-maker/ctd-trader/market/',MKS='https://cameraman-td.vaultedvaluesx.com/trade-ads/';
 const MKF={o:'Offers',u:'Upgrade',d:'Downgrade',a:'Adds'},MKAGE=[[0,'Все'],[900,'15 мин'],[3600,'1 час'],[21600,'6 часов']],MKSORT=[['new','Новые'],['pct','Выгодные мне'],['sum','Крупные']],MKSIDE=[['all','Везде'],['has','Отдают'],['want','Ищут']];
 const MKFIX={'item-2b19d9cc':'2x Turkey Leg'}; /* юниты, у которых бот записал имя «x3»: определено по цене (14 объявлений, везде ровно 2600) */
-let MK={ads:[],names:[],map:[],nk:[],src:'live',days:null,q:'',side:'all',fl:new Set(),age:0,sort:'new',mine:0,lim:30,at:0,err:'',busy:0,vc:new Map(),vsig:''};
+let MK={ads:[],names:[],map:[],nk:[],src:'live',days:null,q:'',side:'all',fl:new Set(),age:900,sort:'new',mine:0,lim:30,at:0,err:'',busy:0,vc:new Map(),vsig:''};
 const mkAgo=t=>{const s=Math.max(0,Date.now()/1e3-t),d=new Date(t*1e3);return s<45?'только что':s<3600?Math.round(s/60)+' мин назад':s<86400?Math.round(s/3600)+' ч назад':d.toLocaleDateString('ru')+' '+d.toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'})};
 const mkClean=ls=>(Array.isArray(ls)?ls:ls?.ads||[]).filter(a=>a&&a.i&&Array.isArray(a.h)&&Array.isArray(a.w));
 function mkPrep(names,ads){MK.names=Array.isArray(names)?names:[];MK.map=MK.names.map(x=>{const f=Object.keys(MKFIX).find(k=>(x?.s||'').startsWith(k));return resolveName(f?MKFIX[f]:x?.n)});MK.nk=MK.names.map((x,i)=>nrm(x?.n)+'|'+nrm(MK.map[i]));MK.ads=ads;MK.vc.clear();MK.lim=30;const c=$('nc4');if(c)c.textContent=ads.length>999?Math.round(ads.length/100)/10+'K':ads.length}
@@ -2282,7 +2282,7 @@ function mkHit(a){
 function mkFiltered(){
   const q=nrm(MK.q),now=Date.now()/1e3;
   let L=MK.ads.filter(a=>{
-    if(MK.age&&now-a.t>MK.age)return 0;
+    if(MK.age&&MK.src==='live'&&now-a.t>MK.age)return 0;
     if(MK.fl.size&&![...MK.fl].some(c=>(a.f||'').includes(c)))return 0;
     if(q){const m=side=>side.some(([x])=>(MK.nk[x]||'').includes(q));if(MK.side==='has'?!m(a.h):MK.side==='want'?!m(a.w):!(m(a.h)||m(a.w)))return 0}
     if(MK.mine&&!mkHit(a).any)return 0;
