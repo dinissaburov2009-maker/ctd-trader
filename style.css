@@ -74,7 +74,7 @@ img.u{width:34px;height:34px;border-radius:4px;object-fit:cover;background:var(-
 
 .fl{display:inline-block;font-size:10px;line-height:1.5;padding:0 5px;margin:0 3px 2px 0;border:1px solid currentColor;border-radius:3px;white-space:nowrap}
 .f-Rising,.f-Stable{color:var(--g)}.f-Overpaid,.f-Unstable{color:var(--y)}.f-Underpaid{color:var(--b)}.f-Dropping,.f-Unwanted{color:var(--r)}
-.r-Godly{--rr:255,77,77}.r-Mythic{--rr:255,61,245}.r-Exclusive{--rr:0,229,255}.r-Legendary{--rr:255,179,0}.r-Epic{--rr:176,77,255}
+.r-Godly{--rr:122,60,220}.r-Mythic{--rr:255,45,60}.r-Exclusive{--rr:0,229,255}.r-Legendary{--rr:255,179,0}.r-Epic{--rr:196,92,255}
 .r-Rare{--rr:77,141,255}.r-Uncommon{--rr:61,220,132}.r-Common{--rr:154,167,181}.r-Gamepasses{--rr:255,208,0}.r-Crates{--rr:255,138,61}.r-Signed{--rr:235,250,255}.r-Custom{--rr:var(--gr)}
 .rb{color:rgb(var(--rr,var(--gr)))}
 
@@ -296,3 +296,13 @@ nav button.on{color:var(--g);text-shadow:var(--glow)}nav .ic{width:20px;height:2
 .rt-rank{font-weight:700;color:var(--g);margin-bottom:4px}.rt-names{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px}
 .rt-u{display:inline-flex;align-items:center;gap:4px;padding:2px 6px;border:1px solid rgba(var(--gr),.35);border-radius:4px;font-size:12px}.rt-im{width:22px;height:22px;object-fit:contain}
 .rt-edge{margin:4px 0 4px 2px;font-size:11px;color:var(--m)}.rt-kids{margin-left:8px;padding-left:8px;border-left:1px dashed rgba(var(--gr),.5)}
+
+/* фильтры каталога: чипы вместо системных select */
+.fg-t{font-size:10px;letter-spacing:.14em;color:var(--m);margin:10px 0 4px}
+.fchips{display:flex;gap:6px;flex-wrap:wrap}
+.fchips.sc{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.fchips.sc::-webkit-scrollbar{display:none}
+.fchips button{flex:none;min-width:0;width:auto;padding:7px 12px;border-radius:999px;font-size:12px;letter-spacing:.04em;color:rgb(var(--rr,var(--gr)));border:1px solid rgba(var(--rr,var(--gr)),.4);background:rgba(var(--rr,var(--gr)),.07);transition:background .18s,box-shadow .18s,transform .12s}
+.fchips button:active{transform:scale(.94)}
+.fchips button.on{background:rgba(var(--rr,var(--gr)),.24);border-color:rgb(var(--rr,var(--gr)));color:#fff;text-shadow:0 0 6px rgb(var(--rr,var(--gr)));box-shadow:0 0 12px rgba(var(--rr,var(--gr)),.55),inset 0 0 10px rgba(var(--rr,var(--gr)),.2)}
+.fs-Stable,.fs-Rising{--rr:0,255,156}.fs-Overpaid,.fs-Unstable{--rr:255,208,0}.fs-Underpaid{--rr:0,229,255}.fs-Dropping,.fs-Unwanted{--rr:255,46,99}
+html[data-lite="1"] .fchips button{transition:none}

@@ -1699,15 +1699,22 @@ function pkDec(n){
 }
 
 /* ================= КАТАЛОГ + СРАВНЕНИЕ A vs B + ИЗБРАННОЕ ================= */
+let FCS=new Set(),FSS=new Set(),SORT='v';
+const SORTS=[['v','Цена'],['q','Крутость'],['d','Спрос'],['a','А–Я'],['p','Max DPS'],['t','Tier'],['c','Прокачка']];
+const cls=x=>String(x).replace(/\W/g,'');
+const syncChips=()=>{document.querySelectorAll('#fcc button').forEach(b=>b.classList.toggle('on',b.dataset.v?FCS.has(b.dataset.v):!FCS.size));document.querySelectorAll('#fsc button').forEach(b=>b.classList.toggle('on',b.dataset.v?FSS.has(b.dataset.v):!FSS.size));document.querySelectorAll('#soc button').forEach(b=>b.classList.toggle('on',b.dataset.v==SORT))};
 const CT=[['all','Все'],['unit','Юниты'],['bc','Бусты и Кейсы'],['signed','DevSigned']];
 const TGL_=[['','Все'],['fav','★ Избранное'],['hot','Топ спрос'],['up','Растут / Overpaid'],['down','Падают / Неликвид'],['ttn','🗿 Титаны'],['frm','💰 Фарм/саппорт'],['erl','🌱 Ранние'],['gd','💎 Выгодно брать']],
   TGF={'':()=>1,fav:i=>!!S.fav[i.name],hot:i=>i.demand>=8,up:i=>i.flags.some(f=>/Rising|Overpaid/.test(f)),down:i=>i.flags.some(f=>/Dropping|Unwanted/.test(f)),ttn:i=>i.kind==='unit'&&!isSigned(i)&&/titan/i.test(i.name),frm:i=>/Farm|Spawner|Support/.test(i.role||'')&&!isSigned(i),erl:i=>/^(Common|Uncommon|Rare|Epic|Legendary)$/.test(i.category)&&i.maxDps>0,gd:i=>ofGood(i)};
 $('tg').innerHTML=TGL_.map((t,i)=>`<button data-a="tg" data-g="${t[0]}" class="${i?'':'on'}">${t[1]}</button>`).join('');
 function fillFilters(){
-  const inTab=ALL.filter(i=>S.cat=='all'||tabOf(i)==S.cat),cs=[...new Set(inTab.map(i=>i.category))],ss=[...new Set(inTab.flatMap(i=>i.flags))],c0=$('fc').value,s0=$('fs').value;
-  $('fc').innerHTML='<option value="">Все категории</option>'+cs.map(c=>`<option>${esc(c)}</option>`).join('');
-  $('fs').innerHTML='<option value="">Любая стабильность</option>'+ss.map(c=>`<option>${esc(c)}</option>`).join('');
-  $('fc').value=cs.includes(c0)?c0:'';$('fs').value=ss.includes(s0)?s0:'';
+  const inTab=ALL.filter(i=>S.cat=='all'||tabOf(i)==S.cat),cs=[...new Set(inTab.map(i=>i.category))],ss=[...new Set(inTab.flatMap(i=>i.flags))];
+  for(const c of [...FCS])if(!cs.includes(c))FCS.delete(c);
+  for(const s of [...FSS])if(!ss.includes(s))FSS.delete(s);
+  $('fcc').innerHTML=`<button data-a="fcT" data-v="">Все</button>`+cs.map(c=>`<button data-a="fcT" data-v="${esc(c)}" class="r-${cls(c)}">${esc(c)}</button>`).join('');
+  $('fsc').innerHTML=`<button data-a="fsT" data-v="">Любая</button>`+ss.map(c=>`<button data-a="fsT" data-v="${esc(c)}" class="fs-${cls(c)}">${esc(c)}</button>`).join('');
+  $('soc').innerHTML=SORTS.map(t=>`<button data-a="soT" data-v="${t[0]}">${t[1]}</button>`).join('');
+  syncChips();
   $('ct').innerHTML=CT.map(t=>`<button data-a="ctab" data-c="${t[0]}" class="${S.cat==t[0]?'on':''}">${t[1]} <span class="m">${t[0]=='all'?ALL.length:ALL.filter(i=>tabOf(i)==t[0]).length}</span></button>`).join('');
   document.querySelectorAll('#vm button').forEach(b=>b.classList.toggle('on',b.dataset.v==S.view));
   const cb=$('cmpb');if(cb){cb.classList.toggle('onb',!!CMP_MODE);cb.textContent=CMP_MODE?`⚖ Выбрано ${CMP_LIST.length}/2`:'⚖ Сравнить'}
@@ -1722,8 +1729,8 @@ const listRow=i=>{
   return `<div class="li r-${esc(i.category)}" ${sel} data-a="catTap" data-n="${esc(i.name)}">${imgTag(i,'u')}<span class="n"><b>${esc(i.name)}</b> ${a?`<span class="qb ${a.grade[2]}">${a.grade[1]}</span>`:''}${rbadge(i)?` <span class="tag">${rbadge(i)}</span>`:''}${ofGood(i)?' <span class="tag">💎 БРАТЬ</span>':''}<div class="m"><span class="rb">${esc(i.category)}</span> · ${i.demand}/10 · ${flagHtml(i)}${i.maxDps?` · DPS ${fmt(i.maxDps)}`:''}</div></span><button class="fav ${S.fav[i.name]?'on':''}" data-a="fav" data-n="${esc(i.name)}">${S.fav[i.name]?'★':'☆'}</button><b class="v ${i.value?'':'z'}">${pLbl(i)}</b></div>`;
 };
 function cat(){
-  const q=$('q').value.toLowerCase(),c=$('fc').value,s=$('fs').value,o=$('so').value,TR=['S','A','B','C','D'],ti=t=>{const k=TR.indexOf(t);return k<0?9:k},cm=x=>x.cashToMax||1e12;
-  const a=ALL.filter(i=>(S.cat=='all'||tabOf(i)==S.cat)&&i.name.toLowerCase().includes(q)&&(!c||i.category==c)&&(!s||i.flags.includes(s))&&TGF[TGL](i));
+  const q=$('q').value.toLowerCase(),o=SORT,TR=['S','A','B','C','D'],ti=t=>{const k=TR.indexOf(t);return k<0?9:k},cm=x=>x.cashToMax||1e12;
+  const a=ALL.filter(i=>(S.cat=='all'||tabOf(i)==S.cat)&&i.name.toLowerCase().includes(q)&&(!FCS.size||FCS.has(i.category))&&(!FSS.size||i.flags.some(f=>FSS.has(f)))&&TGF[TGL](i));
   a.sort(o=='v'?(x,y)=>val(y.name)-val(x.name):o=='q'?(x,y)=>(AN.get(y.name)?.q||0)-(AN.get(x.name)?.q||0)||val(y.name)-val(x.name):o=='d'?(x,y)=>y.demand-x.demand:o=='p'?(x,y)=>(y.maxDps||0)-(x.maxDps||0):o=='t'?(x,y)=>ti(x.tier)-ti(y.tier):o=='c'?(x,y)=>cm(x)-cm(y):(x,y)=>x.name.localeCompare(y.name));
   FN=a.length;$('cl').className=S.view=='grid'?'grid':'lst';$('cl').innerHTML=a.map(S.view=='grid'?tile:listRow).join('')||'<div class="m">Ничего не найдено</div>';cnt();
 }
@@ -2227,6 +2234,9 @@ async function gload(){
 }
 
 const ACT={
+  fcT:el=>{const v=el.dataset.v;if(!v)FCS.clear();else if(FCS.has(v))FCS.delete(v);else FCS.add(v);syncChips();cat();sfx('tap')},
+  fsT:el=>{const v=el.dataset.v;if(!v)FSS.clear();else if(FSS.has(v))FSS.delete(v);else FSS.add(v);syncChips();cat();sfx('tap')},
+  soT:el=>{SORT=el.dataset.v;syncChips();cat();sfx('tap')},
   tab:el=>{tab(+el.dataset.i)},th:el=>setTh(el.dataset.t),lite:()=>{S.lite=S.lite?0:1;save();applyLite();toast(S.lite?'Lite-режим ВКЛ (без лагов)':'Полные эффекты ВКЛ');sfx('tap')},
   snd:()=>{S.snd=S.snd?0:1;save();sndI();sfx('add')},
   pick:el=>{SC=null;SC_SLOT=null;RET=null;pick(el.dataset.m)},pk:el=>pk(el.dataset.n,1),pk5:el=>pk(el.dataset.n,5),pkDec:el=>pkDec(el.dataset.n),invTrade:el=>invTrade(+el.dataset.k),
@@ -2311,7 +2321,7 @@ document.addEventListener('paste',e=>{
   if(!files.length){const f=[...(e.clipboardData?.items||[])].find(x=>x.type.startsWith('image/'))?.getAsFile();if(f)files.push(f)}
   if(files.length){e.preventDefault();scPickFiles(files)}
 });
-let _cq;$('q').addEventListener('input',()=>{clearTimeout(_cq);_cq=setTimeout(cat,120)});['fc','fs','so'].forEach(id=>$(id).addEventListener('change',cat));
+let _cq;$('q').addEventListener('input',()=>{clearTimeout(_cq);_cq=setTimeout(cat,120)});
 $('dl').addEventListener('input',e=>{if(e.target.id=='pq')pl();if(e.target.id=='ivq')ivl()});
 ['pointermove','pointerdown'].forEach(t=>$('dl').addEventListener(t,e=>{const s=e.target.closest?.('svg.chart');if(s&&CHD)chartAt(e,s)}));
 document.addEventListener('pointerdown',e=>{const b=e.target.closest('button');if(!b)return;navigator.vibrate?.(8);sfx('tap');if(S.lite)return;const r=b.getBoundingClientRect(),d=Math.max(r.width,r.height),s=document.createElement('i');s.className='rp';s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;b.append(s);setTimeout(()=>s.remove(),600)});
