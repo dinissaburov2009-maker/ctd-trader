@@ -1,10 +1,10 @@
 /* CTD Trader — service worker v8.5.10
-   Network-first (по чистому URL, без ?t=): HTML, style.css, js/*.js, manifest, data/prices|history|icons|game-icons.json
+   Network-first (по чистому URL, без ?t=): HTML, style.css, core/shell/scanner/inventory/catalog/offers/market/main.js, manifest, data/prices|history|icons|game-icons.json
    Остальное (иконки, картинки юнитов): stale-while-revalidate
    Web Share Target: POST ./share-target -> файлы кладутся в кэш 'ctd-share', редирект на ./?share=1 */
 const VERSION = 'ctd-v8.6.0';
 const SHARE_CACHE = 'ctd-share';
-const JS = ['core', 'shell', 'scanner', 'inventory', 'catalog', 'offers', 'market', 'main'].map((m) => './js/' + m + '.js');
+const JS = ['core', 'shell', 'scanner', 'inventory', 'catalog', 'offers', 'market', 'main'].map((m) => './' + m + '.js');
 const CORE = ['./', './index.html', './style.css', ...JS, './manifest.json', './icon.svg'];
 const DATA_FILES = ['prices.json', 'history.json', 'icons.json', 'game-icons.json'];
 
@@ -38,7 +38,7 @@ function isFresh(req, url) {
     || url.pathname.endsWith('/')
     || url.pathname.endsWith('.html')
     || url.pathname.endsWith('/style.css')
-    || /\/js\/[a-z-]+\.js$/.test(url.pathname)
+    || /\/(core|shell|scanner|inventory|catalog|offers|market|main)\.js$/.test(url.pathname)
     || url.pathname.endsWith('/manifest.json')
     || isDataFile(url);
 }
