@@ -70,35 +70,41 @@ function series(u){
   if(chg.length){const t0=parseDate(chg[0].date);if(isFinite(t0)&&chg[0].old>=0)botRaw.push([t0-864e5,chg[0].old]);chg.forEach(c=>botRaw.push([c.date,c.new]))}
   if(today&&u.official>0)botRaw.push([today,u.official]);
   const mkRaw=(u.priceHistory||[]).map(p=>Array.isArray(p)?[p[0],p[1]]:[p.date??p.d??p.t,p.value??p.v??p.price]);
-  return[{k:'vvx',name:'Value (Vaulted)',pts:fillDaily(normSeries(botRaw,chg.length>0),todayT),col:'var(--g)'},{k:'mkt',name:'Рынок (game.guide)',pts:fillDaily(normSeries(mkRaw,0),todayT),col:'var(--b)'}].filter(s=>s.pts.length);
+  return[{k:'vvx',name:'Value (Vaulted)',pts:fillDaily(normSeries(botRaw,chg.length>0),todayT),col:'#ffd76a'},{k:'mkt',name:'Рынок (game.guide)',pts:fillDaily(normSeries(mkRaw,0),todayT),col:'#5eead4'}].filter(s=>s.pts.length);
 }
 function chart(u){
   const ss=series(u);CHD=null;if(!ss.length)return '<div class="cbox m">Истории цен пока нет.</div>';
+  const host=$('dl'),W=Math.round(Math.max(300,Math.min(900,Math.min(innerWidth,host&&host.clientWidth||innerWidth)-56))),H=W<520?250:310,L=W<520?46:54,R=W-16,T=22,B=H-32,PW=R-L,PH=B-T;
   const ts=ss.flatMap(s=>s.pts.map(p=>p[0])),vs=ss.flatMap(s=>s.pts.map(p=>p[1]));
   let t0=Math.min(...ts),t1=Math.max(...ts);const singleT=t0===t1;if(singleT){t0-=864e5;t1+=864e5}
   let v0=Math.min(...vs),v1=Math.max(...vs);const pd=(v1-v0)*.18||v1*.15||10;v0=Math.max(0,v0-pd);v1+=pd;
-  const L=50,R=584,W=R-L,T=22,B=184,H=B-T,X=t=>singleT?L+W/2:L+(t-t0)/(t1-t0)*W,Y=v=>B-(v-v0)/(v1-v0)*H;CHD={ss,t0,t1,v0,v1,X,Y,L,R,T,B};
-  const yTicks=[0,.33,.66,1].map(k=>{const v=v0+(v1-v0)*k,y=Y(v).toFixed(1);return `<line class="gl" x1="${L}" x2="${R}" y1="${y}" y2="${y}"/><text class="ax" x="${L-6}" y="${+y+3}" text-anchor="end">${sfmt(v)}</text>`}).join('');
-  const dFmt=t=>new Date(t).toLocaleDateString('ru',{day:'2-digit',month:'2-digit'});
-  const xTicks=singleT?`<text class="ax" x="${L+W/2}" y="206" text-anchor="middle">${dFmt(ts[0])}</text>`:`<text class="ax" x="${L}" y="206">${dFmt(t0)}</text><text class="ax" x="${L+W/2}" y="206" text-anchor="middle">${dFmt((t0+t1)/2)}</text><text class="ax" x="${R}" y="206" text-anchor="end">${dFmt(t1)}</text>`;
-  const defs=`<defs>${ss.map(s=>`<linearGradient id="cg-${s.k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${s.col}" stop-opacity=".28"/><stop offset="100%" stop-color="${s.col}" stop-opacity="0"/></linearGradient>`).join('')}</defs>`;
+  const X=t=>singleT?L+PW/2:L+(t-t0)/(t1-t0)*PW,Y=v=>B-(v-v0)/(v1-v0)*PH;CHD={ss,t0,t1,v0,v1,X,Y,L,R,T,B,W,H};
+  const yTicks=[0,.33,.66,1].map(k=>{const v=v0+(v1-v0)*k,y=Y(v).toFixed(1);return `<line class="gl" x1="${L}" x2="${R}" y1="${y}" y2="${y}"/><text class="ax" x="${L-8}" y="${+y+4}" text-anchor="end">${sfmt(v)}</text>`}).join('');
+  const dFmt=t=>new Date(t).toLocaleDateString('ru',{day:'2-digit',month:'2-digit'}),ty=B+22;
+  const xTicks=singleT?`<text class="ax" x="${L+PW/2}" y="${ty}" text-anchor="middle">${dFmt(ts[0])}</text>`:`<text class="ax" x="${L}" y="${ty}">${dFmt(t0)}</text><text class="ax" x="${L+PW/2}" y="${ty}" text-anchor="middle">${dFmt((t0+t1)/2)}</text><text class="ax" x="${R}" y="${ty}" text-anchor="end">${dFmt(t1)}</text>`;
+  const defs=`<defs>${ss.map(s=>`<linearGradient id="cg-${s.k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${s.col}" stop-opacity=".3"/><stop offset="100%" stop-color="${s.col}" stop-opacity="0"/></linearGradient>`).join('')}</defs>`;
   const body=ss.map(s=>{
-    if(s.pts.length===1){const px=+X(s.pts[0][0]).toFixed(1),py=+Y(s.pts[0][1]).toFixed(1),dash=singleT?`<line x1="${L}" x2="${R}" y1="${py}" y2="${py}" stroke="${s.col}" stroke-width="1.5" stroke-dasharray="5 5" opacity=".55"/>`:'',right=px>R-42,tx=right?px-10:px,anc=right?'end':'middle',ty=right?py+3:Math.max(14,py-11);
-      return `<g style="color:${s.col}">${dash}<circle cx="${px}" cy="${py}" r="10" fill="${s.col}" opacity=".2"/><circle cx="${px}" cy="${py}" r="4.5" fill="${s.col}"/><text class="ax" x="${tx}" y="${ty}" fill="${s.col}" text-anchor="${anc}">${sfmt(s.pts[0][1])}</text></g>`}
-    const xy=s.pts.map(p=>[X(p[0]).toFixed(1),Y(p[1]).toFixed(1)]),area=`M${xy[0][0]},${B} L${xy.map(p=>p.join(',')).join(' L')} L${xy[xy.length-1][0]},${B} Z`,dots=s.pts.filter(p=>p[2]).map(p=>`<circle cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="2.6" fill="${s.col}"/>`).join('');
+    if(s.pts.length===1){const px=+X(s.pts[0][0]).toFixed(1),py=+Y(s.pts[0][1]).toFixed(1),dash=singleT?`<line x1="${L}" x2="${R}" y1="${py}" y2="${py}" stroke="${s.col}" stroke-width="1.5" stroke-dasharray="5 5" opacity=".55"/>`:'',right=px>R-46,tx=right?px-12:px,anc=right?'end':'middle',tyy=right?py+4:Math.max(14,py-12);
+      return `<g style="color:${s.col}">${dash}<circle cx="${px}" cy="${py}" r="11" fill="${s.col}" opacity=".2"/><circle cx="${px}" cy="${py}" r="5" fill="${s.col}"/><text class="ax" x="${tx}" y="${tyy}" fill="${s.col}" text-anchor="${anc}">${sfmt(s.pts[0][1])}</text></g>`}
+    const xy=s.pts.map(p=>[X(p[0]).toFixed(1),Y(p[1]).toFixed(1)]),area=`M${xy[0][0]},${B} L${xy.map(p=>p.join(',')).join(' L')} L${xy[xy.length-1][0]},${B} Z`,dots=s.pts.filter(p=>p[2]).map(p=>`<circle cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="3" fill="${s.col}"/>`).join('');
     const mn=s.pts.reduce((a,b)=>b[1]<a[1]?b:a),mx=s.pts.reduce((a,b)=>b[1]>a[1]?b:a);
-    const lbl=(p,below)=>{const px=+X(p[0]),py=+Y(p[1]),anc=px<L+36?'start':px>R-36?'end':'middle',tx=px<L+36?Math.max(L+2,px):px>R-36?Math.min(R-2,px):px,ty=below?Math.min(B-4,py+14):Math.max(13,py-8);return `<text class="ax" x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" fill="${s.col}" text-anchor="${anc}">${sfmt(p[1])}</text>`};
+    const lbl=(p,below)=>{const px=+X(p[0]),py=+Y(p[1]),e=40,anc=px<L+e?'start':px>R-e?'end':'middle',tx=px<L+e?Math.max(L+2,px):px>R-e?Math.min(R-2,px):px,tyy=below?Math.min(B-5,py+17):Math.max(14,py-10);return `<text class="ax" x="${tx.toFixed(1)}" y="${tyy.toFixed(1)}" fill="${s.col}" text-anchor="${anc}">${sfmt(p[1])}</text>`};
     return `<g style="color:${s.col}"><path d="${area}" fill="url(#cg-${s.k})"/><polyline class="ln" stroke="${s.col}" points="${xy.map(p=>p.join(',')).join(' ')}"/>${dots}${lbl(mx,0)}${mn[0]!==mx[0]?lbl(mn,1):''}</g>`;
   }).join('');
-  return `<div class="cbox"><svg class="chart" viewBox="0 0 600 220">${defs}${yTicks}${xTicks}${body}<line id="cur" x1="0" x2="0" y1="${T}" y2="${B}" stroke="var(--t)" stroke-width="1" stroke-dasharray="3 3" opacity="0"/><circle id="cdot" r="5" fill="var(--t)" opacity="0" cx="0" cy="0"/></svg><div class="leg">${ss.map(s=>`<span><i style="background:${s.col}"></i>${s.name} (${s.pts.filter(p=>p[2]).length} изм. / ${s.pts.length} дн.)</span>`).join('')}</div><div id="ctip" class="m">Проведи по графику — увидишь цену за каждый день</div></div>`;
+  const stat=ss.map(s=>{const f=s.pts[0][1],l=s.pts[s.pts.length-1][1],pc=f>0?(l-f)/f*100:0,mn=Math.min(...s.pts.map(p=>p[1])),mx=Math.max(...s.pts.map(p=>p[1]));
+    return `<div class="cs" style="--sc:${s.col}"><span class="cs-n"><i></i>${s.name}</span><div class="cs-v"><b>${fmt(l)}</b><em class="${pc>=0?'win':'lose'}">${pc>0?'+':''}${pc.toFixed(0)}%</em></div><small>${sfmt(mn)} – ${sfmt(mx)} · ${s.pts.filter(p=>p[2]).length} изм. / ${s.pts.length} дн.</small></div>`}).join('');
+  const dots2=ss.map(s=>`<circle id="cd-${s.k}" r="5.5" fill="${s.col}" stroke="#0d0722" stroke-width="2" opacity="0" cx="0" cy="0"/>`).join('');
+  return `<div class="cbox"><div class="cst">${stat}</div><svg class="chart" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${defs}${yTicks}${xTicks}${body}<line id="cur" x1="0" x2="0" y1="${T}" y2="${B}" stroke="#fff" stroke-width="1" stroke-dasharray="3 3" opacity="0"/>${dots2}</svg><div id="ctip" class="m">Проведи или коснись графика — увидишь цену за каждый день</div></div>`;
 }
 function chartAt(e,svg){
-  if(!CHD)return;const r=svg.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*600,t=CHD.t0+(x-CHD.L)/(CHD.R-CHD.L)*(CHD.t1-CHD.t0);
-  let b=null;CHD.ss.forEach(s=>s.pts.forEach(p=>{const d=Math.abs(p[0]-t);if(!b||d<b.d)b={d,s,p}}));if(!b)return;
-  const cx=CHD.X(b.p[0]);$('cur').setAttribute('x1',cx);$('cur').setAttribute('x2',cx);$('cur').setAttribute('opacity',.85);$('cdot').setAttribute('cx',cx);$('cdot').setAttribute('cy',CHD.Y(b.p[1]));$('cdot').setAttribute('opacity',1);
-  const lines=CHD.ss.map(s=>{const q=s.pts.reduce((m,p)=>!m||Math.abs(p[0]-b.p[0])<Math.abs(m[0]-b.p[0])?p:m,null);return Math.abs(q[0]-b.p[0])<=864e5*1.5?`<span style="color:${s.col}">${s.name.split(' ')[0]}: <b>${fmt(q[1])}</b></span>`:''}).filter(Boolean);
-  $('ctip').innerHTML=`<b>${new Date(b.p[0]).toLocaleDateString('ru')}</b> · ${lines.join(' · ')}`;
+  if(!CHD)return;const r=svg.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*CHD.W,t=CHD.t0+(x-CHD.L)/(CHD.R-CHD.L)*(CHD.t1-CHD.t0);
+  const near=(s,tt)=>s.pts.reduce((m,p)=>!m||Math.abs(p[0]-tt)<Math.abs(m[0]-tt)?p:m,null);
+  let b=null;CHD.ss.forEach(s=>{const p=near(s,t),d=Math.abs(p[0]-t);if(!b||d<b.d)b={d,p}});if(!b)return;
+  const cx=CHD.X(b.p[0]);$('cur').setAttribute('x1',cx);$('cur').setAttribute('x2',cx);$('cur').setAttribute('opacity',.8);
+  const rows=CHD.ss.map(s=>{const q=near(s,b.p[0]),ok=Math.abs(q[0]-b.p[0])<=864e5*1.5,d=$('cd-'+s.k);if(d){d.setAttribute('cx',CHD.X(q[0]));d.setAttribute('cy',CHD.Y(q[1]));d.setAttribute('opacity',ok?1:0)}return ok?`<span class="ct-r" style="--sc:${s.col}"><i></i>${s.name.split(' ')[0]} <b>${fmt(q[1])}</b></span>`:''}).filter(Boolean);
+  $('ctip').innerHTML=`<b>${new Date(b.p[0]).toLocaleDateString('ru')}</b>${rows.join('')}`;
 }
+let _crz=0;addEventListener('resize',()=>{clearTimeout(_crz);_crz=setTimeout(()=>{const o=document.querySelector('#dl .cbox'),u=CU&&IDX.get(CU);if(o&&u&&CHD&&Math.abs(CHD.W-Math.min(900,innerWidth-56))>24)o.outerHTML=chart(u)},150)});
 
 const lvType=u=>u.levelsType||(/spawner/i.test(u.role||'')?'spawner':/farm/i.test(u.role||'')?'farm':/support/i.test(u.role||'')?'support':'damage');
 function lvTable(u){
@@ -152,20 +158,20 @@ function nuok(){const n=$('nu1').value.trim();if(!n)return;S.cu.push({name:n,cat
 function chg(){SC=null;RET=null;$('dl').innerHTML='<h3>Изменения цен</h3>'+((D.changelog||[]).map(c=>`<div class="row"><span class="n">${S.fav[c.name]?'<b class="tg">★ </b>':''}${esc(c.name)}<div class="m">${c.date}</div></span><span>${fmt(c.old)} → <b class="${c.new>c.old?'win':'lose'}">${fmt(c.new)}</b></span></div>`).join('')||'<div class="m">Пока нет изменений</div>')+'<br><button data-a="close">Закрыть</button>';openDl(0)}
 
 function inv(){
-  const _ie=Object.entries(S.inv).sort((x,y)=>val(y[0])*y[1]-val(x[0])*x[1]);$('inv').innerHTML=_ie.slice(0,6).map(([n,q])=>{const u=IDX.get(n),a=AN.get(n),qb=a?` <span class="qb ${a.grade[2]}">${a.grade[1]}</span>`:'';return `<div class="row">${u?imgTag(u,'u'):''}<span class="n" data-a="det" data-n="${esc(n)}" style="cursor:pointer">${esc(n)}${qb}</span><button class="sm" data-a="iq" data-n="${esc(n)}" data-d="-1">−</button><b>${q}</b><button class="sm" data-a="iq" data-n="${esc(n)}" data-d="1">+</button><span class="m">${fmt(val(n)*q)}</span></div>`}).join('')||'<div class="m">Пусто. Добавь юнитов или загрузи скрины.</div>';
-  if(_ie.length)$('inv').insertAdjacentHTML('beforeend',`<button data-a="invWin" style="width:100%;margin-top:6px">Открыть весь инвентарь (${_ie.length}) в окне ▸</button>`);
-  $('tot').textContent='Всего: '+fmt(Object.entries(S.inv).reduce((a,[n,q])=>a+val(n)*q,0));
-  const now=Date.now(),dayMs=864e5;
-  const pToday=S.hs.filter(h=>now-Date.parse(h.d)<dayMs).reduce((a,h)=>a+h.profit,0);
-  const pWeek=S.hs.filter(h=>now-Date.parse(h.d)<dayMs*7).reduce((a,h)=>a+h.profit,0);
-  const pAll=S.hs.reduce((a,h)=>a+h.profit,0);
-  const pf=(v)=>`<b class="${v>=0?'win':'lose'}">${v>=0?'+':''}${fmt(v)}</b>`;
-  $('hsStat').innerHTML=S.hs.length?`Сегодня: ${pf(pToday)} · 7д: ${pf(pWeek)} · Всего: ${pf(pAll)} (клик — повтор)`:'';
+  const _ie=Object.entries(S.inv).sort((x,y)=>val(y[0])*y[1]-val(x[0])*x[1]),now=Date.now(),dayMs=864e5;
+  const pToday=S.hs.filter(h=>now-Date.parse(h.d)<dayMs).reduce((a,h)=>a+h.profit,0),pWeek=S.hs.filter(h=>now-Date.parse(h.d)<dayMs*7).reduce((a,h)=>a+h.profit,0),pAll=S.hs.reduce((a,h)=>a+h.profit,0);
+  const pf=v=>`<b class="${v>=0?'win':'lose'}">${v>=0?'+':''}${fmt(v)}</b>`,totV=_ie.reduce((a,[n,q])=>a+val(n)*q,0);
+  const hero=`<div class="iv-hero"><div class="iv-big"><span>Стоимость инвентаря</span><b>${fmt(totV)}</b></div><div class="iv-st"><div><span>Позиций</span><b>${_ie.length}</b></div><div><span>Штук</span><b>${pcs(S.inv)}</b></div><div><span>Профит 7д</span>${pf(pWeek)}</div></div></div>`;
+  const cards=_ie.slice(0,8).map(([n,q])=>{const u=IDX.get(n),a=AN.get(n),qb=a?`<span class="qb ${a.grade[2]}">${a.grade[1]}</span>`:'',v=val(n);
+    return `<div class="iv-c r-${esc(u?.category||'')}">${q>1?`<span class="iv-q">×${q}</span>`:''}<div class="iv-im" data-a="det" data-n="${esc(n)}">${u?imgTag(u,'iv-i'):''}</div><div class="iv-n" data-a="det" data-n="${esc(n)}">${esc(n)}</div><div class="iv-p">${fmt(v)}${q>1?` <small>= ${fmt(v*q)}</small>`:''}</div>${qb}<div class="iv-s"><button class="sm" data-a="iq" data-n="${esc(n)}" data-d="-1">−</button><button class="sm" data-a="iq" data-n="${esc(n)}" data-d="1">+</button></div></div>`}).join('');
+  $('inv').innerHTML=hero+(cards?`<div class="iv-grid">${cards}</div>`:'<div class="empty">Пусто. Добавь юнитов или загрузи скрины.</div>');
+  if(_ie.length>8)$('inv').insertAdjacentHTML('beforeend',`<button data-a="invWin" class="iv-all">Весь инвентарь (${_ie.length}) ▸</button>`);else if(_ie.length)$('inv').insertAdjacentHTML('beforeend',`<button data-a="invWin" class="iv-all">Открыть в окне с сортировкой ▸</button>`);
+  $('tot').textContent='';
+  $('hsStat').innerHTML=S.hs.length?`<div class="hs-chips"><span>Сегодня ${pf(pToday)}</span><span>7 дней ${pf(pWeek)}</span><span>Всего ${pf(pAll)}</span></div><div class="m">Нажми на сделку, чтобы загрузить её в калькулятор</div>`:'';
   $('hs').innerHTML=S.hs.map((h,i)=>{
-    const gSide=[...Object.entries(h.give||{}).map(e=>e[1]+'× '+e[0]),...(h.giveGems?[fmt(h.giveGems)+'💎']:[])].join(', ')||'—';
-    const rSide=[...Object.entries(h.get||{}).map(e=>e[1]+'× '+e[0]),...(h.getGems?[fmt(h.getGems)+'💎']:[])].join(', ')||'—';
-    return `<div class="row" data-a="repHs" data-k="${i}" style="cursor:pointer" title="Загрузить в калькулятор"><span class="n"><div class="m">${new Date(h.d).toLocaleDateString('ru')}</div>${esc(gSide)} → ${esc(rSide)}</span><b class="${h.profit>=0?'win':'lose'}">${h.profit>=0?'+':''}${fmt(h.profit)}</b></div>`;
-  }).join('')||'<div class="m">Пусто</div>';
+    const sd=(o,g)=>[...Object.entries(o||{}).map(e=>e[1]+'× '+e[0]),...(g?[fmt(g)+'💎']:[])].join(', ')||'—';
+    return `<div class="hs-r" data-a="repHs" data-k="${i}" title="Загрузить в калькулятор"><div class="hs-top"><span class="hs-d">${new Date(h.d).toLocaleDateString('ru')}</span><b class="hs-p ${h.profit>=0?'win':'lose'}">${h.profit>=0?'+':''}${fmt(h.profit)}</b></div><div class="hs-t"><span class="hs-g">${esc(sd(h.give,h.giveGems))}</span><i>→</i><span class="hs-w">${esc(sd(h.get,h.getGems))}</span></div></div>`;
+  }).join('')||'<div class="empty">Сделок пока нет</div>';
   invReport();ofr();wl();an();cnt();
 }
 

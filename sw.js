@@ -2,7 +2,7 @@
    Network-first (по чистому URL, без ?t=): HTML, style.css, core/shell/scanner/inventory/catalog/offers/market/main.js, manifest, data/prices|history|icons|game-icons.json
    Остальное (иконки, картинки юнитов): stale-while-revalidate
    Web Share Target: POST ./share-target -> файлы кладутся в кэш 'ctd-share', редирект на ./?share=1 */
-const VERSION = 'ctd-v9.1.1';
+const VERSION = 'ctd-v9.1.4';
 const SHARE_CACHE = 'ctd-share';
 const JS = ['core', 'shell', 'scanner', 'inventory', 'catalog', 'offers', 'market', 'main'].map((m) => './' + m + '.js');
 const CORE = ['./', './index.html', './style.css', ...JS, './manifest.json', './icon.svg'];

@@ -1,7 +1,7 @@
 'use strict';
 /* ================= ВИЗУАЛЬНЫЙ ПИКЕР ЮНИТОВ ================= */
 let PKCH='';
-const openDl=(full=0,wide=0)=>{const d=$('dl');d.classList.toggle('full',!!full);d.classList.toggle('wide',!!wide&&!full);if(!d.open)d.showModal();d.querySelectorAll('h3').forEach(scr)};
+const openDl=(full=0,wide=0)=>{const d=$('dl');d.classList.toggle('full',!!full);d.classList.toggle('wide',!!wide&&!full);if(!d.open)d.showModal();if(typeof scr==='function')d.querySelectorAll('h3').forEach(scr)};
 /* ================= ЕДИНЫЙ ПОДБОР v1: оценка «выгодности» юнита под конкретную сторону трейда ================= */
 let PKW=0,PKB=null,PKA=0,PKR=(S.pkr>0&&S.pkr<=20)?S.pkr:5,RTM={},RT=null,IVQ='',IVS='v';
 const clampN=(x,a,b)=>Math.max(a,Math.min(b,x));

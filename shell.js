@@ -59,8 +59,8 @@ function lst(side){
   $(side=='give'?'gl':'rl').innerHTML=Object.entries(S[side]).map(([n,q])=>{
     const u=IDX.get(n),a=AN.get(n),qb=a?`<span class="qb ${a.grade[2]}">${a.grade[1]}</span>`:'';
     const tr=a&&Math.abs(a.trPct)>=12?`<span class="${a.trPct>0?'win':'lose'}">${a.trPct>0?'▲+':'▼'}${a.trPct}%</span>`:'';
-    return `<div class="row">${u?imgTag(u,'u'):''}<span class="n" data-a="det" data-n="${esc(n)}" style="cursor:pointer">${esc(n)} ${qb}${sgOn(n)?' <b class="tag">SG</b>':''}${isSigned(u)?' <b class="tag">DEV</b>':''}<div class="m">${pLbl(u,n)} ${tr}${u?` · ${u.demand}/10`:''}</div></span><button class="sm" data-a="qty" data-s="${side}" data-n="${esc(n)}" data-d="-1">−</button><b>${q}</b><button class="sm" data-a="qty" data-s="${side}" data-n="${esc(n)}" data-d="1">+</button><button class="sm" data-a="qty" data-s="${side}" data-n="${esc(n)}" data-d="5">+5</button></div>`;
-  }).join('')||'<div class="m">Пусто</div>';
+    return `<div class="tu r-${esc(u?.category||'')}">${u?imgTag(u,'tu-i'):''}<div class="tu-n" data-a="det" data-n="${esc(n)}"><b>${esc(n)}</b> ${qb}${sgOn(n)?' <span class="tag">SG</span>':''}${isSigned(u)?' <span class="tag">DEV</span>':''}<div class="m">${pLbl(u,n)} ${tr}${u?` · спрос ${u.demand}/10`:''}</div></div><div class="tu-c"><button class="sm" data-a="qty" data-s="${side}" data-n="${esc(n)}" data-d="-1">−</button><b>${q}</b><button class="sm" data-a="qty" data-s="${side}" data-n="${esc(n)}" data-d="1">+</button><button class="sm" data-a="qty" data-s="${side}" data-n="${esc(n)}" data-d="5">+5</button></div></div>`;
+  }).join('')||'<div class="empty">Пусто — добавь юнитов кнопкой ниже</div>';
   const gi=$(side=='give'?'ggm':'rgm');if(gi&&document.activeElement!==gi)gi.value=S.gems[side]||'';
 }
 const qty=(s,n,d)=>{S[s][n]=(S[s][n]||0)+d;if(S[s][n]<=0)delete S[s][n];save();calc()};
@@ -170,7 +170,7 @@ function calc(){
     const rawPos=Math.max(4,Math.min(96,50+Math.max(-50,Math.min(50,p))*.92));
     const adjPos=Math.max(4,Math.min(96,50+Math.max(-50,Math.min(50,adjPct))*.92));
 
-    head=`<div class="row"><span class="n">Отдаю: <b>${fmt(g)}</b>${G.gems?` <span class="m">(${fmt(G.gems)}💎)</span>`:''}</span><span>Получаю: <b>${fmt(r)}</b>${GR.gems?` <span class="m">(${fmt(GR.gems)}💎)</span>`:''}</span></div>`
+    head=`<div class="row rs-sums"><span class="n rs-g"><em>Отдаю</em><b>${fmt(g)}</b>${G.gems?` <span class="m">(${fmt(G.gems)}💎)</span>`:''}</span><span class="rs-r"><em>Получаю</em><b>${fmt(r)}</b>${GR.gems?` <span class="m">(${fmt(GR.gems)}💎)</span>`:''}</span></div>`
       +(un.length?`<h2 class="${w[0]}">${w[1]}</h2><div class="m">По оценённым: ${df>0?'+':''}${fmt(df)}</div>`:`<h2 class="${w[0]}">${w[1]} ${df>0?'+':''}${fmt(df)} (${p>0?'+':''}${p.toFixed(1)}%)</h2>`);
 
     const sideBox=(title,st)=>`<div class="cmp-b"><b class="h">${title} (${st.pcs} шт${st.gems?` + ${sfmt(st.gems)}💎`:''})</b><div>Качество: <b>${st.wQ}/100</b> ${gGrade(st.wQ)}</div><div>Спрос: <b>${st.wDem.toFixed(1)}/10</b> · Тренд: <b class="${st.wTr>=10?'win':st.wTr<=-10?'lose':''}">${st.wTr>0?'+':''}${st.wTr}%</b></div><div class="m">Реал. вес: <b>${fmt(st.adjSum)}</b>${st.top?` · топ ${sfmt(st.top.effV)}`:''}</div></div>`;
