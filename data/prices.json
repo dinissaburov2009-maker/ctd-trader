@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T04:55:39.286Z",
+ "updated": "2026-11-26T06:21:59.268Z",
  "version": 11,
  "sources": {
   "values": 81,
@@ -396,7 +396,7 @@
     "median": 16600,
     "min": 7500,
     "max": 25000,
-    "buyers": 96,
+    "buyers": 94,
     "sellers": 67,
     "trades7d": 4,
     "topTrades": [
@@ -812,7 +812,7 @@
     "min": 3300,
     "max": 12000,
     "buyers": 116,
-    "sellers": 134,
+    "sellers": 135,
     "trades7d": 15,
     "topTrades": [
      {
@@ -1035,8 +1035,8 @@
     "median": 4400,
     "min": 3000,
     "max": 8300,
-    "buyers": 217,
-    "sellers": 225,
+    "buyers": 216,
+    "sellers": 224,
     "trades7d": 24,
     "topTrades": [
      {
@@ -1187,8 +1187,8 @@
     "median": 2300,
     "min": 1400,
     "max": 4700,
-    "buyers": 136,
-    "sellers": 57,
+    "buyers": 137,
+    "sellers": 55,
     "trades7d": 8,
     "topTrades": [
      {
@@ -1431,7 +1431,7 @@
     "min": 2000,
     "max": 6000,
     "buyers": 197,
-    "sellers": 247,
+    "sellers": 245,
     "trades7d": 28,
     "topTrades": [
      {
@@ -1590,7 +1590,7 @@
     "median": 1400,
     "min": 800,
     "max": 3500,
-    "buyers": 145,
+    "buyers": 146,
     "sellers": 82,
     "trades7d": 10,
     "topTrades": [
@@ -1917,8 +1917,8 @@
     "median": 1600,
     "min": 800,
     "max": 3500,
-    "buyers": 98,
-    "sellers": 23,
+    "buyers": 97,
+    "sellers": 22,
     "trades7d": 2,
     "topTrades": [
      {
@@ -2073,8 +2073,8 @@
     "median": 1700,
     "min": 1000,
     "max": 2400,
-    "buyers": 50,
-    "sellers": 99,
+    "buyers": 48,
+    "sellers": 98,
     "trades7d": 7,
     "topTrades": [
      {
@@ -2199,8 +2199,8 @@
     "median": 1900,
     "min": 1000,
     "max": 3000,
-    "buyers": 318,
-    "sellers": 292,
+    "buyers": 316,
+    "sellers": 291,
     "trades7d": 28,
     "topTrades": [
      {
@@ -2337,7 +2337,7 @@
     "median": 1100,
     "min": 500,
     "max": 2300,
-    "buyers": 79,
+    "buyers": 78,
     "sellers": 35,
     "trades7d": 5,
     "topTrades": [
@@ -2407,7 +2407,7 @@
     "median": 917,
     "min": 400,
     "max": 1800,
-    "buyers": 82,
+    "buyers": 84,
     "sellers": 58,
     "trades7d": 5,
     "topTrades": [
@@ -2619,8 +2619,8 @@
     "median": 608,
     "min": 300,
     "max": 1400,
-    "buyers": 67,
-    "sellers": 61,
+    "buyers": 65,
+    "sellers": 60,
     "trades7d": 7,
     "topTrades": [
      {
@@ -3707,7 +3707,7 @@
     "min": 150,
     "max": 650,
     "buyers": 63,
-    "sellers": 153,
+    "sellers": 152,
     "trades7d": 19,
     "topTrades": [
      {
@@ -3921,7 +3921,7 @@
     "min": 80,
     "max": 500,
     "buyers": 10,
-    "sellers": 318,
+    "sellers": 317,
     "trades7d": 25,
     "topTrades": [
      {
@@ -4096,8 +4096,8 @@
     "median": 242,
     "min": 100,
     "max": 500,
-    "buyers": 112,
-    "sellers": 383,
+    "buyers": 111,
+    "sellers": 386,
     "trades7d": 47,
     "topTrades": [
      {
@@ -4298,7 +4298,7 @@
     "median": 211,
     "min": 100,
     "max": 450,
-    "buyers": 45,
+    "buyers": 44,
     "sellers": 229,
     "trades7d": 25,
     "topTrades": [
@@ -4466,8 +4466,8 @@
     "median": 200,
     "min": 90,
     "max": 500,
-    "buyers": 59,
-    "sellers": 290,
+    "buyers": 58,
+    "sellers": 292,
     "trades7d": 21,
     "topTrades": [
      {
@@ -5019,7 +5019,7 @@
     "min": 75,
     "max": 385,
     "buyers": 35,
-    "sellers": 182,
+    "sellers": 181,
     "trades7d": 17,
     "topTrades": [
      {
@@ -5205,7 +5205,7 @@
     "median": 140,
     "min": 70,
     "max": 300,
-    "buyers": 56,
+    "buyers": 54,
     "sellers": 213,
     "trades7d": 28,
     "topTrades": [
@@ -5393,7 +5393,7 @@
     "min": 50,
     "max": 210,
     "buyers": 68,
-    "sellers": 223,
+    "sellers": 224,
     "trades7d": 20,
     "topTrades": [
      {
@@ -5760,7 +5760,7 @@
     "min": 30,
     "max": 150,
     "buyers": 15,
-    "sellers": 154,
+    "sellers": 153,
     "trades7d": 11
    },
    "priceHistory": [
@@ -5836,7 +5836,7 @@
     "min": 15,
     "max": 75,
     "buyers": 17,
-    "sellers": 69,
+    "sellers": 70,
     "trades7d": 6,
     "topTrades": [
      {
@@ -5973,7 +5973,7 @@
     "min": 10,
     "max": 50,
     "buyers": 47,
-    "sellers": 75,
+    "sellers": 76,
     "trades7d": 16,
     "topTrades": [
      {
@@ -6146,8 +6146,8 @@
     "median": 30,
     "min": 10,
     "max": 35,
-    "buyers": 8,
-    "sellers": 23,
+    "buyers": 9,
+    "sellers": 25,
     "trades7d": 3
    },
    "priceHistory": [
@@ -6523,8 +6523,8 @@
     "median": 12,
     "min": 7,
     "max": 15,
-    "buyers": 49,
-    "sellers": 96,
+    "buyers": 50,
+    "sellers": 97,
     "trades7d": 18,
     "topTrades": [
      {
@@ -7136,7 +7136,7 @@
     "min": 1,
     "max": 5,
     "buyers": 5,
-    "sellers": 24,
+    "sellers": 23,
     "trades7d": 2
    },
    "priceHistory": [
@@ -7228,7 +7228,7 @@
     "min": 1,
     "max": 5,
     "buyers": 4,
-    "sellers": 28,
+    "sellers": 27,
     "trades7d": 2
    },
    "priceHistory": [
@@ -8577,7 +8577,7 @@
    "description": "Fully upgraded, Speakerman does 100 DPS. Placing it and buying all 2 upgrades costs 550 cash.",
    "about": "Speakerman is a Basic unit in Cameraman Tower Defense. There are 5,078,946 in the game. It has no set trade value yet, so the trading hub is the place to see what players offer for it.",
    "market": {
-    "buyers": 47,
+    "buyers": 48,
     "sellers": 34,
     "trades7d": 6,
     "topTrades": [
@@ -8936,7 +8936,7 @@
     "min": 1,
     "max": 5,
     "buyers": 0,
-    "sellers": 16
+    "sellers": 15
    },
    "dropChance": 90,
    "added": "Update 3 (Oct 10, 2026)",
