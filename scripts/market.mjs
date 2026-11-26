@@ -30,6 +30,7 @@ const MAX_CLICKS = +(env.MARKET_MAX_CLICKS ?? 0);
 const INIT_ADS = +env.MARKET_INIT_ADS || 100; // на холодном старте берём только столько
 const STOP_KNOWN = 3; // сколько подряд известных id считаем «дошли до старого»
 const LATEST_KEEP = 2000;
+const PUSH_GAP_S = +env.MARKET_PUSH_GAP_S || 40; // пуш сразу после скана с новыми объявлениями, но не чаще чем раз в столько секунд
 const SQUASH_OVER = 400; // если коммитов в ветке больше — склеиваем историю в один коммит
 const DRY = env.MARKET_DRY === '1'; // без git (для локальных тестов)
 const UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36 CTDTrader/1.0';
@@ -428,7 +429,7 @@ async function main() {
     squashIfBig();
 
     const stopAt = Date.now() + RUN_MIN * 60e3;
-    let nextFlush = Date.now() + FLUSH_MIN * 60e3, fails = 0, lastOpen = 0, lastAdded = 0;
+    let nextFlush = Date.now() + FLUSH_MIN * 60e3, lastPush = Date.now(), fails = 0, lastOpen = 0, lastAdded = 0;
     const finish = (why) => { log('финиш:', why); try { fs.writeFileSync('debug-market-requests.txt', reqLog.join('\n')); } catch {} try { save(lastOpen); gitPush(`market ${new Date().toISOString().slice(0, 16)}Z (final)`); } catch (e) { log('ошибка финиша', e.message); } };
     for (const sig of ['SIGTERM', 'SIGINT']) process.on(sig, () => { finish(sig); process.exit(0); }); // Cancel в GitHub шлёт SIGINT, потом SIGTERM
 
@@ -443,7 +444,8 @@ async function main() {
         if (r.added) save(lastOpen);
       } catch (e) { fails++; stats.errors++; log('ошибка скана:', e.message.split('\n')[0]); }
 
-      if (Date.now() >= nextFlush) { save(lastOpen); gitPush(`market ${new Date().toISOString().slice(0, 16)}Z`); nextFlush = Date.now() + FLUSH_MIN * 60e3; }
+      // пуш: по таймеру FLUSH_MIN ИЛИ сразу, если в этом скане были новые объявления (не чаще PUSH_GAP_S). Раньше пуш ждал следующего скана после таймера: выходило ~84 с вместо 60
+      if (Date.now() >= nextFlush || (lastAdded > 0 && Date.now() - lastPush >= PUSH_GAP_S * 1000)) { save(lastOpen); gitPush(`market ${new Date().toISOString().slice(0, 16)}Z`); lastPush = Date.now(); nextFlush = lastPush + FLUSH_MIN * 60e3; }
       if (fails >= 3 && fails % 3 === 0 && fs.existsSync('debug-market-fail.html')) log(`${fails} пустых/ошибочных сканов подряд — увеличиваю паузу (обход защиты не делаем)`);
       const backoff = Math.min(600, fails * 60);
       const busy = lastAdded >= 10 ? 0.67 : 1; // много новых за скан -> чуть чаще, но не быстрее ~20 с
