@@ -18,7 +18,7 @@ function fillFilters(){
   syncChips();
   $('ct').innerHTML=CT.map(t=>`<button data-a="ctab" data-c="${t[0]}" class="${S.cat==t[0]?'on':''}">${t[1]} <span class="m">${t[0]=='all'?ALL.length:ALL.filter(i=>tabOf(i)==t[0]).length}</span></button>`).join('');
   document.querySelectorAll('#vm button').forEach(b=>b.classList.toggle('on',b.dataset.v==S.view));
-  const cb=$('cmpb');if(cb){cb.classList.toggle('onb',!!CMP_MODE);cb.textContent=CMP_MODE?`⚖ Выбрано ${CMP_LIST.length}/2`:'⚖ Сравнить'}
+  const cb=$('cmpb');if(cb){cb.classList.toggle('onb',!!CMP_MODE);cb.textContent=CMP_MODE?(CMP_LIST.length>=2?`⚖ Сравнить ${CMP_LIST.length}/${CMP_MAX} →`:`⚖ Выбрано ${CMP_LIST.length}/${CMP_MAX}`):'⚖ Сравнить'}const cx=$('cmpx');if(cx)cx.style.display=CMP_MODE?'':'none'
 }
 const tile=i=>{
   const a=AN.get(i.name),tr=a&&Math.abs(a.trPct)>=12?` <b class="${a.trPct>0?'win':'lose'}">${a.trPct>0?'▲+':'▼'}${a.trPct}%</b>`:'';
@@ -36,30 +36,133 @@ function cat(){
   FN=a.length;$('cl').className=S.view=='grid'?'grid':'lst';$('cl').innerHTML=a.map(S.view=='grid'?tile:listRow).join('')||'<div class="m">Ничего не найдено</div>';cnt();
 }
 
-function openCompare(n1,n2){
-  const u1=IDX.get(n1),u2=IDX.get(n2),a1=AN.get(n1),a2=AN.get(n2);if(!u1||!u2)return;
+const CMP_MAX=5; /* максимум юнитов в сравнении */
+const CMP_RC={Godly:'#ff5ea8',Exclusive:'#ff9f43',Mythic:'#ff4d6d',Legendary:'#ffd76a',Epic:'#b983ff',Rare:'#5aa9ff',Uncommon:'#5eead4',Common:'#a3adc2',Signed:'#8ff0b8'};
+let CMP_LAST=null;
+function cmpGo(){const L=[...CMP_LIST];CMP_MODE=0;CMP_LIST=[];fillFilters();cat();openCompare(L)}
+function cmpCancel(){CMP_MODE=0;CMP_LIST=[];fillFilters();cat()}
+/* победители строки: максимальный балл, если он строго лучше хотя бы одного другого (ничья у всех — без подсветки) */
+const cmpWin=sc=>{const mx=Math.max(...sc);return sc.map(x=>x===mx&&sc.some(y=>y<mx)?1:0)};
+function openCompare(...args){
+  const names=[...new Set(args.flat())].slice(0,CMP_MAX).filter(n=>IDX.get(n)&&AN.get(n));if(names.length<2)return;
   RET=null;
-  const row=(k,v1,v2,win1,win2)=>`<tr><td>${k}</td><td class="${win1?'win':''}">${v1}</td><td class="${win2?'win':''}">${v2}</td></tr>`;
-  const rk=(x,y)=>x&&y?(x<y?1:0):(x?1:0),mx=(x,y)=>x>y?1:0;
-  $('dl').innerHTML=`<div class="row"><h3 style="flex:1;margin:0">Сравнение A vs B</h3><button class="sm" data-a="close">${I('x')}</button></div>
-  <div class="cmp">
-    <div class="cmp-b" style="text-align:center">${imgTag(u1,'u')}<br><b>${esc(n1)}</b><div class="m"><span class="qb ${a1.grade[2]}">${a1.grade[1]} ${a1.q}</span></div></div>
-    <div class="cmp-b" style="text-align:center">${imgTag(u2,'u')}<br><b>${esc(n2)}</b><div class="m"><span class="qb ${a2.grade[2]}">${a2.grade[1]} ${a2.q}</span></div></div>
+  const us=names.map(n=>IDX.get(n)),as=names.map(n=>AN.get(n)),N=names.length,L=names.map((_,i)=>String.fromCharCode(65+i)),sl=N>3?9:16;
+  const rk=x=>x?-x:-Infinity; /* ранг: меньше — лучше; нет данных — хуже всех */
+  const pc=x=>`${x>0?'+':''}${x}%`;
+  /* k — подпись, v — что показать, s — баллы для сравнения, b — доли 0..1 для полосок (необязательно) */
+  const rows=[
+    {k:'Цена',v:us.map(pLbl),s:names.map(val)},
+    {k:'Качество',v:as.map(a=>a.q+'/100'),s:as.map(a=>a.q),b:as.map(a=>a.q/100)},
+    {k:'Спрос',v:us.map(u=>u.demand+'/10'),s:us.map(u=>u.demand),b:us.map(u=>u.demand/10)},
+    {k:'Тренд 14д',v:as.map(a=>pc(a.trPct)),s:as.map(a=>a.trPct)},
+    {k:'Редкость',v:us.map(u=>u.rarityRank?'#'+u.rarityRank:'—'),s:us.map(u=>rk(u.rarityRank))},
+    {k:'В игре (Exist)',v:us.map(u=>u.exist?sfmt(u.exist):'—'),s:us.map(u=>rk(u.exist))},
+    {k:'Max DPS',v:us.map(u=>u.maxDps?fmt(u.maxDps):'—'),s:us.map(u=>u.maxDps||0)},
+    {k:'DPS / 1K',v:us.map(u=>u.dpsPer1k?f2(u.dpsPer1k):'—'),s:us.map(u=>u.dpsPer1k||0)},
+    {k:'Прокачка',v:us.map(u=>u.cashToMax?fmt(u.cashToMax):'—'),s:us.map(u=>rk(u.cashToMax))}
+  ];
+  rows.forEach(r=>r.w=cmpWin(r.s));
+  const wins=names.map((_,i)=>rows.reduce((t,r)=>t+r.w[i],0));
+  CMP_LAST={names,us,as,rows,wins};
+  $('dl').innerHTML=`<div class="row"><h3 style="flex:1;margin:0">Сравнение ${L.join(' vs ')}</h3><button class="sm" data-a="close">${I('x')}</button></div>
+  <div class="cmp" style="grid-template-columns:repeat(${N},minmax(0,1fr))">
+    ${names.map((n,i)=>`<div class="cmp-b" style="text-align:center;${N>3?'padding:4px 3px;font-size:10px;line-height:1.25':''}"><b>${L[i]}</b><br>${imgTag(us[i],'u')}<br><b style="overflow-wrap:anywhere">${esc(n)}</b><div class="m"><span class="qb ${as[i].grade[2]}">${as[i].grade[1]} ${as[i].q}</span></div></div>`).join('')}
   </div>
   <div class="tw"><table>
-    <tr><th>Параметр</th><th>${esc(n1.slice(0,16))}</th><th>${esc(n2.slice(0,16))}</th></tr>
-    ${row('Цена',pLbl(u1),pLbl(u2),mx(val(n1),val(n2)),mx(val(n2),val(n1)))}
-    ${row('Качество',a1.q+'/100',a2.q+'/100',mx(a1.q,a2.q),mx(a2.q,a1.q))}
-    ${row('Спрос',u1.demand+'/10',u2.demand+'/10',mx(u1.demand,u2.demand),mx(u2.demand,u1.demand))}
-    ${row('Тренд 14д',`${a1.trPct>0?'+':''}${a1.trPct}%`,`${a2.trPct>0?'+':''}${a2.trPct}%`,mx(a1.trPct,a2.trPct),mx(a2.trPct,a1.trPct))}
-    ${row('Редкость',u1.rarityRank?'#'+u1.rarityRank:'—',u2.rarityRank?'#'+u2.rarityRank:'—',rk(u1.rarityRank,u2.rarityRank),rk(u2.rarityRank,u1.rarityRank))}
-    ${row('В игре (Exist)',u1.exist?sfmt(u1.exist):'—',u2.exist?sfmt(u2.exist):'—',rk(u1.exist,u2.exist),rk(u2.exist,u1.exist))}
-    ${row('Max DPS',u1.maxDps?fmt(u1.maxDps):'—',u2.maxDps?fmt(u2.maxDps):'—',mx(u1.maxDps||0,u2.maxDps||0),mx(u2.maxDps||0,u1.maxDps||0))}
-    ${row('DPS / 1K',u1.dpsPer1k?f2(u1.dpsPer1k):'—',u2.dpsPer1k?f2(u2.dpsPer1k):'—',mx(u1.dpsPer1k||0,u2.dpsPer1k||0),mx(u2.dpsPer1k||0,u1.dpsPer1k||0))}
-    ${row('Прокачка',u1.cashToMax?fmt(u1.cashToMax):'—',u2.cashToMax?fmt(u2.cashToMax):'—',rk(u1.cashToMax,u2.cashToMax),rk(u2.cashToMax,u1.cashToMax))}
+    <tr><th>Параметр</th>${names.map((n,i)=>`<th>${L[i]} ${esc(n.slice(0,sl))}</th>`).join('')}</tr>
+    ${rows.map(r=>`<tr><td>${r.k}</td>${r.v.map((v,i)=>`<td class="${r.w[i]?'win':''}">${v}</td>`).join('')}</tr>`).join('')}
+    <tr><td>Побед</td>${wins.map(w=>`<td class="${w===Math.max(...wins)&&wins.some(x=>x<w)?'win':''}">${w}/${rows.length}</td>`).join('')}</tr>
   </table></div>
-  <div class="bar"><button data-a="det" data-n="${esc(n1)}">Досье A</button><button data-a="det" data-n="${esc(n2)}">Досье B</button><button class="p" data-a="close">Закрыть</button></div>`;
+  <div class="bar">${names.map((n,i)=>`<button data-a="det" data-n="${esc(n)}">Досье ${L[i]}</button>`).join('')}</div>
+  <div class="bar"><button class="p" data-a="cmpDl">⬇ Скачать картинкой</button><button data-a="close">Закрыть</button></div>`;
   openDl(0,1);
+}
+
+/* ---------- красивая картинка сравнения (PNG) ---------- */
+async function cmpPic(i){ /* картинка юнита из уже нарисованного окна; null — если взять нельзя (чужой домен без CORS) */
+  const h=document.querySelectorAll('#dl .cmp-b')[i],el=h&&h.querySelector('img,canvas');if(!el)return null;
+  if(el.tagName==='CANVAS')return el;
+  try{if(!el.complete||!el.naturalWidth)await el.decode()}catch{}
+  const s=el.currentSrc||el.src||'';if(!el.naturalWidth)return null;
+  if(/^(data|blob):/.test(s))return el;
+  try{if(new URL(s,location.href).origin===location.origin)return el}catch{}
+  try{const r=await fetch(s,{mode:'cors'});return await createImageBitmap(await r.blob())}catch{}
+  return null;
+}
+function cmpRR(c,x,y,w,h,r){r=Math.min(r,w/2,h/2);c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function cmpRgba(hex,a){const n=parseInt(hex.slice(1),16);return`rgba(${n>>16},${n>>8&255},${n&255},${a})`}
+function cmpFit(c,t,w){t=String(t);if(c.measureText(t).width<=w)return t;while(t.length>1&&c.measureText(t+'…').width>w)t=t.slice(0,-1);return t+'…'}
+function cmpWrap(c,t,w,max){const ws=String(t).split(/\s+/),out=[];let cur='';for(const x of ws){const t2=cur?cur+' '+x:x;if(c.measureText(t2).width<=w||!cur)cur=t2;else{out.push(cur);cur=x}}if(cur)out.push(cur);if(out.length>max){out.length=max;out[max-1]=cmpFit(c,out[max-1]+'…',w)}return out.map(x=>cmpFit(c,x,w))}
+async function cmpDownload(){
+  const C=CMP_LAST;if(!C)return;
+  try{
+    if(document.fonts&&document.fonts.ready)await document.fonts.ready;
+    const imgs=await Promise.all(C.names.map((_,i)=>cmpPic(i))),N=C.names.length,R=C.rows.length;
+    const PX=2,pad=44,labW=210,colW=[0,0,300,250,220,200][N],W=pad*2+labW+N*colW;
+    const hdrH=118,cardH=272,rowH=66,winH=84,ftH=64,H=hdrH+cardH+R*rowH+winH+ftH;
+    const cv=document.createElement('canvas');cv.width=W*PX;cv.height=H*PX;
+    const c=cv.getContext('2d');c.scale(PX,PX);
+    const F=(w,sz)=>`${w} ${sz}px Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif`;
+    const xc=i=>pad+labW+i*colW,mid=i=>xc(i)+colW/2;
+    /* фон */
+    let g=c.createLinearGradient(0,0,W*.4,H);g.addColorStop(0,'#0d0722');g.addColorStop(.5,'#1a0c42');g.addColorStop(1,'#0b0620');c.fillStyle=g;c.fillRect(0,0,W,H);
+    g=c.createRadialGradient(W*.12,0,0,W*.12,0,W*.7);g.addColorStop(0,'rgba(150,90,255,.30)');g.addColorStop(1,'rgba(150,90,255,0)');c.fillStyle=g;c.fillRect(0,0,W,H);
+    g=c.createRadialGradient(W,H*.55,0,W,H*.55,W*.6);g.addColorStop(0,'rgba(94,234,212,.12)');g.addColorStop(1,'rgba(94,234,212,0)');c.fillStyle=g;c.fillRect(0,0,W,H);
+    /* шапка */
+    c.textBaseline='alphabetic';c.textAlign='left';
+    c.fillStyle='#ffffff';c.font=F(800,36);c.fillText('СРАВНЕНИЕ ЮНИТОВ',pad,pad+30);
+    c.fillStyle='#a99fd0';c.font=F(500,17);c.fillText(cmpFit(c,C.names.join('  ·  '),W-pad*2-190),pad,pad+60);
+    c.textAlign='right';c.fillStyle='#c9b6ff';c.font=F(800,20);c.fillText('CTD TRADER',W-pad,pad+28);
+    c.fillStyle='#7d72a8';c.font=F(500,14);c.fillText(new Date().toLocaleDateString('ru'),W-pad,pad+52);
+    c.textAlign='left';
+    const lead=C.wins.indexOf(Math.max(...C.wins)),hasLead=C.wins.some(x=>x<C.wins[lead])&&C.wins.filter(x=>x===C.wins[lead]).length===1;
+    /* карточки юнитов */
+    for(let i=0;i<N;i++){
+      const u=C.us[i],a=C.as[i],col=CMP_RC[u.category]||'#b983ff',x=xc(i)+6,y=hdrH,w=colW-12,h=cardH-14,cx=x+w/2;
+      c.save();c.shadowColor=cmpRgba(col,.35);c.shadowBlur=24;cmpRR(c,x,y,w,h,22);
+      g=c.createLinearGradient(0,y,0,y+h);g.addColorStop(0,cmpRgba(col,.26));g.addColorStop(.6,'rgba(20,10,50,.92)');g.addColorStop(1,'rgba(14,7,36,.96)');c.fillStyle=g;c.fill();c.restore();
+      cmpRR(c,x,y,w,h,22);c.lineWidth=hasLead&&i===lead?3:1.5;c.strokeStyle=hasLead&&i===lead?'#ffd76a':cmpRgba(col,.65);c.stroke();
+      const im=Math.min(124,w-56),iy=y+22;
+      g=c.createRadialGradient(cx,iy+im/2,4,cx,iy+im/2,im*.85);g.addColorStop(0,cmpRgba(col,.5));g.addColorStop(1,cmpRgba(col,0));c.fillStyle=g;c.fillRect(x,y,w,im+40);
+      const pic=imgs[i];
+      if(pic){const nw=pic.naturalWidth||pic.width||64,nh=pic.naturalHeight||pic.height||64,k=Math.min(im/nw,im/nh);c.imageSmoothingEnabled=nw>96;c.drawImage(pic,cx-nw*k/2,iy+(im-nh*k)/2,nw*k,nh*k);c.imageSmoothingEnabled=true}
+      else{cmpRR(c,cx-im/2,iy,im,im,20);c.fillStyle='rgba(255,255,255,.06)';c.fill();c.fillStyle=cmpRgba(col,.9);c.font=F(800,im*.5);c.textAlign='center';c.fillText(C.names[i][0].toUpperCase(),cx,iy+im*.68)}
+      c.textAlign='center';c.fillStyle='#fff';c.font=F(800,N>=4?18:21);
+      const ls=cmpWrap(c,C.names[i],w-24,2);let ty=iy+im+(ls.length>1?32:40);ls.forEach(t=>{c.fillText(t,cx,ty);ty+=N>=4?21:24});
+      /* редкость и качество */
+      const py=y+h-40;c.font=F(700,13);const rt=String(u.category||'').toUpperCase(),qt=`${a.grade[1]} ${a.q}`;
+      const rw=c.measureText(rt).width+22;cmpRR(c,cx-rw-3,py,rw,26,13);c.fillStyle=cmpRgba(col,.22);c.fill();c.strokeStyle=cmpRgba(col,.8);c.lineWidth=1;c.stroke();c.fillStyle=col;c.fillText(rt,cx-rw/2-3,py+18);
+      c.font=F(700,14);const qw=c.measureText(qt).width+22,qc=a.q>=70?'#8ff0b8':a.q>=45?'#ffd76a':'#ff7a90';cmpRR(c,cx+3,py,qw,26,13);c.fillStyle=cmpRgba(qc,.16);c.fill();c.strokeStyle=cmpRgba(qc,.8);c.stroke();c.fillStyle=qc;c.fillText(qt,cx+3+qw/2,py+18);
+      if(hasLead&&i===lead){c.font=F(800,12);const lw=c.measureText('★ ЛИДЕР').width+20;cmpRR(c,cx-lw/2,y-11,lw,24,12);c.fillStyle='#ffd76a';c.fill();c.fillStyle='#2b1a00';c.fillText('★ ЛИДЕР',cx,y+6)}
+      c.textAlign='left';
+    }
+    /* таблица */
+    let y0=hdrH+cardH+4;
+    C.rows.forEach((r,ri)=>{
+      const y=y0+ri*rowH;
+      cmpRR(c,pad,y+3,W-pad*2,rowH-6,14);c.fillStyle=ri%2?'rgba(255,255,255,.025)':'rgba(255,255,255,.055)';c.fill();
+      c.fillStyle='#b7acdc';c.font=F(600,18);c.textAlign='left';c.fillText(r.k,pad+18,y+rowH/2+6);
+      r.v.forEach((v,i)=>{
+        const win=r.w[i],col=CMP_RC[C.us[i].category]||'#b983ff',cx=mid(i),has=r.b&&1,cy=y+rowH/2+(r.b?0:6);
+        c.font=F(800,N>=4?19:21);const txt=(win?'★ ':'')+v,tw=Math.min(colW-24,c.measureText(txt).width+26);
+        if(win){cmpRR(c,cx-tw/2,y+(r.b?9:13),tw,r.b?28:40,r.b?14:16);c.fillStyle='rgba(143,240,184,.16)';c.fill();c.strokeStyle='rgba(143,240,184,.7)';c.lineWidth=1.2;c.stroke()}
+        c.textAlign='center';c.fillStyle=win?'#8ff0b8':'#efeaff';c.fillText(cmpFit(c,txt,colW-30),cx,r.b?y+30:cy+1);
+        if(r.b){const bw=colW*.58,bx=cx-bw/2,by=y+rowH-17;cmpRR(c,bx,by,bw,7,3.5);c.fillStyle='rgba(255,255,255,.09)';c.fill();
+          const f=Math.max(.03,Math.min(1,r.b[i]));cmpRR(c,bx,by,bw*f,7,3.5);c.fillStyle=win?'#8ff0b8':cmpRgba(col,.9);c.fill()}
+      });
+    });
+    /* итог: победы */
+    const wy=y0+R*rowH+6;
+    cmpRR(c,pad,wy,W-pad*2,winH-12,18);g=c.createLinearGradient(pad,0,W-pad,0);g.addColorStop(0,'rgba(150,90,255,.28)');g.addColorStop(1,'rgba(94,234,212,.16)');c.fillStyle=g;c.fill();c.strokeStyle='rgba(185,131,255,.5)';c.lineWidth=1.2;c.stroke();
+    c.textAlign='left';c.fillStyle='#fff';c.font=F(800,18);c.fillText('Побед по параметрам',pad+18,wy+(winH-12)/2+6);
+    C.wins.forEach((w,i)=>{const isL=hasLead&&i===lead;c.textAlign='center';c.fillStyle=isL?'#ffd76a':'#efeaff';c.font=F(800,28);c.fillText(`${isL?'★ ':''}${w}/${R}`,mid(i),wy+(winH-12)/2+10)});
+    /* подвал */
+    c.textAlign='center';c.fillStyle='#6f6597';c.font=F(500,14);c.fillText('CTD Trader  ·  цены и качество из приложения  ·  ★ — лучший показатель в строке',W/2,H-pad+8);
+    const blob=await new Promise(r=>cv.toBlob(r,'image/png'));if(!blob)throw new Error('toBlob');
+    const url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='CTD-compare-'+C.names.map(n=>n.replace(/[^\w-]+/g,'-')).join('_').slice(0,70)+'.png';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),8000);toast('Картинка сохранена');
+  }catch(e){console.error(e);toast('Не удалось сделать картинку')}
 }
 
 function normSeries(raw,allowZero=0){const byDay=new Map();for(const[d,v]of raw){const t=parseDate(d),y=parseVal(v);if(isFinite(t)&&isFinite(y)&&(allowZero?y>=0:y>0))byDay.set(Math.round(t/864e5)*864e5,y)}return[...byDay.entries()].sort((a,b)=>a[0]-b[0])}

@@ -24,10 +24,11 @@ const ACT={
   applyCnt:el=>{(CNTS[+el.dataset.k]||[]).forEach(n=>{S.get[n]=(S.get[n]||0)+1});save();calc();sfx('add')},
   ctab:el=>{S.cat=el.dataset.c;save();fillFilters();cat();sfx('tap')},view:el=>{S.view=el.dataset.v;save();fillFilters();cat();sfx('tap')},
   tg:el=>{TGL=el.dataset.g;document.querySelectorAll('#tg button').forEach(x=>x.classList.toggle('on',x===el));cat();sfx('tap')},
-  cmpToggle:()=>{CMP_MODE=CMP_MODE?0:1;CMP_LIST=[];fillFilters();cat();if(CMP_MODE)toast('Выбери 2 юнита для сравнения');sfx('tap')},
-  cmpStart:el=>{CMP_LIST=[el.dataset.n];CMP_MODE=1;$('dl').close();tab(1);fillFilters();cat();toast('Выбери второго юнита в каталоге')},
+  cmpToggle:()=>{if(CMP_MODE&&CMP_LIST.length>=2){sfx('tap');return cmpGo()}CMP_MODE=CMP_MODE?0:1;CMP_LIST=[];fillFilters();cat();if(CMP_MODE)toast('Выбери от 2 до '+CMP_MAX+' юнитов и нажми «Сравнить»');sfx('tap')},
+  cmpCancel:()=>{cmpCancel();sfx('tap')},cmpDl:()=>cmpDownload(),
+  cmpStart:el=>{CMP_LIST=[el.dataset.n];CMP_MODE=1;$('dl').close();tab(1);fillFilters();cat();toast('Выбери ещё юнитов (до '+CMP_MAX+') и нажми «Сравнить»')},
   fav:(el,e)=>{e.stopPropagation();const n=el.dataset.n;if(S.fav[n])delete S.fav[n];else S.fav[n]=1;save();cat();if(CU===n&&$('dl').open&&$('dl').classList.contains('full'))det(n,1,RET);sfx('tap')},
-  catTap:el=>{const n=el.dataset.n;if(!CMP_MODE)return det(n,0,null);const idx=CMP_LIST.indexOf(n);if(idx>=0)CMP_LIST.splice(idx,1);else CMP_LIST.push(n);if(CMP_LIST.length>=2){const[a,b]=CMP_LIST;CMP_MODE=0;CMP_LIST=[];fillFilters();cat();openCompare(a,b)}else{fillFilters();cat()}sfx('tap')},
+  catTap:el=>{const n=el.dataset.n;if(!CMP_MODE)return det(n,0,null);const idx=CMP_LIST.indexOf(n);if(idx>=0)CMP_LIST.splice(idx,1);else if(CMP_LIST.length<CMP_MAX)CMP_LIST.push(n);if(CMP_LIST.length>=CMP_MAX){sfx('tap');return cmpGo()}fillFilters();cat();sfx('tap')},
   det:el=>det(el.dataset.n,0,el.dataset.ret||null),dact:el=>dact(el.dataset.k),chg,addNew,nuok,pres,psave,
   pload:el=>{const p=S.pr[el.dataset.k];if(!p)return;S.give={...p.give};S.get={...p.get};S.gems={give:p.giveGems||0,get:p.getGems||0};save();$('dl').close();calc();tab(0)},
   pdel:el=>{delete S.pr[el.dataset.k];save();pres()},iq:el=>iq(el.dataset.n,+el.dataset.d),goalx:()=>{S.goal='';save();inv()},
@@ -136,4 +137,27 @@ if('serviceWorker'in navigator){
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had&&!rl){rl=1;location.reload()}});
   navigator.serviceWorker.ready.then(r=>r.update()).catch(()=>{});
 }
+
+/* v3.22: убираем цветные смайлики из видимого текста (💎 -> ◆), оставляем ★ ☆ ▲ ▼ ✓ ✕ ➜ */
+(()=>{
+  const RE=/[\u{1F000}-\u{1FAFF}\u2190-\u21FF\u2300-\u23FF\u25A0-\u25FF\u2600-\u27BF\u2B00-\u2BFF]\uFE0F?/gu;
+  const KEEP='★☆▲▼✓✕➜→↔←';
+  const fix=t=>t.replace(RE,c=>{const b=c.replace('\uFE0F','');if(b==='\u{1F48E}')return '◆';return KEEP.includes(b)?c:''}).replace(/^ +(?=\S)/,m=>m.length>1?' ':m);
+  const SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,INPUT:1,SVG:1};
+  const walk=n=>{
+    if(n.nodeType===3){if(RE.test(n.nodeValue)){RE.lastIndex=0;const v=fix(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v}RE.lastIndex=0;return}
+    if(n.nodeType!==1||SKIP[n.tagName.toUpperCase()])return;
+    for(const c of n.childNodes)walk(c);
+  };
+  let q=new Set(),busy=0;
+  const flush=()=>{busy=0;const a=[...q];q.clear();a.forEach(n=>{if(n.isConnected)walk(n)})};
+  new MutationObserver(ms=>{
+    for(const m of ms){
+      if(m.type==='characterData')q.add(m.target);
+      else m.addedNodes.forEach(n=>q.add(n));
+    }
+    if(!busy){busy=1;requestAnimationFrame(flush)}
+  }).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+  walk(document.body);
+})();
 setTh(S.th||'matrix',1);applyLite();sndI();load().then(checkSharedShots);
