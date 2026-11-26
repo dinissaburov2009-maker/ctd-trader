@@ -180,7 +180,7 @@ function calc(){
 
     const needAsk0=hasBoth&&!un.length&&((g>r*1.05)?(g-r):(isDowngrade&&rec[0]!=='go'?Math.max(0,Math.round(G.adjSum*1.15-GR.adjSum)):0)),needAsk=needAsk0||(hasBoth&&!un.length&&rec[0]!=='go'?Math.max(0,Math.round(G.adjSum*1.08-GR.adjSum)):0);
     body=(hasBoth?`<div class="rec ${rec[0]}"><div class="rt"><span>${rec[1]}</span><span class="m" style="color:inherit">баланс ${adjPct>0?'+':''}${adjPct.toFixed(0)}%</span></div><div class="rs">${esc(rec[2])}</div>${quickRepliesHtml(T,g,r)}</div>`:`<div class="note"><b class="tg">[i]</b> Добавь юнитов или гемов на вторую сторону для полной рекомендации.</div>`)
-      +balBar+rarLine+`<div class="cmp">${sideBox('Отдаёшь',G)}${sideBox('Получаешь',GR)}</div>`
+      +balBar+rarLine+`<div class="cmp">${sideBox('Отдаёшь',G)}${sideBox('Получаешь',GR)}</div>`+`<div class="bar"><button class="p" data-a="trDl2">⬇ Подробная картинка</button></div>`
       +notes.map(x=>`<div class="${x[0]=='ok'?'note':x[0]=='bad'?'bad':'warn'}"><b class="${x[0]=='ok'?'win':x[0]=='bad'?'lose':'tg'}">${x[0]=='ok'?'[+]':x[0]=='bad'?'[✕]':'[!]'}</b> ${esc(x[1])}</div>`).join('')
       +(needAsk?counterOffer(needAsk,G,GR):'')+(hasBoth&&rec[0]!=='go'?ofReplHtml(GR):'')+ofBundleHtml();
 

@@ -102,6 +102,25 @@ function icPic(name){
   }catch{return null}
 }
 async function cmpPic(i){return (await cmpPic0(i))||icPic(CMP_LAST&&CMP_LAST.names[i])}
+/* картинка юнита по данным (для трейда: окна сравнения в DOM нет) */
+async function cmpPicU(u,name){
+  try{const s=u&&u.img;if(s){
+    if(/^(data|blob):/.test(s)||new URL(s,location.href).origin===location.origin){const im=new Image();im.src=s;await im.decode();return im}
+    const r=await fetch(s,{mode:'cors'});return await createImageBitmap(await r.blob())}}catch{}
+  return icPic(name);
+}
+/* ---------- ПОДРОБНАЯ картинка ТРЕЙДА: юниты «отдаю» и «получаю» ---------- */
+function tradeDetailDownload(){
+  const side=(o,tag)=>Object.entries(o||{}).filter(([n,q])=>q>0&&IDX.get(n)&&AN.get(n)).sort((a,b)=>val(b[0])*b[1]-val(a[0])*a[1]).map(([n,q])=>({n,s:tag,tag:(tag==='g'?'ОТДАЮ':'ПОЛУЧАЮ')+(q>1?' ×'+q:'')}));
+  const A=side(S.give,'g'),B=side(S.get,'r'),seen=new Set(),P=[];
+  for(let i=0;P.length<CMP_MAX&&(i<A.length||i<B.length);i++)for(const x of[A[i],B[i]])if(x&&!seen.has(x.n)&&P.length<CMP_MAX){seen.add(x.n);P.push(x)}
+  if(!P.length){toast('Добавь юнитов в трейд');return}
+  P.sort((x,y)=>(x.s==='g'?0:1)-(y.s==='g'?0:1));
+  const tot=new Set([...A,...B].map(x=>x.n)).size,names=P.map(x=>x.n);
+  let g=0,r=0;try{g=sum('give');r=sum('get')}catch{}
+  cmpDetailDownload({names,us:names.map(n=>IDX.get(n)),as:names.map(n=>AN.get(n)),tags:P.map(x=>x.tag),trade:1,
+    title:'ПОДРОБНЫЙ ТРЕЙД',sub:`Отдаю ${fmt(g)}  →  Получаю ${fmt(r)}`+(tot>names.length?`  ·  показано ${names.length} из ${tot}`:''),file:'CTD-trade-'});
+}
 
 /* ---------- ПОДРОБНАЯ картинка: уровни, статы, цены, график, итоги ---------- */
 const CMP_LV={ /* что показывать по типу юнита: колонки таблицы и метрика для графика */
@@ -111,12 +130,12 @@ const CMP_LV={ /* что показывать по типу юнита: коло
   support:{h:['Цена','Урон','КД','Дальн.'],r:l=>[fmt(l.cost),'+'+l.damage+'%','−'+l.cooldown+'%','+'+l.range+'%'],m:l=>l.damage||0,g:'Бонус урона',best:[null,1,1,1]}
 };
 function cmpPickLv(L,max){if(L.length<=max)return L.map((l,i)=>i);const o=[];for(let k=0;k<max;k++)o.push(Math.round(k*(L.length-1)/(max-1)));return[...new Set(o)]}
-async function cmpDetailDownload(){
-  const C=CMP_LAST;if(!C)return;
+async function cmpDetailDownload(C0){
+  const C=(C0&&C0.names)?C0:CMP_LAST;if(!C)return;
   try{
     if(document.fonts&&document.fonts.ready)await document.fonts.ready;
-    const imgs=await Promise.all(C.names.map((_,i)=>cmpPic(i))),N=C.names.length;
-    const PX=2,pad=40,gap=18,colW=[0,0,430,380,340,310][N],W=pad*2+N*colW+(N-1)*gap;
+    const imgs=await Promise.all(C.names.map((_,i)=>C.trade?cmpPicU(C.us[i],C.names[i]):cmpPic(i))),N=C.names.length;
+    const PX=2,pad=40,gap=18,colW=[0,640,430,380,340,310][N],W=pad*2+N*colW+(N-1)*gap;
     const MAXR=12,lvs=C.us.map(u=>CMP_LV[u.levelsType]&&u.levels&&u.levels.length?u.levels:null);
     const rowsN=Math.max(0,...lvs.map(l=>l?cmpPickLv(l,MAXR).length:0)),rowH=34,thH=34;
     const hdrH=104,cardH=190,gH=170,totH=3*52+20,ftH=60;
@@ -128,8 +147,8 @@ async function cmpDetailDownload(){
     let g=c.createLinearGradient(0,0,W*.4,H);g.addColorStop(0,'#0d0722');g.addColorStop(.5,'#1a0c42');g.addColorStop(1,'#0b0620');c.fillStyle=g;c.fillRect(0,0,W,H);
     g=c.createRadialGradient(W*.12,0,0,W*.12,0,W*.7);g.addColorStop(0,'rgba(150,90,255,.30)');g.addColorStop(1,'rgba(150,90,255,0)');c.fillStyle=g;c.fillRect(0,0,W,H);
     c.textBaseline='alphabetic';c.textAlign='left';
-    c.fillStyle='#fff';c.font=F(800,32);c.fillText('ПОДРОБНОЕ СРАВНЕНИЕ',pad,pad+26);
-    c.fillStyle='#a99fd0';c.font=F(500,16);c.fillText(cmpFit(c,C.names.join('  ·  '),W-pad*2-190),pad,pad+54);
+    c.fillStyle='#fff';c.font=F(800,32);c.fillText(C.title||'ПОДРОБНОЕ СРАВНЕНИЕ',pad,pad+26);
+    c.fillStyle='#a99fd0';c.font=F(500,16);c.fillText(cmpFit(c,C.sub||C.names.join('  ·  '),W-pad*2-190),pad,pad+54);
     c.textAlign='right';c.fillStyle='#c9b6ff';c.font=F(800,19);c.fillText('CTD TRADER',W-pad,pad+24);
     c.fillStyle='#7d72a8';c.font=F(500,13);c.fillText(new Date().toLocaleDateString('ru'),W-pad,pad+46);c.textAlign='left';
     const X=i=>pad+i*(colW+gap);
@@ -165,7 +184,7 @@ async function cmpDetailDownload(){
       cmpRR(c,ix+im+16,by,rw,26,13);c.fillStyle=cmpRgba(col,.22);c.fill();c.strokeStyle=cmpRgba(col,.8);c.lineWidth=1;c.stroke();c.fillStyle=col;c.fillText(rt,ix+im+26,by+18);
       const qt=`${a.grade[1]} ${a.q}`,qc=a.q>=70?'#8ff0b8':a.q>=45?'#ffd76a':'#ff7a90',qw=c.measureText(qt).width+20;
       cmpRR(c,ix+im+16+rw+6,by,qw,26,13);c.fillStyle=cmpRgba(qc,.16);c.fill();c.strokeStyle=cmpRgba(qc,.8);c.stroke();c.fillStyle=qc;c.fillText(qt,ix+im+16+rw+16,by+18);
-      c.fillStyle='#8b81b5';c.font=F(600,13);c.fillText(cmpFit(c,[u.role,u.levelsType?null:null].filter(Boolean).join(' · ')||'',colW-36),ix,y+cardH-14-10);
+      c.fillStyle='#8b81b5';c.font=F(600,13);c.fillText(cmpFit(c,[C.tags&&C.tags[i],u.role].filter(Boolean).join(' · ')||'',colW-36),ix,y+cardH-14-10);
       /* таблица уровней */
       y=hdrH+cardH;const T=CMP_LV[u.levelsType];
       cmpRR(c,x,y,colW,tabH-6,16);c.fillStyle='rgba(255,255,255,.04)';c.fill();
@@ -210,7 +229,7 @@ async function cmpDetailDownload(){
     c.textAlign='center';c.fillStyle='#6f6597';c.font=F(500,13);c.fillText('CTD Trader  ·  уровни, статы и цены из приложения  ·  ★ — лучший показатель',W/2,H-pad+10);
     const blob=await new Promise(r=>cv.toBlob(r,'image/png'));if(!blob)throw new Error('toBlob');
     const url=URL.createObjectURL(blob),a=document.createElement('a');
-    a.href=url;a.download='CTD-detail-'+C.names.map(n=>n.replace(/[^\w-]+/g,'-')).join('_').slice(0,70)+'.png';document.body.appendChild(a);a.click();a.remove();
+    a.href=url;a.download=(C.file||'CTD-detail-')+C.names.map(n=>n.replace(/[^\w-]+/g,'-')).join('_').slice(0,70)+'.png';document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),8000);toast('Подробная картинка сохранена');
   }catch(e){console.error(e);toast('Не удалось сделать картинку')}
 }

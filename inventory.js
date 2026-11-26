@@ -154,7 +154,7 @@ function ivl(){
 function pick(m){
   mode=m;PKC='';PKCH='';
   PKB=m==='get'?budgetOf('give'):null;if(PKB&&!(PKB.nom>0))PKB=null;PKA=0;PKW=0;if(PKB)PKS='s';else if(PKS==='s')PKS='v';
-  const titles={give:'Добавить в «Я отдаю»',get:'Добавить в «Я получаю»',inv:'Добавить в инвентарь',goal:'Выбери цель',scan:'Выбери юнита для слота',rtm:'Старт: выбери юнита или связку',of:'Что предлагает партнёр'};
+  const titles={give:'Добавить в «Я отдаю»',get:'Добавить в «Я получаю»',inv:'Добавить в инвентарь',goal:'Выбери цель',scan:'Выбери юнита для слота',rtm:'Старт: выбери юнита или связку',of:'Что предлагает партнёр',mk:'Юниты для поиска в объявлениях'};
   const cats=[...new Set(ALL.map(i=>i.category))];
   const tabs=[['all','Все'],...(m!=='goal'&&m!=='scan'&&m!=='of'&&pcs(S.inv)?[['inv','В инвентаре']]:[]),['unit','Юниты'],['bc','Бусты/Кейсы'],['signed','DevSigned']];
   if(PKF==='inv'&&(!pcs(S.inv)||m==='goal'||m==='scan'||m==='of'))PKF='all';
@@ -185,11 +185,11 @@ function pl(){
   }).sort(PKS=='s'&&PKB?(a,b)=>(fitCalc(b,PKB)?.sc??-1e9)-(fitCalc(a,PKB)?.sc??-1e9):PKS=='q'?(a,b)=>(AN.get(b.name)?.q||0)-(AN.get(a.name)?.q||0)||val(b.name)-val(a.name):PKS=='d'?(a,b)=>b.demand-a.demand||val(b.name)-val(a.name):PKS=='a'?(a,b)=>a.name.localeCompare(b.name):(a,b)=>val(b.name)-val(a.name));
 
   if(PKB&&!PKA&&!q&&!list.length&&PKW<2){PKW++;return pl()}
-  const bag=mode==='inv'?S.inv:mode==='rtm'?RTM:(mode==='give'||mode==='get')?S[mode]:mode==='of'?(S.ofGet||(S.ofGet={})):null;
+  const bag=mode==='mk'?Object.fromEntries([...MK.sel].map(n=>[n,1])):mode==='inv'?S.inv:mode==='rtm'?RTM:(mode==='give'||mode==='get')?S[mode]:mode==='of'?(S.ofGet||(S.ofGet={})):null;
   el.innerHTML=list.map(i=>{
     const iv=S.inv[i.name]||0,cur=bag?(bag[i.name]||0):0,fit=PKB?fitCalc(i,PKB):null,an=AN.get(i.name),qb=an?`<span class="qb ${an.grade[2]}">${an.grade[1]}</span>`:'';
     const tr=an&&Math.abs(an.trPct)>=12?`<b class="${an.trPct>0?'win':'lose'}">${an.trPct>0?'+':''}${an.trPct}%</b>`:'';
-    const ctl=(mode==='goal'||mode==='scan')?`<div class="pk-ctl"><button class="p" data-a="pk" data-n="${esc(i.name)}">${mode==='scan'?'Выбрать':'Выбрать целью'}</button></div>`
+    const ctl=mode==='mk'?`<div class="pk-ctl"><button class="${cur?'':'p'}" data-a="pk" data-n="${esc(i.name)}">${cur?'✓ Убрать':'Выбрать'}</button></div>`:(mode==='goal'||mode==='scan')?`<div class="pk-ctl"><button class="p" data-a="pk" data-n="${esc(i.name)}">${mode==='scan'?'Выбрать':'Выбрать целью'}</button></div>`
       :`<div class="pk-ctl"><button data-a="pkDec" data-n="${esc(i.name)}" ${cur?'':'disabled'}>−</button><b>${cur}</b><button class="p" data-a="pk" data-n="${esc(i.name)}">+</button><button data-a="pk5" data-n="${esc(i.name)}">+5</button></div>`;
     return `<div class="pk-tile r-${esc(i.category)} ${cur?'on':''}">
       <div class="pk-topL">${qb}</div>
@@ -202,12 +202,14 @@ function pl(){
     if(mode==='give'||mode==='get')sumEl.textContent=`Выбрано: ${pcs(S[mode])} шт · ${fmt(sum(mode))}`;
     else if(mode==='of')sumEl.textContent=`Предлагают: ${pcs(S.ofGet||{})} шт · ${fmt(Object.entries(S.ofGet||{}).reduce((a,[n,q])=>a+val(n)*q,0))}`;
     else if(mode==='inv')sumEl.textContent=`В инвентаре: ${pcs(S.inv)} шт · ${fmt(Object.entries(S.inv).reduce((a,[n,q])=>a+val(n)*q,0))}`;
+    else if(mode==='mk')sumEl.textContent=`Выбрано для поиска: ${MK.sel.size}`;
     else if(mode==='rtm')sumEl.textContent=`Старт: ${pcs(RTM)} шт · ${fmt(holdVal(RTM))}`;
     else sumEl.textContent='Нажми на карточку для выбора';
   }
 }
 function pk(n,d=1){
   if(mode=='scan'&&SC&&SC_SLOT){const sl=SC[SC_SLOT.side]?.[SC_SLOT.idx];if(sl){sl.name=n;sl.lowConf=false;sl.edited=true;if(!sl.cands.includes(n))sl.cands.unshift(n)}SC_SLOT=null;renderScan();openDl(0,1)}
+  else if(mode=='mk'){if(MK.sel.has(n))MK.sel.delete(n);else MK.sel.add(n);MK.lim=30;mk();pl()}
   else if(mode=='rtm'){RTM[n]=(RTM[n]||0)+d;pl()}
   else if(mode=='of'){ofAddQ(n,d);pl()}
   else if(mode=='goal'){S.goal=n;save();$('dl').close();inv()}

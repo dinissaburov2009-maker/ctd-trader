@@ -3,7 +3,7 @@
 const MKU='https://raw.githubusercontent.com/dinissaburov2009-maker/ctd-trader/market/',MKS='https://cameraman-td.vaultedvaluesx.com/trade-ads/';
 const MKF={o:'Offers',u:'Upgrade',d:'Downgrade',a:'Adds'},MKAGE=[[0,'Все'],[900,'15 мин'],[3600,'1 час'],[21600,'6 часов']],MKSORT=[['new','Новые'],['pct','Выгодные мне'],['sum','Крупные']],MKSIDE=[['all','Везде'],['has','Отдают'],['want','Ищут']];
 const MKFIX={'item-2b19d9cc':'2x Turkey Leg'}; /* юниты, у которых бот записал имя «x3»: определено по цене (14 объявлений, везде ровно 2600) */
-let MK={ads:[],names:[],map:[],nk:[],src:'live',days:null,q:'',side:'all',fl:new Set(),rar:new Set(),only:0,gem:0,age:900,sort:'new',mine:0,lim:30,at:0,err:'',busy:0,vc:new Map(),vsig:'',bot:'',via:''};
+let MK={sel:new Set(),ads:[],names:[],map:[],nk:[],src:'live',days:null,q:'',side:'all',fl:new Set(),rar:new Set(),only:0,gem:0,age:900,sort:'new',mine:0,lim:30,at:0,err:'',busy:0,vc:new Map(),vsig:'',bot:'',via:''};
 const mkAgo=t=>{const s=Math.max(0,Date.now()/1e3-t),d=new Date(t*1e3);return s<45?'только что':s<3600?Math.round(s/60)+' мин назад':s<86400?Math.round(s/3600)+' ч назад':d.toLocaleDateString('ru')+' '+d.toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'})};
 const mkClean=ls=>(Array.isArray(ls)?ls:ls?.ads||[]).filter(a=>a&&a.i&&Array.isArray(a.h)&&Array.isArray(a.w));
 function mkPrep(names,ads){MK.names=Array.isArray(names)?names:[];MK.map=MK.names.map(x=>{const f=Object.keys(MKFIX).find(k=>(x?.s||'').startsWith(k));return resolveName(f?MKFIX[f]:x?.n)});MK.nk=MK.names.map((x,i)=>nrm(x?.n)+'|'+nrm(MK.map[i]));MK.ads=ads;MK.vc.clear();MK.lim=30;const c=$('nc4');if(c)c.textContent=ads.length>999?Math.round(ads.length/100)/10+'K':ads.length}
@@ -69,9 +69,9 @@ function mkFiltered(){
   let L=MK.ads.filter(a=>{
     if(MK.age&&MK.src==='live'&&now-a.t>MK.age)return 0;
     if(MK.fl.size&&![...MK.fl].some(c=>(a.f||'').includes(c)))return 0;
-    if(q||MK.rar.size){
+    if(q||MK.rar.size||MK.sel.size){
       /* юнит подходит: имя содержит запрос И (если выбраны редкости) его редкость среди выбранных */
-      const um=x=>(!q||(MK.nk[x]||'').includes(q))&&(!MK.rar.size||MK.rar.has(IDX.get(MK.map[x])?.category));
+      const um=x=>(!q||(MK.nk[x]||'').includes(q))&&(!MK.sel.size||MK.sel.has(MK.map[x]))&&(!MK.rar.size||MK.rar.has(IDX.get(MK.map[x])?.category));
       const sides=MK.side==='has'?[a.h]:MK.side==='want'?[a.w]:[a.h,a.w];
       /* «Только он»: на стороне нет других юнитов, все подходят (×N одного юнита — нормально) */
       if(!sides.some(sd=>MK.only?sd.length&&sd.every(([x])=>um(x)):sd.some(([x])=>um(x))))return 0;
@@ -104,8 +104,8 @@ const mkCh=(act,list,cur)=>list.map(([v,l])=>`<button data-a="${act}" data-v="${
 function mk(){
   const R=$('mkl'),C=$('mkc');if(!R||!C)return;
   const L=mkFiltered(),live=MK.src==='live',newest=MK.ads.reduce((m,a)=>Math.max(m,a.t),0),mn=MK.ads.filter(a=>mkHit(a).any).length;
-  const nf=(MK.side!=='all')+MK.fl.size+MK.rar.size+MK.only+MK.gem+(MK.age!==900)+(MK.sort!=='new')+MK.mine,days=MK.days?Object.keys(MK.days).sort().reverse().slice(0,30):null;
-  C.innerHTML=`<div class="card mk-st"><b class="${MK.err?'lose':'win'}">${live?'LIVE':'АРХИВ '+MK.src}</b> · ${MK.ads.length} объявл. · показано ${L.length}${MK.busy?' · загрузка…':''}<br><span class="m">${MK.at?'обновлено '+new Date(MK.at).toLocaleTimeString('ru'):'ещё не загружено'}${newest?' · самое свежее: '+mkAgo(newest):''}${live&&MK.via?' · канал: '+MK.via:''}${live&&MK.bot?' · бот записал (raw): '+mkAgo(Date.parse(MK.bot)/1e3):''}</span>${MK.err?`<br><span class="lose">⚠ ${esc(MK.err)}</span>`:''}</div>
+  const nf=(MK.side!=='all')+MK.fl.size+MK.rar.size+MK.only+MK.gem+(MK.age!==900)+(MK.sort!=='new')+MK.mine+(MK.sel.size?1:0),days=MK.days?Object.keys(MK.days).sort().reverse().slice(0,30):null;
+  C.innerHTML=`<div class="card mk-pk"><div class="bar" style="margin:0"><button class="p" data-a="pick" data-m="mk">🔎 Выбрать юнитов${MK.sel.size?' ('+MK.sel.size+')':''}</button>${MK.sel.size?'<button data-a="mkSelClr">Сбросить</button>':''}</div>${MK.sel.size?`<div class="fchips" style="margin-top:6px">${[...MK.sel].map(n=>`<button class="on" data-a="mkSelDel" data-n="${esc(n)}">${esc(n)} ✕</button>`).join('')}</div>`:'<div class="m" style="margin-top:4px">Открой окно с фильтрами и отметь юнитов — покажу объявления, где они есть.</div>'}</div><div class="card mk-st"><b class="${MK.err?'lose':'win'}">${live?'LIVE':'АРХИВ '+MK.src}</b> · ${MK.ads.length} объявл. · показано ${L.length}${MK.busy?' · загрузка…':''}<br><span class="m">${MK.at?'обновлено '+new Date(MK.at).toLocaleTimeString('ru'):'ещё не загружено'}${newest?' · самое свежее: '+mkAgo(newest):''}${live&&MK.via?' · канал: '+MK.via:''}${live&&MK.bot?' · бот записал (raw): '+mkAgo(Date.parse(MK.bot)/1e3):''}</span>${MK.err?`<br><span class="lose">⚠ ${esc(MK.err)}</span>`:''}</div>
   <details class="card mk-flt"${MK.fo?' open':''}><summary>Фильтры и сортировка <span class="mk-fc">${nf?'· активно: '+nf:''}</span></summary><div class="fg-t">ГДЕ ИСКАТЬ ЮНИТА</div><div class="fchips">${mkCh('mkS',MKSIDE,v=>MK.side===v)}</div>
   <div class="fg-t">МЕТКИ <span class="m">(можно несколько)</span></div><div class="fchips">${mkCh('mkF',[['','Все'],...Object.entries(MKF)],v=>v?MK.fl.has(v):!MK.fl.size)}</div>
   <div class="fg-t">РЕДКОСТЬ ЮНИТА <span class="m">(можно несколько)</span></div><div class="fchips">${mkCh('mkR',[['','Все'],...mkRar().map(c=>[c,c])],v=>v?MK.rar.has(v):!MK.rar.size)}</div>
