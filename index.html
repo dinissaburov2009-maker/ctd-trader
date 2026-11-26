@@ -9,6 +9,8 @@
 <link rel="apple-touch-icon" href="icon.svg">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>CTD Trader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -28,6 +30,7 @@
 <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></symbol>
 <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
 <symbol id="i-cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3l2-2h6l2 2h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
 </defs></svg>
 
 <div class="amb"></div><canvas id="fx"></canvas>
@@ -40,14 +43,14 @@
     <div class="card"><div class="ch"><h3>Я получаю</h3><button class="sm" data-a="clrSide" data-s="get" title="Очистить сторону">✕</button></div><div id="rl"></div><div class="gem-row"><span class="gem-ic">💎</span><span class="m">Гемы</span><input id="rgm" type="number" min="0" step="10" data-g="get" placeholder="0"></div><button data-a="pick" data-m="get">+ Добавить / изменить</button></div>
   </div>
   <div class="card" id="res"></div>
-  <div class="bar">
+  <div class="bar tbar">
+    <button class="p" data-a="done"><svg class="ic"><use href="#i-check"/></svg> Трейд состоялся</button>
     <button data-a="scan" data-m="trade"><svg class="ic"><use href="#i-cam"/></svg> Скан трейда</button>
     <button data-a="swap"><svg class="ic"><use href="#i-swap"/></svg> Поменять</button>
     <button data-a="clr"><svg class="ic"><use href="#i-trash"/></svg> Очистить</button>
-    <button class="p" data-a="done"><svg class="ic"><use href="#i-check"/></svg> Трейд состоялся</button>
     <button data-a="tab" data-i="3"><svg class="ic"><use href="#i-mega"/></svg> В объявление</button>
     <button data-a="pres"><svg class="ic"><use href="#i-tag"/></svg> Пресеты</button>
-    <button data-a="rtm">🚀 Бомж → Миллионер</button>
+    <button data-a="rtm">Бомж → Миллионер</button>
   </div>
 </div>
 
@@ -55,10 +58,12 @@
   <div class="card">
     <div class="ct" id="ct"></div>
     <input id="q" placeholder="Поиск…">
-    <div class="fg-t">РЕДКОСТЬ <span class="m">(можно несколько)</span></div><div class="fchips" id="fcc"></div>
-    <div class="fg-t">СТАБИЛЬНОСТЬ <span class="m">(можно несколько)</span></div><div class="fchips" id="fsc"></div>
-    <div class="fg-t">СОРТИРОВКА</div><div class="fchips sc" id="soc"></div>
-    <div class="bar" id="tg"></div>
+    <details class="flt"><summary>Фильтры и сортировка</summary>
+    <div class="fg-t">Редкость <span class="m">можно несколько</span></div><div class="fchips" id="fcc"></div>
+    <div class="fg-t">Стабильность <span class="m">можно несколько</span></div><div class="fchips" id="fsc"></div>
+    <div class="fg-t">Сортировка</div><div class="fchips sc" id="soc"></div>
+    <div class="fg-t">Метки</div><div class="bar" id="tg"></div>
+    </details>
     <div class="bar">
       <div class="vm" id="vm"><button data-a="view" data-v="grid">▦ Сетка</button><button data-a="view" data-v="list">☰ Список</button></div>
       <button id="cmpb" data-a="cmpToggle">⚖ Сравнить</button>
@@ -108,9 +113,9 @@
     <div class="bar"><button data-a="gsave">Сохранить в Gist</button><button data-a="gload">Загрузить из Gist</button></div><div class="m" id="gm"></div></div>
   <div class="card"><h3>Баланс вердикта</h3><div class="m">Цена ↔ спрос и тренд. 0% — вердикт только по цене (как смотрят большинство игроков). 100% — полный учёт спроса, тренда и качества юнитов.</div>
     <input type="range" id="dw" data-c="dw" min="0" max="100" step="5" style="width:100%"><div class="m" id="dwv"></div></div>
-  <div class="card m"><b>Статусы:</b> Rising — растёт; Stable — стабилен; Dropping — падает; Unwanted — никому не нужен; Underpaid — за него недоплачивают; Overpaid — за него переплачивают; Unstable — скачет. Пометка <b>(gg)</b> — цена подтянута с game.guide; <b>N/A</b> — цены нет ни на одном сайте.<br><br>
+  <details class="card help"><summary>Справка: статусы и режимы</summary><div class="m"><b>Статусы:</b> Rising — растёт; Stable — стабилен; Dropping — падает; Unwanted — никому не нужен; Underpaid — за него недоплачивают; Overpaid — за него переплачивают; Unstable — скачет. Пометка <b>(gg)</b> — цена подтянута с game.guide; <b>N/A</b> — цены нет ни на одном сайте.<br><br>
   <b>Lite-режим (⚡ в шапке):</b> отключает матричный дождь и тяжёлый blur, чтобы не грузить телефон/планшет при открытом Roblox.<br><br>
-  <b>Скан скриншотов v7.1:</b> работает полностью локально в браузере (без VPN) по верхне-боковым 230° колец, родным эталонам <code>game-icons.json</code> + <code>icons.json</code>, 5 кропам с акцентом <code>1.6x</code> на голове, гистограмме <code>3x3</code>, чтению цены <code>$...</code> и гемов <code>💎</code>, статусу <code>Accept</code>, мульти-загрузке инвентаря и самообучению.</div>
+  <b>Скан скриншотов v7.1:</b> работает полностью локально в браузере (без VPN) по верхне-боковым 230° колец, родным эталонам <code>game-icons.json</code> + <code>icons.json</code>, 5 кропам с акцентом <code>1.6x</code> на голове, гистограмме <code>3x3</code>, чтению цены <code>$...</code> и гемов <code>💎</code>, статусу <code>Accept</code>, мульти-загрузке инвентаря и самообучению.</div></details>
 </div>
 </main>
 

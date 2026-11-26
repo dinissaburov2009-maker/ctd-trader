@@ -33,12 +33,12 @@ const TH={violet:'#c4b5fd',indigo:'#a5b4fc',snow:'#f3efff'};
 const setTh=(t,q)=>{t=TH[t]?t:'violet';S.th=t;save();document.documentElement.dataset.th=t;window.RC=TH[t];document.querySelector('meta[name=theme-color]').content='#0d0722';document.querySelectorAll('.thb').forEach(b=>b.classList.toggle('on',b.dataset.t==t));if(!q)sfx('add')};
 const applyLite=()=>{document.documentElement.dataset.lite=S.lite?'1':'0';$('ltb')?.classList.toggle('on',!!S.lite)};
 const sndI=()=>{$('snd').innerHTML=I(S.snd?'snd':'mute')};
-$('ctl').innerHTML=Object.keys(TH).map(t=>`<button class="thb" data-a="th" data-t="${t}" title="${t.toUpperCase()}" style="--c:${TH[t]}"></button>`).join('')+'<button id="ltb" class="sb" data-a="lite" title="Lite-режим (без лагов)">⚡</button><button id="snd" class="sb" data-a="snd"></button>';
+$('ctl').innerHTML=Object.keys(TH).map(t=>`<button class="thb" data-a="th" data-t="${t}" title="${t.toUpperCase()}" style="--c:${TH[t]}"></button>`).join('')+'<button id="ltb" class="sb" data-a="lite" title="Lite-режим (без лагов)"><svg class="ic"><use href="#i-bolt"/></svg></button><button id="snd" class="sb" data-a="snd"></button>';
 const NV=[['scale','Трейд'],['grid','Каталог'],['box','Инвентарь'],['mega','Объявл.'],['chart','Рынок'],['gear','Ещё']];
 $('nv').innerHTML=NV.map((n,i)=>`<button data-a="tab" data-i="${i}">${I(n[0])}<span>${n[1]}</span><small id="nc${i}"></small></button>`).join('');
 function cnt(){
   const tot=ALL.length,live=D.updated&&D.updated!='seed',N=FN??tot,tp=pos(S.give)+pos(S.get),tq=pcs(S.give)+pcs(S.get);
-  $('cn').innerHTML=`<span class="${live?'ok':'wn'}">БАЗА ${live?'LIVE':'SEED'}: ${(D.items||[]).length}</span><span>ВСЕГО: ${tot}</span><span>ФИЛЬТР: ${N}</span><span>ИНВ: ${pos(S.inv)}п/${pcs(S.inv)}шт</span><span>ТРЕЙД: ${tp}п/${tq}шт</span>`;
+  $('cn').innerHTML=`<span class="${live?'ok':'wn'}">${live?'Цены live':'Стартовая база'} · ${(D.items||[]).length} поз.</span><span>Всего: ${tot}</span><span>Фильтр: ${N}</span><span>Инвентарь: ${pos(S.inv)} поз. / ${pcs(S.inv)} шт</span><span>Трейд: ${tp} поз. / ${tq} шт</span>`;
   $('nc0').textContent=tp+'п/'+tq+'шт';$('nc1').textContent=N+'/'+tot;$('nc2').textContent=pos(S.inv)+'п/'+pcs(S.inv)+'шт';
 }
 function tab(i){tabNow=i;document.querySelectorAll('.tab').forEach((e,j)=>e.classList.toggle('on',i==j));[...$('nv').children].forEach((e,j)=>e.classList.toggle('on',i==j));$('nv').style.setProperty('--i',i);if(i==2)inv();if(i==3)ad();if(i==4){mk();mkLoad(1)}scrollTo(0,0)}
