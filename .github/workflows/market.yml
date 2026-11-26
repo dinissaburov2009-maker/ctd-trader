@@ -1,0 +1,63 @@
+name: market
+
+# «Рынок трейдов»: бот крутит цикл внутри одного запуска (~4 ч 25 мин) и пишет в ветку `market`.
+# Cron каждые 4 часа + concurrency без отмены: следующий запуск ждёт в очереди и стартует, когда предыдущий закончится
+# (разрыва почти нет). Данные ветки: data в корне ветки `market` (latest.json, archive/, names.json, meta.json).
+on:
+  schedule:
+    - cron: '7 */4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market
+  cancel-in-progress: false
+
+jobs:
+  market:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package.json
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+
+      - name: Prepare market branch (worktree market-data)
+        run: |
+          git config user.name "ctd-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin market >/dev/null 2>&1; then
+            git fetch origin market
+            git worktree add -B market market-data origin/market
+          else
+            git worktree add --detach market-data
+            cd market-data
+            git checkout --orphan market
+            git rm -rf . >/dev/null 2>&1 || true
+          fi
+
+      - name: Market bot
+        env:
+          MARKET_RUN_MIN: '265'
+        run: node scripts/market.mjs
+
+      - name: Save debug files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-market
+          path: |
+            debug-market-*.html
+            debug-market-*.txt
+          if-no-files-found: ignore
